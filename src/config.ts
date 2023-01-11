@@ -4,3 +4,4 @@
 export const SITE_TITLE = 'StuyPulse';
 export const SITE_DESCRIPTION =
   'FRC Team 694, or StuyPulse, is an award-winning FIRST robotics team from New York City.';
+export const SITE_URL = 'https://stuypulse.com';
