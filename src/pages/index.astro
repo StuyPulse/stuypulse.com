@@ -1,11 +1,14 @@
 ---
 import PageSite from '../layouts/PageSite.astro';
+import Carousel from '../components/ImageCarousel.astro';
 import { SITE_TITLE } from '../config';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js?url";
 ---
 
 <PageSite title={SITE_TITLE} description={"TEST"}>
+  <Carousel images={["...", "..."]} />
+
   <h1>StuyPulse</h1>
   <p>hello world</p>
 </PageSite>
