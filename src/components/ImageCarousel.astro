@@ -1,60 +1,96 @@
 ---
-import { log } from 'astro/dist/core/logger/core';
+import { log } from "astro/dist/core/logger/core";
 
 export interface Props {
   images: string;
 }
 
 interface carouselItem {
-  img: string
-  caption: string
-  link: string
-  readMore: string
-  slideNum: number
+  img: string;
+  caption: string;
+  link: string;
+  readMore: string;
+  slideNum: number;
 }
 
 // @ts-ignore
 const { images } = Astro.props;
-const yml = await import (`../data/${images}.yml`);
+const yml = await import(`../data/${images}.yml`);
 // console.log(`../data/${images}.yml`);
-const imageData = yml.default
+const imageData = yml.default;
 // console.log(typeof imageData[0])
-for(let i = 0; i<imageData.length; i++){
+for (let i = 0; i < imageData.length; i++) {
   imageData[i].slideNum = i;
 }
 ---
-<div id="ImageCarousel" class="carousel carousel-dark slide pointer-event" data-bs-ride="true">
+
+<div
+  id="ImageCarousel"
+  class="carousel carousel-dark slide pointer-event"
+  data-bs-ride="true"
+>
   <div class="carousel-indicators">
     {
-      <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="0" class="active" aria-current="true"></button>
+      (
+        <button
+          type="button"
+          data-bs-target="#ImageCarousel"
+          data-bs-slide-to="0"
+          class="active"
+          aria-current="true"
+        />
+      )
     }
     {
-      imageData.map((image:carouselItem) => (
-        image != imageData[0] && <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to={image.slideNum} aria-current="true"></button>
-      ))
+      imageData.map(
+        (image: carouselItem) =>
+          image != imageData[0] && (
+            <button
+              type="button"
+              data-bs-target="#ImageCarousel"
+              data-bs-slide-to={image.slideNum}
+              aria-current="true"
+            />
+          )
+      )
     }
 
     <!-- <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
   </div>
   <div class="carousel-inner">
     {
-      <div class="carousel-item active">
-        <img src={imageData[0].img} class="d-block w-100" alt="...">
-      </div>
+      (
+        <div class="carousel-item active">
+          <img src={imageData[0].img} class="d-block w-100" alt="..." />
+        </div>
+      )
     }
     {
-      imageData.map((image:carouselItem) => (
-        image != imageData[0] && <div class="carousel-item">
-          <img src={image.img} class="d-block w-100" alt="...">
-        </div>
-      ))
+      imageData.map(
+        (image: carouselItem) =>
+          image != imageData[0] && (
+            <div class="carousel-item">
+              <img src={image.img} class="d-block w-100" alt="..." />
+            </div>
+          )
+      )
     }
   </div>
-  <button class="carousel-control-prev" type="button" data-bs-target="#ImageCarousel" data-bs-slide="prev">
+  <button
+    class="carousel-control-prev"
+    type="button"
+    data-bs-target="#ImageCarousel"
+    data-bs-slide="prev"
+  >
     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Previous</span>
   </button>
-  <button class="carousel-control-next" type="button" data-bs-target="#ImageCarousel" data-bs-slide="next">
+  <button
+    class="carousel-control-next"
+    type="button"
+    data-bs-target="#ImageCarousel"
+    data-bs-slide="next"
+  >
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="visually-hidden">Next</span>
   </button>
