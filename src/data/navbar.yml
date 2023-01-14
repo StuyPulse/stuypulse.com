@@ -1,0 +1,27 @@
+# The navs in the navbar on the top of the page.
+# Each nav must have the `name` key.
+  # A dropdown must have the `dropdown` key.
+  # A non-dropdown must have the `href` key.
+# Dropdowns cannot be nested.
+
+- name: Kickoff
+  href: /kickoff
+- name: About
+  dropdown: 
+    - name: About Us
+      href: /about
+    - name: History
+      href: /history
+    - name: Team
+      href: /team
+- name: Outreach
+  href: /outreach
+- name: Resources
+  href: /resources
+- name: Calendar
+  href: /calendar
+- name: News
+  href: /news
+- name: Sponsor Us
+  href: /sponsor-us
+  

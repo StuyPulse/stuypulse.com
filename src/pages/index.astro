@@ -7,8 +7,15 @@ import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js?url";
 ---
 
 <PageSite title={SITE_TITLE} description={"TEST"}>
-  <Carousel images={"frontCarousel"} />
-
-  <h1>StuyPulse</h1>
-  <p>hello world</p>
+  <div class="container">
+    <div class="row">
+      <div class="col" id="frontCarousel">
+        <Carousel images={"frontCarousel"}/>
+      </div>
+      <div class="col">
+        <h1>StuyPulse</h1>
+        <p>hello world</p>
+      </div>
+    </div>
+  </div>
 </PageSite>

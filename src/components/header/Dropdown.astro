@@ -1,0 +1,25 @@
+---
+import type { NavType } from '../../types'
+import Nav from './Nav.astro';
+
+export interface Props {
+  nav: NavType;
+}
+
+const { nav } = Astro.props;
+---
+
+<li class="nav-item dropdown">
+  <a
+    class="nav-link dropdown-toggle"
+    href={ nav.href }
+    role="button"
+    data-bs-toggle="dropdown"
+    aria-expanded="false"
+  >
+    {nav.name}
+  </a>
+    <ul class="dropdown-menu">
+      {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} />)}
+    </ul>
+</li>

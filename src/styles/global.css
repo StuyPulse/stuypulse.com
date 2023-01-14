@@ -5,7 +5,9 @@
  */
 body {
   font-family: Verdana, sans-serif;
-  margin: auto;
+  /*margin: auto;*/
+  margin-left: 50px;
+  margin-right: 50px;
   /* padding: 20px; */
   /* max-width: 65ch; */
   text-align: left;
@@ -64,4 +66,8 @@ blockquote {
   padding: 2px 0px 2px 20px;
   margin: 0px;
   font-style: italic;
+}
+.carousel-caption > h4 {
+  font-size: 8px;
+  color: #ff0000;
 }

@@ -1,0 +1,12 @@
+---
+import type {NavType} from '../../types';
+
+export interface Props {
+  nav: NavType;
+}
+
+const { nav } = Astro.props;
+---
+<li class="nav-item">
+  <a class="nav-link active" aria-current="page" href= { nav.href }>{ nav.name }</a>
+</li>
