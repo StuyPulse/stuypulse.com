@@ -10,14 +10,14 @@
   icon: ../../../public/twitter.svg
 - url: https://www.facebook.com/stuypulse
   name: Facebook
-  icon:
+  icon: ../../../public/facebook.svg
 - url: https://www.instagram.com/stuypulse
   name: Instagram
-  icon:
+  icon: ../../../public/instagram.svg
 - url: https://www.youtube.com/@StuyPulse
   name: YouTube
-  icon:
+  icon: ../../../public/youtube.svg
 - url: https://www.tiktok.com/@stuypulse?lang=en
   name: TikTok
-  icon:
+  icon: ../../../public/instagram.svg
  
