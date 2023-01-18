@@ -17,9 +17,9 @@ for (let i = 0; i < imageData.length; i++) {
 ---
 
 <style>
-  .carousel-control-next,
-  .carousel-control-prev {
-    background-color: rgba(0, 0, 0, 0.5);
+  .carousel-control-next-icon:hover,
+  .carousel-control-prev-icon:hover {
+    background-color: rgba(0, 0, 0, 1);
     border-radius: 50%;
   }
 </style>
@@ -62,7 +62,7 @@ for (let i = 0; i < imageData.length; i++) {
     </script>
   </div>
   <button
-    class="carousel-control-prev circlebg"
+    class="carousel-control-prev"
     type="button"
     data-bs-target="#ImageCarousel"
     data-bs-slide="prev"
@@ -73,13 +73,13 @@ for (let i = 0; i < imageData.length; i++) {
     <span class="visually-hidden">Previous</span>
   </button>
   <button
-    class="carousel-control-next circlebg"
+    class="carousel-control-next"
     type="button"
     data-bs-target="#ImageCarousel"
     data-bs-slide="next"
   >
     <span
-      class="carousel-control-next-icon style="
+      class="carousel-control-next-icon"
       style="background-color: rgba(100, 0, 0, 0.5); border-radius: 50%;"
       aria-hidden="true"
       data-bs-theme="dark"

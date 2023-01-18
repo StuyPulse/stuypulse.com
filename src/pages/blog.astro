@@ -1,6 +1,5 @@
 ---
 import BaseHead from '../components/BaseHead.astro';
-import Footer from '../components/Footer.astro';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js?url";
 import { SITE_TITLE, SITE_DESCRIPTION } from '../config';
@@ -54,6 +53,5 @@ const posts = (await Astro.glob('./blog/*.{md,mdx}')).sort(
 				</ul>
 			</section>
 		</main>
-		<Footer />
 	</body>
 </html>

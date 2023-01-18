@@ -1,0 +1,24 @@
+---
+import type { SocialType } from '../../../src/types';
+import SocialIcon from './SocialIcon.astro';
+
+// @ts-ignore
+const socials = (await import('../../data/socials.yml')).default;
+---
+
+<footer>
+  &copy; {new Date().getFullYear()} StuyPulse.
+
+  <ul>
+    {socials.map((social: SocialType) => (
+      <SocialIcon social={social}/>
+      ))}
+  </ul>
+</footer>
+
+<style>
+  footer {
+    padding: 25px;
+    text-align: center;
+  }
+</style>

@@ -1,0 +1,23 @@
+# The urls to socials in the footer
+# Each social must have a "url" key
+#   Each social must have a "name" key
+#   Each social may have an optional "icon" key
+
+- url: https://www.thebluealliance.com/team/694
+  name: Blue Alliance
+- url: https://twitter.com/StuyPulse
+  name: Twitter
+  icon: ../../../public/twitter.svg
+- url: https://www.facebook.com/stuypulse
+  name: Facebook
+  icon:
+- url: https://www.instagram.com/stuypulse
+  name: Instagram
+  icon:
+- url: https://www.youtube.com/@StuyPulse
+  name: YouTube
+  icon:
+- url: https://www.tiktok.com/@stuypulse?lang=en
+  name: TikTok
+  icon:
+ 

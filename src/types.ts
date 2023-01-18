@@ -11,3 +11,9 @@ export interface CarouselItemType {
   readMore: string;
   slideNum: number;
 }
+
+export interface SocialType {
+  name: string;
+  icon?: string;
+  url: string;
+}

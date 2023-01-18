@@ -1,13 +1,271 @@
-<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 36 36">
-  <path fill="#000" d="M22.25 4h-8.5a1 1 0 0 0-.96.73l-5.54 19.4a.5.5 0 0 0 .62.62l5.05-1.44a2 2 0 0 0 1.38-1.4l3.22-11.66a.5.5 0 0 1 .96 0l3.22 11.67a2 2 0 0 0 1.38 1.39l5.05 1.44a.5.5 0 0 0 .62-.62l-5.54-19.4a1 1 0 0 0-.96-.73Z"/>
-  <path fill="url(#gradient)" d="M18 28a7.63 7.63 0 0 1-5-2c-1.4 2.1-.35 4.35.6 5.55.14.17.41.07.47-.15.44-1.8 2.93-1.22 2.93.6 0 2.28.87 3.4 1.72 3.81.34.16.59-.2.49-.56-.31-1.05-.29-2.46 1.29-3.25 3-1.5 3.17-4.83 2.5-6-.67.67-2.6 2-5 2Z"/>
-  <defs>
-    <linearGradient id="gradient" x1="16" x2="16" y1="32" y2="24" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#000"/>
-      <stop offset="1" stop-color="#000" stop-opacity="0"/>
-    </linearGradient>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   width="136"
+   height="136"
+   viewBox="0 0 136 136"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="Battery-Vector.svg"
+   inkscape:version="1.1 (c4e8f9e, 2021-05-24)"
+   inkscape:export-filename="/home/sam/Pictures/Stuy/New StuyPulse Logo/Social-Media-Circle-Crop.png"
+   inkscape:export-xdpi="720"
+   inkscape:export-ydpi="720"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <title
+     id="title4270">StuyPulse Battery</title>
+  <defs
+     id="defs10">
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0"
+       refY="0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="matrix(0.8,0,0,0.8,10,0)"
+         style="fill:#ff0000;fill-opacity:1;fill-rule:evenodd;stroke:#ff0000;stroke-width:1pt;stroke-opacity:1"
+         d="M 0,0 5,-5 -12.5,0 5,5 Z"
+         id="path894" />
+    </marker>
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect867"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.000408163"
+       smooth_angles="360"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect863"
+       is_visible="true"
+       lpeversion="1"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 Z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       hide_knot="false"
+       fuse_tolerance="0" />
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect1115"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.000408163"
+       smooth_angles="360"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false" />
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect1111"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.000408163"
+       smooth_angles="360"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false" />
+    <inkscape:path-effect
+       effect="simplify"
+       id="path-effect1107"
+       is_visible="true"
+       lpeversion="1"
+       steps="1"
+       threshold="0.000408163"
+       smooth_angles="360"
+       helper_size="0"
+       simplify_individual_paths="false"
+       simplify_just_coalesce="false" />
+    <inkscape:path-effect
+       effect="skeletal"
+       id="path-effect1099"
+       is_visible="true"
+       lpeversion="1"
+       pattern="M 0,5 C 0,2.24 2.24,0 5,0 7.76,0 10,2.24 10,5 10,7.76 7.76,10 5,10 2.24,10 0,7.76 0,5 Z"
+       copytype="single_stretched"
+       prop_scale="1"
+       scale_y_rel="false"
+       spacing="0"
+       normal_offset="0"
+       tang_offset="0"
+       prop_units="false"
+       vertical_pattern="false"
+       hide_knot="false"
+       fuse_tolerance="0" />
   </defs>
-	<style>
-    @media (prefers-color-scheme:dark){:root{filter:invert(100%)}}
-  </style>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="4.3463445"
+     inkscape:cx="37.387741"
+     inkscape:cy="61.545973"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer4"
+     inkscape:document-rotation="0"
+     showgrid="true"
+     inkscape:window-width="1618"
+     inkscape:window-height="997"
+     inkscape:window-x="62"
+     inkscape:window-y="25"
+     inkscape:window-maximized="1"
+     inkscape:pagecheckerboard="true"
+     objecttolerance="10"
+     guidetolerance="10000"
+     inkscape:snap-perpendicular="true"
+     inkscape:snap-tangential="true"
+     showguides="true"
+     lock-margins="true"
+     units="px"
+     fit-margin-top="4"
+     fit-margin-left="4"
+     fit-margin-right="4"
+     fit-margin-bottom="4"
+     inkscape:snap-others="false"
+     inkscape:snap-text-baseline="true"
+     inkscape:snap-bbox="true"
+     inkscape:snap-nodes="true"
+     inkscape:bbox-paths="true"
+     inkscape:bbox-nodes="true">
+    <inkscape:grid
+       type="xygrid"
+       id="grid19"
+       empspacing="4"
+       snapvisiblegridlinesonly="true"
+       visible="true"
+       dotted="false"
+       spacingx="1"
+       originx="0"
+       originy="0" />
+  </sodipodi:namedview>
+  <metadata
+     id="metadata13">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title>StuyPulse Battery</dc:title>
+        <dc:date>May 16, 2021</dc:date>
+        <dc:creator>
+          <cc:Agent>
+            <dc:title>Remade By: Sam Belliveau</dc:title>
+          </cc:Agent>
+        </dc:creator>
+        <dc:rights>
+          <cc:Agent>
+            <dc:title>StuyPulse 2021</dc:title>
+          </cc:Agent>
+        </dc:rights>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:groupmode="layer"
+     id="layer8"
+     inkscape:label="Battery"
+     style="display:inline"
+     transform="translate(4,4)">
+    <g
+       inkscape:groupmode="layer"
+       id="layer9"
+       inkscape:label="White Fill"
+       style="display:inline">
+      <path
+         id="path3490"
+         style="display:inline;fill:#ffffff;fill-opacity:1;stroke:none;stroke-width:3.17613;stroke-linejoin:round"
+         sodipodi:type="inkscape:offset"
+         inkscape:radius="2"
+         inkscape:original="M 24 50 C 16.268014 50 10 56.268014 10 64 L 10 104 C 9.9995251 107.71321 11.474209 111.27451 14.099609 113.90039 C 16.725484 116.52579 20.286787 118.00048 24 118 L 104 118 C 111.73199 118 118 111.73199 118 104 L 118 64 C 118 56.268014 111.73199 50 104 50 L 24 50 z "
+         d="M 24,48 C 15.187134,48 8,55.187134 8,64 v 40 c -5.426e-4,4.2429 1.685635,8.31399 4.685547,11.31445 C 15.686003,118.31437 19.757093,120.00055 24,120 h 80 c 8.81287,0 16,-7.18713 16,-16 V 64 c 0,-8.812866 -7.18713,-16 -16,-16 z" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer2"
+       inkscape:label="Text"
+       style="display:inline;opacity:1">
+      <g
+         aria-label="694"
+         id="text2094"
+         style="font-weight:bold;font-size:37.3333px;line-height:1.25;font-family:Helvetica;-inkscape-font-specification:'Helvetica Bold';letter-spacing:0px"
+         transform="matrix(1.3359438,0,0,1.1656244,-13.621251,-30.117363)" />
+      <g
+         aria-label="694"
+         transform="scale(0.92400878,1.0822408)"
+         id="text963"
+         style="font-weight:800;font-size:57.3029px;line-height:1.25;font-family:Lato;-inkscape-font-specification:'Lato Ultra-Bold';letter-spacing:0px;display:inline;opacity:1;fill:#ff0000;fill-opacity:1;stroke-width:0.780196">
+        <path
+           d="m 41.276036,57.288544 4.829404,3.195218 -10.474164,12.395239 q 1.128953,-0.165269 2.195184,-0.165269 5.268443,0 9.282495,3.140128 4.014051,3.140126 4.014051,9.144933 0,5.564085 -3.951332,9.255112 -3.951333,3.691025 -10.662323,3.691025 -6.334676,0 -10.599606,-3.470667 -4.264929,-3.470667 -4.264929,-9.089841 0,-4.517376 4.327648,-9.750923 z m -4.954845,20.713824 q -3.512295,0 -5.770197,2.038327 -2.257906,2.038329 -2.257906,5.288636 0,3.195217 2.257906,5.288637 2.257902,2.038327 5.832917,2.038327 3.575014,0 5.832919,-2.038327 2.257903,-2.09342 2.257903,-5.288637 0,-3.250307 -2.257903,-5.288636 -2.257905,-2.038327 -5.895639,-2.038327 z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:57.3029px;font-family:FuturaFuturisC;-inkscape-font-specification:FuturaFuturisC;fill:#ff0000;fill-opacity:1;stroke-width:0.800323"
+           id="path868" />
+        <path
+           d="m 66.123493,97.94493 -4.829407,-3.195217 10.474166,-12.39524 q -0.940794,0.165271 -1.944307,0.165271 -5.268441,0 -9.407932,-3.250309 -4.139491,-3.305396 -4.139491,-9.089842 0,-5.508995 4.014053,-9.200022 4.01405,-3.691027 10.787762,-3.691027 6.899151,0 10.787763,3.746117 3.888613,3.746117 3.888613,8.814394 0,4.517375 -4.32765,9.750921 z m 5.017564,-20.713823 q 3.512294,0 5.707479,-1.983238 2.257903,-2.038329 2.257903,-5.343724 0,-3.195217 -2.257903,-5.233547 -2.257904,-2.093419 -5.832919,-2.093419 -3.575014,0 -5.832919,2.093419 -2.257903,2.03833 -2.257903,5.233547 0,3.250306 2.257903,5.288634 2.257905,2.038328 5.958359,2.038328 z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:57.3029px;font-family:FuturaFuturisC;-inkscape-font-specification:FuturaFuturisC;fill:#ff0000;fill-opacity:1;stroke-width:0.80126;stroke-miterlimit:4;stroke-dasharray:none"
+           id="path870" />
+        <path
+           d="m 112.38165,57.288544 v 30.031517 h 4.50036 v 5.204019 h -4.50036 v 5.42085 h -6.20318 V 92.52408 H 85.136302 Z M 96.448006,87.320061 h 9.730464 v -12.79321 z"
+           style="font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:57.3029px;font-family:FuturaFuturisC;-inkscape-font-specification:FuturaFuturisC;fill:#ff0000;fill-opacity:1;stroke-width:0.781751"
+           id="path872" />
+      </g>
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer6"
+       inkscape:label="Body"
+       style="display:inline;opacity:1">
+      <path
+         id="path2514"
+         style="display:inline;fill:#ff0000;fill-opacity:1;stroke:none;stroke-width:3.17613;stroke-linejoin:round"
+         d="M 28,44 C 14.745166,44 4,54.745166 4,68 v 40 c -7.36e-5,6.36522 2.5284417,12.46977 7.029297,16.9707 C 15.530227,129.47156 21.634775,132.00007 28,132 h 80 c 13.25483,0 24,-10.74517 24,-24 V 68 C 132,54.745166 121.25483,44 108,44 Z m 0,10 h 80 c 7.73199,0 14,6.268014 14,14 v 40 c 0,7.73199 -6.26801,14 -14,14 H 28 c -3.713213,4.8e-4 -7.274516,-1.47421 -9.900391,-4.09961 C 15.474209,115.27451 13.999525,111.71321 14,108 V 68 C 14,60.268014 20.268014,54 28,54 Z M -9.9753202,26.988476 H 70.02468"
+         sodipodi:nodetypes="sscccsssssssssscccsscc"
+         transform="translate(-4,-4)" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer4"
+       inkscape:label="Terminals"
+       style="display:inline;opacity:1">
+      <path
+         id="path186"
+         style="display:inline;opacity:1;fill:#ff0000;stroke-width:13.954"
+         d="M 30,0 A 12,12 0 0 0 18,12 12,12 0 0 0 26,23.314453 V 40 h 8 V 23.3125 A 12,12 0 0 0 42,12 12,12 0 0 0 30,0 Z" />
+      <path
+         id="path188"
+         style="display:inline;opacity:1;fill:#ff0000;stroke-width:13.954"
+         d="M 98,0 A 12,12 0 0 0 86,12 12,12 0 0 0 94,23.314453 V 40 h 8 V 23.3125 A 12,12 0 0 0 110,12 12,12 0 0 0 98,0 Z" />
+    </g>
+    <g
+       inkscape:groupmode="layer"
+       id="layer5"
+       inkscape:label="Arc"
+       style="display:inline;opacity:1">
+      <path
+         style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-variant-east-asian:normal;font-feature-settings:normal;font-variation-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;shape-margin:0;inline-size:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:#000000;solid-opacity:1;vector-effect:none;fill:#ff0000;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:normal;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate;stop-color:#000000;stop-opacity:1"
+         d="M 49.037109,3.25 A 1.750175,1.750175 0 0 0 47.390625,4.3105469 L 44.845703,10.25 H 40 A 1.75,1.75 0 0 0 38.25,12 1.75,1.75 0 0 0 40,13.75 h 6 a 1.750175,1.750175 0 0 0 1.609375,-1.060547 L 49,9.4453125 53.390625,19.689453 a 1.750175,1.750175 0 0 0 3.21875,0 L 61,9.4453125 65.390625,19.689453 a 1.750175,1.750175 0 0 0 3.21875,0 L 73,9.4453125 77.390625,19.689453 a 1.750175,1.750175 0 0 0 3.21875,0 L 83.154297,13.75 H 88 A 1.75,1.75 0 0 0 89.75,12 1.75,1.75 0 0 0 88,10.25 h -6 a 1.750175,1.750175 0 0 0 -1.609375,1.060547 L 79,14.554688 74.609375,4.3105469 a 1.750175,1.750175 0 0 0 -3.21875,0 L 67,14.554688 62.609375,4.3105469 a 1.750175,1.750175 0 0 0 -3.21875,0 L 55,14.554688 50.609375,4.3105469 A 1.750175,1.750175 0 0 0 49.037109,3.25 Z"
+         id="path881" />
+    </g>
+  </g>
 </svg>
