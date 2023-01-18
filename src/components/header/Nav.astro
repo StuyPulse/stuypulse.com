@@ -7,6 +7,6 @@ export interface Props {
 
 const { nav } = Astro.props;
 ---
-<li class="nav-item">
+<li class="nav-item" style="position: sticky">
   <a class="nav-link active" aria-current="page" href= { nav.href }>{ nav.name }</a>
 </li>

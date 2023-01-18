@@ -1,0 +1,15 @@
+.carousel-indicators{
+  margin-top: 1rem;
+}
+
+.carousel-caption {
+  position: relative;
+  padding: 15px;
+  left: 0;
+  top: 0;
+}
+
+.carousel-caption > h4 {
+  font-size: 16px;
+  color: #ff0000;
+}

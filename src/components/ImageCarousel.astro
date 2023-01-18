@@ -1,5 +1,6 @@
 ---
 import type {CarouselItemType} from '../types';
+// import progressive image
 
 export interface Props {
   images: string;
@@ -13,7 +14,15 @@ const imageData = yml.default;
 // console.log(typeof imageData[0])
 for (let i = 0; i < imageData.length; i++) {
   imageData[i].slideNum = i;
-}
+ }
+// (function(){
+//   new Progressive({
+//     el: '#app',
+//     lazyClass: 'lazy',
+//     removePreview: true,
+//     scale: true
+//   }).fire()
+// })()
 ---
 
 <style>
@@ -26,29 +35,15 @@ for (let i = 0; i < imageData.length; i++) {
 
 <div
   id="ImageCarousel"
-  class="carousel carousel-dark slide pointer-event"
+  class="carousel slide pointer-event"
   data-bs-ride="true"
 >
-  <div class="carousel-indicators">
-    {
-      imageData.map((image: CarouselItemType) => (
-        <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to={image.slideNum} aria-current="true"
-        />
-      ))
-    }
-    <script>
-      let firstIndicator = document.getElementsByClassName('carousel-indicators')[0].children[0];
-      firstIndicator.className += ' active';
-    </script>
-
-    <!-- <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button> -->
-  </div>
   <div class="carousel-inner">
     {
       imageData.map((image: CarouselItemType) => (
         <div class="carousel-item">
           <img src={image.img} class="d-block w-100" alt="..." />
-          <div class="carousel-caption text-start">
+          <div class="carousel-caption text-start bg-dark">
             <h4>{image.caption}</h4>
             <p>Some representative placeholder content for the second slide.</p>
           </div>
@@ -60,7 +55,20 @@ for (let i = 0; i < imageData.length; i++) {
         document.getElementsByClassName('carousel-inner')[0].children[0];
       firstImage.className += ' active';
     </script>
+    <div class="carousel-indicators">
+      {
+        imageData.map((image: CarouselItemType) => (
+          <button type="button" data-bs-target="#ImageCarousel" data-bs-slide-to={image.slideNum} aria-current="true"
+          />
+        ))
+      }
+      <script>
+        let firstIndicator = document.getElementsByClassName('carousel-indicators')[0].children[0];
+        firstIndicator.className += ' active';
+      </script>
+    </div>
   </div>
+  
   <button
     class="carousel-control-prev"
     type="button"

@@ -3,6 +3,7 @@
   https://github.com/HermanMartinus/bearblog/blob/297026a877bc2ab2b3bdfbd6b9f7961c350917dd/templates/styles/blog/default.css
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
+
 body {
   font-family: Verdana, sans-serif;
   /*margin: auto;*/
@@ -66,8 +67,4 @@ blockquote {
   padding: 2px 0px 2px 20px;
   margin: 0px;
   font-style: italic;
-}
-.carousel-caption > h4 {
-  font-size: 8px;
-  color: #ff0000;
 }

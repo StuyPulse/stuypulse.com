@@ -7,8 +7,8 @@ export interface Props {
 
 const { social } = Astro.props;
 ---
-<li>
+<div class="col">
   <a href={social.url} target="_blank" rel="noopener noreferrer">
-    <img src={social.icon} alt={social.name} width={32} height={32}/>
+    <img src={social.icon} alt={social.name} style="position: cen" width={32} height={32}/>
   </a>
-</li>
+</div>

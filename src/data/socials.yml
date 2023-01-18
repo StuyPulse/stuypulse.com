@@ -5,19 +5,20 @@
 
 - url: https://www.thebluealliance.com/team/694
   name: Blue Alliance
+  icon: ../../tba_lamp.svg
 - url: https://twitter.com/StuyPulse
   name: Twitter
-  icon: ../../../public/twitter.svg
+  icon: ../../twitter.svg
 - url: https://www.facebook.com/stuypulse
   name: Facebook
-  icon: ../../../public/facebook.svg
+  icon: ../../facebook.svg
 - url: https://www.instagram.com/stuypulse
   name: Instagram
-  icon: ../../../public/instagram.svg
+  icon: ../../instagram.svg
 - url: https://www.youtube.com/@StuyPulse
   name: YouTube
-  icon: ../../../public/youtube.svg
+  icon: ../../youtube.svg
 - url: https://www.tiktok.com/@stuypulse?lang=en
   name: TikTok
-  icon: ../../../public/instagram.svg
+  icon: ../../tiktok.svg
  
