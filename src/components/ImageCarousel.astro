@@ -26,10 +26,15 @@ for (let i = 0; i < imageData.length; i++) {
 ---
 
 <style>
-  .carousel-control-next-icon:hover,
-  .carousel-control-prev-icon:hover {
+  .carousel-control-next-icon,
+  .carousel-control-prev-icon {
     background-color: rgba(0, 0, 0, 1);
     border-radius: 50%;
+  }
+
+  .carousel-caption > h4 {
+    font-size: 16px;
+    color: #ff0000;
   }
 </style>
 
@@ -77,7 +82,7 @@ for (let i = 0; i < imageData.length; i++) {
     ><span
       class="carousel-control-prev-icon"
       aria-hidden="true"
-      style="background-color: rgba(0, 0, 0, 0.5); border-radius: 50%;"></span>
+    ></span>
     <span class="visually-hidden">Previous</span>
   </button>
   <button
@@ -88,7 +93,6 @@ for (let i = 0; i < imageData.length; i++) {
   >
     <span
       class="carousel-control-next-icon"
-      style="background-color: rgba(100, 0, 0, 0.5); border-radius: 50%;"
       aria-hidden="true"
       data-bs-theme="dark"
       ></span>
