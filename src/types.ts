@@ -7,8 +7,8 @@ export interface NavType {
 export interface CarouselItemType {
   img: string;
   caption: string;
-  link: string;
-  readMore: string;
+  "img-link": string;
+  "read-more-link": string;
   slideNum: number;
 }
 
