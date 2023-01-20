@@ -6,14 +6,14 @@ import SocialIcon from './SocialIcon.astro';
 const socials = (await import('../../data/socials.yml')).default;
 ---
 
-<footer>ewc
+<footer>
   <div class="row" style="padding-top:10px">
     {socials.map((social: SocialType) => (
       <SocialIcon social={social}/>
       ))}
-    <div class="col-3">
+    <p>
       &copy; {new Date().getFullYear()} StuyPulse.
-    </div>
+    </p>
   </div>
 </footer>
 

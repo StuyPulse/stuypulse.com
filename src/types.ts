@@ -14,6 +14,6 @@ export interface CarouselItemType {
 
 export interface SocialType {
   name: string;
-  icon?: string;
+  icon: string;
   url: string;
 }

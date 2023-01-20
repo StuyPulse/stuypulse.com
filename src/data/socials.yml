@@ -1,7 +1,5 @@
-# The urls to socials in the footer
-# Each social must have a "url" key
-#   Each social must have a "name" key
-#   Each social may have an optional "icon" key
+# The social icons in the footer on the bottom of the page.
+# Each social must have the `url`, `name`, and `icon` keys.
 
 - url: https://www.thebluealliance.com/team/694
   name: Blue Alliance
@@ -21,4 +19,6 @@
 - url: https://www.tiktok.com/@stuypulse?lang=en
   name: TikTok
   icon: ../../tiktok.svg
- 
+- url: https://github.com/StuyPulse
+  name: GitHub
+  icon: ../../github.svg
