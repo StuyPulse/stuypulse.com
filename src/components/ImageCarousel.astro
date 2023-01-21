@@ -26,14 +26,19 @@ for (let i = 0; i < imageData.length; i++) {
 ---
 
 <style>
+  .carousel-control-next,
+  .carousel-control-prev {
+    width:10%;
+    transition: opacity .5s ease;
+  }
   .carousel-control-next-icon,
   .carousel-control-prev-icon {
     background-color: rgba(0, 0, 0, 1);
     width: 3rem;
     height: 3rem;
-    border-color: rgb(255, 255, 255);
+    border-radius:50%;
     border-style: solid;
-    border-radius: 50%;
+    border-color: rgba(0, 0, 0, 1);
   }
 
   .carousel-caption {
@@ -65,10 +70,9 @@ for (let i = 0; i < imageData.length; i++) {
     background-color: rgba(0, 0, 0, 50%);
     padding-left: 7px;
     padding-right: 7px;
-    /* display:inline-block; */
-    height:fit-content;
-    width:fit-content;
-    border-radius:5px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 5px;
   }
 
   .carousel-indicators [data-bs-target] {
@@ -81,14 +85,14 @@ for (let i = 0; i < imageData.length; i++) {
   class="carousel slide pointer-event"
   data-bs-ride="true"
 >
-
+  
   <div class="carousel-inner">
-
     {
       imageData.map((image: CarouselItemType) => (
         <div class="carousel-item">
           {image["img-link"] == null ?
-            <img src={image.img} class="d-block w-100" alt="..." /> :
+            <img class = "preview lazy" src={image.img} class="d-block w-100" alt="..." />
+            :
             <a href = {image["img-link"]} target = "_blank">
               <img src={image.img} class="d-block w-100" alt={image.caption} />
             </a>
