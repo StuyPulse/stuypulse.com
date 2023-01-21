@@ -7,8 +7,6 @@
 body {
   font-family: Verdana, sans-serif;
   /*margin: auto;*/
-  margin-left: 50px;
-  margin-right: 50px;
   /* padding: 20px; */
   /* max-width: 65ch; */
   text-align: left;
@@ -18,6 +16,12 @@ body {
   line-height: 1.5;
   color: #444;
 }
+
+.row {
+  margin-left: 3rem;
+  margin-right: 3rem;
+}
+
 h1,
 h2,
 h3,
