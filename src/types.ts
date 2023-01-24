@@ -16,4 +16,5 @@ export interface SocialType {
   name: string;
   icon: string;
   url: string;
+  dropdown?: boolean;
 }

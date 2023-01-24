@@ -9,17 +9,33 @@ export interface Props {
 const { nav } = Astro.props;
 ---
 
-<li class="nav-item dropdown">
+<li class="nav-item dropdown" tabindex="1">
   <a
-    class="nav-link dropdown-toggle"
+    class="nav-link dropdown-toggle text-white"
     href={ nav.href }
     role="button"
-    data-bs-toggle="dropdown"
+    data-bs-toggle="collapse"
+    data-bs-target=""
     aria-expanded="false"
   >
     {nav.name}
   </a>
-    <ul class="dropdown-menu">
+    <ul class="dropdown-menu text-black">
       {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} />)}
     </ul>
 </li>
+
+<style>
+  .dropdown .dropdown-menu {
+    transition: all 0.3s;
+    max-height: 0;
+    overflow: hidden;
+    display: block;
+    opacity: 0;
+  }
+
+  .dropdown.show {
+    max-height: 300px;
+    opacity: 1;
+  }
+</style>

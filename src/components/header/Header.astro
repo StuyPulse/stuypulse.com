@@ -7,10 +7,14 @@ import Dropdown from './Dropdown.astro';
 const navs = (await import('../../data/navbar.yml')).default;
 ---
 
-<nav class="navbar navbar-expand-lg bg-body-tertiary sticky-top bg-white"
-     style="border-bottom: 10px solid red;">
-  <div class="container-fluid " >
-    <a class="navbar-brand" href="/">StuyPulse</a>
+<nav class="navbar navbar-expand-lg sticky-top mb-3">
+  <div class="container-fluid">
+    
+    <a class="navbar-brand text-white" href="/">
+      <img src="694_white.svg" width="32px" height="32px"/>
+      StuyPulse
+    </a>
+
     <button
       class="navbar-toggler"
       type="button"
@@ -22,7 +26,8 @@ const navs = (await import('../../data/navbar.yml')).default;
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="float-right" id="navbarNavDropdown">
+
+    <div class="collapse navbar-collapse flex-row-reverse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         {navs.map((nav : NavType) => (
           nav.dropdown ? 
@@ -33,3 +38,10 @@ const navs = (await import('../../data/navbar.yml')).default;
     </div>
   </div>
 </nav>
+
+<style>
+  nav {
+    background: rgb(255,0,0);
+    background: linear-gradient(90deg, rgba(255,0,0,1) 0%, rgba(228,44,44,1) 100%);
+  }
+</style>

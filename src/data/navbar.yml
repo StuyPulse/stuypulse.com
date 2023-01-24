@@ -10,10 +10,13 @@
   dropdown: 
     - name: About Us
       href: /about
+      dropdown: true
     - name: History
       href: /history
+      dropdown: true
     - name: Team
       href: /team
+      dropdown: true
 - name: Outreach
   href: /outreach
 - name: Resources
