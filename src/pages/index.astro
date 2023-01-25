@@ -3,6 +3,19 @@ import PageSite from '../layouts/PageSite.astro';
 import Carousel from '../components/ImageCarousel.astro';
 import { SITE_TITLE } from '../config';
 ---
+<style>
+  .inline-icon {
+    height: 1em;
+    transform: translateY(-0.1em);
+    padding-right:15px;
+    /* display:inline; */
+  }
+
+  h1 {
+    vertical-align:middle; 
+    display:inline;
+  }
+</style>
 
 <PageSite title={SITE_TITLE} description={"TEST"}>
     <div class="row">
@@ -10,8 +23,8 @@ import { SITE_TITLE } from '../config';
         <Carousel images={"frontCarousel"}/>
       </div>
       <div class="col">
-        <h1>StuyPulse</h1>
-        <p>hello world :O</p>
+        <h1><img class = "inline-icon" src="src/data/img/694-logo.png"/>About StuyPulse</h1>
+        <p>hello world :O </p>
       </div>
     </div>
 </PageSite>

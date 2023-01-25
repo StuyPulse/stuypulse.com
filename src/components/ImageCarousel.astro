@@ -9,20 +9,10 @@ export interface Props {
 // @ts-ignore
 const { images } = Astro.props;
 const yml = await import(`../data/${images}.yml`);
-// console.log(`../data/${images}.yml`);
 const imageData = yml.default;
-// console.log(typeof imageData[0])
 for (let i = 0; i < imageData.length; i++) {
   imageData[i].slideNum = i;
  }
-// (function(){
-//   new Progressive({
-//     el: '#app',
-//     lazyClass: 'lazy',
-//     removePreview: true,
-//     scale: true
-//   }).fire()
-// })()
 ---
 
 <style>
