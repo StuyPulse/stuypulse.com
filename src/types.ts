@@ -9,7 +9,6 @@ export interface CarouselItemType {
   caption: string;
   "img-link": string;
   "read-more-link": string;
-  slideNum: number;
 }
 
 export interface SocialType {

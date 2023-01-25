@@ -10,9 +10,6 @@ export interface Props {
 const { images } = Astro.props;
 const yml = await import(`../data/${images}.yml`);
 const imageData = yml.default;
-for (let i = 0; i < imageData.length; i++) {
-  imageData[i].slideNum = i;
- }
 ---
 
 <style>
@@ -96,10 +93,10 @@ for (let i = 0; i < imageData.length; i++) {
   
   <div class="carousel-inner">
     {
-      imageData.map((image: CarouselItemType) => (
-        <div class="carousel-item">
+      imageData.map((image: CarouselItemType, index: number) => (
+        <div class={index == 0 ? "carousel-item active" : "carousel-item"}>
           {image["img-link"] == null ?
-            <img class = "preview lazy" src={image.img} class="d-block w-100" alt="..." />
+            <img src={image.img} class="d-block w-100" alt="..." />
             :
             <a href = {image["img-link"]} target = "_blank">
               <img src={image.img} class="d-block w-100" alt={image.caption} />
@@ -116,23 +113,14 @@ for (let i = 0; i < imageData.length; i++) {
         </div>
       ))
     }
-    <script>
-      let firstImage =
-        document.getElementsByClassName('carousel-inner')[0].children[0];
-      firstImage.className += ' active';
-    </script>
 
     <div class="carousel-indicators">
       {
-        imageData.map((image: CarouselItemType) => (
-          <button class = "carousel-button" type="button" data-bs-target="#ImageCarousel" data-bs-slide-to={image.slideNum} aria-current="true"
+        imageData.map((image: CarouselItemType, index: number) => (
+          <button class = {index == 0 ? "carousel-button active" : "carousel-button"} type="button" data-bs-target="#ImageCarousel" data-bs-slide-to={index} aria-current="true"
           />
         ))
       }
-      <script>
-        let firstIndicator = document.getElementsByClassName('carousel-indicators')[0].children[0];
-        firstIndicator.className += ' active';
-      </script>
     </div>
   </div>
   
