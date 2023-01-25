@@ -9,7 +9,7 @@ export async function getStaticPaths() {
 }
 // 2. When its time to render, you can get the entry directly from the prop
 const { entry } = Astro.props;
-console.log(entry);
+// console.log(entry);
 const { Content, headings } = await entry.render();
 
 import PageSite from '../../layouts/PageSite.astro';

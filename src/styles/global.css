@@ -33,7 +33,8 @@ b {
   color: #222;
 }
 a {
-  color: #3273dc;
+  text-decoration: none;
+  color: #e00;
 }
 nav a {
   margin-right: 10px;
