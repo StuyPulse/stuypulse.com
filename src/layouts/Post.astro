@@ -1,0 +1,29 @@
+---
+import PageSite from './PageSite.astro';
+
+export interface Props {
+	content: {
+		title: string;
+		description: string;
+	};
+}
+
+const {
+	content: { title, description},
+} = Astro.props;
+---
+<style>
+  .row {
+    margin-left: 15vw;
+    margin-right: 15vw;
+  }
+</style>
+
+<PageSite title={title} description={description}>
+  <div class = "row">
+    <div class="col">
+      <h1>{title}</h1>
+      <slot />
+    </div>
+  </div>
+</PageSite>
