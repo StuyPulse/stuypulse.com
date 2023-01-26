@@ -17,18 +17,25 @@ const imageData = yml.default;
   } */
 
   .carousel-item {
-    height: 200px;
+    height: 150px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .carousel-item.active {
+    display: flex;
   }
 
   p {
-    font-size: 50px;
-    text-align: center;
-    object-fit: contain;
+    display: flex;
+    font-size: 30px;
+    align-items: center;
   }
 
   img {
     display: block;
-    height: 200px;
+    height: 150px;
     width: 100%;
     object-fit: contain;
   }
