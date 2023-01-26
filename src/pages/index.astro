@@ -29,28 +29,30 @@ blogEntries.reverse();
       <div class="col-8" id="frontCarousel">
         <Carousel images="frontCarousel"/>
         <br>
+      </div>
+      <div class="col">
         <h1>Latest News</h1>
         <BlogPreview entries={blogEntries}></BlogPreview>
       </div>
-      <div class="col">
+    </div>
+    <div class = "row">
+      <div class = "col">
         <h2>
           <img class = "inline-icon" src="src/data/img/694-logo.png"/>
           About StuyPulse
         </h2>
         <p>We are StuyPulse, <a href="http://stuy.enschool.org/">Stuyvesant High School's</a> award-winning FIRST Robotics team. Otherwise known as Team 694, we seek to impact young adults by cultivating skills in engineering, programming, marketing, teamwork, and leadership through the FIRST competitions. At the same time, we hope to educate and inspire people in our community, both young and old, about the wonders of science and technology.</p>
         <p><a href="/about/">Learn more &raquo;</a></p>
-
-        <br>
-
+      </div>
+      <div class = "col">
         <h2>
           <a href="http://www.usfirst.org/"><img class="front-page-thumb inline-icon" src="src/data/img/first-logo.png" alt="FIRST logo"></a>
           About FIRST
         </h2>
         <p><a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition in Science and Technology) is a multi-national, non-profit organization designed to inspire and encourage today's youth to pursue careers in science, technology and math. These programs also stress the development of skills in areas such as teamwork, public relations, strategy, dedication, and outreach, which are helpful and often necessary in future careers and endeavors.</p>
         <p><a href="/about/first/">Learn more &raquo;</a></p>
-
-        <br>
-
+      </div>
+      <div class = "col">
         <h2>Sponsors</h2>
         <p>We would like to thank our <a href="/sponsors/">sponsors</a>:</p>
         <SponsorCarousel images="sponsors"/>

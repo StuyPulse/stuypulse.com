@@ -9,6 +9,9 @@ type Props = MarkdownLayoutProps<{
 }>;
 
 const { frontmatter} = Astro.props;
+console.log(frontmatter);
+let splitPath = frontmatter.file.split(/content|.md/);
+const filePath = splitPath[1];
 
 let date = frontmatter.file.split(/blog\/|-/);
 // @ts-ignore
@@ -20,6 +23,6 @@ const dateString = postDate.toLocaleDateString('en-us', {
   day: "2-digit"
 })
 ---
-<h3>{frontmatter.title}</h3>
+<h3><a href={filePath}>&raquo; {frontmatter.title}</a></h3>
 <p>By {frontmatter.author} on {dateString}</p>
 <slot />

@@ -4,9 +4,9 @@
 - url: https://www.thebluealliance.com/team/694
   name: Blue Alliance
   icon: ../../tba_lamp.svg
-- url: https://twitter.com/StuyPulse
-  name: Twitter
-  icon: ../../twitter.svg
+# - url: https://twitter.com/StuyPulse
+#   name: Twitter
+#   icon: ../../twitter.svg
 - url: https://www.facebook.com/stuypulse
   name: Facebook
   icon: ../../facebook.svg
