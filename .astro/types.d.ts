@@ -924,6 +924,13 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
+"2023-01-26-2023-december-newsletter.md": {
+  id: "2023-01-26-2023-december-newsletter.md",
+  slug: "2023-01-26-2023-december-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
 "2023-01-26-2023-november-newsletter.md": {
   id: "2023-01-26-2023-november-newsletter.md",
   slug: "2023-01-26-2023-november-newsletter",

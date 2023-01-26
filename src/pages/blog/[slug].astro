@@ -1,17 +1,35 @@
 ---
 import { getCollection } from 'astro:content';
-// 1. Generate a new path for every collection entry
+
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
   return blogEntries.map(entry => ({
     params: { slug: entry.slug }, props: { entry },
   }));
 }
-// 2. When its time to render, you can get the entry directly from the prop
+
 const { entry } = Astro.props;
 // console.log(entry);
 const { Content, headings } = await entry.render();
-// console.log(Content)
----
 
-<Content />
+import PageSite from '../../layouts/PageSite.astro';
+---
+<style>
+  .row {
+    margin-left: 15vw;
+    margin-right: 15vw;
+  }
+</style>
+
+<PageSite title={entry.title} description={""}>
+  {
+    entry.data.link ? 
+    <iframe src={entry.data.link} width="100%" height="700px"></iframe>
+    :
+    <div class = "row">
+      <div class="col">
+        <Content />
+      </div>
+    </div>
+  }
+</PageSite>

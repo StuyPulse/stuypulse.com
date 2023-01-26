@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  entries: CollectionEntry<"blog">[];
+}
+
+const { entries } = Astro.props;
+
+const contents = [];
+for(let i = 0; i<5; i++){
+  let rendered = await entries[i].render();
+  contents[i] = rendered.Content;
+}
+
+---
+
+{
+  contents.map((Content, index) =>
+   <Content/>
+  )
+}
