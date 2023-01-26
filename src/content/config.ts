@@ -5,7 +5,8 @@ const blogCollection = defineCollection({
   schema: z.object({
     layout: z.string(),
     title: z.string(),
-    author: z.string()
+    author: z.string(),
+    link: z.string().optional()
   }),
 });
 // 3. Export a single `collections` object to register your collection(s)

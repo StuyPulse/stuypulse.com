@@ -11,13 +11,7 @@ export async function getStaticPaths() {
 const { entry } = Astro.props;
 // console.log(entry);
 const { Content, headings } = await entry.render();
-
-import PageSite from '../../layouts/PageSite.astro';
+// console.log(Content)
 ---
 
 <Content />
-
-<!-- <PageSite title="blog" description={""}>
-  <h1>{entry.data.title}</h1>
-  <p>{entry.body}</p>
-</PageSite> -->

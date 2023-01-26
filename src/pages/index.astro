@@ -1,8 +1,14 @@
 ---
+import { getCollection } from 'astro:content';
 import PageSite from '../layouts/PageSite.astro';
 import Carousel from '../components/ImageCarousel.astro';
 import SponsorCarousel from '../components/SponsorCarousel.astro';
 import { SITE_TITLE } from '../config';
+import { log } from 'astro/dist/core/logger/core';
+
+const blogEntries = await getCollection('blog');
+blogEntries.reverse();
+console.log(blogEntries[0]);
 ---
 <style>
   .inline-icon {
