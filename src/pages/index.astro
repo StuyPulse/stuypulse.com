@@ -1,6 +1,7 @@
 ---
 import PageSite from '../layouts/PageSite.astro';
 import Carousel from '../components/ImageCarousel.astro';
+import SponsorCarousel from '../components/SponsorCarousel.astro';
 import { SITE_TITLE } from '../config';
 ---
 <style>
@@ -20,7 +21,7 @@ import { SITE_TITLE } from '../config';
 <PageSite title={SITE_TITLE} description={"TEST"}>
     <div class="row">
       <div class="col-lg" id="frontCarousel">
-        <Carousel images={"frontCarousel"}/>
+        <Carousel images="frontCarousel"/>
       </div>
       <div class="col">
         <h2>
@@ -36,6 +37,14 @@ import { SITE_TITLE } from '../config';
         </h2>
         <p><a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition in Science and Technology) is a multi-national, non-profit organization designed to inspire and encourage today's youth to pursue careers in science, technology and math. These programs also stress the development of skills in areas such as teamwork, public relations, strategy, dedication, and outreach, which are helpful and often necessary in future careers and endeavors.</p>
         <p><a href="/about/first/">Learn more &raquo;</a></p>
+      </div>
+    </div>
+    <div class = "row">
+      <div class = "col">
+        <SponsorCarousel images="sponsors"/>
+      </div>
+      <div class = "col">
+
       </div>
     </div>
 </PageSite>

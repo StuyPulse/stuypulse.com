@@ -1,0 +1,69 @@
+---
+import type {SponsorType} from '../types';
+// import progressive image
+
+export interface Props {
+  images: string;
+}
+
+// @ts-ignore
+const { images } = Astro.props;
+const yml = await import(`../data/${images}.yml`);
+const imageData = yml.default;
+---
+<style>
+  /* p {
+    back
+  } */
+
+  .carousel-item {
+    height: 200px;
+  }
+
+  p {
+    font-size: 50px;
+    text-align: center;
+    object-fit: contain;
+  }
+
+  img {
+    display: block;
+    height: 200px;
+    width: 100%;
+    object-fit: contain;
+  }
+</style>
+
+
+<div
+  id="ImageCarousel"
+  class="carousel slide carousel-fade"
+  data-bs-ride="carousel"
+>
+  
+  <div class="carousel-inner">
+    {
+      imageData.map((sponsor: SponsorType, index: number) => (
+        <div class={index == 0 ? "carousel-item bg-body active" : "carousel-item bg-body"} data-bs-interval="2000">
+          {sponsor.logo ?
+            <div>
+              {sponsor.site == null ?
+                <img src={sponsor.logo} class="d-block" alt="..." />
+                :
+                <a href = {sponsor.site} target = "_blank">
+                  <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
+                </a>
+              }
+            </div>
+            :
+            <div>
+              {
+                <p>{sponsor.name}</p>
+              }
+            </div>
+          }
+        </div>
+      ))
+    }
+  </div>
+</div>

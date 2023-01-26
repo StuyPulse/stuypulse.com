@@ -11,6 +11,12 @@ export interface CarouselItemType {
   "read-more-link": string;
 }
 
+export interface SponsorType {
+  name: string;
+  logo: string;
+  site: string;
+}
+
 export interface SocialType {
   name: string;
   icon: string;
