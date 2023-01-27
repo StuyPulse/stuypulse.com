@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: On the Road to China
 author: Ivy Wong
 ---

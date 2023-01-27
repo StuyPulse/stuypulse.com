@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Book Sale and Tribeca Family Festival
 author: Ivy Wong
 ---

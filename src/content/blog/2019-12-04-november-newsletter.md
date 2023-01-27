@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: November Newsletter
 author: Bryan Lai
 link: https://drive.google.com/a/stuypulse.com/file/d/1Oh9lDSJI4THNx8poKEuuucSPnozhJWYK/view?usp=sharing

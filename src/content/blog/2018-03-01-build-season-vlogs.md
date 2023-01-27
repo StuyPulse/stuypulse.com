@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Build Season Vlogs, Recap, and Robot Reveal
 author: Yedoh Kang
 ---

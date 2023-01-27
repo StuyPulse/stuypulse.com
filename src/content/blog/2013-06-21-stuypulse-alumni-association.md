@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: StuyPulse Alumni Association
 author: Kevin Wang
 ---

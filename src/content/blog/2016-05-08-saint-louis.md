@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Success at St. Louis
 author: Piotr Milewski
 ---

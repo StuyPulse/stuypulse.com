@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: LEGO Boost Build Event
 author: Hui Min Wu
 ---

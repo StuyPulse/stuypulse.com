@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Central New York Regional Recap
 author: Leilei Hao
 ---

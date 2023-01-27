@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Join us at the New York City Regional
 author: Kevin Wang
 ---

@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: September Newsletter!
 author: Areyan Kayum
 link: https://drive.google.com/file/d/1lZSjC4vOkd8RByJQhPz9TQi1MlMdzioN/view

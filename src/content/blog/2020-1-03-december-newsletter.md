@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: December Newsletter
 author: Bryan Lai
 link: https://drive.google.com/a/stuypulse.com/file/d/11sFkjgWduTrOBLxRf9ReIMVAArkYPt2g/view?usp=sharing

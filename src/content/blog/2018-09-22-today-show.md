@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: StuyFission and StuyFusion on the Today Show!
 author: Areyan Kayum
 ---

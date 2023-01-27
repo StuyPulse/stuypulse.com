@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Stuy Splash 2014
 author: Ivy Wong
 ---

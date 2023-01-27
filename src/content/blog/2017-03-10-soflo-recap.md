@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: South Florida Recap
 author: Yedoh Kang
 ---

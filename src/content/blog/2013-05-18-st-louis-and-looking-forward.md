@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: St. Louis and looking forward...
 author: Justin Kim
 ---

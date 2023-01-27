@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Check your documents on the Team Manager
 author: Kevin Wang
 ---

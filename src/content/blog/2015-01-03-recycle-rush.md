@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Recycle Rush and Kickoff
 author: Ivy Wong
 ---

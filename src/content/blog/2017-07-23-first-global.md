@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: FIRST Global Recap
 author: Levi Olevsky
 ---

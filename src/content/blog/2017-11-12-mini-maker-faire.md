@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: Barnes & Noble Mini Maker Faire
 author: Eugene Seo
 ---

@@ -1,9 +1,9 @@
 ---
-import type { SocialType } from '../../../src/types';
+import type { SocialType } from '@types';
 import SocialIcon from './SocialIcon.astro';
 
 // @ts-ignore
-const socials = (await import('../../data/socials.yml')).default;
+const socials = (await import('@data/socials.yml')).default;
 ---
 
 <footer>

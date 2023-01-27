@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: October Newsletter
 author: StuyPulse
 link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/October%20Newsletter%202021.pdf

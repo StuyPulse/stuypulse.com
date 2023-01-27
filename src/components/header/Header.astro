@@ -1,10 +1,10 @@
 ---
-import type { NavType } from '../../../src/types.js'
+import type { NavType } from '@types.js'
 import Nav from './Nav.astro';
 import Dropdown from './Dropdown.astro';
 
 // @ts-ignore
-const navs = (await import('../../data/navbar.yml')).default;
+const navs = (await import('@data/navbar.yml')).default;
 ---
 
 <nav class="navbar navbar-expand-lg sticky-top mb-3">

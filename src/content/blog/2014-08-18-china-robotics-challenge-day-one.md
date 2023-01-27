@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/Post.astro
+layout: $layouts/Post.astro
 title: China Robotics Challenge, Day One
 author: Ivy Wong
 ---
