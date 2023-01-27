@@ -847,9 +847,58 @@ declare module 'astro:content' {
   collection: "blog",
   data: InferEntrySchema<"blog">
 },
-"2022-1-18-december-newsletter.md": {
-  id: "2022-1-18-december-newsletter.md",
-  slug: "2022-1-18-december-newsletter",
+"2022-01-18-december-newsletter.md": {
+  id: "2022-01-18-december-newsletter.md",
+  slug: "2022-01-18-december-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"2022-02-20-january-newsletter.md": {
+  id: "2022-02-20-january-newsletter.md",
+  slug: "2022-02-20-january-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"2022-04-08-febuary-newsletter.md": {
+  id: "2022-04-08-febuary-newsletter.md",
+  slug: "2022-04-08-febuary-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"2022-05-07-march-newsletter.md": {
+  id: "2022-05-07-march-newsletter.md",
+  slug: "2022-05-07-march-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"2022-05-09-april-newsletter.md": {
+  id: "2022-05-09-april-newsletter.md",
+  slug: "2022-05-09-april-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"2022-09-19-may-newsletter.md": {
+  id: "2022-09-19-may-newsletter.md",
+  slug: "2022-09-19-may-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"2022-09-20-june-newsletter.md": {
+  id: "2022-09-20-june-newsletter.md",
+  slug: "2022-09-20-june-newsletter",
+  body: string,
+  collection: "blog",
+  data: InferEntrySchema<"blog">
+},
+"2022-09-21-august-newsletter.md": {
+  id: "2022-09-21-august-newsletter.md",
+  slug: "2022-09-21-august-newsletter",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">
@@ -871,55 +920,6 @@ declare module 'astro:content' {
 "2022-12-31-october-newsletter.md": {
   id: "2022-12-31-october-newsletter.md",
   slug: "2022-12-31-october-newsletter",
-  body: string,
-  collection: "blog",
-  data: InferEntrySchema<"blog">
-},
-"2022-2-20-january-newsletter.md": {
-  id: "2022-2-20-january-newsletter.md",
-  slug: "2022-2-20-january-newsletter",
-  body: string,
-  collection: "blog",
-  data: InferEntrySchema<"blog">
-},
-"2022-4-8-febuary-newsletter.md": {
-  id: "2022-4-8-febuary-newsletter.md",
-  slug: "2022-4-8-febuary-newsletter",
-  body: string,
-  collection: "blog",
-  data: InferEntrySchema<"blog">
-},
-"2022-5-7-march-newsletter.md": {
-  id: "2022-5-7-march-newsletter.md",
-  slug: "2022-5-7-march-newsletter",
-  body: string,
-  collection: "blog",
-  data: InferEntrySchema<"blog">
-},
-"2022-5-9-april-newsletter.md": {
-  id: "2022-5-9-april-newsletter.md",
-  slug: "2022-5-9-april-newsletter",
-  body: string,
-  collection: "blog",
-  data: InferEntrySchema<"blog">
-},
-"2022-9-19-may-newsletter.md": {
-  id: "2022-9-19-may-newsletter.md",
-  slug: "2022-9-19-may-newsletter",
-  body: string,
-  collection: "blog",
-  data: InferEntrySchema<"blog">
-},
-"2022-9-20-june-newsletter.md": {
-  id: "2022-9-20-june-newsletter.md",
-  slug: "2022-9-20-june-newsletter",
-  body: string,
-  collection: "blog",
-  data: InferEntrySchema<"blog">
-},
-"2022-9-21-august-newsletter.md": {
-  id: "2022-9-21-august-newsletter.md",
-  slug: "2022-9-21-august-newsletter",
   body: string,
   collection: "blog",
   data: InferEntrySchema<"blog">

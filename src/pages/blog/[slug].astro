@@ -29,6 +29,10 @@ const { entry } = Astro.props;
 let ent = entry ? await entry.render() : null;
 const Content = ent ? ent.Content : null;
 blogEntries.reverse();
+blogEntries.sort((a,b)=>
+1
+);
+console.log(blogEntries[0]);
 
 let ENTRY_START = (Number(slug) - 1) * POSTS_PER_PAGE;
 let ENTRY_END = (Number(slug)) * POSTS_PER_PAGE;
