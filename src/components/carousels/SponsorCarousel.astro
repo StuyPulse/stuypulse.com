@@ -1,41 +1,10 @@
 ---
 import type {SponsorType} from '@types';
-// import progressive image
+import SponsorContainer from '@components/sponsors/SponsorContainer.astro'
 
 const yml = await import('@data/sponsors.yml');
 const imageData = yml.default;
 ---
-<style>
-  /* p {
-    back
-  } */
-
-  .carousel-item {
-    height: 150px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .carousel-item.active {
-    display: flex;
-  }
-
-  p {
-    display: flex;
-    font-size: 30px;
-    align-items: center;
-  }
-
-  img {
-    display: block;
-    height: 150px;
-    width: 100%;
-    object-fit: contain;
-  }
-</style>
-
-
 <div
   id="ImageCarousel"
   class="carousel slide carousel-fade"
@@ -46,23 +15,7 @@ const imageData = yml.default;
     {
       imageData.map((sponsor: SponsorType, index: number) => (
         <div class={index == 0 ? "carousel-item bg-body active" : "carousel-item bg-body"} data-bs-interval="2000">
-          {sponsor.logo ?
-            <div>
-              {sponsor.site == null ?
-                <img src={sponsor.logo} class="d-block" alt="..." />
-                :
-                <a href = {sponsor.site} target = "_blank">
-                  <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
-                </a>
-              }
-            </div>
-            :
-            <div>
-              {
-                <p>{sponsor.name}</p>
-              }
-            </div>
-          }
+          <SponsorContainer sponsor = {sponsor} size = "150px" tSize = "40px"/>
         </div>
       ))
     }
