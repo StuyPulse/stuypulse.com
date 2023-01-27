@@ -21,6 +21,7 @@ const { sponsor, size, tSize } = Astro.props;
     display: flex;
     font-size: var(--tSize);
     align-items: center;
+    text-align: center;
   }
 
   img {
@@ -45,7 +46,7 @@ const { sponsor, size, tSize } = Astro.props;
   :
   <div>
     {
-      <p>{sponsor.name}</p>
+      <p><strong>{sponsor.name}</strong></p>
     }
   </div>
 }
