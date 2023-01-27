@@ -5,7 +5,7 @@ import BlogPreview from '@components/blog/BlogPreview.astro';
 import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
-import getSortedPosts from '@utils/getSortedPosts.ts'
+import getSortedPosts from '@utils/getSortedPosts'
 
 const blogEntries = await getCollection('blog');
 let sortedBlog = getSortedPosts(blogEntries);

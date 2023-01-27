@@ -4,7 +4,7 @@ import BlogPreview from '@components/blog/BlogPreview.astro';
 import Paginator from '@components/blog/Paginator.astro';
 import { POSTS_PER_PAGE } from '@config';
 import PageSite from '@layouts/PageSite.astro';
-import getSortedPosts from '@utils/getSortedPosts.ts'
+import getSortedPosts from '@utils/getSortedPosts'
 
 const blogEntries = await getCollection('blog');
 let sortedBlog = getSortedPosts(blogEntries);
@@ -34,12 +34,12 @@ for(let i = 1; i<sortedBlog.length / POSTS_PER_PAGE; i++){
     <nav aria-label="...">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
-          <a class="page-link" href={0}>&laquo;</a>
+          <a class="page-link" href="0">&laquo;</a>
         </li>
         {
           entryList.map((num: number)=>
             <li class="page-item">
-              <a class={num != 1 ? "page-link" : "page-link active"} href={String(num)}>{num}</a>
+              <a class={num != 1 ? "page-link" : "page-link active"} href={"blog/" + String(num)}>{num}</a>
             </li>
           )
         }
