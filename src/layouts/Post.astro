@@ -14,8 +14,9 @@ let splitPath = frontmatter.file.split(/content|.md/);
 const filePath = splitPath[1];
 
 let date = frontmatter.file.split(/blog\/|-/);
-// @ts-ignore
-let postDate = new Date(date[1], date[2], date[2]);
+let postDate = new Date(Number(date[1]), Number(date[2]) - 1, Number(date[3]));
+// console.log(date[1] + " - " + date[2] + " - " + date[3]);
+// console.log(postDate);
 const dateString = postDate.toLocaleDateString('en-us', {
   weekday: "long",
   year: "numeric",
