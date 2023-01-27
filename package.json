@@ -12,14 +12,13 @@
   },
   "dependencies": {
     "@astrojs/mdx": "^0.14.0",
-    "@astrojs/rss": "^2.0.0",
     "@astrojs/sitemap": "^1.0.0",
     "bootstrap": "^5.2.3",
     "progressive-image": "^1.2.0"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.0.1",
-    "astro": "^2.0.1",
+    "astro": "^2.0.2",
     "prettier": "^2.8.2",
     "prettier-plugin-astro": "^0.7.2"
   }
