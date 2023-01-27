@@ -34,17 +34,17 @@ for(let i = 1; i<sortedBlog.length / POSTS_PER_PAGE; i++){
     <nav aria-label="...">
       <ul class="pagination justify-content-center">
         <li class="page-item disabled">
-          <a class="page-link" href="0">&laquo;</a>
+          <a class="page-link" href="/blog/0">&laquo;</a>
         </li>
         {
           entryList.map((num: number)=>
             <li class="page-item">
-              <a class={num != 1 ? "page-link" : "page-link active"} href={"blog/" + String(num)}>{num}</a>
+              <a class={num != 1 ? "page-link" : "page-link active"} href={"/blog/" + String(num)}>{num}</a>
             </li>
           )
         }
         <li class="page-item">
-          <a class="page-link" href={"blog/" + String(2)}>&raquo;</a>
+          <a class="page-link" href={"/blog/2"}>&raquo;</a>
         </li>
       </ul>
     </nav>

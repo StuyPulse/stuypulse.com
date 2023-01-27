@@ -15,17 +15,17 @@ const { numPages, currPost } = Astro.props;
 <nav aria-label="...">
   <ul class="pagination justify-content-center">
     <li class={currPost - 1 != 0 ? "page-item" : "page-item disabled"}>
-      <a class="page-link" href={String(currPost-1)}>&laquo;</a>
+      <a class="page-link" href={"/blog/" + String(currPost-1)}>&laquo;</a>
     </li>
     {
       numPages.map((num: number)=>
         <li class="page-item">
-          <a class={num != currPost ? "page-link" : "page-link active"} href={String(num)}>{num}</a>
+          <a class={num != currPost ? "page-link" : "page-link active"} href={"/blog/" + String(num)}>{num}</a>
         </li>
       )
     }
     <li class={currPost < numPages[numPages.length-1] ? "page-item" : "page-item disabled"}>
-      <a class="page-link" href={String(currPost+1)}>&raquo;</a>
+      <a class="page-link" href={"/blog/" + String(currPost+1)}>&raquo;</a>
     </li>
   </ul>
 </nav>
