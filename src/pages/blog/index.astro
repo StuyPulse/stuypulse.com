@@ -1,52 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import BlogPreview from '@components/blog/BlogPreview.astro';
-import Paginator from '@components/blog/Paginator.astro';
-import { POSTS_PER_PAGE } from '@config';
-import PageSite from '@layouts/PageSite.astro';
-import getSortedPosts from '@utils/getSortedPosts'
 
-const blogEntries = await getCollection('blog');
-let sortedBlog = getSortedPosts(blogEntries);
-let paginatedPosts = sortedBlog.slice(0, POSTS_PER_PAGE);
-
-let entryList = [];
-for(let i = 1; i<sortedBlog.length / POSTS_PER_PAGE; i++){
-  entryList.push(i);
-}
 ---
-<style>
-  /* .row {
-    margin-left: 15vw;
-    margin-right: 15vw;
-  } */
-  nav a {
-    margin-right: 0 !important;
-  }
-</style>
-<PageSite title="blog" description={""}>
-  <div>
-    <div class = "row">
-      <div class="col">
-        <BlogPreview entries={paginatedPosts} numPosts={POSTS_PER_PAGE}></BlogPreview>
-      </div>
-    </div>
-    <nav aria-label="...">
-      <ul class="pagination justify-content-center">
-        <li class="page-item disabled">
-          <a class="page-link" href="/blog/0">&laquo;</a>
-        </li>
-        {
-          entryList.map((num: number)=>
-            <li class="page-item">
-              <a class={num != 1 ? "page-link" : "page-link active"} href={"/blog/" + String(num)}>{num}</a>
-            </li>
-          )
-        }
-        <li class="page-item">
-          <a class="page-link" href={"/blog/2"}>&raquo;</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
-</PageSite>
+<div>
+  <script>
+    console.log(window.location.hostname);
+    window.location.replace(window.location.href + "/1");
+  </script>
+</div>
