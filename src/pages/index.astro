@@ -5,10 +5,10 @@ import BlogPreview from '@components/blog/BlogPreview.astro';
 import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
+import getSortedPosts from '@utils/getSortedPosts.ts'
 
 const blogEntries = await getCollection('blog');
-blogEntries.reverse();
-// console.log(blogEntries[0]);
+let sortedBlog = getSortedPosts(blogEntries);
 ---
 <style>
   .inline-icon {
@@ -37,7 +37,7 @@ blogEntries.reverse();
       </div>
       <div class="col">
         <h1>Latest News</h1>
-        <BlogPreview entries={blogEntries} numPosts={4}></BlogPreview>
+        <BlogPreview entries={sortedBlog} numPosts={4}></BlogPreview>
         <h4><a href="/blog/">See older posts &raquo;</a></h4>
       </div>
     </div>

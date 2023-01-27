@@ -3,22 +3,22 @@
 
 - url: https://www.thebluealliance.com/team/694
   name: Blue Alliance
-  icon: tba_lamp.svg
+  icon: /tba_lamp.svg
 # - url: https://twitter.com/StuyPulse
 #   name: Twitter
 #   icon: twitter.svg
 - url: https://www.facebook.com/stuypulse
   name: Facebook
-  icon: facebook.svg
+  icon: /facebook.svg
 - url: https://www.instagram.com/stuypulse
   name: Instagram
-  icon: instagram.svg
+  icon: /instagram.svg
 - url: https://www.youtube.com/@StuyPulse
   name: YouTube
-  icon: youtube.svg
+  icon: /youtube.svg
 - url: https://www.tiktok.com/@stuypulse?lang=en
   name: TikTok
-  icon: tiktok.svg
+  icon: /tiktok.svg
 - url: https://github.com/StuyPulse
   name: GitHub
-  icon: github.svg
+  icon: /github.svg

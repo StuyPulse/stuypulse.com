@@ -1,5 +1,6 @@
 ---
 import type { MarkdownLayoutProps } from 'astro';
+import getPostDate from '@utils/getPostDate.ts'
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -8,15 +9,11 @@ type Props = MarkdownLayoutProps<{
   file: string;
 }>;
 
-const { frontmatter} = Astro.props;
-// console.log(frontmatter);
+const { frontmatter } = Astro.props;
 let splitPath = frontmatter.file.split(/content|.md/);
 const filePath = splitPath[1];
 
-let date = frontmatter.file.split(/blog\/|-/);
-let postDate = new Date(Number(date[1]), Number(date[2]) - 1, Number(date[3]));
-// console.log(date[1] + " - " + date[2] + " - " + date[3]);
-// console.log(postDate);
+let postDate = getPostDate(frontmatter.file.split(/blog\//)[1]);
 const dateString = postDate.toLocaleDateString('en-us', {
   weekday: "long",
   year: "numeric",
