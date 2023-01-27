@@ -2,8 +2,8 @@
 import { getCollection } from 'astro:content';
 import PageSite from '@layouts/PageSite.astro';
 import BlogPreview from '@components/BlogPreview.astro';
-import Carousel from '@components/ImageCarousel.astro';
-import SponsorCarousel from '@components/SponsorCarousel.astro';
+import Carousel from '@components/carousels/ImageCarousel.astro';
+import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
 
 const blogEntries = await getCollection('blog');
@@ -32,7 +32,7 @@ blogEntries.reverse();
 <PageSite title={SITE_TITLE} description={"TEST"}>
     <div class="row">
       <div class="col-8" id="frontCarousel">
-        <Carousel images="frontCarousel"/>
+        <Carousel/>
         <br>
       </div>
       <div class="col">

@@ -1,14 +1,6 @@
 ---
 import type {CarouselItemType} from '@types';
-// import progressive image
-
-export interface Props {
-  images: string;
-}
-
-// @ts-ignore
-const { images } = Astro.props;
-const yml = await import(`../data/${images}.yml`);
+const yml = await import(`@data/frontCarousel.yml`);
 const imageData = yml.default;
 ---
 
