@@ -1,0 +1,21 @@
+---
+import PageSite from '@layouts/PageSite.astro';
+import SponsorContainer from '@components/sponsors/SponsorContainer.astro'
+import type {SponsorType} from '@types';
+
+// @ts-ignore
+const yml = await import('@data/sponsors.yml');
+const sponsorData = yml.default;
+---
+
+<PageSite title="Sponsors" description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running.">
+  <div class="row">
+    {
+      sponsorData.map((sponsor: SponsorType, index: number) => (
+      <div class="col-md-3" id="frontCarousel">
+        <SponsorContainer sponsor = {sponsor} size = "150px" tSize = "30px"/>
+      </div>
+      ))
+    }
+  </div>
+</PageSite>

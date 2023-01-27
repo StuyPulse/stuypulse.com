@@ -2,8 +2,9 @@
 import type {SponsorType} from '@types';
 import SponsorContainer from '@components/sponsors/SponsorContainer.astro'
 
+// @ts-ignore
 const yml = await import('@data/sponsors.yml');
-const imageData = yml.default;
+const sponsorData = yml.default;
 ---
 <div
   id="ImageCarousel"
@@ -13,7 +14,7 @@ const imageData = yml.default;
   
   <div class="carousel-inner">
     {
-      imageData.map((sponsor: SponsorType, index: number) => (
+      sponsorData.map((sponsor: SponsorType, index: number) => (
         <div class={index == 0 ? "carousel-item bg-body active" : "carousel-item bg-body"} data-bs-interval="2000">
           <SponsorContainer sponsor = {sponsor} size = "150px" tSize = "40px"/>
         </div>
