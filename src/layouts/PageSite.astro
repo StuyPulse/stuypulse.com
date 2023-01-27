@@ -2,13 +2,13 @@
 import Footer from '@components/footer/Footer.astro';
 import BaseHead from '@components/BaseHead.astro';
 import Header from '@components/header/Header.astro';
-
 export interface Props {
   title: string;
   description: string;
   image?: string;
 }
-
+// import bootstrap js (find a way to add to vite config)
+// import '../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js';
 const { title, image, description } = Astro.props;
 ---
 
