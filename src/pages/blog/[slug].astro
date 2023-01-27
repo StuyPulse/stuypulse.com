@@ -1,8 +1,8 @@
 ---
 import { getCollection } from 'astro:content';
 import { POSTS_PER_PAGE } from '@config';
-import BlogPreview from '@components/BlogPreview.astro';
-import Paginator from '@components/Paginator.astro'
+import BlogPreview from '@components/blog/BlogPreview.astro';
+import Paginator from '@components/blog/Paginator.astro'
 import PageSite from '@layouts/PageSite.astro';
 
 export async function getStaticPaths() {
