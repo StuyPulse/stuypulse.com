@@ -25,7 +25,7 @@ let sortedBlog = getSortedPosts(blogEntries);
 
   .row {
     justify-content: center;
-    align-items: center;
+    /* align-items: center; */
   }
 </style>
 
@@ -37,7 +37,7 @@ let sortedBlog = getSortedPosts(blogEntries);
       </div>
       <div class="col">
         <h1>Latest News</h1>
-        <BlogPreview entries={sortedBlog} numPosts={4}></BlogPreview>
+        <BlogPreview entries={sortedBlog} numPosts={3}></BlogPreview>
         <h4><a href="/blog/">See older posts &raquo;</a></h4>
       </div>
     </div>
