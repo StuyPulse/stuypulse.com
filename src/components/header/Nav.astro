@@ -9,6 +9,7 @@ const { nav } = Astro.props;
 ---
 <li class="nav-item">
    {nav.dropdown ? 
+  //  for navs inside a dropdown, since there is a white background
    <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a> :
    <a class="nav-link active text-white" aria-current="page" href= { nav.href }>{ nav.name }</a>}
 </li>

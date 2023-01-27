@@ -11,15 +11,15 @@ const { nav } = Astro.props;
 
 <li class="nav-item dropdown">
   <a
-    class="nav-link dropdown-toggle"
-    href={ nav.href }
+    class="nav-link dropdown-toggle text-white"
+    href={nav.href}
     role="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
     {nav.name}
   </a>
-    <ul class="dropdown-menu">
-      {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} />)}
-    </ul>
+  <ul class="dropdown-menu p-2">
+    {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} />)}
+  </ul>
 </li>
