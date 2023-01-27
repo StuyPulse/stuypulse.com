@@ -36,7 +36,7 @@ const { sponsor, size, tSize } = Astro.props;
 {sponsor.logo ?
   <div>
     {sponsor.site == null ?
-      <img src={sponsor.logo} class="d-block" alt="..." />
+      <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
       :
       <a href = {sponsor.site} target = "_blank">
         <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
@@ -45,9 +45,7 @@ const { sponsor, size, tSize } = Astro.props;
   </div>
   :
   <div>
-    {
-      <p><strong>{sponsor.name}</strong></p>
-    }
+    <p><strong>{sponsor.name}</strong></p>
   </div>
 }
 </div>
