@@ -17,13 +17,13 @@
     - name: Team
       href: /team
       dropdown: true
-- name: Outreach
-  href: /outreach
+- name: Blog
+  href: /blog
+- name: Community
+  href: /community
 - name: Resources
   href: /resources
 - name: Calendar
   href: /calendar
-# - name: News
-#   href: /news
 - name: Sponsor Us
-  href: /sponsor-us
+  href: /sponsors

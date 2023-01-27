@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
-import BlogPreview from '../../components/BlogPreview.astro';
-import Paginator from '../../components/Paginator.astro';
-import { POSTS_PER_PAGE } from '../../config';
-import PageSite from '../../layouts/PageSite.astro';
+import BlogPreview from '@components/BlogPreview.astro';
+import Paginator from '@components/Paginator.astro';
+import { POSTS_PER_PAGE } from '@config';
+import PageSite from '@layouts/PageSite.astro';
 
 const blogEntries = await getCollection('blog');
 blogEntries.reverse();
