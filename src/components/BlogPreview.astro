@@ -3,12 +3,13 @@ import type { CollectionEntry } from 'astro:content';
 
 export interface Props {
   entries: CollectionEntry<"blog">[];
+  numPosts: number;
 }
 
-const { entries } = Astro.props;
+const { entries, numPosts } = Astro.props;
 
 const contents = [];
-for(let i = 0; i<5; i++){
+for(let i = 0; i<numPosts; i++){
   let rendered = await entries[i].render();
   contents[i] = rendered.Content;
 }

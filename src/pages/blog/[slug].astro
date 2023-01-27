@@ -1,18 +1,44 @@
 ---
 import { getCollection } from 'astro:content';
+import { POSTS_PER_PAGE } from '../../config';
+import BlogPreview from '../../components/BlogPreview.astro';
+import Paginator from '../../components/Paginator.astro'
+import PageSite from '../../layouts/PageSite.astro';
 
 export async function getStaticPaths() {
   const blogEntries = await getCollection('blog');
-  return blogEntries.map(entry => ({
-    params: { slug: entry.slug }, props: { entry },
-  }));
+  let postResult = blogEntries.map(entry => {
+    return {
+      params: {slug: entry.slug}, 
+      props: {entry}
+    };
+  });
+
+  let max_entries = blogEntries.length;
+  let entryList = [];
+  for(let i = 1; i<blogEntries.length / POSTS_PER_PAGE; i++){
+    entryList.push({params: { slug: String(i) }});
+  }
+  return [...postResult, ...entryList];
 }
 
+const blogEntries = await getCollection('blog');
+const { slug } = Astro.params;
 const { entry } = Astro.props;
-// console.log(entry);
-const { Content, headings } = await entry.render();
+// console.log(slug);
+const Content = entry ? await entry.render() : null;
+blogEntries.reverse();
 
-import PageSite from '../../layouts/PageSite.astro';
+let ENTRY_START = (Number(slug) - 1) * POSTS_PER_PAGE;
+let ENTRY_END = (Number(slug)) * POSTS_PER_PAGE;
+console.log(ENTRY_START);
+let paginatedPosts = blogEntries.slice(ENTRY_START, ENTRY_END);
+// console.log(paginatedPosts);
+
+let entryList = [];
+for(let i = 1; i<blogEntries.length / POSTS_PER_PAGE; i++){
+  entryList.push(i);
+}
 ---
 <style>
   .row {
@@ -21,15 +47,29 @@ import PageSite from '../../layouts/PageSite.astro';
   }
 </style>
 
-<PageSite title={entry.title} description={""}>
+<PageSite title={""} description={""}>
   {
-    entry.data.link ? 
-    <iframe src={entry.data.link} width="100%" height="700px"></iframe>
-    :
-    <div class = "row">
-      <div class="col">
-        <Content />
+    entry ?
+    <div>
+    {
+      entry.data.link ? 
+      <iframe src={entry.data.link} width="100%" height="700px"></iframe>
+      :
+      <div class = "row">
+        <div class="col">
+          <Content />
+        </div>
       </div>
+    }
+    </div> 
+    :
+    <div>
+      <div class = "row">
+        <div class="col">
+          <BlogPreview entries={paginatedPosts} numPosts={POSTS_PER_PAGE}></BlogPreview>
+        </div>
+      </div>
+      <Paginator numPages={entryList} currPost={Number(slug)}/>
     </div>
   }
 </PageSite>

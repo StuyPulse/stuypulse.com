@@ -1,11 +1,32 @@
 ---
+import { getCollection } from 'astro:content';
+import BlogPreview from '../../components/BlogPreview.astro';
+import Paginator from '../../components/Paginator.astro';
+import { POSTS_PER_PAGE } from '../../config';
 import PageSite from '../../layouts/PageSite.astro';
 
-// const posts = await Astro.glob('../posts/**/*.md');
+const blogEntries = await getCollection('blog');
+blogEntries.reverse();
+let paginatedPosts = blogEntries.slice(0, POSTS_PER_PAGE);
 
-// console.log(posts[0].frontmatter)
+let entryList = [];
+for(let i = 1; i<blogEntries.length / POSTS_PER_PAGE; i++){
+  entryList.push(i);
+}
 ---
-
+<style>
+  .row {
+    margin-left: 15vw;
+    margin-right: 15vw;
+  }
+</style>
 <PageSite title="blog" description={""}>
-  <h1>hello</h1>
+  <div>
+    <div class = "row">
+      <div class="col">
+        <BlogPreview entries={paginatedPosts} numPosts={POSTS_PER_PAGE}></BlogPreview>
+      </div>
+    </div>
+    <Paginator numPages={entryList} currPost={1}/>
+  </div>
 </PageSite>

@@ -9,7 +9,7 @@ type Props = MarkdownLayoutProps<{
 }>;
 
 const { frontmatter} = Astro.props;
-console.log(frontmatter);
+// console.log(frontmatter);
 let splitPath = frontmatter.file.split(/content|.md/);
 const filePath = splitPath[1];
 
