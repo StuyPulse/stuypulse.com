@@ -7,13 +7,33 @@ import type {SponsorType} from '@types';
 const yml = await import('@data/sponsors.yml');
 const sponsorData = yml.default;
 ---
+<style>
+  .col-md-3, .col-sm-6 {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .inline-icon {
+    height: 1.5em;
+    transform: translateY(-0.1em);
+  }
+
+  h2 {
+    border-bottom: 3px solid #e00;
+  }
+</style>
 
 <PageSite title="Sponsors" description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running.">
+  <h2><img src="gold-medal.svg" class="inline-icon"> Gold</h2>
+  <h2><img src="silver-medal.svg" class="inline-icon"> Silver</h2>
+  <h2><img src="bronze-medal.svg" class="inline-icon"> Bronze</h2>
+  <h2><img src="aluminum-medal.svg" class="inline-icon"> Aluminum</h2>
   <div class="row">
     {
       sponsorData.map((sponsor: SponsorType, index: number) => (
-      <div class="col-md-3">
-        <SponsorContainer sponsor = {sponsor} size = "200px" tSize = "30px"/>
+      <div class="col-md-3 col-sm-6">
+        <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
       </div>
       ))
     }

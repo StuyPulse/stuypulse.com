@@ -3,18 +3,21 @@ import type {SponsorType} from '@types';
 
 export interface Props {
 	sponsor: SponsorType;
-  size: string;
+  height: string;
+  width: string;
   tSize: string;
 }
 
-const { sponsor, size, tSize } = Astro.props;
+const { sponsor, height, width, tSize } = Astro.props;
 ---
-<style define:vars={{size, tSize}}>
+<style define:vars={{height, width, tSize}}>
   .sponsor-container {
-    height: var(--size);
+    height: var(--height);
+    width: var(--width);
     display: flex;
     justify-content: center;
     align-items: center;
+    /* background-color: aqua; */
   }
 
   p {
@@ -26,7 +29,7 @@ const { sponsor, size, tSize } = Astro.props;
 
   img {
     display: block;
-    height: var(--size);
+    height: 100%;
     width: 100%;
     object-fit: contain;
   }

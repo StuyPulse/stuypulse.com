@@ -15,7 +15,6 @@ let sortedBlog = getSortedPosts(blogEntries);
     height: 1em;
     transform: translateY(-0.1em);
     padding-right:5px;
-    /* display:inline; */
   }
 
   h1 {
@@ -26,6 +25,10 @@ let sortedBlog = getSortedPosts(blogEntries);
   .row {
     justify-content: center;
     /* align-items: center; */
+  }
+
+  p {
+    margin-bottom: 0.25rem;
   }
 </style>
 
@@ -64,7 +67,6 @@ let sortedBlog = getSortedPosts(blogEntries);
           Sponsors
         </h2>
         <p>We would like to thank our <a href="/sponsors/">sponsors</a>:</p>
-        <br />
         <SponsorCarousel images="sponsors"/>
       </div>
     </div>
