@@ -15,6 +15,7 @@ export interface SponsorType {
   name: string;
   logo: string;
   site: string;
+  type: string;
 }
 
 export interface SocialType {

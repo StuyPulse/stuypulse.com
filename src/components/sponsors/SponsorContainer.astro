@@ -11,7 +11,7 @@ const { sponsor, size, tSize } = Astro.props;
 ---
 <style define:vars={{size, tSize}}>
   .sponsor-container {
-    height: var(--size) !important;
+    height: var(--size);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -19,14 +19,14 @@ const { sponsor, size, tSize } = Astro.props;
 
   p {
     display: flex;
-    font-size: var(--tSize) !important;
+    font-size: var(--tSize);
     align-items: center;
     text-align: center;
   }
 
   img {
     display: block;
-    height: var(--size) !important;
+    height: var(--size);
     width: 100%;
     object-fit: contain;
   }
