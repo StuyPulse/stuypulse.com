@@ -11,41 +11,33 @@ const { sponsor, size, tSize } = Astro.props;
 ---
 <style define:vars={{size, tSize}}>
   .sponsor-container {
-    height: var(--size);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: var(--size) !important;
   }
 
   p {
-    display: flex;
     font-size: var(--tSize) !important;
-    align-items: center;
-    text-align: center;
   }
 
   img {
-    display: block;
-    height: var(--size);
-    width: 100%;
+    height: var(--size) !important;
     object-fit: contain;
   }
 </style>
 
-<div class = "sponsor-container">
+<div class = "sponsor-container d-flex justify-content-center align-items-center">
 {sponsor.logo ?
   <div>
     {sponsor.site == null ?
-      <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
+      <img src={sponsor.logo} class="d-block w-100" alt={sponsor.name} />
       :
       <a href = {sponsor.site} target = "_blank">
-        <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
+        <img src={sponsor.logo} class="d-block w-100" alt={sponsor.name} />
       </a>
     }
   </div>
   :
   <div>
-    <p><strong>{sponsor.name}</strong></p>
+    <p class="fw-bold d-flex align-items-center text-center">{sponsor.name}</p>
   </div>
 }
 </div>
