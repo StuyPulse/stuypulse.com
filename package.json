@@ -13,6 +13,11 @@
   "dependencies": {
     "@astrojs/mdx": "^0.14.0",
     "@astrojs/sitemap": "^1.0.0",
+    "@fullcalendar/core": "^6.1.1",
+    "@fullcalendar/daygrid": "^6.1.1",
+    "@fullcalendar/google-calendar": "^6.1.1",
+    "@fullcalendar/list": "^6.1.1",
+    "@fullcalendar/timegrid": "^6.1.1",
     "bootstrap": "^5.2.3",
     "progressive-image": "^1.2.0"
   },

@@ -7,6 +7,7 @@ const socials = (await import('@data/socials.yml')).default;
 ---
 
 <footer>
+  <hr class="hr-blurry mx-auto" style="width:60%; padding-bottom:15px;">
   <div class="row" style="padding-top:10px">
     {socials.map((social: SocialType) => (
       <SocialIcon social={social}/>

@@ -1,7 +1,51 @@
 ---
 import PageSite from '@layouts/PageSite.astro';
 ---
+<PageSite title="calendar" description="The calendar">
+    <script>
+        // import fullcalendar
+        import { Calendar } from '@fullcalendar/core';
+        import listPlugin from '@fullcalendar/list';
+        import googleCalendarPlugin from '@fullcalendar/google-calendar';
+        document.addEventListener('DOMContentLoaded', function() {
+        var calendarEl = document.getElementById("calendar");
+        var calendar = new Calendar(calendarEl, {
+            googleCalendarApiKey: 'AIzaSyC8aX6KJLfEyiuSJ76hErHB8voNcoAi4yA',
+            initialView: 'listWeek',
+            plugins: [ listPlugin, googleCalendarPlugin],
+            headerToolbar: {
+                left: 'prev,next,today',
+                center: 'title',
+                right: 'listWeek,dayGridMonth,timeGridWeek'
+            },
+            contentHeight: screen.height / 2 - 60,
+            nowIndicator: true,
+            customButtons: {
+              addCalendar: {
+                text: 'Add to Google Calendar',
+                click: function() {
+                  window.open('https://calendar.google.com/calendar/u/2/r?cid=info@stuypulse.com&cid=stuypulse.com_oqgqev21591htqsjdhhg34mh3k@group.calendar.google.com');
+                }
+              }
+            },
+            eventSources: [
+                {
+                    googleCalendarId: 'info@stuypulse.com'
+                },
+                {
+                    googleCalendarId: 'stuypulse.com_oqgqev21591htqsjdhhg34mh3k@group.calendar.google.com'
+                }
+            ],
+            eventClick: function(arg) {
+            // opens events in a popup window
+            window.open(arg.event.url);
 
-<PageSite title="calendar" description={"TEST"}>
-  <h1>hello</h1>
+            // prevents current tab from navigating
+            arg.jsEvent.preventDefault();
+            }
+        });
+        calendar.render();
+    });
+    </script>
+    <div id="calendar"></div>
 </PageSite>
