@@ -7,12 +7,15 @@ import PageSite from '@layouts/PageSite.astro';
         import { Calendar } from '@fullcalendar/core';
         import listPlugin from '@fullcalendar/list';
         import googleCalendarPlugin from '@fullcalendar/google-calendar';
+        import dayGridPlugin from '@fullcalendar/daygrid';
+        import timeGridPlugin from '@fullcalendar/timegrid';
         document.addEventListener('DOMContentLoaded', function() {
         var calendarEl = document.getElementById("calendar");
+        if (!calendarEl) throw new Error("Calendar element not found");
         var calendar = new Calendar(calendarEl, {
             googleCalendarApiKey: 'AIzaSyC8aX6KJLfEyiuSJ76hErHB8voNcoAi4yA',
             initialView: 'listWeek',
-            plugins: [ listPlugin, googleCalendarPlugin],
+            plugins: [ listPlugin, googleCalendarPlugin, dayGridPlugin, timeGridPlugin],
             headerToolbar: {
                 left: 'prev,next,today',
                 center: 'title',
@@ -44,8 +47,10 @@ import PageSite from '@layouts/PageSite.astro';
             arg.jsEvent.preventDefault();
             }
         });
-        calendar.render();
+        calendar.render()
     });
     </script>
-    <div id="calendar"></div>
+    <div class="container">
+        <div id="calendar"></div>
+    </div>
 </PageSite>
