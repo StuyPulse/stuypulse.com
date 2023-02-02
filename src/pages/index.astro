@@ -17,26 +17,70 @@ let sortedBlog = getSortedPosts(blogEntries);
     padding-right:5px;
   }
 
-  h1 {
-    vertical-align:middle; 
-    display:inline;
-  }
-
   .row {
     justify-content: center;
-    /* align-items: center; */
+    align-items: center;
   }
 
   p {
     margin-bottom: 0.25rem;
   }
+
+  .large-name {
+    font-size: 60px;
+    font-weight: bold;
+    color: red;
+    line-height: 1;
+    margin-bottom: 5px;
+  }
+  .intro-text {
+    font-size: 25px;
+    margin-bottom: 0;
+    display: inline-block;
+  }
+  button {
+    background-color: red; 
+    color: white;
+    border-radius: 51px;
+    border-style: none;
+    padding: 10px 20px;
+    text-align: center;
+    font-size: 16px;
+    cursor: pointer;
+    margin-top: .5rem;
+  }
+
+  button:hover {
+    background-color: #e00;
+  }
 </style>
 
 <PageSite title={SITE_TITLE} description={"TEST"}>
     <div class="row">
-      <div class="col-lg-8" id="frontCarousel">
-        <Carousel/>
+      <div class="col">
+        <div class="intro-text">We are</div>
+        <div class = "large-name"><img class = "inline-icon" src="694-logo.png"/>StuyPulse</div>
+        <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">FIRST Robotics Competition Team 694&nbsp;</div>
         <br>
+        <p class = "px-4">We are StuyPulse, <a href="http://stuy.enschool.org/">Stuyvesant High School's</a> award-winning FIRST Robotics team. We seek to impact young adults by cultivating skills in engineering, programming, and business through FIRST. </p>
+        <a href='/about'><button type="button"> Learn More &gt;&gt;</button></a>
+      </div>
+      <div class="col-lg-7">
+        <Carousel/>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-4">
+        <img style = "height: 300px" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG">
+      </div>
+      <div class="col">
+
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-8" id="frontCarousel">
+        
       </div>
       <div class="col">
         <h1>Latest News</h1>
@@ -45,14 +89,6 @@ let sortedBlog = getSortedPosts(blogEntries);
       </div>
     </div>
     <div class = "row">
-      <div class = "col-md">
-        <h2>
-          <img class = "inline-icon" src="694-logo.png"/>
-          About StuyPulse
-        </h2>
-        <p>We are StuyPulse, <a href="http://stuy.enschool.org/">Stuyvesant High School's</a> award-winning FIRST Robotics team. Otherwise known as Team 694, we seek to impact young adults by cultivating skills in engineering, programming, marketing, teamwork, and leadership through the FIRST competitions. At the same time, we hope to educate and inspire people in our community, both young and old, about the wonders of science and technology.</p>
-        <p><a href="/about/">Learn more &raquo;</a></p>
-      </div>
       <div class = "col-md">
         <h2>
           <a href="http://www.usfirst.org/"><img class="front-page-thumb inline-icon" src="first-logo.png" alt="FIRST logo"></a>
