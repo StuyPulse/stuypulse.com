@@ -19,7 +19,7 @@ const { title, image, description } = Astro.props;
   </head>
   <body>
     <Header />
-    <div class="container-xxl">
+    <div class="container-lg">
       <slot />
     </div>
     <Footer />
@@ -29,12 +29,14 @@ const { title, image, description } = Astro.props;
       integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4"
       crossorigin="anonymous"
     ></script>
+    <script type="text/javascript" src="//use.typekit.net/avp1hlh.js"></script>
+    <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
     <style>
       div {
         margin: 1rem 2rem;
       }
 
-      @media screen and (min-width: 992px) {
+      @media screen and (min-width: 800px) {
         div {
           margin: 2rem 6rem;
         }

@@ -5,24 +5,24 @@ import BlogPreview from '@components/blog/BlogPreview.astro';
 import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
-import getSortedPosts from '@utils/getSortedPosts'
+import getSortedPosts from '@utils/getSortedPosts';
 
 const blogEntries = await getCollection('blog');
 let sortedBlog = getSortedPosts(blogEntries);
 ---
+
 <style>
   .inline-icon {
     height: 1em;
     transform: translateY(-0.1em);
-    padding-right:0.25rem;
+    padding-right: 0.25rem;
   }
 
   .row {
     justify-content: center;
     align-items: center;
-    margin-bottom: 3rem;
   }
-  .col {
+  .col, .col-lg-7, .col-lg-5 {
     margin-bottom: 3rem;
   }
 
@@ -43,7 +43,7 @@ let sortedBlog = getSortedPosts(blogEntries);
     display: inline-block;
   }
   button {
-    background-color: red; 
+    background-color: red;
     color: white;
     border-radius: 51px;
     border-style: none;
@@ -51,7 +51,7 @@ let sortedBlog = getSortedPosts(blogEntries);
     text-align: center;
     font-size: 16px;
     cursor: pointer;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
   }
 
   button:hover {
@@ -59,55 +59,80 @@ let sortedBlog = getSortedPosts(blogEntries);
   }
 </style>
 
-<PageSite title={SITE_TITLE} description={"TEST"}>
-    <div class="row">
-      <div class="col">
-        <div class="intro-text">We are</div>
-        <div class = "large-name"><img class = "inline-icon" src="694-logo.png"/>StuyPulse</div>
-        <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">FIRST Robotics Competition Team 694&nbsp;</div>
-        <br>
-        <p class = "px-4">We are StuyPulse, <a href="http://stuy.enschool.org/">Stuyvesant High School's</a> award-winning FIRST Robotics team. We seek to impact young adults by cultivating skills in engineering, programming, and business through FIRST. </p>
-        <a href='/about'><button type="button"> Learn More &gt;&gt;</button></a>
+<PageSite title={SITE_TITLE} description={'TEST'}>
+  <div class="row">
+    <div class="col">
+      <div class="intro-text">We are</div>
+      <div class="large-name">
+        <img class="inline-icon" src="694-logo.png" />StuyPulse
       </div>
-      <div class="col-lg-7">
-        <Carousel/>
+      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
+        FIRST Robotics Competition Team 694&nbsp;
+      </div>
+      <br />
+      <p>
+        We are StuyPulse, <a href="http://stuy.enschool.org/">Stuyvesant High School's</a> 
+        award-winning FIRST Robotics team. We seek to impact young adults by cultivating
+        skills in engineering, programming, and business through FIRST.
+      </p>
+      <a href="/about"><button type="button"> Learn More &gt;&gt;</button></a>
+    </div>
+    <div class="col-lg-7">
+      <Carousel/>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-lg-5" style="display: flex; align-items: center; justify-content: center;">
+      <div class = "card">
+        <img style = "width:20rem; display:flex;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG">
       </div>
     </div>
-    <div class="row">
-      <div class="col">
-        <img style = "width:300px;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG">
-      </div>
-      <div class="col">
-
-      </div>
+    <div class="col">
+      <div class="intro-text">Meet</div>
+      <div class = "large-name">Excelsior</div>
+      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">Our 2022 Robot for Rapid React&nbsp;</div>
+      <br>
+      <p>Excelsior was named after the late Stan Lee's catchphrase, as well as the Excelsior pass
+         introduced in our home of New York City. Excelsior is the first bot to win three
+        Innovation in Control awards in all of FRC history. </p>
+      <a href='/about/history'><button type="button"> See Our Old Bots &gt;&gt;</button></a>
     </div>
-
-    <div class="row">
-      <div class="col-lg-8" id="frontCarousel">
-        
-      </div>
-      <div class="col">
-        <h1>Latest News</h1>
-        <BlogPreview entries={sortedBlog} numPosts={3}></BlogPreview>
-        <h4><a href="/blog/">See older posts &raquo;</a></h4>
-      </div>
+  </div>
+  <div class="row">
+    <div class="col-md">
+      <h2>
+        <a href="http://www.usfirst.org/"
+          ><img
+            class="front-page-thumb inline-icon"
+            src="first-logo.png"
+            alt="FIRST logo"
+          /></a
+        >
+        About FIRST
+      </h2>
+      <p>
+        <a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition
+        in Science and Technology) is a multi-national, non-profit organization designed
+        to inspire and encourage today's youth to pursue careers in science, technology
+        and math. These programs also stress the development of skills in areas such
+        as teamwork, public relations, strategy, dedication, and outreach, which
+        are helpful and often necessary in future careers and endeavors.
+      </p>
+      <p><a href="/about/first/">Learn more &raquo;</a></p>
     </div>
-    <div class = "row">
-      <div class = "col-md">
-        <h2>
-          <a href="http://www.usfirst.org/"><img class="front-page-thumb inline-icon" src="first-logo.png" alt="FIRST logo"></a>
-          About FIRST
-        </h2>
-        <p><a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition in Science and Technology) is a multi-national, non-profit organization designed to inspire and encourage today's youth to pursue careers in science, technology and math. These programs also stress the development of skills in areas such as teamwork, public relations, strategy, dedication, and outreach, which are helpful and often necessary in future careers and endeavors.</p>
-        <p><a href="/about/first/">Learn more &raquo;</a></p>
-      </div>
-      <div class = "col-md">
-        <h2>
-          <a href="/sponsors/"><img class="front-page-thumb inline-icon" src="/red-diamond.svg" alt="Gem"></a>
-          Sponsors
-        </h2>
-        <p>We would like to thank our <a href="/sponsors/">sponsors</a>:</p>
-        <SponsorCarousel images="sponsors"/>
-      </div>
+    <div class="col-md">
+      <h2>
+        <a href="/sponsors/"
+          ><img
+            class="front-page-thumb inline-icon"
+            src="/red-diamond.svg"
+            alt="Gem"
+          /></a
+        >
+        Sponsors
+      </h2>
+      <p>We would like to thank our <a href="/sponsors/">sponsors</a>:</p>
+      <SponsorCarousel images="sponsors" />
     </div>
+  </div>
 </PageSite>
