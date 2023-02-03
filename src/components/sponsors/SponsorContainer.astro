@@ -1,8 +1,8 @@
 ---
-import type {SponsorType} from '@types';
+import type { SponsorType } from "@types";
 
 export interface Props {
-	sponsor: SponsorType;
+  sponsor: SponsorType;
   height: string;
   width: string;
   tSize: string;
@@ -10,7 +10,8 @@ export interface Props {
 
 const { sponsor, height, width, tSize } = Astro.props;
 ---
-<style define:vars={{height, width, tSize}}>
+
+<style define:vars={{ height, width, tSize }}>
   .sponsor-container {
     height: var(--height);
     width: var(--width);
@@ -35,20 +36,30 @@ const { sponsor, height, width, tSize } = Astro.props;
   }
 </style>
 
-<div class = "sponsor-container">
-{sponsor.logo ?
-  <div>
-    {sponsor.site == null ?
-      <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
-      :
-      <a href = {sponsor.site} target = "_blank">
-        <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
-      </a>
-    }
-  </div>
-  :
-  <div>
-    <p><strong>{sponsor.name}</strong></p>
-  </div>
-}
+<div class="sponsor-container">
+  {
+    sponsor.logo ? (
+      <div>
+        {sponsor.site == null ? (
+          <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
+        ) : (
+          <a href={sponsor.site} target="_blank">
+            <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
+          </a>
+        )}
+      </div>
+    ) : (
+      sponsor.site ? (
+      <p>
+        <strong>
+          <a href={sponsor.site} target="_blank">{sponsor.name}</a>
+        </strong>
+      </p>
+      ) : (
+        <p>
+          <strong>{sponsor.name}</strong>
+        </p>
+      )
+    )
+  }
 </div>

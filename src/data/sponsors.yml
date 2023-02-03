@@ -1,34 +1,48 @@
 # Sponsors
 # Used by: /sponsors, front page
-# For each sponsor, name is required and logo/site are optional.
+# For each sponsor, name and tier are required and logo/site are optional.
 
 - name: SHS Parents' Association
   site: https://stuy-pa.org/
+  tier: gold
 - name: D.E. Shaw &amp; Co.
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/deshaw.png
   site: https://www.deshaw.com/
+  tier: silver
 - name: Mary Ann Belliveau
 - name: Con Edison
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/conedison.png
   site: https://www.coned.com/
+  tier: bronze
 - name: ABB
   site: https://global.abb/group/en
   logo: https://stuypulse.nyc3.digitaloceanspaces.com/site/sponsorships/img/abb.png
+  tier: bronze
 - name: Google
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/google1.png
+  site: https://about.google/
+  tier: bronze
 - name: Bloomberg
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/bloomberg.png
   site: https://www.bloomberg.com/
+  tier: bronze
 - name: Joe Ricci
+  tier: aluminum
 - name: Amazon
   site: https://tinyurl.com/smilepulse
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/amazon1.png
+  tier: bronze
 - name: NASA
   site: https://www.nasa.gov/
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/nasa.gif
+  tier: silver
 - name: Alec Mori
+  tier: aluminum
 - name: Gene Haas Foundation
   site: https://ghaasfoundation.org/
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/ghaas.png
+  tier: bronze
 - name: Yan Family
+  tier: aluminum
 - name: Doan Family
+  tier: bronze
