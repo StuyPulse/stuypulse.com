@@ -92,10 +92,11 @@ const imageData = yml.default;
             /*<img src={image.img} class="d-block w-100" alt="..." />*/
             <Picture 
                 src={image.img}
-                alt={image.caption}
+                alt="..."
                 attributes={{
                   // @ts-ignore
                   class: "d-block w-100",
+                  loading: "eager"
                 }}
               />
             :

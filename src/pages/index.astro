@@ -66,12 +66,11 @@ let sortedBlog = getSortedPosts(blogEntries);
       <div class="large-name">
         <Img
           src="694-logo.png"
-          alt="StuyPulse Logo"
+          alt=""
           attributes={{
             //@ts-ignore
             class: "inline-icon",
             //@ts-ignore
-            style: "max-width: 100%"
           }}
           />
         StuyPulse
@@ -120,10 +119,13 @@ let sortedBlog = getSortedPosts(blogEntries);
     <div class="col-md">
       <h2>
         <a href="http://www.usfirst.org/"
-          ><img
-            class="front-page-thumb inline-icon"
+          ><Img
             src="first-logo.png"
             alt="FIRST logo"
+            attributes={{
+              //@ts-ignore
+              class:  "front-page-thumb inline-icon"
+            }}
           /></a
         >
         About FIRST
@@ -141,11 +143,13 @@ let sortedBlog = getSortedPosts(blogEntries);
     <div class="col-md">
       <h2>
         <a href="/sponsors/"
-          ><img
+          >
+          <img
             class="front-page-thumb inline-icon"
             src="/red-diamond.svg"
             alt="Gem"
-          /></a
+          />
+          </a
         >
         Sponsors
       </h2>
