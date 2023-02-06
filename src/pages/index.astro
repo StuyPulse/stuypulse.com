@@ -1,14 +1,17 @@
 ---
 import { getCollection } from 'astro:content';
 import PageSite from '@layouts/PageSite.astro';
-import BlogPreview from '@components/blog/BlogPreview.astro';
 import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
 import getSortedPosts from '@utils/getSortedPosts';
+import BlogMiniPreview from '@components/blog/BlogMiniPreview.astro';
+
+const POSTS_ON_FRONT_PAGE = 5;
 
 const blogEntries = await getCollection('blog');
-let sortedBlog = getSortedPosts(blogEntries);
+const sortedBlog = getSortedPosts(blogEntries);
+const frontPosts = sortedBlog.slice(0, POSTS_ON_FRONT_PAGE);
 ---
 
 <style>
@@ -22,7 +25,9 @@ let sortedBlog = getSortedPosts(blogEntries);
     justify-content: center;
     align-items: center;
   }
-  .col, .col-lg-7, .col-lg-5 {
+  .col,
+  .col-lg-7,
+  .col-lg-5 {
     margin-bottom: 3rem;
   }
 
@@ -70,56 +75,55 @@ let sortedBlog = getSortedPosts(blogEntries);
       </div>
       <br />
       <p>
-        We are StuyPulse, <a href="http://stuy.enschool.org/">Stuyvesant High School's</a> 
+        We are StuyPulse, <a href="http://stuy.enschool.org/"
+          >Stuyvesant High School's</a
+        >
         award-winning FIRST Robotics team. We seek to impact young adults by cultivating
         skills in engineering, programming, and business through FIRST.
       </p>
       <a href="/about"><button type="button"> Learn More &gt;&gt;</button></a>
     </div>
     <div class="col-lg-7">
-      <Carousel/>
+      <Carousel />
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-5" style="display: flex; align-items: center; justify-content: center;">
-      <div class = "card">
-        <img style = "width:20rem; display:flex;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG">
+    <div
+      class="col-lg-5"
+      style="display: flex; align-items: center; justify-content: center;"
+    >
+      <div class="card">
+        <img
+          style="width:20rem; display:flex;"
+          src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"
+        />
       </div>
     </div>
     <div class="col">
-      <div class="intro-text">Meet</div>
-      <div class = "large-name">Excelsior</div>
-      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">Our 2022 Robot for Rapid React&nbsp;</div>
-      <br>
-      <p>Excelsior was named after the late Stan Lee's catchphrase, as well as the Excelsior pass
-         introduced in our home of New York City. Excelsior is the first bot to win three
-        Innovation in Control awards in all of FRC history. </p>
-      <a href='/about/history'><button type="button"> See Our Old Bots &gt;&gt;</button></a>
+      <div class="large-name">Excelsior</div>
+      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
+        Our 2022 Robot for Rapid React&nbsp;
+      </div>
+      <br />
+      <p>
+        Excelsior was named after the late Stan Lee's catchphrase, as well as
+        the Excelsior pass introduced in our home of New York City. Excelsior is
+        the first bot to win three Innovation in Control awards in all of FRC
+        history.
+      </p>
+      <a href="/about/history"
+        ><button type="button"> See Our Old Bots &gt;&gt;</button></a
+      >
     </div>
   </div>
   <div class="row">
-    <div class="col-md">
-      <h2>
-        <a href="http://www.usfirst.org/"
-          ><img
-            class="front-page-thumb inline-icon"
-            src="first-logo.png"
-            alt="FIRST logo"
-          /></a
-        >
-        About FIRST
-      </h2>
-      <p>
-        <a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition
-        in Science and Technology) is a multi-national, non-profit organization designed
-        to inspire and encourage today's youth to pursue careers in science, technology
-        and math. These programs also stress the development of skills in areas such
-        as teamwork, public relations, strategy, dedication, and outreach, which
-        are helpful and often necessary in future careers and endeavors.
-      </p>
-      <p><a href="/about/first/">Learn more &raquo;</a></p>
+    <div class="col-sm-8">
+      <h2>Recent Blog Posts</h2>
+
+      <BlogMiniPreview entries={frontPosts} numPosts={POSTS_ON_FRONT_PAGE} />
     </div>
-    <div class="col-md">
+
+    <div class="col-sm-4">
       <h2>
         <a href="/sponsors/"
           ><img
