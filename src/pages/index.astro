@@ -6,7 +6,7 @@ import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
 import getSortedPosts from '@utils/getSortedPosts';
-import { Picture, Img } from "astro-imagetools/components";
+
 const blogEntries = await getCollection('blog');
 let sortedBlog = getSortedPosts(blogEntries);
 ---
@@ -64,17 +64,7 @@ let sortedBlog = getSortedPosts(blogEntries);
     <div class="col">
       <div class="intro-text">We are</div>
       <div class="large-name">
-        <Img
-          src="694-logo.png"
-          alt="StuyPulse Logo"
-          attributes={{
-            //@ts-ignore
-            class: "inline-icon",
-            //@ts-ignore
-            style: "max-width: 100%"
-          }}
-          />
-        StuyPulse
+        <img class="inline-icon" src="694-logo.png" />StuyPulse
       </div>
       <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
         FIRST Robotics Competition Team 694&nbsp;
@@ -94,15 +84,7 @@ let sortedBlog = getSortedPosts(blogEntries);
   <div class="row">
     <div class="col-lg-5" style="display: flex; align-items: center; justify-content: center;">
       <div class = "card">
-        <!-- <img style = "width:20rem; display:flex;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"> -->
-        <Picture
-          src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"
-          alt="Excelsior"
-          attributes={{
-            //@ts-ignore
-            style: "width:20rem; display:flex;"
-          }}
-        />
+        <img style = "width:20rem; display:flex;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG">
       </div>
     </div>
     <div class="col">
