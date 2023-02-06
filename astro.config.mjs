@@ -9,9 +9,6 @@ export default defineConfig({
   site: 'https://new.stuypulse.com',
   integrations: [mdx(), sitemap()],
   vite: {
-    plugins: [yaml()],
-    build : {
-      cssCodeSplit : false
-    }
+    plugins: [yaml()]
   }
 });
