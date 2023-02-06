@@ -47,9 +47,3 @@ table {
 img {
   max-width: 100%;
 }
-/* calendar fix for mobile */
-@media (max-width: 767px) {
-  .fc-toolbar-title {
-      display: none !important;
-  }
-}
