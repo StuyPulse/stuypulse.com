@@ -1,7 +1,8 @@
 ---
-layout: $layouts/Post.astro
+layout: post
 title: New York City Regional Recap
 author: Leilei Hao
+date: 2018-04-15
 ---
 Last weekend, we competed in the New York City Regional.
 Wildcard made team history by going undefeated throughout the entire regional.

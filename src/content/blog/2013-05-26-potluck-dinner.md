@@ -1,7 +1,8 @@
 ---
-layout: $layouts/Post.astro
+layout: post
 title: Potluck dinner!
 author: Justin Kim
+date: 2013-05-26
 ---
 The annual potluck dinner and silent auction will be Friday, June 14. All mentors, parents, alumni, and students are welcome to attend! This is our opportunity to thank the entire StuyPulse family for their support during the year.
 
