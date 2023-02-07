@@ -1,6 +1,6 @@
 ---
 layout: $layouts/Post.astro
-tite: September Newsletter!
+title: September Newsletter!
 author: Areyan Kayum
 link: https://drive.google.com/file/d/1lZSjC4vOkd8RByJQhPz9TQi1MlMdzioN/view
 date: 2018-10-07
