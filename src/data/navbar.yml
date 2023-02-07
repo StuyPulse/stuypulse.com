@@ -17,8 +17,8 @@
     - name: Leadership
       href: /leadership
       dropdown: true
-- name: Blog
-  href: /blog
+- name: News
+  href: /news
 - name: Community
   href: /community
 - name: Resources
