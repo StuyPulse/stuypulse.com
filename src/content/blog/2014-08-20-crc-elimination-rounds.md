@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: CRC Elimination Rounds
 author: Ivy Wong
 date: 2014-08-20

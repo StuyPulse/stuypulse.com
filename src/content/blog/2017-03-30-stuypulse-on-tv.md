@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: StuyPulse on TV
 author: Yedoh Kang
 date: 2017-03-30

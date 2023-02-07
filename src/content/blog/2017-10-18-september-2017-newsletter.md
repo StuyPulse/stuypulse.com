@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: September 2017 Newsletter
 author: Eugene Seo
 link: https://stuypulse.com/downloads/newsletters/september-2017.pdf

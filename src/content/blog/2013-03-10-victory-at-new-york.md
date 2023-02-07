@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Victory at New York!
 author: Kevin Wang
 date: 2013-03-10

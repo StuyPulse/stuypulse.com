@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Week 6 Newsletter
 author: Yedoh Kang
 link: https://stuypulse.com/downloads/newsletters/week6-2017.pdf

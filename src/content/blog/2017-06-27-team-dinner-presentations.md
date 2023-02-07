@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Team Dinner Presentations
 author: Yedoh Kang
 date: 2017-06-27

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: NYC Regional Recap
 author: Yedoh Kang
 date: 2017-04-10

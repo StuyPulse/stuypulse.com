@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: China Robotics Challenge 2015
 author: Nicole Shin
 date: 2015-09-03

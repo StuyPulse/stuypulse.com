@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Recycle Rush and Kickoff
 author: Ivy 
 date: 2015-01-03

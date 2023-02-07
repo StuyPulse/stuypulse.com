@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: South Florida Recap
 author: Yedoh Kang
 date: 2017-03-10

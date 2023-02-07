@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: StuyPulse Interest Meeting
 author: Nicole Shin
 date: 2015-09-13

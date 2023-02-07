@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Stuyvesant Robotics Interest Meeting
 author: Helen Ye
 date: 2017-09-11

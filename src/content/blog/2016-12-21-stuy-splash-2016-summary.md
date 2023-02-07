@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Stuy Splash 2016 Summary
 author: Courtney Chiu
 date: 2016-12-21

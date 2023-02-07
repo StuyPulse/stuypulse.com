@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: StuySplash 2016 Updates
 author: Yedoh Kang
 date: 2016-12-07

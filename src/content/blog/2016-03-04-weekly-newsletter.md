@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Weekly Newsletters
 author: Nicole Shin
 date: 2016-03-04

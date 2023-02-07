@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Stuy Splash 2017 Photos
 author: Yedoh Kang
 date: 2017-12-25

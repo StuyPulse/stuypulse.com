@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: New York City Regional
 author: Yedoh Kang
 date: 2017-04-05

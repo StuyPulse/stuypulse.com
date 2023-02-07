@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Regional Recap
 author: Nicole Shin
 date: 2016-04-07

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: New York City Regional Recap
 author: Leilei Hao
 date: 2018-04-15

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: China Robotics Challenge 2016
 author: Yedoh Kang
 date: 2016-07-20

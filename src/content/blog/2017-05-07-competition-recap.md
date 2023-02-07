@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Competition Recap
 author: Yedoh Kang
 date: 2017-05-07

@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Visitors From China
 author: Ivy Wong
 date: 2015-03-10

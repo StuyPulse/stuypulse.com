@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Week 1 Newsletter
 author: Areyan Kayum & Winne Lin
 link: https://drive.google.com/file/d/1JIc19wwIAmiA2e2tl1vUk8us0XUyBuW2/view?usp=sharing

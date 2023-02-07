@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Week 1 Newsletter
 author: Eugene Seo
 link: https://stuypulse.com/downloads/newsletters/week1-2018.pdf

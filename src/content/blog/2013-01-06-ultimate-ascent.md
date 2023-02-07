@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Ultimate Ascent!
 author: Eric Lam
 date: 2013-01-06

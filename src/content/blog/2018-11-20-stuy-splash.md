@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Stuy Splash 2018
 author: Areyan Kayum
 date: 2018-11-20

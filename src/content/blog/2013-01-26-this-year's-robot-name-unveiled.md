@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: This year's robot name unveiled
 author: Doris Tsang
 date: 2013-01-26

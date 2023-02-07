@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: StuyPulse Alumni Association
 author: Kevin Wang
 date: 2013-06-21

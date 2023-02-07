@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Potluck dinner!
 author: Justin Kim
 date: 2013-05-26

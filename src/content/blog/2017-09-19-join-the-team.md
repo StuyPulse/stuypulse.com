@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Join the Team!
 author: Helen Ye
 date: 2017-09-19

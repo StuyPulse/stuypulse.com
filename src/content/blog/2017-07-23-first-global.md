@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: FIRST Global Recap
 author: Levi Olevsky
 date: 2017-07-23

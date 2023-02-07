@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: $layouts/Post.astro
 title: Introducing the new StuyPulse.com!
 author: Kevin Wang
 date: 2013-02-02
