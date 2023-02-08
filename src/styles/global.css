@@ -4,6 +4,10 @@
   License MIT: https://github.com/HermanMartinus/bearblog/blob/master/LICENSE.md
  */
 
+@font-face {
+  font-family: "museo-sans";
+  src: url("/MuseoSans-300.otf") format("opentype");
+}
 body {
   font-family: "museo-sans","Helvetica Neue",Helvetica,Arial,sans-serif;
   /*margin: auto;*/
@@ -16,7 +20,6 @@ body {
   line-height: 1.5;
   color: #444;
 }
-
 h1,
 h2,
 h3,
@@ -52,4 +55,7 @@ img {
   .fc-toolbar-title {
       display: none !important;
   }
+}
+h1, h2, h3, h4, h5, h6, .large-name {
+  font-family: "europa","Helvetica Neue",Helvetica,Arial,sans-serif;
 }
