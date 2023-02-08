@@ -13,7 +13,7 @@ const { frontmatter } = Astro.props;
 let splitPath = frontmatter.file.split(/content|.md/);
 const filePath = splitPath[1];
 
-let postDate = getPostDate(frontmatter.file.split(/blog\//)[1]);
+let postDate = getPostDate(frontmatter.file.split(/news\//)[1]);
 const dateString = postDate.toLocaleDateString('en-us', {
   weekday: "long",
   year: "numeric",

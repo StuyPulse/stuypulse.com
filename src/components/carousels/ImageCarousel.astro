@@ -1,8 +1,6 @@
 ---
 import type {CarouselItemType} from '@types';
 // @ts-ignore
-import { Picture } from "astro-imagetools/components";
-// @ts-ignore
 const yml = await import(`@data/frontCarousel.yml`);
 const imageData = yml.default;
 ---
@@ -89,26 +87,10 @@ const imageData = yml.default;
       imageData.map((image: CarouselItemType, index: number) => (
         <div class={index == 0 ? "carousel-item active" : "carousel-item"}>
           {image["img-link"] == null ?
-            /*<img src={image.img} class="d-block w-100" alt="..." />*/
-            <Picture 
-                src={image.img}
-                alt="..."
-                attributes={{
-                  // @ts-ignore
-                  class: "d-block w-100",
-                  loading: "eager"
-                }}
-              />
+            <img src={image.img} class="d-block w-100" alt="..." />
             :
             <a href = {image["img-link"]} target = "_blank">
-              <Picture
-                  src={image.img}
-                  alt={image.caption}
-                  attributes={{
-                    // @ts-ignore
-                    class: "d-block w-100",
-                  }}
-                />
+              <img src={image.img} class="d-block w-100" alt={image.caption} />
             </a>
           }
           <div class="carousel-caption text-start">

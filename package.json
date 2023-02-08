@@ -18,9 +18,7 @@
     "@fullcalendar/google-calendar": "^6.1.1",
     "@fullcalendar/list": "^6.1.1",
     "@fullcalendar/timegrid": "^6.1.1",
-    "astro-imagetools": "^0.7.6",
-    "bootstrap": "^5.2.3",
-    "progressive-image": "^1.2.0"
+    "bootstrap": "^5.2.3"
   },
   "devDependencies": {
     "@rollup/plugin-yaml": "^4.0.1",

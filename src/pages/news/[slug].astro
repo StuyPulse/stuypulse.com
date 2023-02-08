@@ -1,30 +1,30 @@
 ---
 import { getCollection } from 'astro:content';
 import { POSTS_PER_PAGE } from '@config';
-import BlogPreview from '@components/blog/BlogPreview.astro';
-import Paginator from '@components/blog/Paginator.astro'
+import NewsPreview from '@components/news/NewsPreview.astro';
+import Paginator from '@components/news/Paginator.astro'
 import PageSite from '@layouts/PageSite.astro';
 import getSortedPosts from '@utils/getSortedPosts'
 
 export async function getStaticPaths() {
-  const blogEntries = await getCollection('blog');
-  let postResult = blogEntries.map(entry => {
+  const newsEntries = await getCollection('news');
+  let postResult = newsEntries.map(entry => {
     return {
       params: {slug: entry.slug}, 
       props: {entry}
     };
   });
 
-  let max_entries = blogEntries.length;
+  let max_entries = newsEntries.length;
   let entryList = [];
-  for(let i = 1; i<blogEntries.length / POSTS_PER_PAGE; i++){
+  for(let i = 1; i<newsEntries.length / POSTS_PER_PAGE; i++){
     entryList.push({params: { slug: String(i) }});
   }
   return [...postResult, ...entryList];
 }
 
-const blogEntries = await getCollection('blog');
-let sortedBlog = getSortedPosts(blogEntries);
+const newsEntries = await getCollection('news');
+let sortedNews = getSortedPosts(newsEntries);
 
 const { slug } = Astro.params;
 const { entry } = Astro.props;
@@ -34,16 +34,17 @@ const Content = ent ? ent.Content : null;
 
 let ENTRY_START = (Number(slug) - 1) * POSTS_PER_PAGE;
 let ENTRY_END = (Number(slug)) * POSTS_PER_PAGE;
-console.log(ENTRY_START);
-let paginatedPosts = sortedBlog.slice(ENTRY_START, ENTRY_END);
+// console.log(ENTRY_START);
+let paginatedPosts = sortedNews.slice(ENTRY_START, ENTRY_END);
 // console.log(paginatedPosts);
 
 let entryList = [];
-for(let i = 1; i<sortedBlog.length / POSTS_PER_PAGE; i++){
+for(let i = 1; i<sortedNews.length / POSTS_PER_PAGE; i++){
   entryList.push(i);
 }
 ---
-<PageSite title={""} description={""}>
+<PageSite title={"StuyPulse | News"} description={""}>
+  <h1>News and Newsposts</h1>
   {
     entry ?
     <div>
@@ -52,14 +53,14 @@ for(let i = 1; i<sortedBlog.length / POSTS_PER_PAGE; i++){
       <iframe src={entry.data.link} width="100%" height="700px"></iframe>
       <div class = "row">
         <div class="col">
-          <h4><a href="/blog/">See other posts &raquo;</a></h4>
+          <h4><a href="/news/">See other posts &raquo;</a></h4>
         </div>
       </div>
       :
       <div class = "row">
         <div class="col">
           <Content />
-          <h4><a href="/blog/">See other posts &raquo;</a></h4>
+          <h4><a href="/news/">See other posts &raquo;</a></h4>
         </div>
       </div>
     }
@@ -69,7 +70,7 @@ for(let i = 1; i<sortedBlog.length / POSTS_PER_PAGE; i++){
     <div>
       <div class = "row">
         <div class="col">
-          <BlogPreview entries={paginatedPosts} numPosts={POSTS_PER_PAGE}></BlogPreview>
+          <NewsPreview entries={paginatedPosts} numPosts={POSTS_PER_PAGE}></NewsPreview>
         </div>
       </div>
       <Paginator numPages={entryList} currPost={Number(slug)}/>

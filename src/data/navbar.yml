@@ -12,13 +12,13 @@
       href: /about
       dropdown: true
     - name: History
-      href: /history
+      href: /about/history
       dropdown: true
     - name: Leadership
-      href: /leadership
+      href: /about/leadership
       dropdown: true
-- name: Blog
-  href: /blog
+- name: News
+  href: /news
 - name: Community
   href: /community
 - name: Resources

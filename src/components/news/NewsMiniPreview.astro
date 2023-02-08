@@ -1,0 +1,43 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import getPostDate from '@utils/getPostDate';
+
+export interface Props {
+  entries: CollectionEntry<'news'>[];
+  numPosts: number;
+}
+
+const { entries, numPosts } = Astro.props;
+
+// console.log(entries[0]);
+
+const posts = [];
+for (const entry of entries) {
+  const dateString = getPostDate(entry.id).toLocaleDateString('en-us', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: '2-digit'
+  });
+
+  posts.push({
+    file: 'news/' + entry.id,
+    title: entry.data.title,
+    author: entry.data.author,
+    date: dateString
+  });
+}
+---
+
+{
+  posts.map((post, i) => (
+    <>
+      <h3>
+        <a href={post.file}>&raquo; {post.title}</a>
+      </h3>
+      <p>
+        By {post.author} on {post.date}
+      </p>
+    </>
+  ))
+}
