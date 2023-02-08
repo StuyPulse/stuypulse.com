@@ -42,16 +42,25 @@ const navs = (await import('@data/navbar.yml')).default;
 </nav>
 
 <style>
+  
   .navbar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-  }
-
-  nav {
-    
     background: linear-gradient(
-      120deg,
-      rgba(224, 0, 0, 1) 60%,
-      rgb(246, 251, 255) 40%
+      300deg,
+      rgb(246, 251, 255) 6em,
+      rgba(224, 0, 0, 1) 2em
+      
     );
+  }
+  @media screen and (min-width: 992px) {
+    .navbar {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    background: linear-gradient(
+      300deg,
+      rgb(246, 251, 255) 34em,
+      rgba(224, 0, 0, 1) 10em
+      
+    );
+    }
   }
 </style>
