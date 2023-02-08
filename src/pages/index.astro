@@ -5,13 +5,13 @@ import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
 import getSortedPosts from '@utils/getSortedPosts';
-import BlogMiniPreview from '@components/blog/BlogMiniPreview.astro';
+import NewsMiniPreview from '@components/news/NewsMiniPreview.astro';
 
 const POSTS_ON_FRONT_PAGE = 5;
 
-const blogEntries = await getCollection('blog');
-const sortedBlog = getSortedPosts(blogEntries);
-const frontPosts = sortedBlog.slice(0, POSTS_ON_FRONT_PAGE);
+const newsEntries = await getCollection('news');
+const sortedNews = getSortedPosts(newsEntries);
+const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
 ---
 
 <style>
@@ -113,7 +113,7 @@ const frontPosts = sortedBlog.slice(0, POSTS_ON_FRONT_PAGE);
     <div class="col-sm-8">
       <h2>Recent News</h2>
 
-      <BlogMiniPreview entries={frontPosts} numPosts={POSTS_ON_FRONT_PAGE} />
+      <NewsMiniPreview entries={frontPosts} numPosts={POSTS_ON_FRONT_PAGE} />
 
       <strong><a href="/news">See older news &gt;&gt;</a></strong>
     </div>

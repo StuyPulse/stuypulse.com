@@ -1,14 +1,14 @@
 import type { CollectionEntry } from "astro:content";
 import getPostDate from "./getPostDate";
-  const getSortedPosts = (blogEntries: CollectionEntry<'blog'>[]) =>
+  const getSortedPosts = (newsEntries: CollectionEntry<'news'>[]) =>
   {
-    blogEntries.sort((a,b)=>{
+    newsEntries.sort((a,b)=>{
     // console.log(a.id)
     return Math.floor(getPostDate(b.id).getTime() / 1000) - Math.floor(getPostDate(a.id).getTime() / 1000)
   })
     
     
-    return blogEntries;
+    return newsEntries;
   }
 
 export default getSortedPosts;
