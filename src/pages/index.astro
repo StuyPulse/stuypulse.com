@@ -22,6 +22,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   }
 
   .row {
+
     justify-content: center;
     align-items: center;
   }
@@ -72,7 +73,15 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   <div class="row">
     <div class="col">
       <div class="large-name">
-        <img src="694-logo.png" class="inline-icon">
+        <Img
+          src="694-logo.png"
+          alt=""
+          attributes={{
+            //@ts-ignore
+            class: "inline-icon",
+            //@ts-ignore
+          }}
+          />
         StuyPulse
       </div>
       <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
@@ -124,11 +133,13 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     <div class="col-sm-4">
       <h2>
         <a href="/sponsors/"
-          ><img
+          >
+          <img
             class="front-page-thumb inline-icon"
             src="/red-diamond.svg"
             alt="Gem"
-          /></a
+          />
+          </a
         >
         Sponsors
       </h2>
