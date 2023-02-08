@@ -12,10 +12,10 @@
       href: /about
       dropdown: true
     - name: History
-      href: /history
+      href: /about/history
       dropdown: true
     - name: Leadership
-      href: /leadership
+      href: /about/leadership
       dropdown: true
 - name: News
   href: /news
