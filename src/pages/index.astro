@@ -58,6 +58,10 @@ let sortedBlog = getSortedPosts(blogEntries);
   button:hover {
     background-color: #e00;
   }
+  .robotimg {
+    width: 20rem;
+    display: flex;
+  }
 </style>
 
 <PageSite title={SITE_TITLE} description={'TEST'}>
@@ -84,15 +88,11 @@ let sortedBlog = getSortedPosts(blogEntries);
   </div>
   <div class="row">
     <div class="col-lg-5" style="display: flex; align-items: center; justify-content: center;">
-      <div class = "card">
+      <div class = "card robotimg">
         <!-- <img style = "width:20rem; display:flex;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"> -->
         <Picture
           src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"
           alt="Excelsior"
-          attributes={{
-            //@ts-ignore
-            style: "width:20rem; display:flex;"
-          }}
         />
       </div>
     </div>
