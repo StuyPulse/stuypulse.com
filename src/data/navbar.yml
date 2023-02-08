@@ -14,8 +14,8 @@
     - name: History
       href: /history
       dropdown: true
-    - name: Team
-      href: /team
+    - name: Leadership
+      href: /leadership
       dropdown: true
 - name: Blog
   href: /blog
