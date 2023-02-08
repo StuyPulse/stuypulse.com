@@ -2,8 +2,8 @@
 layout: $layouts/Post.astro
 title: Summer 2017 Newsletter
 author: Eugene Seo
-link: https://stuypulse.com/downloads/newsletters/summer-2017.pdf
+link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2017_summer.pdf
 date: 2017-09-25
 ---
-Here's the newsletter for the [summer of 2017](/downloads/newsletters/summer-2017.pdf)!
+Here's the newsletter for the [summer of 2017](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2017_summer.pdf)!
 Check it out!

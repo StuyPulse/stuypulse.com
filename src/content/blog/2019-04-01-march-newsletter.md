@@ -2,7 +2,7 @@
 layout: $layouts/Post.astro
 title: March Newsletter
 author: Areyan Kayum
-link: https://drive.google.com/file/d/137dI6_edz1VTcQTR_HFo7IJbxXCrPU-r/view?fbclid=IwAR0rPjKLQtkJQWEJzNz-ljgPNhI9iECeTQFnHitVYmsmOVsmPpOONM8W1SQ
+link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2019_march.pdf
 date: 2019-04-01
 ---
-Check out our March Newsletter right [here](https://drive.google.com/file/d/137dI6_edz1VTcQTR_HFo7IJbxXCrPU-r/view?fbclid=IwAR0rPjKLQtkJQWEJzNz-ljgPNhI9iECeTQFnHitVYmsmOVsmPpOONM8W1SQ)!
+Check out our March Newsletter right [here](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2019_march.pdf)!

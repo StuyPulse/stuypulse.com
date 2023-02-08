@@ -2,7 +2,7 @@
 layout: $layouts/Post.astro
 title: Week 4 Newsletter
 author: Areyan Kayum
-link: https://drive.google.com/file/d/14_23CVivheO0PQZw3DH_ZojwLJQhq0tb/view?usp=sharing
+link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2019_week4.pdf
 date: 2019-02-09
 ---
-Take a look at our Week 4 Newsletter [here](https://drive.google.com/file/d/14_23CVivheO0PQZw3DH_ZojwLJQhq0tb/view?usp=sharing)!
+Take a look at our Week 4 Newsletter [here](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2019_week4.pdf)!

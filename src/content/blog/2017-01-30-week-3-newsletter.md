@@ -2,7 +2,7 @@
 layout: $layouts/Post.astro
 title: Week 3 Newsletter
 author: Yedoh Kang
-link: https://stuypulse.com/downloads/newsletters/week3-2017.pdf
+link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2017_week3.pdf
 date: 2017-01-30
 ---
-Here's the [Week 3 Newsletter](/downloads/newsletters/week3-2017.pdf)!
+Here's the [Week 3 Newsletter](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2017_week3.pdf)!

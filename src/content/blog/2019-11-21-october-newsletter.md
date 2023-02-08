@@ -2,7 +2,7 @@
 layout: $layouts/Post.astro
 title: October Newsletter
 author: Bryan Lai
-link: https://drive.google.com/file/d/1wbGf-ZbdahzWu8R_zJEBaNIlq9tHRS7M/view?fbclid=IwAR3QLezENpyuSV5zRGkuKueJfWlaJcE_lohm8hNFMkck9QRgUIlGt_tg9eE
+link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2019_october.pdf
 date: 2019-11-21
 ---
-Check out our October Newsletter right [here](https://drive.google.com/file/d/1wbGf-ZbdahzWu8R_zJEBaNIlq9tHRS7M/view?fbclid=IwAR3QLezENpyuSV5zRGkuKueJfWlaJcE_lohm8hNFMkck9QRgUIlGt_tg9eE)!
+Check out our October Newsletter right [here](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2019_october.pdf)!
