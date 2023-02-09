@@ -20,8 +20,6 @@ const { leadership, height, width, tSize } = Astro.props;
 
   p {
     font-size: var(--tSize);
-    align-items: center;
-    text-align: center;
   }
 </style>
 
@@ -31,22 +29,21 @@ const { leadership, height, width, tSize } = Astro.props;
       <h3>{leadership.position}</h3>
     </div>
     <div class="row no-gutters">
-      <div class="col-md-4">
+      <div class = "col-md-4">
         {
           leadership.image ? (
             <Picture src={leadership.image} alt={leadership.name} />
-            // <img class="card-img" src={leadership.image} alt={leadership.name} />
           ) : (
-            <strong>
-              <h4>{leadership.name}</h4>
-            </strong>
+          <strong>
+            <h1>{leadership.name}</h1>
+          </strong>
           )
         }
       </div>
-      <div class="card-body">
-        <div class="col-sm-12">
-          <h4 class="card-text">{leadership.name}</h4>
-          <p class="card-text">{leadership.description}</p>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-text">{leadership.name}</h3>
+          <p class="card-text" style="text-indent: 1.5rem;">{leadership.description}</p>
         </div>
       </div>
     </div>
