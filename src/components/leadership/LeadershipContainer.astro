@@ -1,0 +1,52 @@
+---
+import type { LeadershipType } from "@types";
+
+// idk but doesnt look like we need it cuz cards are flexbox
+export interface Props {
+  leadership: LeadershipType;
+  height: string;
+  width: string;
+  tSize: string;
+}
+
+const { leadership, height, width, tSize } = Astro.props;
+---
+
+<style define:vars={{ height, width, tSize }}>
+  .leadership-container {
+    height: var(--height);
+    width: var(--width);
+    justify-content: center;
+    align-items: center;
+  }
+
+  p {
+    font-size: var(--tSize);
+    align-items: center;
+    text-align: center;
+  }
+</style>
+
+<div class="leadership-container">
+  <div class="card">
+    <div class="card-header">
+        <h3>{leadership.position}</h3>
+    </div>
+    <div class="card-body">
+    { 
+      leadership.image ? (
+        <img src={leadership.image} alt={leadership.name} />
+      ) : (
+        <strong>
+          <h4>{leadership.name}</h4>
+        </strong>
+      )
+    }
+    </div>
+    <div class="card-footer">
+        <h4>{leadership.name}</h4>
+        <p>{leadership.description}</p>
+    </div>
+  </div>
+
+</div>

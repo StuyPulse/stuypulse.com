@@ -47,55 +47,59 @@
   position: Director of Operations
   image: /ecac/allison.jpg
   description: test
-- name: 
-  position: 
+- name: Faiza M.
+  position: Director of Public Relations
+  image: /ecac/faiza.jpg
+  description: test
+- name: Oston C.
+  position: Director of Media
+  image: /ecac/oston.jpg
+  description: test
+- name: April L.
+  position: Director of Strategy
+  image: /ecac/april.jpg
+  description: test
+- name: Andrew L.
+  position: Assistant Director of Strategy
+  image: /ecac/andrew.jpg
+  description: test
+- name: Sean Z.
+  position: Director of Design
+  image: /ecac/sean.jpg
+  description: test
+- name: Kano K.
+  position: Director of Design
+  image: /ecac/sean.jpg
+  description: test
+- name: April L.
+  position: Director of Machining
+  image: /ecac/april.jpg
+  description: test
+- name: Vacant
+  position: Assistant Director of Machining
   image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
-- name: 
-  position: 
-  image: 
-  description:
+  description: test
+- name: Andy Z.
+  position: Director of Field Construction
+  image: /ecac/andy.jpg
+  description: test
+- name: Jeremy K.
+  position: Director of Pneumatics
+  image: /ecac/jeremy.jpg
+  description: test
+- name: Shaurya S.
+  position: Director of Newbie Relations
+  image: /ecac/shaurya.jpg
+  description: test
+- name: Ben G.
+  position: Assistant Director of Newbie Relations
+  image: /ecac/ben.jpg
+  description: test
+- name: Anthony C.
+  position: Director of I/T
+  image: /ecac/anthony.jpg
+  description: test
+- name: Vi L.
+  position: Assistant Director of I/T
+  image: /ecac/vi.jpg
+  description: test

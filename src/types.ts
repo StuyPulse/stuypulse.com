@@ -18,6 +18,13 @@ export interface SponsorType {
   type: string;
 }
 
+export interface LeadershipType {
+  name: string;
+  position: string;
+  image: string;
+  description: string;
+}
+
 export interface SocialType {
   name: string;
   icon: string;

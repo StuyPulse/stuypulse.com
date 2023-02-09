@@ -1,9 +1,24 @@
 ---
 import PageSite from '@layouts/PageSite.astro';
+import LeadershipContainer from '@components/leadership/LeadershipContainer.astro';
+import type {LeadershipType} from '@types';
+
+// @ts-ignore
+const yml = await import('@data/leadership.yml');
+const leaderData = yml.default;
 ---
 
-<PageSite title="Leadership" description={"TEST"}>
+<PageSite title="Leadership" description={"LEADERS I GUESS PLEASE"}>
   <h1>Leadership</h1>
-  <h3>AC:</h3>
+  <h3>AC (or EC idk the difference):</h3>
+  <div class="row">
+    {
+      leaderData.map((leader: LeadershipType) => (
+        <div class="col-sm-6 col-md-4">
+          <LeadershipContainer leadership = {leader} height = "500px" width="350px" tSize="35px"/>
+        </div>
+      ))
+    }
+  </div>
   
 </PageSite>
