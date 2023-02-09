@@ -16,13 +16,6 @@ const { leadership, height, width, tSize } = Astro.props;
   .leadership-container {
     height: var(--height);
     width: var(--width);
-    
-    justify-content: center;
-    align-items: center;
-  }
-  .card-header{
-    text-align: center;
-    min-height: 100px;
   }
 
   p {
@@ -35,23 +28,27 @@ const { leadership, height, width, tSize } = Astro.props;
 <div class="leadership-container">
   <div class="card">
     <div class="card-header">
-        <h3>{leadership.position}</h3>
+      <h3>{leadership.position}</h3>
     </div>
-    <div class="card-body p-0">
-    { 
-      leadership.image ? (
-        <Picture src={leadership.image} alt={leadership.name} />
-      ) : (
-        <strong>
-          <h4>{leadership.name}</h4>
-        </strong>
-      )
-    }
-    </div>
-    <div class="card-footer" style="height:400px">
-        <h4>{leadership.name}</h4>
-        <p>{leadership.description}</p>
+    <div class="row no-gutters">
+      <div class="col-md-4">
+        {
+          leadership.image ? (
+            <Picture src={leadership.image} alt={leadership.name} />
+            // <img class="card-img" src={leadership.image} alt={leadership.name} />
+          ) : (
+            <strong>
+              <h4>{leadership.name}</h4>
+            </strong>
+          )
+        }
+      </div>
+      <div class="card-body">
+        <div class="col-sm-12">
+          <h4 class="card-text">{leadership.name}</h4>
+          <p class="card-text">{leadership.description}</p>
+        </div>
+      </div>
     </div>
   </div>
-
 </div>
