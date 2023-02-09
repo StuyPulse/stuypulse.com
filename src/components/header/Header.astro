@@ -2,13 +2,12 @@
 import type { NavType } from '@types.js';
 import Nav from './Nav.astro';
 import Dropdown from './Dropdown.astro';
-
 // @ts-ignore
 const navs = (await import('@data/navbar.yml')).default;
 ---
 
 <nav class="navbar navbar-expand-lg fixed-top mb-3">
-  <div class="container-fluid ">
+  <div class="container-fluid">
     <a class="navbar-brand text-white" href="/">
       <img src="/694_white.svg" width="32px" height="32px" />
       StuyPulse
@@ -30,6 +29,7 @@ const navs = (await import('@data/navbar.yml')).default;
       class="collapse navbar-collapse flex-row-reverse"
       id="navbarNavDropdown"
     >
+      <div style="height:10px"></div>
       <ul class="navbar-nav">
         {
           navs.map((nav: NavType) =>
@@ -45,14 +45,16 @@ const navs = (await import('@data/navbar.yml')).default;
   
   .navbar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    
     background: linear-gradient(
-      300deg,
-      rgb(246, 251, 255) 6em,
-      rgba(224, 0, 0, 1) 2em
-      
-    );
+      180deg,
+      rgba(224, 0, 0, 1) 58.4px,
+      rgb(246, 251, 255) 0px
+    )
   }
+
   @media screen and (min-width: 992px) {
+    
     .navbar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: linear-gradient(
