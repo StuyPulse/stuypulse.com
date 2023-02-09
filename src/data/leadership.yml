@@ -1,0 +1,101 @@
+#Leadership positions for leadership page
+#Parameters: name, position, image, description
+
+#check old site for positions
+
+- name: Myles P.
+  position: President of Software Engineering
+  image: /ecac/myles.jpg
+  description: test
+- name: Max Z.
+  position: President of Engineering
+  image: /ecac/max.jpg
+  description: test
+- name: Isabella J.
+  position: President of Business
+  image: /ecac/izzy.jpg
+  description: test
+- name: Ivan C.
+  position: Vice President of Software Engineering
+  image: /ecac/ivan.jpg
+  description: test
+- name: Jason Y.
+  position: Vice President of Engineering
+  image: /ecac/jason.jpg
+  description: test
+- name: Daniel U.
+  position: Vice President of Business
+  image: /ecac/daniel.jpg
+  description: test
+- name: Verit L.
+  position: Director of Electronics
+  image: /ecac/verit.jpg
+  description: test
+- name: Elwin A.
+  position: Assistant Director of Electronics
+  image: /ecac/elwin.jpg
+  description: test
+- name: Janna W.
+  position: Director of Lab Operations and Safety
+  image: /ecac/janna.jpg
+  description: test
+- name: Jiayu Y.
+  position: Director of Finance
+  image: /ecac/jiayu.jpg
+  description: test
+- name: Allison Z.
+  position: Director of Operations
+  image: /ecac/allison.jpg
+  description: test
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
+- name: 
+  position: 
+  image: 
+  description:
