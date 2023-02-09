@@ -1,6 +1,6 @@
 ---
 import type { LeadershipType } from "@types";
-
+import { Picture } from "astro-imagetools/components";
 // idk but doesnt look like we need it cuz cards are flexbox
 export interface Props {
   leadership: LeadershipType;
@@ -35,7 +35,7 @@ const { leadership, height, width, tSize } = Astro.props;
     <div class="card-body">
     { 
       leadership.image ? (
-        <img src={leadership.image} alt={leadership.name} />
+        <Picture src={leadership.image} alt={leadership.name} />
       ) : (
         <strong>
           <h4>{leadership.name}</h4>
