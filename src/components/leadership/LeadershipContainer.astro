@@ -1,7 +1,7 @@
 ---
 import type { LeadershipType } from "@types";
 import { Picture } from "astro-imagetools/components";
-// idk but doesnt look like we need it cuz cards are flexbox
+
 export interface Props {
   leadership: LeadershipType;
   height: string;
@@ -16,37 +16,36 @@ const { leadership, height, width, tSize } = Astro.props;
   .leadership-container {
     height: var(--height);
     width: var(--width);
-    justify-content: center;
-    align-items: center;
   }
 
   p {
     font-size: var(--tSize);
-    align-items: center;
-    text-align: center;
   }
 </style>
 
 <div class="leadership-container">
   <div class="card">
     <div class="card-header">
-        <h3>{leadership.position}</h3>
+      <h3>{leadership.name}</h3>
     </div>
-    <div class="card-body">
-    { 
-      leadership.image ? (
-        <Picture src={leadership.image} alt={leadership.name} />
-      ) : (
-        <strong>
-          <h4>{leadership.name}</h4>
-        </strong>
-      )
-    }
-    </div>
-    <div class="card-footer">
-        <h4>{leadership.name}</h4>
-        <p>{leadership.description}</p>
+    <div class="row no-gutters">
+      <div class = "col-md-4" style="max-width:300px;">
+          {
+            leadership.image ? (
+              <Picture src={leadership.image} alt={leadership.name}/>
+            ) : (
+            <strong>
+              <h1>{leadership.name}</h1>
+            </strong>
+            )
+          }
+      </div>
+      <div class="col-md-8">
+        <div class="card-body">
+          <h3 class="card-text">{leadership.position}</h3>
+          <p class="card-text" style="text-indent: 1.5rem;">{leadership.description}</p>
+        </div>
+      </div>
     </div>
   </div>
-
 </div>
