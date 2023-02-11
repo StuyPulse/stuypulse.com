@@ -11,7 +11,6 @@
 - name: Max Z.
   position: President of Engineering
   image: /ecac/Max_Z.jpg
-<<<<<<< HEAD
   description: The President of Engineering is familiar with every part of the robot, able to explain the part to another team member or a judge, as well as able to repair any part of the robot if it is broken. They are also knowledgeable about the details of the Chairman’s Award submission and other award submissions.
   department: Engineering
 - name: Isabella J.
@@ -39,29 +38,6 @@
   image: /ecac/Verit_L.jpg
   description: The Director of Electronics sets up and manages the electronic systems on the robot to FIRST regulations. They cooperate with both engineers and software engineers to ensure that the electronic systems are organised and able to be modified if needed. The DoE is also responsible for the education of other members in the electronics sub­department.
   department: Engineering
-=======
-  description: The President of Engineering is familiar with every part of the robot, able to explain the part to another team member or a judge, as well as able to repair any part of the robot if it is broken. They are also knowledgeable about the details of the Chairman's Award submission and other award submissions.
-- name: Isabella J.
-  position: President of Business
-  image: /ecac/Isabella_J.jpg
-  description: The President of Business holds final responsibility for all outreach, logistics, and award submissions for the team. They have full knowledge of all awards and shall present the Chairman's Award or assign the presentation to someone else deemed competent. The PoM also has adequate knowledge of the other two departments.
-- name: Ivan C.
-  position: Vice President of Software Engineering
-  image: /ecac/Ivan_C.jpg
-  description: The Vice President of Software Engineering is the second-in-command for the Software Engineering department. They have knowledge of what the President of Software Engineering is currently doing and should be able to direct the Software Engineering department in the event of the PoSE's absence, as well as collaborate with the President of Engineering in managing the overall robot project.
-- name: Jason Y.
-  position: Vice President of Engineering
-  image: /ecac/Jason_Y.jpg
-  description: The Vice President of Engineering is considered the second-in-command for the Engineering department. They have knowledge of what the Presidents are currently doing and is able to direct the Engineering department in the event of the PoE's absence. The VPoE also has extensive knowledge of each part of the robot as well as basic knowledge of all awards submissions.
-- name: Daniel U.
-  position: Vice President of Business
-  image: /ecac/Daniel_U.jpg
-  description: The Vice President of Business is the second-in-command for the Business department. The VPoB should have knowledge of what the President of Business is currently doing and should be able to direct the Business department in the event of the PoB's absence. They have extensive knowledge of all award submissions as well as basic knowledge of each part of the robot.
-- name: Verit L.
-  position: Director of Electronics
-  image: /ecac/Verit_L.jpg
-  description: The Director of Electronics sets up and manages the electronic systems on the robot to FIRST regulations. They cooperate with both engineers and software engineers to ensure that the electronic systems are organised and able to be modified if needed. The DoE is also responsible for the education of other members in the electronics subdepartment.
->>>>>>> dcca3f9e9c4d4d8b131b3da6b9b523b7e2685bb8
 - name: Elwin A.
   position: Assistant Director of Electronics
   image: /ecac/Elwin_A.jpg
@@ -125,12 +101,8 @@
 - name: Andy Z.
   position: Director of Field Construction
   image: /ecac/Andy_Z.jpg
-<<<<<<< HEAD
   description: It is the job of the Director of Field Construction to construct the field of the released game with acceptable accuracy. For each function that the robot has to perform, it is this person’s responsibility to ensure that at least one set of the field elements involved in that task is procured and produced. However, the DoFC will also be responsible for all other fields, including FLL, FTC, and FRC fields. They are responsible for the upkeep of the shipping/robot crates and building new robot carts.
   department: Engineering
-=======
-  description: It is the job of the Director of Field Construction to construct the field of the released game with acceptable accuracy. For each function that the robot has to perform, it is this person's responsibility to ensure that at least one set of the field elements involved in that task is procured and produced. However, the DoFC will also be responsible for all other fields, including FLL, FTC, and FRC fields. They are responsible for the upkeep of the shipping/robot crates and building new robot carts.
->>>>>>> dcca3f9e9c4d4d8b131b3da6b9b523b7e2685bb8
 - name: Jeremy K.
   position: Director of Pneumatics
   image: /ecac/Jeremy_K.jpg
@@ -154,12 +126,8 @@
 - name: Anthony C.
   position: Director of I/T
   image: /ecac/Anthony_C.jpg
-<<<<<<< HEAD
   description: The job of the Director of I/T is to create new technology related to team logistics,integrate and develop of existing technology, document existing tools, and teach members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team’s website is up to date.
   department: Software Engineering
-=======
-  description: The job of the Director of I/T is to create new technology related to team logistics,integrate and develop of existing technology, document existing tools, and teach members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team's website is up to date.
->>>>>>> dcca3f9e9c4d4d8b131b3da6b9b523b7e2685bb8
 - name: Vi L.
   position: Assistant Director of I/T
   image: /ecac/Vi_L.jpg
