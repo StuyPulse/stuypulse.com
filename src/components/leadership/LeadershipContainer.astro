@@ -1,5 +1,7 @@
 ---
 import type { LeadershipType } from "@types";
+
+//@ts-ignore
 import { Picture } from "astro-imagetools/components";
 
 export interface Props {
@@ -7,29 +9,48 @@ export interface Props {
   height: string;
   width: string;
   tSize: string;
+  hSize: string;
 }
 
-const { leadership, height, width, tSize } = Astro.props;
+const { leadership, height, width, tSize, hSize } = Astro.props;
 ---
 
-<style define:vars={{ height, width, tSize }}>
+<style define:vars={{ height, width, tSize, hSize }}>
   .leadership-container {
     height: var(--height);
     width: var(--width);
   }
+  .card-header {
+    background-color: rgba(224, 0, 0, 1);
+  }
 
   p {
     font-size: var(--tSize);
+    text-indent: 1.5rem;
+    text-align: justify;
   }
+  h3 {
+    font-size: var(--hSize);
+    margin:5px;
+  }
+
 </style>
 
 <div class="leadership-container">
   <div class="card">
     <div class="card-header">
-      <h3>{leadership.name}</h3>
+      <div class="row">
+        <div class="col">
+          <h3 class="text-white "> {leadership.name}</h3>
+        </div>
+        <div class="col">
+          <a href={"/../about/departments#"+leadership.department}> <h3 class="text-white text-end"> {leadership.department} </h3> </a>
+        </div>
+      </div>
+      
     </div>
     <div class="row no-gutters">
-      <div class = "col-md-4" style="max-width:300px;">
+      <div class = "col-md-3" style="max-width:400px; padding:25px; margin: auto;">
           {
             leadership.image ? (
               <Picture src={leadership.image} alt={leadership.name}/>
@@ -40,10 +61,10 @@ const { leadership, height, width, tSize } = Astro.props;
             )
           }
       </div>
-      <div class="col-md-8">
+      <div class="col-md-9">
         <div class="card-body">
           <h3 class="card-text">{leadership.position}</h3>
-          <p class="card-text" style="text-indent: 1.5rem;">{leadership.description}</p>
+          <p class="card-text">{leadership.description}</p>
         </div>
       </div>
     </div>

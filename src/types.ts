@@ -23,6 +23,7 @@ export interface LeadershipType {
   position: string;
   image: string;
   description: string;
+  department: string;
 }
 
 export interface SocialType {
