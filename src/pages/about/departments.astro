@@ -5,9 +5,13 @@ import PageSite from '@layouts/PageSite.astro';
   p{
     text-indent: 20px;
   }
-  .offset{
-    margin-top:-150px
-    margin-bottom: 150px;
+  .offset::before{
+    display: block; 
+    content: " "; 
+    margin-top: -62px; 
+    height: 62px; 
+    visibility: hidden; 
+    pointer-events: none;
   }
 </style>
 
