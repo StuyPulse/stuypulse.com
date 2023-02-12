@@ -21,7 +21,14 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
     width: var(--width);
   }
   .card-header {
-    background-color: rgba(224, 0, 0, 1);
+    background: linear-gradient(
+      270deg,
+      rgba(255, 255, 255, 1) 6rem,
+      rgba(224, 0, 0, 1) 7.5rem
+    );
+  }
+
+  .card-body {
   }
 
   p {
@@ -31,41 +38,52 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
   }
   h3 {
     font-size: var(--hSize);
-    margin:5px;
+    margin: 5px;
   }
-
 </style>
 
 <div class="leadership-container">
   <div class="card">
     <div class="card-header">
-      <div class="row">
-        <div class="col">
-          <h3 class="text-white "> {leadership.name}</h3>
+      <div class="row no-gutters">
+        <div class="col-7 d-inline-block">
+          <h3 class="text-white">{leadership.name}</h3>
         </div>
-        <div class="col">
-          <a href={"/../about/departments#"+leadership.department}> <h3 class="text-white text-end"> {leadership.department} </h3> </a>
+        <div class="col-5 d-inline text-nowrap text-end">
+          <a href={"/../about/departments#" + leadership.department} >
+            {
+              [
+                "Software Engineering",
+                "Engineering",
+                "Business",
+                "Strategy",
+              ].includes(leadership.department) ? (
+                <img src={"/../../" + leadership.department.split(" ")[0].toLowerCase() + ".svg"} alt={leadership.department} width="40px" />
+              ) : (
+                <p class="text-white">{leadership.department}</p>
+              )
+            }
+          </a>
         </div>
       </div>
-      
     </div>
-    <div class="row no-gutters">
-      <div class = "col-md-3" style="max-width:400px; padding:25px; margin: auto;">
-          {
-            leadership.image ? (
-              <Picture src={leadership.image} alt={leadership.name}/>
-            ) : (
-            <strong>
-              <h1>{leadership.name}</h1>
-            </strong>
-            )
-          }
-      </div>
-      <div class="col-md-9">
-        <div class="card-body">
-          <h3 class="card-text">{leadership.position}</h3>
-          <p class="card-text">{leadership.description}</p>
-        </div>
+  </div>
+  <div class="row mt-2 no-gutters">
+    <div class="col-md-3 no-gutters" style="max-width:250px; padding:25px; margin: auto;">
+      {
+        leadership.image ? (
+          <Picture src={leadership.image} alt={leadership.name} />
+        ) : (
+          <strong>
+            <h1 class="fw-bold text-center">{leadership.name}</h1>
+          </strong>
+        )
+      }
+    </div>
+    <div class="col-md-9">
+      <div class="card-body">
+        <h3 class="card-text">{leadership.position}</h3>
+        <p class="card-text">{leadership.description}</p>
       </div>
     </div>
   </div>
