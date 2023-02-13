@@ -1,5 +1,6 @@
 ---
 import type { SponsorType } from "@types";
+import { Picture } from "astro-imagetools/components";
 
 export interface Props {
   sponsor: SponsorType;
@@ -41,10 +42,16 @@ const { sponsor, height, width, tSize } = Astro.props;
     sponsor.logo ? (
       <div>
         {sponsor.site == null ? (
-          <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
+          <Picture src={sponsor.logo} alt={sponsor.name} attributes={{
+            // @ts-ignore
+            class: "d-block"
+          }}/>
         ) : (
           <a href={sponsor.site} target="_blank">
-            <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
+            <Picture src={sponsor.logo} alt={sponsor.name} attributes={{
+              // @ts-ignore
+              class: "d-block"
+            }}/>
           </a>
         )}
       </div>
