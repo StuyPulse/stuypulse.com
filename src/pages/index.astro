@@ -1,4 +1,5 @@
 ---
+//@ts-ignore
 import { getCollection } from 'astro:content';
 import PageSite from '@layouts/PageSite.astro';
 import Carousel from '@components/carousels/ImageCarousel.astro';
@@ -107,8 +108,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
       <div class = "card robotimg">
         <!-- <img style = "width:20rem; display:flex;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"> -->
         <Picture
-          src="https://stuypulse.nyc3.digitaloceanspaces.com/site/img/Excelsior.JPG"
-          
+          src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"
           alt="Excelsior"
           attributes={{
             loading: "eager"
