@@ -100,7 +100,14 @@ const imageData = yml.default;
               />
             :
             <a href = {image["img-link"]} target = "_blank">
-              <img src={image.img} class="d-block w-100" alt={image.caption} />
+              <Picture 
+                src={image.img}
+                alt="..."
+                attributes={{
+                  // @ts-ignore
+                  class: "d-block w-100",
+                }}
+              />
             </a>
           }
           <div class="carousel-caption text-start">
