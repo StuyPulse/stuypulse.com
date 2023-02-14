@@ -17,12 +17,20 @@ const { Content } = await entry.render();
 ---
 
 <PageSite title="Our History" description={'TEST'}>
-  <h1>hello</h1>
+  <h1 class="mb-4">Past Competition Robots:</h1>
+  <div class="row ">
+    <nav class="col-sm-1 text-nowrap">
+      <nav class="row">
+        <HistoryAside />
+      </nav>
+      
+    </nav>
+    <div class="col-sm-11">
+      <h1>{entry.data.title}</h1>
+      <Content />
+    </div>
+  </div>
+  
 
-  <aside>
-    <HistoryAside />
-  </aside>
-
-  <h1>{entry.data.title}</h1>
-  <Content />
+  
 </PageSite>
