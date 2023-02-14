@@ -1,0 +1,24 @@
+---
+import { getCollection } from 'astro:content';
+
+const history = await getCollection('history');
+const sortedHistory = [];
+history.map((entry) => sortedHistory.unshift(entry));
+
+export interface Props {
+  activeYear?: string;
+}
+---
+
+{
+  sortedHistory.map((entry) => (
+    <a href={entry.slug}>
+      <p class="year">{entry.slug}</p>
+    </a>
+  ))
+}
+
+<style>
+  .year {
+    color: rgba(224, 0, 0);  }
+</style>

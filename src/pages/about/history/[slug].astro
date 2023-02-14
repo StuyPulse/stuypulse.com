@@ -1,0 +1,28 @@
+---
+import PageSite from '@layouts/PageSite.astro';
+import HistoryAside from '$components/history/HistoryAside.astro';
+import { getCollection } from 'astro:content';
+
+export async function getStaticPaths() {
+  const historyEntries = await getCollection('history');
+
+  return historyEntries.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await entry.render();
+---
+
+<PageSite title="Our History" description={'TEST'}>
+  <h1>hello</h1>
+
+  <aside>
+    <HistoryAside />
+  </aside>
+
+  <h1>{entry.data.title}</h1>
+  <Content />
+</PageSite>
