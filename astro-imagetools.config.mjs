@@ -2,6 +2,12 @@ import { defineConfig } from 'astro-imagetools/config';
 
 export default defineConfig({
     cacheDir: '/.astro-imagetools-cache',
-    format: 'null',
+    placeholder: "blurred",
+    format: ["webp"],
     includeSourceFormat: true,
+    formatOptions: {
+      webp: {
+        quality: 50
+      }
+    }
 });
