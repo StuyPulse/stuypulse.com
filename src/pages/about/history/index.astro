@@ -1,7 +1,14 @@
 ---
-import PageSite from '@layouts/PageSite.astro';
+// import { getCollection } from 'astro:content';
+
+// const historyEntries = await getCollection('history');
+// const latestEntry = historyEntries[0];
+// const latestYear = latestEntry.slug;
 ---
 
-<PageSite title="calendar" description={"TEST"}>
-  <h1>hello</h1>
-</PageSite>
+<div>
+  <script>
+    // hard coded,  fix later
+    window.location.replace(window.location.href + '/2022');
+  </script>
+</div>
