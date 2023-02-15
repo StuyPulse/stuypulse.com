@@ -16,16 +16,16 @@ type Props = MarkdownLayoutProps <{
 
 const { frontmatter } = Astro.props;
 ---
-<style>
-
-</style>
 
 <h3>{frontmatter.year + ": " + frontmatter.title}</h3>
 <div class="row mb-3">
-  <div class="col-sm-7 border border-5 rounded-1 p-0" style="max-width: 500px;">
-    <Picture src={frontmatter.photo} alt={frontmatter.title} />
+  <div class="col-sm-6 border border-5 rounded-1 p-0">
+    <Picture 
+      src={frontmatter.photo} 
+      alt={frontmatter.title} 
+    />
   </div>
-  <div class="col-sm-5">
+  <div class="col-sm-6">
     <h5>Additional Resources</h5>
     <ul>
       {
@@ -64,7 +64,7 @@ const { frontmatter } = Astro.props;
   </div>
 </div>
 
-<slot />
+<slot class="content"/>
 
 <hr>
     
