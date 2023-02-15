@@ -1,8 +1,6 @@
 ---
 import type {CarouselItemType} from '@types';
-// @ts-ignore
 import { Picture } from "astro-imagetools/components";
-// @ts-ignore
 const yml = await import(`@data/frontCarousel.yml`);
 const imageData = yml.default;
 ---
@@ -94,7 +92,6 @@ const imageData = yml.default;
                 src={image.img}
                 alt="..."
                 attributes={{
-                  // @ts-ignore
                   class: "d-block w-100",
                 }}
               />
@@ -104,7 +101,6 @@ const imageData = yml.default;
                 src={image.img}
                 alt="..."
                 attributes={{
-                  // @ts-ignore
                   class: "d-block w-100",
                 }}
               />

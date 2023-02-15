@@ -3,7 +3,6 @@ import PageSite from '@layouts/PageSite.astro';
 import LeadershipContainer from '@components/leadership/LeadershipContainer.astro';
 import type {LeadershipType} from '@types';
 
-// @ts-ignore
 const yml = await import('@data/leadership.yml');
 const leaderData = yml.default;
 ---

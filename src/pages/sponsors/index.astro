@@ -3,7 +3,6 @@ import PageSite from '@layouts/PageSite.astro';
 import SponsorContainer from '@components/sponsors/SponsorContainer.astro'
 import type {SponsorType} from '@types';
 
-// @ts-ignore
 const yml = await import('@data/sponsors.yml');
 const sponsorData = yml.default;
 ---

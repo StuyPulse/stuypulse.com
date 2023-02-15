@@ -1,12 +1,10 @@
 ---
-//@ts-ignore
 import { getCollection } from 'astro:content';
 import PageSite from '@layouts/PageSite.astro';
 import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
 import { SITE_TITLE } from '@config';
 import getSortedPosts from '@utils/getSortedPosts';
-//@ts-ignore
 import { Picture, Img } from "astro-imagetools/components";
 import NewsMiniPreview from '@components/news/NewsMiniPreview.astro';
 const POSTS_ON_FRONT_PAGE = 5;
@@ -74,15 +72,6 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   <div class="row">
     <div class="col">
       <div class="large-name">
-        <!-- <Img
-          src="694-logo.png"
-          alt=""
-          attributes={{
-            //@ts-ignore
-            class: "inline-icon",
-            //@ts-ignore
-          }}
-          /> -->
           <img src="694-logo.png" class="inline-icon">
         StuyPulse
       </div>

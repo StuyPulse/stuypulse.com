@@ -1,8 +1,8 @@
 ---
-import { getCollection } from 'astro:content';
+import { CollectionEntry, getCollection } from 'astro:content';
 
 const history = await getCollection('history');
-const sortedHistory = [];
+const sortedHistory:CollectionEntry<'history'>[] = [];
 history.map((entry) => sortedHistory.unshift(entry));
 
 export interface Props {
