@@ -1,6 +1,13 @@
 ---
 import PageSite from '@layouts/PageSite.astro';
 ---
+<style>
+  .inline-icon {
+    height: 1em;
+    transform: translateY(-0.1em);
+    padding-right: 0.25rem;
+  }
+</style>
 
 <PageSite title="About" description={"TEST"}>
   <div class="col-md">
@@ -8,7 +15,7 @@ import PageSite from '@layouts/PageSite.astro';
       <a href="http://www.usfirst.org/"
         ><img
           class="front-page-thumb inline-icon"
-          src="first-logo.png"
+          src="first-logo.svg"
           alt="FIRST logo"
         /></a
       >
