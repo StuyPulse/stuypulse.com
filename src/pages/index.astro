@@ -3,7 +3,7 @@ import { getCollection } from 'astro:content';
 import PageSite from '@layouts/PageSite.astro';
 import Carousel from '@components/carousels/ImageCarousel.astro';
 import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
-import { SITE_TITLE } from '@config';
+//import { SITE_TITLE } from '@config';
 import getSortedPosts from '@utils/getSortedPosts';
 import { Picture, Img } from "astro-imagetools/components";
 import NewsMiniPreview from '@components/news/NewsMiniPreview.astro';
@@ -68,7 +68,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   }
 </style>
 
-<PageSite title={SITE_TITLE} description={'TEST'}>
+<PageSite title={"Home"} description={'TEST'}>
   <div class="row">
     <div class="col">
       <div class="large-name">
