@@ -1,14 +1,11 @@
 ---
-// import { getCollection } from 'astro:content';
+import { getCollection } from 'astro:content';
 
-// const historyEntries = await getCollection('history');
-// const latestEntry = historyEntries[0];
-// const latestYear = latestEntry.slug;
+const historyEntries = await getCollection('history');
+const latestEntry = historyEntries[historyEntries.length - 1];
+const latestYear = latestEntry.slug;
+
+const url = `0; url=/about/history/${latestYear}`;
 ---
 
-<div>
-  <script>
-    // hard coded,  fix later
-    window.location.replace(window.location.href + '/2022');
-  </script>
-</div>
+<meta http-equiv="refresh" content={url} />
