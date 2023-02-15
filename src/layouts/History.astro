@@ -1,0 +1,84 @@
+---
+import type { YoutubeLinkType } from "@types";
+import type { MarkdownLayoutProps } from "astro";
+// @ts-ignore
+import { Picture } from "astro-imagetools/components";
+
+type Props = MarkdownLayoutProps <{
+  title: string;
+  year: string;
+  photo: string;
+  source?: string;
+  flickr?: string;
+  youtube_links?: YoutubeLinkType[];
+  awards?: string[];
+}>;
+
+const { frontmatter } = Astro.props;
+---
+<style>
+
+</style>
+
+<h3>{frontmatter.year + ": " + frontmatter.title}</h3>
+<div class="row mb-3">
+  <div class="col-sm-7 border border-5 rounded-1 p-0" style="max-width: 500px;">
+    <Picture src={frontmatter.photo} alt={frontmatter.title} />
+  </div>
+  <div class="col-sm-5">
+    <h5>Additional Resources</h5>
+    <ul>
+      {
+        frontmatter.source ? (
+          <li><a href={frontmatter.source}>{frontmatter.title+"'s source code"}</a></li>
+        ) : (
+          <p>anthony/vi is there a better way of doing conditionals bc if i dont have both parts of this if/else statemnt the program gets very mad at me </p>
+        )
+      }
+      <li><a href={"https://www.thebluealliance.com/team/694/"+frontmatter.year}>{frontmatter.year+" season stats on The Blue Alliance"}</a></li>
+    </ul>
+    {
+      frontmatter.flickr ? (
+        <h5>Photo Gallery</h5>
+        <ul>
+          <li>
+            <a href={frontmatter.flickr}>{frontmatter.year+" photos on Flickr"}</a>
+          </li>
+        </ul>
+      ) : (
+        <p>anthony/vi is there a better way of doing conditionals bc if i dont have both parts of this if/else statemnt the program gets very mad at me </p>
+      )
+    }
+    {
+      frontmatter.youtube_links ? (
+        <h5>Youtube Videos</h5>
+        <ul>
+          {frontmatter.youtube_links.map((link) => 
+            <li><a href={link.url}>{link.name}</a></li>
+          )}
+        </ul>
+      ) : (
+        <p>anthony/vi is there a better way of doing conditionals bc if i dont have both parts of this if/else statemnt the program gets very mad at me </p>
+      )
+    }
+  </div>
+</div>
+
+<slot />
+
+<hr>
+    
+  {
+    frontmatter.awards ? (
+      <div>
+        <h5>Awards</h5>
+        <ul>
+          {frontmatter.awards.map((award) => 
+            <li>{award}</li>
+          )}
+        </ul>
+      </div>
+    ) : (
+      <p>anthony/vi is there a better way of doing conditionals bc if i dont have both parts of this if/else statemnt the program gets very mad at me </p>
+    )
+  }

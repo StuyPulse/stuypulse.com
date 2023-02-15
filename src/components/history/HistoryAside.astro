@@ -12,9 +12,12 @@ export interface Props {
 
 {
   sortedHistory.map((entry) => (
-    <a href={entry.slug}>
-      <p class="year">{entry.slug}</p>
-    </a>
+    <div class="row no-gutters">
+      <a href={entry.slug} class="p-0 pl-2">
+        <p class="year mb-1 ">{entry.slug}</p>
+      </a>
+    </div>
+    
   ))
 }
 

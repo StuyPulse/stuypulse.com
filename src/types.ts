@@ -26,6 +26,11 @@ export interface LeadershipType {
   department: string;
 }
 
+export interface YoutubeLinkType {
+  name: string;
+  url: string;
+}
+
 export interface SocialType {
   name: string;
   icon: string;
