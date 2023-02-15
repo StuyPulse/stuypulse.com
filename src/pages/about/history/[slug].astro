@@ -1,8 +1,6 @@
 ---
 import PageSite from '@layouts/PageSite.astro';
 import HistoryAside from '$components/history/HistoryAside.astro';
-import History from '@layouts/History.astro';
-import type { YoutubeLinkType } from '@types';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -28,7 +26,5 @@ const { Content } = await entry.render();
       <Content />
     </div>
   </div>
-  
-
   
 </PageSite>
