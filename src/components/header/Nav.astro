@@ -7,6 +7,22 @@ export interface Props {
 
 const { nav } = Astro.props;
 ---
+<style>
+  
+  @media screen and (min-width: 992px ){
+    a {
+      border-radius: 10em;
+    }
+  }
+  a:hover{
+    background-color: rgb(235, 235, 238);
+  }
+  a:active{
+    background-color: rgb(224, 211, 211);
+  }
+  
+  
+</style>
 <li class="nav-item">
    {nav.dropdown ? 
   //  for navs inside a dropdown, since there is a white background

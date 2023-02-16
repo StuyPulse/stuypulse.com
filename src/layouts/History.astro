@@ -19,13 +19,16 @@ const { frontmatter } = Astro.props;
 
 <h3>{frontmatter.year + ": " + frontmatter.title}</h3>
 <div class="row mb-3">
-  <div class="col-sm-6 border border-5 rounded-1 p-0">
-    <Picture 
-      src={frontmatter.photo} 
-      alt={frontmatter.title} 
-    />
+  <div class="col-sm-8 ">
+    <div class="border border-5 rounded-1 p-0 ">
+      <Picture 
+        src={frontmatter.photo} 
+        alt={frontmatter.title} 
+      />
+    </div>
+    
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <h5>Additional Resources</h5>
     <ul>
       {
