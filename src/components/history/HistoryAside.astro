@@ -7,14 +7,15 @@ history.map((entry) => sortedHistory.unshift(entry));
 export interface Props {
   activeYear?: string;
 }
+
+const year = Astro.props;
 ---
 
 {
   sortedHistory.map((entry) => (
     <div class="row no-gutters align-items-center">
-
-      <a href={"/about/history/"+entry.slug} class={"pl-5 pb-1 pt-1 align-items-center "+ (entry.slug==="2022"&&"current") }>
-        <p class={(entry.slug==="2022"?"current":"year") + " mb-0"} >{entry.slug}</p>
+      <a href={"/about/history/"+entry.slug} class={"pl-5 pb-1 pt-1 align-items-center "+ (!entry.slug.localeCompare(year.activeYear)&&"current") }>
+        <p class={(entry.slug.localeCompare(year.activeYear)?"year":"current") + " mb-0"} >{entry.slug}</p>
       </a>
     </div>
     
@@ -32,8 +33,8 @@ export interface Props {
   .row:active {
     background-color: rgb(224, 221, 221);
   }
-  a.current {
-    background-color: rgb(224, 0, 0);
+  .current {
+    background-color: rgb(224, 0, 0) !important;
     color: rgb(235, 235, 238) !important;
   }
 </style>
