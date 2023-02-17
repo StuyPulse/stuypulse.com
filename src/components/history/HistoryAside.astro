@@ -26,6 +26,11 @@ const year = Astro.props;
   p {
     margin-bottom: 0.25rem;
   }
+  @media screen and (max-width: 992px) {
+    p{
+      margin-left:1rem;
+    }
+  }
   
   .row:hover {
     background-color: rgb(235, 235, 238);
@@ -34,7 +39,10 @@ const year = Astro.props;
     background-color: rgb(224, 221, 221);
   }
   .current {
-    background-color: rgb(224, 0, 0) !important;
-    color: rgb(235, 235, 238) !important;
+    background-color: rgb(224, 0, 0) ;
+    color: rgb(235, 235, 238) ;
+  }
+  .year {
+
   }
 </style>

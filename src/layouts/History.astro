@@ -1,7 +1,6 @@
 ---
 import type { YoutubeLinkType } from "@types";
 import type { MarkdownLayoutProps } from "astro";
-// @ts-ignore
 import { Picture } from "astro-imagetools/components";
 
 type Props = MarkdownLayoutProps <{
@@ -10,6 +9,7 @@ type Props = MarkdownLayoutProps <{
   photo: string;
   source?: string;
   flickr?: string;
+  cad?: string;
   youtube_links?: YoutubeLinkType[];
   awards?: string[];
 }>;
@@ -24,6 +24,9 @@ const { frontmatter } = Astro.props;
       <Picture 
         src={frontmatter.photo} 
         alt={frontmatter.title} 
+        attributes={{
+          class: "d-block w-100",
+        }}
       />
     </div>
     
@@ -34,6 +37,11 @@ const { frontmatter } = Astro.props;
       {
         frontmatter.source && (
           <li><a href={frontmatter.source}>{frontmatter.title+"'s source code"}</a></li>
+        )
+      }
+      {
+        frontmatter.cad && (
+          <li><a href={frontmatter.cad}>{frontmatter.title+"'s CAD file"}</a></li>
         )
       }
       <li><a href={"https://www.thebluealliance.com/team/694/"+frontmatter.year}>{frontmatter.year+" season stats on The Blue Alliance"}</a></li>
