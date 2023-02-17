@@ -1,6 +1,7 @@
 ---
 import type { LeadershipType } from "@types";
 
+// @ts-ignore
 import { Picture } from "astro-imagetools/components";
 
 export interface Props {
@@ -20,11 +21,11 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
     width: var(--width);
   }
   .card-header {
-    background: linear-gradient(
+    /* background: linear-gradient(
       270deg,
       rgba(255, 255, 255, 1) 6rem,
       rgba(224, 0, 0, 1) 7.5rem
-    );
+    ); */
   }
 
   .card-body {
@@ -38,6 +39,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
   h3 {
     font-size: var(--hSize);
     margin: 5px;
+    color:black;
   }
 </style>
 
@@ -46,7 +48,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
     <div class="card-header">
       <div class="row no-gutters">
         <div class="col-7 d-inline-block">
-          <h3 class="text-white">{leadership.name}</h3>
+          <h3>{leadership.name}</h3>
         </div>
         <div class="col-5 d-inline text-nowrap text-end">
           <a href={"/../about/departments#" + leadership.department} >
@@ -66,23 +68,25 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
         </div>
       </div>
     </div>
-  </div>
-  <div class="row mt-2 no-gutters">
-    <div class="col-md-3 no-gutters" style="max-width:250px; padding:25px; margin: auto;">
-      {
-        leadership.image ? (
-          <Picture src={leadership.image} alt={leadership.name} />
-        ) : (
-          <strong>
-            <h1 class="fw-bold text-center">{leadership.name}</h1>
-          </strong>
-        )
-      }
-    </div>
-    <div class="col-md-9">
-      <div class="card-body">
-        <h3 class="card-text">{leadership.position}</h3>
-        <p class="card-text">{leadership.description}</p>
+    <div class = "card-body">
+      <div class="row mt-2 no-gutters">
+        <div class="col-md-3 no-gutters" style="max-width:250px; padding:25px; margin: auto;">
+          {
+            leadership.image ? (
+              <Picture src={leadership.image} alt={leadership.name} />
+            ) : (
+              <strong>
+                <h1 class="fw-bold text-center">{leadership.name}</h1>
+              </strong>
+            )
+          }
+        </div>
+        <div class="col-md-9">
+          <div class="card-body">
+            <h3 class="card-text">{leadership.position}</h3>
+            <p class="card-text">{leadership.description}</p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
