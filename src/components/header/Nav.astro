@@ -3,9 +3,10 @@ import type {NavType} from '@types';
 
 export interface Props {
   nav: NavType;
+  drop: Boolean;
 }
 
-const { nav } = Astro.props;
+const { nav, drop } = Astro.props;
 ---
 <style>
   
@@ -34,7 +35,7 @@ const { nav } = Astro.props;
 <li class="nav-item">
    
   <!-- deprecated code from when dropdown menu and main navbar navs had different coloring  -->
-  {nav.dropdown ? 
+  {drop ? 
     <a class="nav-link active text-black drop" aria-current="page" href= { nav.href }>{ nav.name }</a> :
     <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a>}
   <!-- <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a> -->

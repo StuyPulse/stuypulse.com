@@ -62,7 +62,7 @@ const { nav } = Astro.props;
     {
       nav.dropdown &&
         nav.dropdown.map((_nav) => (
-          <Nav nav={_nav} />
+          <Nav nav={_nav} drop={true}/>
         ))
     }
   </ul>

@@ -10,22 +10,16 @@
   dropdown: 
     - name: About Us
       href: /about
-      dropdown: true
     - name: History
       href: /about/history
-      dropdown: true
     - name: Leadership
       href: /about/leadership
-      dropdown: true
-    - name: Departments
-      href: /about/departments
-      dropdown: true
     - name: Mentors
       href: /about/mentors
-      dropdown: true
+    - name: Departments
+      href: /about/departments
     - name: Website
       href: /about/website
-      dropdown: true
 - name: News
   href: /news
 - name: Community
