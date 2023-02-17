@@ -9,9 +9,17 @@ const { nav } = Astro.props;
 ---
 <style>
   
+  a {
+    border-radius: 1em;  
+  }
   @media screen and (min-width: 992px ){
+    .drop {
+      text-indent: 10px !important; 
+    }
+  }
+  @media screen and (max-width: 992px ){
     a {
-      border-radius: 10em;
+      text-indent: 20px !important; 
     }
   }
   a:hover{
@@ -24,8 +32,10 @@ const { nav } = Astro.props;
   
 </style>
 <li class="nav-item">
-   {nav.dropdown ? 
-  //  for navs inside a dropdown, since there is a white background
-   <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a> :
-   <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a>}
+   
+  <!-- deprecated code from when dropdown menu and main navbar navs had different coloring  -->
+  {nav.dropdown ? 
+    <a class="nav-link active text-black drop" aria-current="page" href= { nav.href }>{ nav.name }</a> :
+    <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a>}
+  <!-- <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a> -->
 </li>

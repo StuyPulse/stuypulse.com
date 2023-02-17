@@ -10,9 +10,13 @@ const { nav } = Astro.props;
 ---
 
 <style>
+  
   @media screen and (max-width: 992px){
     .dropdown-menu {
       margin-left: 30px !important;
+    } 
+    a{
+      text-indent: 20px !important;
     }
   }
   
@@ -49,9 +53,7 @@ const { nav } = Astro.props;
     {
       nav.dropdown &&
         nav.dropdown.map((_nav) => (
-          <li>
-            <Nav nav={_nav} />
-          </li>
+          <Nav nav={_nav} />
         ))
     }
   </ul>
