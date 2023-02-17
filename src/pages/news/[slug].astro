@@ -15,9 +15,8 @@ export async function getStaticPaths() {
     };
   });
 
-  let max_entries = newsEntries.length;
   let entryList = [];
-  for(let i = 1; i<newsEntries.length / POSTS_PER_PAGE; i++){
+  for(let i = 1; i<=Math.ceil(newsEntries.length / POSTS_PER_PAGE); i++){
     entryList.push({params: { slug: String(i) }});
   }
   return [...postResult, ...entryList];
@@ -39,7 +38,7 @@ let paginatedPosts = sortedNews.slice(ENTRY_START, ENTRY_END);
 // console.log(paginatedPosts);
 
 let entryList = [];
-for(let i = 1; i<sortedNews.length / POSTS_PER_PAGE; i++){
+for(let i = 1; i<=Math.ceil(sortedNews.length / POSTS_PER_PAGE); i++){
   entryList.push(i);
 }
 ---
@@ -70,7 +69,7 @@ for(let i = 1; i<sortedNews.length / POSTS_PER_PAGE; i++){
     <div>
       <div class = "row">
         <div class="col">
-          <NewsPreview entries={paginatedPosts} numPosts={POSTS_PER_PAGE}></NewsPreview>
+          <NewsPreview entries={paginatedPosts} numPosts={paginatedPosts.length}></NewsPreview>
         </div>
       </div>
       <Paginator numPages={entryList} currPost={Number(slug)}/>
