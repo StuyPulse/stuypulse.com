@@ -1,34 +1,167 @@
 ---
-import PageSite from '@layouts/PageSite.astro';
+import PageSite from "@layouts/PageSite.astro";
+import { Picture } from "astro-imagetools/components";
 ---
+
 <style>
   .inline-icon {
     height: 1em;
     transform: translateY(-0.1em);
     padding-right: 0.25rem;
   }
+  p {
+    text-indent: 1em;
+  }
+  .offset::before {
+    display: block;
+    content: " ";
+    margin-top: -62px;
+    height: 62px;
+    visibility: hidden;
+    pointer-events: none;
+  }
 </style>
 
 <PageSite title="About" description={"TEST"}>
-  <div class="col-md">
-    <h2>
-      <a href="http://www.usfirst.org/"
-        ><img
-          class="front-page-thumb inline-icon"
-          src="first-logo.svg"
-          alt="FIRST logo"
-        /></a
-      >
-      About FIRST
-    </h2>
-    <p>
-      <a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition
-      in Science and Technology) is a multi-national, non-profit organization designed
-      to inspire and encourage today's youth to pursue careers in science, technology
-      and math. These programs also stress the development of skills in areas such
-      as teamwork, public relations, strategy, dedication, and outreach, which
-      are helpful and often necessary in future careers and endeavors.
-    </p>
-    <p><a href="/about/first/">Learn more &raquo;</a></p>
+  <h1 id="about" class="offset">About Us</h1>
+  <div class="row">
+    <div class="col-sm-9">
+      <h5 class="d-inline ">We are StuyPulse, FIRST FRC Team 694.</h5>
+      <p class="justify-content-evenly d-inline">
+        Our nickname is derived from the
+        idea that we are at the heart of our student body and local community.
+        Our goal is to incentivize STEM ideas and cultivate skills in
+        engineering, programming, business, teamwork, and leadership through our
+        participation in FIRST Robotics Competitions. We hope to serve as an
+        inspiration for people in our community and educate them on the wonders
+        of the scientific community while simultaneously giving back through
+        various outreach events. Our priority is making sure that everyone even
+        slightly interested in STEM has the chance to further explore their
+        interests and develop skills that will allow them to succeed. We are a
+        no-cut, no tryout, all inclusive team that strives to make it possible
+        for all individuals to be a part of an accepting community that allows
+        people to ______________________
+      </p>
+      <iframe
+        class="w-100 mb-4"
+        height="500"
+        src="https://www.youtube.com/embed/I2Jz-1qz4eU"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
+    </div>
+    <div class="col-sm-3">
+      <h5>Learn More</h5>
+      <ul>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="about/history">Team History</a></li>
+        <li><a href="about/departments">Departments</a></li>
+        <li><a href="about/leadership">Leadership</a></li>
+        <li><a href="about/mentors">Mentors</a></li>
+        <li><a href="#first">About First</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-7">
+      <h2 id="today" class="offset">Team 694 Today</h2>
+      <p>
+        Team 694 is made up of about 150 students and participates annually in
+        the FIRST Robotics Competition (FRC). During our six-week build season,
+        we work <strong>almost daily</strong> in our laboratory at Stuyvesant as
+        our dedicated team members collaborate to design, construct, and program
+        our competing robot with the help of gracious parents and volunteer mentors.
+      </p>
+      <p>
+        We strive to <strong>share our experience with teams in need</strong>.
+        To this end we mentor teams and schools both in FRC, FIRSTTech, and
+        FIRST Lego League, as well as performing street-level demos in our
+        school. Our team is currently mentoring three new FLL teams, one of
+        which we started ourselves at a nearby church. Furthermore, we also
+        assist FRC teams during competitions with PulseCrew, which is made up of
+        a group of experienced students dedicated to helping others with any
+        Software or Engineering issues they may encounter. When we hosted our
+        lab's grand opening in December 2022, we demoed our robot for various
+        members of our school's staff as well as <strong>Councilmember Marte</strong>
+        and <strong>Senator Brian Kavanagh</strong>. We have also reached out
+        to Marte with intentions of testifying at an education committee to
+        advocate for increased STEM funding for afterschool programs around the
+        state, and have multiple planned robot demos for the Spring “inviting
+        local politicians to the exciting competitions.”
+      </p>
+      <p>
+        Team 694's impact lasts not only in our local community, but also
+        intrinsically, within our team's community. We have a <strong>100%</strong>
+        graduation rate, with most being accepted to some of the <strong>best
+        universities in the world</strong>. To help perpetuate this high standard,
+        we all help to drive one another to do better in school and help each other
+        out when aid is needed.
+      </p>
+    </div>
+    <div class="col-sm-5">
+      <h1>insert some image/s of the team here pls</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6">
+      <h1>another picture here</h1>
+    </div>
+    <div class="col-sm-6">
+      <h2>StuyPulse's Beginnings</h2>
+      <p>Our team was founded in the fall of 2000 by a group of students and parents
+        who were ready to take on the formidable task of building our first robot.
+        They shared a common interest in robotics, and although few on the team had
+        known each other prior to forming the team, they quickly learned the importance
+        of cooperation and teamwork, and used it to accumulate the team members,
+        sponsors, and mentors we have today., From the moment we raised funds for the
+        daunting entrance fees to the FIRST competition, we were destined to succeed:
+        eventually scoring highest in our division at the Champtionship Event.</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-8">
+      <h2>What makes StuyPulse unique?</h2>
+      <p>One of the things that Team 694 takes pride in is our overwhelming diversity.
+        About forty percent of our team identifies as female, more than fifty percent
+        qualifies for free and/or reduced lunch, and over eighty percent of our team
+        are first generation Americans.</p>
+      <p>Our team maintains close-knit relationships with one another despite the sheer
+        number of members we have. Bonding occurs naturally, yet events such as our team
+        dinner and honorary birthday mentions help speed this up! The journey to regionals
+        across the country is anything but boring and is kept close to our hearts.</p>
+      <p>As a team, StuyPulse has gone on to be champions numerous times. Last year,
+        we went to win the third seed in the Galileo Division after captaining the
+        third alliance. However in 2016 we won both regional champions and the Engineering
+        Inspiration Award at the NYC Regional, and were the sub-division champions of the
+        Curie Subdivision at World Championships. We won the Regional Chairman's Award
+        at the South Florida Regional and the Entrepreneurship Award at the New York
+        City Regional in 2017. </p>
+    </div>
+    <div class="col-sm-4">
+      <h1>maybe another image here too</h1>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md">
+      <h2 id="first" class="offset">
+        <a href="http://www.usfirst.org/"
+          ><img
+            class="front-page-thumb inline-icon"
+            src="first-logo.svg"
+            alt="FIRST logo"
+          /></a
+        >
+        About FIRST
+      </h2>
+      <p>
+        <a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition
+        in Science and Technology) is a multi-national, non-profit organization designed
+        to inspire and encourage today's youth to pursue careers in science, technology
+        and math. These programs also stress the development of skills in areas such
+        as teamwork, public relations, strategy, dedication, and outreach, which
+        are helpful and often necessary in future careers and endeavors.
+      </p>
+      <p><a href="/about/first/">Learn more &raquo;</a></p>
+    </div>
   </div>
 </PageSite>

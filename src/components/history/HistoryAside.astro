@@ -4,17 +4,18 @@ import { CollectionEntry, getCollection } from 'astro:content';
 const history = await getCollection('history');
 const sortedHistory:CollectionEntry<'history'>[] = [];
 history.map((entry) => sortedHistory.unshift(entry));
-
 export interface Props {
   activeYear?: string;
 }
+
+const year = Astro.props;
 ---
 
 {
   sortedHistory.map((entry) => (
-    <div class="row no-gutters">
-      <a href={"/about/history/"+entry.slug} class="p-0 pl-2">
-        <p class="year mb-1 ">{entry.slug}</p>
+    <div class="row no-gutters align-items-center">
+      <a href={"/about/history/"+entry.slug} class={"pl-5 pb-1 pt-1 align-items-center "+ (!entry.slug.localeCompare(year.activeYear)&&"current") }>
+        <p class={(entry.slug.localeCompare(year.activeYear)?"year":"current") + " mb-0"} >{entry.slug}</p>
       </a>
     </div>
     
@@ -22,8 +23,26 @@ export interface Props {
 }
 
 <style>
-  .year {
-    color: rgba(224, 0, 0);
+  p {
     margin-bottom: 0.25rem;
+  }
+  @media screen and (max-width: 992px) {
+    p{
+      margin-left:1rem;
+    }
+  }
+  
+  .row:hover {
+    background-color: rgb(235, 235, 238);
+  }
+  .row:active {
+    background-color: rgb(224, 221, 221);
+  }
+  .current {
+    background-color: rgb(224, 0, 0) ;
+    color: rgb(235, 235, 238) ;
+  }
+  .year {
+
   }
 </style>
