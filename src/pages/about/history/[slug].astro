@@ -14,15 +14,18 @@ export async function getStaticPaths() {
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
+
 ---
 
 <PageSite title="History" description={'TEST'}>
   <div class="row ">
     <nav class="col-sm-2 text-nowrap">
-      <p class="text-muted text-break text-wrap m-0 p-0 mb-2">Team History</p>
-      <HistoryAside />
+      <p class="text-muted text-break text-wrap m-0 p-0 mb-0">Team History</p>
+      <hr class="mt-1 mb-2 "/>
+      <HistoryAside activeYear={entry.data.year}/>
     </nav>
     <div class="col-sm-10 content">
+      <p></p>
       <Content />
     </div>
   </div>

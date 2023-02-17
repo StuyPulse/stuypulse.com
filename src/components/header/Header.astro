@@ -1,9 +1,9 @@
 ---
-import type { NavType } from '@types.js';
-import Nav from './Nav.astro';
-import Dropdown from './Dropdown.astro';
+import type { NavType } from "@types.js";
+import Nav from "./Nav.astro";
+import Dropdown from "./Dropdown.astro";
 
-const navs = (await import('@data/navbar.yml')).default;
+const navs = (await import("@data/navbar.yml")).default;
 ---
 
 <nav class="navbar navbar-expand-lg fixed-top mb-3">
@@ -42,24 +42,24 @@ const navs = (await import('@data/navbar.yml')).default;
 </nav>
 
 <style>
-  
   .navbar {
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: linear-gradient(
       180deg,
       rgba(224, 0, 0, 1) 59px,
       rgb(246, 251, 255) 0px
-    )
+    );
   }
 
   @media screen and (min-width: 992px) {
     .navbar {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: linear-gradient(
-      300deg,
-      rgb(246, 251, 255, 1) 34em,
-      rgba(224, 0, 0, 1) 10em
-    );
+      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+        0 6px 20px 0 rgba(0, 0, 0, 0.19);
+      background: linear-gradient(
+        300deg,
+        rgb(246, 251, 255, 1) 34em,
+        rgba(224, 0, 0, 1) 10em
+      );
     }
   }
 </style>

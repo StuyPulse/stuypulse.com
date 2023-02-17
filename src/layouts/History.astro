@@ -1,7 +1,6 @@
 ---
 import type { YoutubeLinkType } from "@types";
 import type { MarkdownLayoutProps } from "astro";
-// @ts-ignore
 import { Picture } from "astro-imagetools/components";
 
 type Props = MarkdownLayoutProps <{
@@ -10,6 +9,7 @@ type Props = MarkdownLayoutProps <{
   photo: string;
   source?: string;
   flickr?: string;
+  cad?: string;
   youtube_links?: YoutubeLinkType[];
   awards?: string[];
 }>;
@@ -19,18 +19,29 @@ const { frontmatter } = Astro.props;
 
 <h3>{frontmatter.year + ": " + frontmatter.title}</h3>
 <div class="row mb-3">
-  <div class="col-sm-6 border border-5 rounded-1 p-0">
-    <Picture 
-      src={frontmatter.photo} 
-      alt={frontmatter.title} 
-    />
+  <div class="col-sm-8 ">
+    <div class="border border-5 rounded-1 p-0 ">
+      <Picture 
+        src={frontmatter.photo} 
+        alt={frontmatter.title} 
+        attributes={{
+          class: "d-block w-100",
+        }}
+      />
+    </div>
+    
   </div>
-  <div class="col-sm-6">
+  <div class="col-sm-4">
     <h5>Additional Resources</h5>
     <ul>
       {
         frontmatter.source && (
           <li><a href={frontmatter.source}>{frontmatter.title+"'s source code"}</a></li>
+        )
+      }
+      {
+        frontmatter.cad && (
+          <li><a href={frontmatter.cad}>{frontmatter.title+"'s CAD file"}</a></li>
         )
       }
       <li><a href={"https://www.thebluealliance.com/team/694/"+frontmatter.year}>{frontmatter.year+" season stats on The Blue Alliance"}</a></li>
