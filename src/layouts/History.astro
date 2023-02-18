@@ -1,9 +1,9 @@
 ---
-import type { YoutubeLinkType } from "@types";
-import type { MarkdownLayoutProps } from "astro";
-import { Picture } from "astro-imagetools/components";
+import type { YoutubeLinkType } from '@types';
+import type { MarkdownLayoutProps } from 'astro';
+import { Picture } from 'astro-imagetools/components';
 
-type Props = MarkdownLayoutProps <{
+type Props = MarkdownLayoutProps<{
   title: string;
   year: string;
   photo: string;
@@ -17,71 +17,112 @@ type Props = MarkdownLayoutProps <{
 const { frontmatter } = Astro.props;
 ---
 
-<h3>{frontmatter.year + ": " + frontmatter.title}</h3>
-<div class="row mb-3">
-  <div class="col-sm-8 ">
-    <div class="border border-5 rounded-1 p-0 ">
-      <Picture 
-        src={frontmatter.photo} 
-        alt={frontmatter.title} 
-        attributes={{
-          class: "d-block w-100",
-        }}
-      />
-    </div>
-    
-  </div>
-  <div class="col-sm-4">
-    <h5>Additional Resources</h5>
-    <ul>
-      {
-        frontmatter.source && (
-          <li><a href={frontmatter.source}>{frontmatter.title+"'s source code"}</a></li>
-        )
-      }
-      {
-        frontmatter.cad && (
-          <li><a href={frontmatter.cad}>{frontmatter.title+"'s CAD file"}</a></li>
-        )
-      }
-      <li><a href={"https://www.thebluealliance.com/team/694/"+frontmatter.year}>{frontmatter.year+" season stats on The Blue Alliance"}</a></li>
-    </ul>
-    {
-      frontmatter.flickr && (
-        <h5>Photo Gallery</h5>
-        <ul>
-          <li>
-            <a href={frontmatter.flickr}>{frontmatter.year+" photos on Flickr"}</a>
-          </li>
-        </ul>
-      )
-    }
-    {
-      frontmatter.youtube_links && (
-        <h5>Youtube Videos</h5>
-        <ul>
-          {frontmatter.youtube_links.map((link) => 
-            <li><a href={link.url}>{link.name}</a></li>
-          )}
-        </ul>
-      )
-    }
+<h1>{frontmatter.year + ': ' + frontmatter.title}</h1>
+<div
+  class="col-sm-6 mx-auto mb-4"
+  style="border: 5px solid #E7E7E7; border-radius: 10px;"
+>
+  <div class="d-flex justify-content-center">
+    <Picture src={frontmatter.photo} alt={frontmatter.title} />
   </div>
 </div>
 
-<slot class="content"/>
-    
+<slot class="content" />
+
+<hr />
+
+<table class="table table-hover">
   {
     frontmatter.awards && (
-      
-      <hr />
-      <div>
-        <h5>Awards</h5>
-        <ul>
-          {frontmatter.awards.map((award) => 
-            <li>{award}</li>
-          )}
-        </ul>
-      </div>
+      <tr>
+        <th>Awards</th>
+        <td>
+          <ul>
+            {frontmatter.awards.map((award) => (
+              <li>{award}</li>
+            ))}
+          </ul>
+        </td>
+      </tr>
     )
   }
+
+  {
+    frontmatter.youtube_links && (
+      <tr>
+        <th>YouTube Videos</th>
+        <td>
+          <ul>
+            {frontmatter.youtube_links.map((link) => (
+              <li>
+                <a href={link.url}>{link.name}</a>
+              </li>
+            ))}
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  {
+    frontmatter.flickr && (
+      <tr>
+        <th>Photo Gallery</th>
+        <td>
+          <ul>
+            <li>
+              <a href={frontmatter.flickr}>
+                {frontmatter.year + ' photos on Flickr'}
+              </a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  {
+    frontmatter.cad && (
+      <tr>
+        <th>CAD</th>
+        <td>
+          <li>
+            <a href={frontmatter.cad}>{frontmatter.title + "'s CAD file"}</a>
+          </li>
+        </td>
+      </tr>
+    )
+  }
+
+  {
+    frontmatter.source && (
+      <tr>
+        <th>Source Code</th>
+        <td>
+          <ul>
+            <li>
+              <a href={frontmatter.source}>
+                {frontmatter.title + "'s source code"}
+              </a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  <tr>
+    <th>Additional Resources</th>
+    <td>
+      <ul>
+        <li>
+          <a
+            href={'https://www.thebluealliance.com/team/694/' +
+              frontmatter.year}
+            >{frontmatter.year + ' season stats on The Blue Alliance'}</a
+          >
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>
