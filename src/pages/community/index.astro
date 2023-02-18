@@ -1,7 +1,133 @@
 ---
-import PageSite from '@layouts/PageSite.astro';
+import PageSite from "@layouts/PageSite.astro";
 ---
 
+<style>
+  .inline-icon {
+    height: 1em;
+    transform: translateY(-0.1em);
+    padding-right: 0.25rem;
+  }
+  p {
+    text-indent: 1em;
+  }
+  .offset::before {
+    display: block;
+    content: " ";
+    margin-top: -62px;
+    height: 62px;
+    visibility: hidden;
+    pointer-events: none;
+  }
+</style>
+
 <PageSite title="Community" description={"TEST"}>
-  <h1>Community</h1>
+  <h1 class="mb-4">Community and Outreach</h1>
+  <div class="row gx-5">
+    <div class="col-sm-9">
+      <h2>Helping Out Other Teams</h2>
+      <p>
+        Team 694 is always ready to help out struggling teams, whether it is during
+        the hectic build season or at the competitions themselves. Throughout the
+        years, we have visited other teams and invited them to our lab to share
+        knowledge and experiences about safety, organization, fundraising,
+        engineering and software engineering. Even during competitions, our team is
+        ready to send members to help other teams with their robots, and cheer with
+        them as they win awards or advance to the finals. Helping other teams also
+        provides us a way to bond with them and form a long-lasting friendships, an
+        incentive that has kept us in action.
+      </p>
+      <p>
+        Helping other teams is just as advantageous to our own team as it is helpful
+        to others. Bonding with members of other teams is like welcoming others into
+        our community and the friendships and loyalties formed are long-lasting.
+      </p>
+    </div>
+    <div class="col-sm-3 mt-3">
+      <h5>Projects and Demos</h5>
+      <p>Take a look at the <a href="/projects">projects and demos</a> that we have
+      done for the community!</p>
+      <h5 class="mt-4">Resources</h5>
+      <p>Check out our <a href="/resources">resources</a> for other teams.</p>
+    </div>
+  </div>
+  <div class="row mt-4">
+    <h2>FLL</h2>
+    <div class="col-sm-8 gx-5">
+      <p>In the spring of 2001, Team 694 gave a presentation about instituting a
+        robotics curriculum to interested teachers. Since then, we have helped inspire
+        several schools to get involved in this spectacular program. In addition,
+        Team 694 has been there to lend a helping hand by mentoring teams, especially at
+        I.S. 89 across the street whom we have mentored each year since 2002.</p>
+      <p>Our involvement with FLL increased in December 2005 when the Manhattan Borough
+        FLL Tournament was first held in our school. Our helping hand is not limited to
+        schools in our local community. As of 2019, we helped a number of FLL Teams in
+        Puerto Rico. More specifically, we aided in programming and their project
+        presentations. These four teams were the ASJ Robotigers, Knight Hackers, The LEGO
+        Builders and The Robogens.</p>
+      <p>Recently, as of 2021, we’ve also devised our own FLL curriculum, designed
+        specifically to help new teams and their mentors get a solid foundation in the
+        basics of FLL robotics and its associated activities such as the FLL research
+        project. We have finally put this FLL curriculum to use, as we currently mentor
+        three teams, one of which we started ourselves at a nearby church. Dedicated
+        members from our team volunteer to visit the church once a week to help them.
+        A short introduction to the guide and the links to its resources can be found in
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">this PDF.</a>
+        <strong>[NOTE: apparently no one knows where PDF is like what???????]</strong></p>
+    
+    </div>
+    <div class="col-sm-4 border border-5">
+      <h1>image from alpha-omega mentoring here??? maybe????</h1>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <h2>Team 694 Within the School</h2>
+    <div class="col-sm-7 gx-5">
+      <p>
+        Following our successful rookie year, Stuyvesant High School was inspired to
+        start an “Intro to Robotics” class, taught by our very own head coach and mentor,
+        Joseph Blay. Today, this course is still available to Juniors and Seniors, a perfect
+        catalyst for spreading the message of FIRST and generating interest in the Robotics
+        Team. The class was such a success that several schools considered the possibility of
+        adding a similar course to their curriculums. 
+      </p>
+      <p>
+        Team 694 often performs demonstrations at alumni reunions at our school. This year,
+        several alumni enjoyed the thrill of driving our 2004 robot, Larry, around the school
+        lobby. We even went beyond our original expectations by having several willing team
+        members conduct tours of the building on short notice, We were later commended by the
+        alumni for our knowledge and gracious manners.
+      </p>
+      <p>Yet, 694 does not limit its demonstrations to just alumni to emphasize the importance
+        of the robotics program. For 2022's Open House session, we showcased our 2016 robot,
+        DEStiny, in front of hundreds of incoming freshmen and their parents. Through this,
+        we hope that Robotics will become one of their reasons for choosing Stuyvesant, and
+        that no matter where they go, they will spread the message of FIRST robotics.
+      </p>
+    </div>
+    <div class="col-sm-5  border border-5">
+      <h1>image/video of 694 at open house here???</h1>
+    </div>
+  </div>
+  <div class="row mt-5">
+    <h2>Public Demonstrations</h2>
+    <div class="col-sm-5 border border-5">
+      <h1>image/video not needed but idk</h1>
+    </div>
+    <div class="col-sm-7 gx-5">
+      <p>Over the years, Team 694 has been featured in numerous demonstrations, shows
+        and the media. We most notably appeared in Wired Magazine's 2006 NEXTFEST
+        Demonstration, where our 2006 robot, Joshua, played mock matches of the game,
+        “Aim High,” watched by thousands of spectators. In 2004, StuyPulse had gone on
+        to present at the World Financial Center, whereas in 2008, we were invited to
+        showcase FIRST Robotics at the first annual World Science Fair held in Washington
+        Square Park. Every year, we regularly present on-stage at the TriBeCa film
+        festival and also on the street, where we have our fundraising book sale. We
+        have also appeared at Sony Wonder Fair, the NASA events, Maker Faire, and various
+        local events. In the midst of busy demonstrations, we also try to increase our
+        government's interest in FIRST and other robotics programs through presentations
+        and by _________________</p>
+    </div>
+  </div>
+  
 </PageSite>

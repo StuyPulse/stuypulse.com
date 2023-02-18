@@ -15,7 +15,7 @@ We started the day off by watching the live stream. At one point, we had a nice 
 
 <div class="text-center" markdown="1">
 
-![Alex Carillo](/../../news/alexlive.jpg "Alex Carillo")
+![Alex Carillo](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fimg%2Fnews%2Falexlive.jpg "Alex Carillo")
 
 <small>*Alex Carrillo, team 694 alum, represents StuyPulse on the big screen.*</small>
 </div>
@@ -24,7 +24,7 @@ After going through the game manual with everyone, we broke for lunch.
 
 <div class="text-center" markdown="1">
 
-![Lunch](/../../news/potluck2015.jpg "Lunch")
+![Lunch](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/news/potluck2015.jpg "Lunch")
 
 <small>*Yum.*</small>
 </div>
@@ -33,7 +33,7 @@ Later, we split up into a few groups to puzzle over the game rules and discuss s
 
 <div class="text-center" markdown="1">
 
-![Strategy groups](/../../news/kickoffgroups2015.jpg "Strategy groups")
+![Strategy groups](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/news/kickoffgroups2015.jpg "Strategy groups")
 
 <small>*Joe Blay shares some of his valuable wisdom regarding pool noodles.*</small>
 </div>
@@ -42,7 +42,7 @@ At the end of the day, we met back up again in the 3rd floor atrium, where part 
 
 <div class="text-center" markdown="1">
 
-![Third floor meeting](/../../news/preparefordoom.jpg "Third floor meeting")
+![Third floor meeting](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/news/preparefordoom.jpg "Third floor meeting")
 
 <small>*I don't like the look of that ruler...*</small>
 </div>
