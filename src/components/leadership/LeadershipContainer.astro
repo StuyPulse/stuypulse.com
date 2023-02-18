@@ -16,6 +16,9 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
 ---
 
 <style define:vars={{ height, width, tSize, hSize }}>
+  .card {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  }
   .leadership-container {
     height: var(--height);
     width: var(--width);
