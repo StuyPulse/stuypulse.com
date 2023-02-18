@@ -19,11 +19,11 @@ const { frontmatter } = Astro.props;
 
 <h1>{frontmatter.year + ': ' + frontmatter.title}</h1>
 <div
-  class="col-sm-6 mx-auto mb-4"
+  class="col-sm-5 mx-auto mb-4"
   style="border: 5px solid #E7E7E7; border-radius: 10px;"
 >
   <div class="d-flex justify-content-center">
-    <Picture src={frontmatter.photo} alt={frontmatter.title} />
+    <Picture src={frontmatter.photo} alt={frontmatter.title} attributes={{}} />
   </div>
 </div>
 

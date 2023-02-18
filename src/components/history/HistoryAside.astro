@@ -15,7 +15,7 @@ const year = Astro.props;
   sortedHistory.map((entry) => (
     <div class="row no-gutters align-items-center">
       <a href={"/about/history/"+entry.slug} class={"pl-5 pb-1 pt-1 align-items-center "+ (!entry.slug.localeCompare(year.activeYear)&&"current") }>
-        <p class={(entry.slug.localeCompare(year.activeYear)?"year":"current") + " mb-0"} >{entry.slug}</p>
+        <p class={(entry.slug.localeCompare(year.activeYear)?"year":"current") + " mb-0"} >{entry.slug}: {entry.data.title}</p>
       </a>
     </div>
     
