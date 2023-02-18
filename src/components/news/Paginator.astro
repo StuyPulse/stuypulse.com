@@ -5,6 +5,22 @@ export interface Props {
 }
 
 const { numPages, currPost } = Astro.props;
+let shownPages = []
+if(currPost < 5){
+  for(let i = 1; i<8; i++){
+    shownPages.push(i)
+  }
+}
+else if(currPost > numPages.length-4){
+  for(let i = numPages.length-6; i<=numPages.length; i++){
+    shownPages.push(i)
+  }
+}
+else {
+  for(let i = currPost - 3; i <= currPost + 3; i++){
+    shownPages.push(i)
+  }
+}
 ---
 <style>
   nav a {
@@ -18,11 +34,23 @@ const { numPages, currPost } = Astro.props;
       <a class="page-link" href={"/news/" + String(currPost-1)}>&laquo;</a>
     </li>
     {
-      numPages.map((num: number)=>
+      currPost > 4 &&
+      <li class="page-item disabled">
+        <a class="page-link">...</a>
+      </li>
+    }
+    {
+      shownPages.map((num: number)=>
         <li class="page-item">
           <a class={num != currPost ? "page-link" : "page-link active"} href={"/news/" + String(num)}>{num}</a>
         </li>
       )
+    }
+    {
+      currPost < numPages.length-3 &&
+      <li class="page-item disabled">
+        <a class="page-link">...</a>
+      </li>
     }
     <li class={currPost < numPages[numPages.length-1] ? "page-item" : "page-item disabled"}>
       <a class="page-link" href={"/news/" + String(currPost+1)}>&raquo;</a>
