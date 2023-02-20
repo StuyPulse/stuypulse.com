@@ -2,6 +2,7 @@
 import type { YoutubeLinkType } from '@types';
 import type { MarkdownLayoutProps } from 'astro';
 import { Picture } from 'astro-imagetools/components';
+import HistoryTable from '@components/history/HistoryTable.astro';
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -23,7 +24,7 @@ const { frontmatter } = Astro.props;
   style="border: 5px solid #E7E7E7; border-radius: 10px;"
 >
   <div class="d-flex justify-content-center">
-    <Picture src={frontmatter.photo} alt={frontmatter.title} attributes={{}} />
+    <Picture src={frontmatter.photo} alt={frontmatter.title} />
   </div>
 </div>
 
@@ -31,98 +32,4 @@ const { frontmatter } = Astro.props;
 
 <hr />
 
-<table class="table table-hover">
-  {
-    frontmatter.awards && (
-      <tr>
-        <th>Awards</th>
-        <td>
-          <ul>
-            {frontmatter.awards.map((award) => (
-              <li>{award}</li>
-            ))}
-          </ul>
-        </td>
-      </tr>
-    )
-  }
-
-  {
-    frontmatter.youtube_links && (
-      <tr>
-        <th>YouTube Videos</th>
-        <td>
-          <ul>
-            {frontmatter.youtube_links.map((link) => (
-              <li>
-                <a href={link.url}>{link.name}</a>
-              </li>
-            ))}
-          </ul>
-        </td>
-      </tr>
-    )
-  }
-
-  {
-    frontmatter.flickr && (
-      <tr>
-        <th>Photo Gallery</th>
-        <td>
-          <ul>
-            <li>
-              <a href={frontmatter.flickr}>
-                {frontmatter.year + ' photos on Flickr'}
-              </a>
-            </li>
-          </ul>
-        </td>
-      </tr>
-    )
-  }
-
-  {
-    frontmatter.cad && (
-      <tr>
-        <th>CAD</th>
-        <td>
-          <li>
-            <a href={frontmatter.cad}>{frontmatter.title + "'s CAD file"}</a>
-          </li>
-        </td>
-      </tr>
-    )
-  }
-
-  {
-    frontmatter.source && (
-      <tr>
-        <th>Source Code</th>
-        <td>
-          <ul>
-            <li>
-              <a href={frontmatter.source}>
-                {frontmatter.title + "'s source code"}
-              </a>
-            </li>
-          </ul>
-        </td>
-      </tr>
-    )
-  }
-
-  <tr>
-    <th>Additional Resources</th>
-    <td>
-      <ul>
-        <li>
-          <a
-            href={'https://www.thebluealliance.com/team/694/' +
-              frontmatter.year}
-            >{frontmatter.year + ' season stats on The Blue Alliance'}</a
-          >
-        </li>
-      </ul>
-    </td>
-  </tr>
-</table>
+<HistoryTable frontmatter={frontmatter} />
