@@ -7,7 +7,7 @@
 @font-face {
   font-family: "museo-sans";
   src: url("/MuseoSans-300.otf") format("opentype");
-  font-display: swap
+  font-display: swap;
 }
 body {
   font-family: "museo-sans","Helvetica Neue",Helvetica,Arial,sans-serif;
