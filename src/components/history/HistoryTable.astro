@@ -1,4 +1,6 @@
 ---
+import type { LinkType } from "@types";
+
 const { frontmatter } = Astro.props;
 ---
 
@@ -9,7 +11,7 @@ const { frontmatter } = Astro.props;
           <th>Awards</th>
           <td>
             <ul>
-              {frontmatter.awards.map((award) => (
+              {frontmatter.awards.map((award: String) => (
                 <li>{award}</li>
               ))}
             </ul>
@@ -24,7 +26,7 @@ const { frontmatter } = Astro.props;
           <th>YouTube Videos</th>
           <td>
             <ul>
-              {frontmatter.youtube_links.map((link) => (
+              {frontmatter.youtube_links.map((link: LinkType) => (
                 <li>
                   <a href={link.url}>{link.name}</a>
                 </li>

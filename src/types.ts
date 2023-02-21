@@ -4,6 +4,11 @@ export interface NavType {
   dropdown?: NavType[]; // list of navs under a dropdown
 }
 
+export interface LinkType {
+  name: string;
+  url: string;
+}
+
 export interface CarouselItemType {
   img: string;
   caption: string;

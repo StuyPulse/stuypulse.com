@@ -16,6 +16,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
 <style>
   .inline-icon {
     height: 1em;
+    width: 1em;
     transform: translateY(-0.1em);
     padding-right: 0.25rem;
   }
@@ -120,7 +121,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     <div class="col-sm-8">
       <h2>Recent News</h2>
 
-      <NewsMiniPreview entries={frontPosts} numPosts={POSTS_ON_FRONT_PAGE} />
+      <NewsMiniPreview entries={frontPosts}/>
 
       <strong><a href="/news">See older news &gt;&gt;</a></strong>
     </div>

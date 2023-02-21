@@ -15,6 +15,7 @@ const sponsorData = yml.default;
 
   .inline-icon {
     height: 1.5em;
+    width: 1.5em;
     transform: translateY(-0.1em);
   }
 
@@ -28,7 +29,7 @@ const sponsorData = yml.default;
   <div class="row">
   {
     sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "gold").map((sponsor: SponsorType, index: number) => (
-    <div class="col">
+    <div class="col-md-3 col-sm-6">
         <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
     </div>
     ))
