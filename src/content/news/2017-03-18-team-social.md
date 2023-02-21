@@ -8,6 +8,6 @@ Hey everyone! StuyPulse Team 694 will be holding a TEAM SOCIAL on the Friday nig
 <!-- more -->
 <br>
 
-<div class="text-center" markdown="1">
+<div class="text-center"\>
 
 ![Team Social Flier](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/news/team-social-flier.jpg "Team Social Flier")
