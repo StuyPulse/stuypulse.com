@@ -120,29 +120,40 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   </div>
   <div class="row">
     <div class="col-sm-8">
-      <h2>Recent News</h2>
-
-      <NewsMiniPreview entries={frontPosts}/>
-
-      <strong><a href="/news">See older news &gt;&gt;</a></strong>
+      <div class = "large-name"><a href="/sponsors/"
+        >
+        <img
+          class="front-page-thumb inline-icon"
+          src="/red-diamond.svg"
+          alt="Gem"
+        />
+        </a
+      >Sponsors</div>
+      <div class="intro-text mb-2 w-75" style="border-bottom: 3px solid #e00">
+        Our sponsors:&nbsp;</div>  
+      <p>Want to sponsor our award-winning team?</p>
+      <a href='/about/history'><button type="button"> Sponsor Us &gt;&gt;</button></a>
     </div>
+    
+    
 
     <div class="col-sm-4">
-      <h2>
-        <a href="/sponsors/"
-          >
-          <img
-            class="front-page-thumb inline-icon"
-            src="/red-diamond.svg"
-            alt="Gem"
-          />
-          </a
-        >
-        Sponsors
-      </h2>
-      <p>We would like to thank our <a href="/sponsors/">sponsors</a>:</p>
-      <br/>
       <SponsorCarousel images="sponsors" />
     </div>
+    
   </div>
+  <div class="row mt-5">
+    <div class="col-sm-8">
+      <h2>Recent News</h2>
+  
+      <NewsMiniPreview entries={frontPosts}/>
+  
+      <strong><a href="/news">See older news &gt;&gt;</a></strong>
+    </div>
+    <div class="col-sm-4">
+      <p>insert youtube video here</p>
+    </div>
+  </div>
+  
+  
 </PageSite>
