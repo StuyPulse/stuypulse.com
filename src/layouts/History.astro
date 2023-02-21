@@ -24,7 +24,10 @@ const { frontmatter } = Astro.props;
   style="border: 5px solid #E7E7E7; border-radius: 10px;"
 >
   <div class="d-flex justify-content-center">
-    <Picture src={frontmatter.photo} alt={frontmatter.title} />
+    <Picture 
+      src={frontmatter.photo} 
+      alt={frontmatter.title} 
+    />
   </div>
 </div>
 

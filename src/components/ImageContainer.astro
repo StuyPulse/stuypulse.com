@@ -1,0 +1,52 @@
+---
+import { Picture } from 'astro-imagetools/components';
+
+export interface Props {
+  img?: string;
+  alt?: string;
+  text?: string;
+  height: string;
+  width: string;
+  tSize: string;
+}
+
+const { img, alt, text, height, width, tSize } = Astro.props;
+---
+
+<style define:vars={{ height, width, tSize }}>
+  .image-container {
+    height: var(--height);
+    width: var(--width);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* background-color: aqua; */
+  }
+
+  p {
+    display: flex;
+    font-size: var(--tSize);
+    align-items: center;
+    text-align: center;
+  }
+
+  img {
+    display: block;
+    height: var(--height);
+    width: var(--width);
+    object-fit: contain;
+  }
+</style>
+
+<div class="image-container">
+  {
+    img ?
+    <Picture 
+      src={img} 
+      alt={alt} 
+      placeholder="none"
+    />
+    :
+    <p><strong>{text}</strong></p>
+  }
+</div>
