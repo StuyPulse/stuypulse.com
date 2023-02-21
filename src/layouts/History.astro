@@ -3,6 +3,7 @@ import type { YoutubeLinkType } from '@types';
 import type { MarkdownLayoutProps } from 'astro';
 import { Picture } from 'astro-imagetools/components';
 import HistoryTable from '@components/history/HistoryTable.astro';
+import ImageContainer from '@components/ImageContainer.astro';
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -19,14 +20,14 @@ const { frontmatter } = Astro.props;
 ---
 
 <h1>{frontmatter.year + ': ' + frontmatter.title}</h1>
-<div
-  class="col-sm-5 mx-auto mb-4"
-  style="border: 5px solid #E7E7E7; border-radius: 10px;"
->
-  <div class="d-flex justify-content-center">
-    <Picture 
-      src={frontmatter.photo} 
+<div class="text-center">
+  <div style="display: inline-block; border: 5px solid #E7E7E7; border-radius: 10px;">
+    <ImageContainer
+      img={frontmatter.photo} 
       alt={frontmatter.title} 
+      height={"auto"}
+      width={"400px"}
+      tSize={"40px"}
     />
   </div>
 </div>
