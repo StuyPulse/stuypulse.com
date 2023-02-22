@@ -8,14 +8,14 @@ const socials = (await import('@data/socials.yml')).default;
 
 <footer>
   <hr class="hr-blurry mx-auto" style="width:60%; padding-bottom:15px;">
-  <div class="row" style="padding-top:10px">
-    {socials.map((social: SocialType) => (
-      <SocialIcon social={social}/>
-      ))}
-    <p>
-      &copy; {new Date().getFullYear()} StuyPulse.
-    </p>
+    <div class="justify-content-center">
+      {socials.map((social: SocialType) => (
+        <SocialIcon social={social}/>
+        ))}
   </div>
+  <p class="mt-3 text-center">
+    &copy; {new Date().getFullYear()} StuyPulse.
+  </p>
 </footer>
 
 <script
