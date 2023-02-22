@@ -48,6 +48,11 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     margin-bottom: 0;
     display: inline-block;
   }
+
+  /* .carousel {
+    border-radius: 10px;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+  } */
   button {
     background-color: red;
     color: white;
@@ -66,6 +71,9 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   .robotimg {
     width: 20rem;
     display: flex;
+  }
+  iframe{
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   }
 </style>
 
@@ -119,39 +127,61 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-8">
-      <div class = "large-name"><a href="/sponsors/"
-        >
-        <img
-          class="front-page-thumb inline-icon"
-          src="/red-diamond.svg"
-          alt="Gem"
-        />
-        </a
-      >Sponsors</div>
-      <div class="intro-text mb-2 w-75" style="border-bottom: 3px solid #e00">
-        Our sponsors:&nbsp;</div>  
-      <p>Want to sponsor our award-winning team?</p>
-      <a href='/about/history'><button type="button"> Sponsor Us &gt;&gt;</button></a>
+    <div class="col-sm-6 text-end flex-wrap">
+      <div class = "large-name">
+        <a href="/sponsors/">
+          <img
+            class="front-page-thumb inline-icon"
+            src="/red-diamond.svg"
+            alt="Gem"
+          />
+        </a>
+        Sponsors
+      </div>
+      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00; width:8em">Our sponsors:&nbsp;</div>  
+      <p class="text-center">Our robots could not have been built, had it not been for the generosity of our sponsors. Want to sponsor our award-winning team?</p>
+      <a href='/sponsors#info'><button type="button"> Sponsor Us &gt;&gt;</button></a>
     </div>
     
-    
+    <div class="col-sm-1" />
 
-    <div class="col-sm-4">
+    <div class="col-sm-5 carousel">
       <SponsorCarousel images="sponsors" />
     </div>
     
   </div>
   <div class="row mt-5">
-    <div class="col-sm-8">
+    <div class="row justify-content-start text-start">
+      <div class="large-name">
+        <img
+            class="front-page-thumb inline-icon"
+            src="/clock.svg"
+            alt="Clock"
+          />
+        Latest News
+      </div>
+      <div class="intro-text mb-4 w-50" style="border-bottom: 3px solid #e00">
+        Keep up with the team!&nbsp;
+      </div>  
+    </div>
+    
+    <div class="col-sm-5">
       <h2>Recent News</h2>
   
       <NewsMiniPreview entries={frontPosts}/>
   
       <strong><a href="/news">See older news &gt;&gt;</a></strong>
     </div>
-    <div class="col-sm-4">
-      <p>insert youtube video here</p>
+    <div class="col-sm-7">
+      <h2>Latest YouTube Video</h2>
+      <p class="text-muted">Check out our other videos <a href="https://www.youtube.com/@StuyPulse">here</a>!</p>
+      <iframe
+        class="w-100"
+        style="border:0.5em solid #e00; border-radius:1em; height:23em;"
+        src="https://www.youtube.com/embed/2rx8xY8-7qM"
+        title="YouTube video player"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        allowfullscreen></iframe>
     </div>
   </div>
   
