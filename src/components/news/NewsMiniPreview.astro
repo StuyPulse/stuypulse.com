@@ -1,19 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content';
-import getPostDate from '@utils/getPostDate';
 
 export interface Props {
   entries: CollectionEntry<'news'>[];
-  numPosts: number;
 }
 
-const { entries, numPosts } = Astro.props;
-
-// console.log(entries[0]);
+const { entries } = Astro.props;
 
 const posts = [];
 for (const entry of entries) {
-  const dateString = getPostDate(entry.id).toLocaleDateString('en-us', {
+  const dateString = entry.data.date.toLocaleDateString('en-us', {
     weekday: 'long',
     year: 'numeric',
     month: 'long',

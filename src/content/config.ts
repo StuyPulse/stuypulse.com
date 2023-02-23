@@ -5,6 +5,7 @@ const newsCollection = defineCollection({
     layout: z.string(),
     title: z.string(),
     author: z.string(),
+    date: z.date(),
     link: z.string().optional()
   })
 });

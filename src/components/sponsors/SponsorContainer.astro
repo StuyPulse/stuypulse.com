@@ -1,5 +1,6 @@
 ---
 import type { SponsorType } from "@types";
+import ImageContainer from "@components/ImageContainer.astro";
 
 export interface Props {
   sponsor: SponsorType;
@@ -11,55 +12,24 @@ export interface Props {
 const { sponsor, height, width, tSize } = Astro.props;
 ---
 
-<style define:vars={{ height, width, tSize }}>
-  .sponsor-container {
-    height: var(--height);
-    width: var(--width);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* background-color: aqua; */
-  }
-
-  p {
-    display: flex;
-    font-size: var(--tSize);
-    align-items: center;
-    text-align: center;
-  }
-
-  img {
-    display: block;
-    height: var(--height);
-    width: var(--width);
-    object-fit: contain;
-  }
-</style>
-
-<div class="sponsor-container">
-  {
-    sponsor.logo ? (
-      <div>
-        {sponsor.site == null ? (
-          <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
-        ) : (
-          <a href={sponsor.site} target="_blank">
-            <img src={sponsor.logo} class="d-block" alt={sponsor.name} />
-          </a>
-        )}
-      </div>
-    ) : (
-      sponsor.site ? (
-      <p>
-        <strong>
-          <a href={sponsor.site} target="_blank">{sponsor.name}</a>
-        </strong>
-      </p>
+{
+  sponsor.logo ? (
+    <div>
+      {sponsor.site == null ? (
+        <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize}/>
       ) : (
-        <p>
-          <strong>{sponsor.name}</strong>
-        </p>
-      )
+        <a href={sponsor.site} target="_blank">
+          <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize}/>
+        </a>
+      )}
+    </div>
+  ) : (
+    sponsor.site ? (
+      <a href={sponsor.site} target="_blank">
+        <ImageContainer text={sponsor.name} height={height} width={width} tSize={tSize}/>
+      </a>
+    ) : (
+      <ImageContainer text={sponsor.name} height={height} width={width} tSize={tSize}/>
     )
-  }
-</div>
+  )
+}

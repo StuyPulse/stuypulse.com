@@ -1,0 +1,21 @@
+---
+import { Picture } from "astro-imagetools/components";
+
+export interface Props {
+  src: string;
+  alt: string;
+  desc: string;
+}
+
+const { src, alt, desc } = Astro.props;
+---
+
+<div class="text-center">
+  <Picture
+    src={src}
+    alt={alt}
+  />
+</div>
+<div class="text-center">
+  <small>{desc}</small>
+</div>

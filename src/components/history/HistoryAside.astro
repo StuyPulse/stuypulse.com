@@ -5,7 +5,7 @@ const history = await getCollection('history');
 const sortedHistory:CollectionEntry<'history'>[] = [];
 history.map((entry) => sortedHistory.unshift(entry));
 export interface Props {
-  activeYear?: string;
+  activeYear: string;
 }
 
 const year = Astro.props;
