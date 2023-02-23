@@ -1,30 +1,20 @@
 ---
 import type { SocialType } from '@types';
 import SocialIcon from './SocialIcon.astro';
-import bootstrap from "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js?url";
 
 const socials = (await import('@data/socials.yml')).default;
 ---
 
-<footer>
-  <hr class="hr-blurry mx-auto" style="width:60%; padding-bottom:15px;">
-  <div class="row" style="padding-top:10px">
-    {socials.map((social: SocialType) => (
-      <SocialIcon social={social}/>
-      ))}
-    <p>
-      &copy; {new Date().getFullYear()} StuyPulse.
-    </p>
+<footer class="text-center">
+  <hr class="hr-blurry mx-auto" />
+
+  <div>
+    <table class="w-75 table table-borderless mx-auto">
+      <tr>
+        {socials.map((social: SocialType) => <SocialIcon social={social} />)}
+      </tr>
+    </table>
   </div>
+
+  <p>&copy; {new Date().getFullYear()} StuyPulse.</p>
 </footer>
-
-<script
-  src={bootstrap}
-></script>
-
-<style>
-  footer {
-    padding: 25px;
-    text-align: center;
-  }
-</style>
