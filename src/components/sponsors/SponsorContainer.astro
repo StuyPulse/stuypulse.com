@@ -11,6 +11,11 @@ export interface Props {
 
 const { sponsor, height, width, tSize } = Astro.props;
 ---
+<style>
+  a:hover{
+    filter: brightness(70%);
+  }
+</style>
 
 {
   sponsor.logo ? (
@@ -29,7 +34,9 @@ const { sponsor, height, width, tSize } = Astro.props;
         <ImageContainer text={sponsor.name} height={height} width={width} tSize={tSize}/>
       </a>
     ) : (
-      <ImageContainer text={sponsor.name} height={height} width={width} tSize={tSize}/>
+      <div style="color: #e00">
+        <ImageContainer text={sponsor.name} height={height} width={width} tSize={tSize}/>
+      </div>
     )
   )
 }
