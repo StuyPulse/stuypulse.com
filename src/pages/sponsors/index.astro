@@ -32,7 +32,7 @@ const sponsorData = yml.default;
           <h3 style ="margin-bottom:0;"><img src="/gold-medal.svg" class="inline-icon"> Gold</h3>
         </button>
       </h2>
-      <div id="flush-collapseGold" class="accordion-collapse collapse show" aria-labelledby="flush-headingGold">
+      <div id="flush-collapseGold" class="accordion-collapse collapse" aria-labelledby="flush-headingGold">
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "gold").map((sponsor: SponsorType, index: number) => (
@@ -50,7 +50,7 @@ const sponsorData = yml.default;
           <h3 style ="margin-bottom:0;"><img src="/silver-medal.svg" class="inline-icon"> Silver</h3>
         </button>
       </h2>
-      <div id="flush-collapseSilver" class="accordion-collapse collapse show" aria-labelledby="flush-headingSilver">
+      <div id="flush-collapseSilver" class="accordion-collapse collapse" aria-labelledby="flush-headingSilver">
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "silver").map((sponsor: SponsorType, index: number) => (
@@ -68,7 +68,7 @@ const sponsorData = yml.default;
           <h3 style ="margin-bottom:0;"><img src="/bronze-medal.svg" class="inline-icon"> Bronze</h3>
         </button>
       </h2>
-      <div id="flush-collapseBronze" class="accordion-collapse collapse show" aria-labelledby="flush-headingBronze">
+      <div id="flush-collapseBronze" class="accordion-collapse collapse" aria-labelledby="flush-headingBronze">
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "bronze").map((sponsor: SponsorType, index: number) => (
@@ -86,7 +86,7 @@ const sponsorData = yml.default;
           <h3 style ="margin-bottom:0;"><img src="/aluminum-medal.svg" class="inline-icon"> Aluminum</h3>
         </button>
       </h2>
-      <div id="flush-collapseAluminum" class="accordion-collapse collapse show" aria-labelledby="flush-headingAluminum">
+      <div id="flush-collapseAluminum" class="accordion-collapse collapse" aria-labelledby="flush-headingAluminum">
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "aluminum").map((sponsor: SponsorType, index: number) => (

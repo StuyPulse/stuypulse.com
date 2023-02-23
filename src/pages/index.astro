@@ -102,7 +102,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-5" style="display: flex; align-items: center; justify-content: center;">
+    <div class="col-lg-5 order-1 order-lg-0" style="display: flex; align-items: center; justify-content: center;">
       <div class = "card robotimg">
         <!-- <img style = "width:20rem; display:flex;" src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/Excelsior.JPG"> -->
         <Picture
@@ -114,7 +114,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
         />
       </div>
     </div>
-    <div class="col">
+    <div class="col order-0 order-lg-1">
       <div class = "large-name">Excelsior</div>
       <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">Our 2022 Robot for Rapid React&nbsp;</div>
       <br>
@@ -127,7 +127,7 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     </div>
   </div>
   <div class="row">
-    <div class="col-sm-6 flex-wrap">
+    <div class="col-lg-6 flex-wrap">
       <div class = "large-name">
         <a href="/sponsors/">
           <img
@@ -142,10 +142,8 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
       <p>Our robots could not have been built, had it not been for the generosity of our sponsors. Want to sponsor our award-winning team?</p>
       <a href='/sponsors#info'><button type="button"> Sponsor Us &gt;&gt;</button></a>
     </div>
-    
-    <div class="col-sm-1" />
 
-    <div class="col-sm-5">
+    <div class="col offset">
       <SponsorCarousel images="sponsors" />
     </div>
     
