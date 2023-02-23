@@ -1,0 +1,80 @@
+# Mentors for /about/mentors page
+# Parameters: name, image, description, woodieFlowers?
+
+- name: Joe Blay
+  image: /mentors/Joe_Blay.jpg
+  description: Joe Blay has had a tremendous impact on our team since his high school years. Joe Blay was a former StuyPulse student, graduating in 2009. While a student, he was an engineer and the main driver. After graduating, he made sure to stay with the team, despite his time studying in Stony Brook University. After graduating, he has come back to Stuyvesant to teach as well as coach StuyPulse. He mentors every aspect of the team in one way or another trying to make sure that every department of 694 is constantly growing. His main strengths are engineering and strategy. During competitions, he works on the drive team, as the coach, setting up our match strategy and making sure the drivers are ready to play as well as making sure that the strategy team is gets us ready for every match and the elimination rounds.
+
+- name: James Lonardo
+  description: James Lonardo has ceaselessly served our team for over eight years. He is essentially the “backbone of our team”. As an attentive mentor, James organizes all medical, contact, and trip forms, and signs us up for events. Not only was he devoted to our team, he was also a FIRST advocate on the streets. He even organized a competition for robotics classes with members of the U. S. Coast Guard, which inspired many children within and outside of school. His supportive attitude and contribution is indispensable to our team.
+
+- name: Tom Ferguson
+  description: Tom Ferguson is an engineer with years of experience. He serves as Vice President of Engineering at Cox and Co., the industry leader in aerospace design. He exhibits a polite personality and is a responsible leader. He has a will not of iron, but of aluminum honeycomb. And he is one of the most beloved and respected mentors of the Stuyvesant Robotics Team. Tom Ferguson has inspired generations of engineers on the team. Tom's deft understanding of many mathematical and physical concepts in engineering is invaluable to us when we design and build our robot. He encourages us to use abstract formulas and laws to determine concrete requirements and limitations in our designs
+
+- name: Ron Kunicki
+  description: Dedicated, resourceful, precise, compassionate, funny, - who is this jolly ole mentor who never fails to show up to save the day? None other than engineer and “father of the team,” Ron Kunicki. Not only has his easygoing nature captured our hearts and minds, his dedication to FIRST has given him an essential role on our team. When asked why he was so committed, he replied, “With team 694, my mind continues to be entertained, and sometimes I even have to go home and research the problems the team asks me.” Whatever the reason, Ron's leadership and dedication have become a vital part of the team. Ron joined the team as a parent for his daughter Theo, who has graduated and is currently a student at MIT, yet he continues to return year after year.
+
+- name: Joe "The Beast" Ricci
+  description: He joined the team in its second year, and since then, he's never left. While attending medical school, he has devoted more hours to our team than any other mentor, parent, or member in the eight years he has been with us. On graduating in 2003, Joe acquired a heightened sense of purpose, responsibility, and integrity that contributed greatly to his success in medical school and his research pursuits. As one of the driving forces behind our team, he strives to foster in us the same values that FIRST instilled in him.
+
+- name: Jeanne Boyarsky
+  description: Jeanne Boyarsky has volunteered since 2010 as a Java programming mentor in addition to her volunteering at CodeRanch. She has not only provided invaluable guidance with code, but also has kept us organized, and helped lead us to our Innovation in Control award in 2010. Jeanne even found time to write three Java books (and mentioned 694 in all of them). She has also spoken at several conferences.
+
+- name: Mel Hauptman
+  description: Mel likes to shake things up. There is no point in the season where he isn't saying that something is wrong with the robot. This lack of satisfaction constantly keeps all of us on our toes. Mel continues to come to meetings every year to help make us improve year after year.
+
+- name: Rafael Colón
+  description: stub
+
+- name: Honkit Ng
+  description: stub
+
+- name: Howard Cohen
+  image: /mentors/Howard_Cohen.jpg
+  description: Howard Cohen has been helping with robotics for longer than you've been alive, and he mentors StuyPulse robotics in pretty much a little bit of everything. Whether it's award-writing or engineering, he's the person to go to for robotics advice. He also mentors Team 359 or the Hawaiian Kids, the first FRC team ever made in Hawaii. He works at L3Harris, an engineering company that creates commercial and defense technologies. He dedicates the rest of his spare time to volunteering at competitions. As a volunteer coordinator, he helps in competitions like the Brunswick Eruption, hosted at North Brunswick Township High School, and provides invaluable insight into organizing StuyPulse events. No matter what he's doing, he always brightens the atmosphere with his cringey dad jokes and infectious enthusiasm.
+
+- name: Jerry Chang
+  description: stub
+
+- name: Levi Olevsky
+  description: stub
+
+- name: Navid Kashem
+  description: stub
+
+- name: Noah Tom-Wong
+  description: stub
+
+- name: Phil Lopreiato
+  description: stub
+
+- name: Piotr Milewski
+  description: stub
+
+- name: Shelley Grant
+  image: /mentors/Shelley_Grant.jpg
+  description: Shelley has a personal connection with the team as her daughter was one of the original members of the team when it was first founded in 2000. Yet her role on the team is so much more than the parent of an alumna. She consistently provides assistance with anything and everything related to our team and serves as a mentor, a role model, and urges us to go above and beyond. Not only is she a business mentor, but she works on various awards (ex. Impact, Woodie Flowers, Dean's List) and outreach projects. Her actions are always in 694's best interests as she consistently reaches out to others to help build connections with our team. Without Shelley, 694's presence would be greatly diminished.
+
+- name: Kevin Wang
+  description: stub
+
+- name: Richard Leung
+  description: stub
+
+- name: Faye Chan
+  description: stub
+
+- name: Bryant Goh
+  description: stub
+
+- name: Pev Vail
+  description: stub
+
+- name: Philip Liu
+  description: stub
+
+- name: Samuel Croisanto
+  description: stub
+
+- name: Wade Norris
+  description: stub
