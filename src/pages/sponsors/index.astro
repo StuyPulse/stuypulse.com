@@ -29,7 +29,7 @@ const sponsorData = yml.default;
   <div class="row">
   {
     sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "gold").map((sponsor: SponsorType, index: number) => (
-    <div class="col-md-3 col-sm-6">
+    <div class="col-md-4 col-sm-6">
         <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
     </div>
     ))
@@ -39,7 +39,7 @@ const sponsorData = yml.default;
   <div class="row">
   {
     sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "silver").map((sponsor: SponsorType, index: number) => (
-    <div class="col-md-3 col-sm-6">
+    <div class="col-md-4 col-sm-6">
         <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
     </div>
     ))
@@ -49,7 +49,7 @@ const sponsorData = yml.default;
   <div class="row">
   {
     sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "bronze").map((sponsor: SponsorType, index: number) => (
-    <div class="col-md-3 col-sm-6">
+    <div class="col-md-4 col-sm-6">
         <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
     </div>
     ))
