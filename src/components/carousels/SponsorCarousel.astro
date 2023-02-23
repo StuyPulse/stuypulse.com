@@ -14,7 +14,7 @@ const sponsorData = yml.default;
   <div class="carousel-inner">
     {
       sponsorData.map((sponsor: SponsorType, index: number) => (
-        <div class={index == 0 ? "carousel-item bg-body active" : "carousel-item bg-body"} data-bs-interval="2000">
+        <div class={index == 0 ? "carousel-item bg-body active" : "carousel-item bg-body"} data-bs-interval="1500">
           <SponsorContainer sponsor = {sponsor} height = "350px" width = "400px" tSize = "60px"/>
         </div>
       ))
