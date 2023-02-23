@@ -1,7 +1,18 @@
 ---
+import MentorContainer from '@components/mentors/MentorContainer.astro';
 import PageSite from '@layouts/PageSite.astro';
+import type { MentorType } from '@types';
+
+const yml = await import('@data/mentors.yml');
+const mentorData = yml.default;
 ---
 
-<PageSite title="Mentors" description={"TEST"}>
-  <h1>hello</h1>
+<PageSite title="Mentors" description={'TEST'}>
+  <h1>Mentors</h1>
+
+  {
+    mentorData.map((mentor: MentorType) => (
+      <MentorContainer mentor={mentor} />
+    ))
+  }
 </PageSite>

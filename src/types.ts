@@ -1,6 +1,6 @@
 export interface NavType {
   name: string;
-  href?: string;        // no value for href if dropdown
+  href?: string; // no value for href if dropdown
   dropdown?: NavType[]; // list of navs under a dropdown
 }
 
@@ -12,8 +12,8 @@ export interface LinkType {
 export interface CarouselItemType {
   img: string;
   caption: string;
-  "img-link": string;
-  "read-more-link": string;
+  'img-link': string;
+  'read-more-link': string;
 }
 
 export interface SponsorType {
@@ -41,4 +41,11 @@ export interface SocialType {
   icon: string;
   url: string;
   dropdown?: boolean;
+}
+
+export interface MentorType {
+  name: string;
+  image: string;
+  description: string;
+  woodieFlowers?: string;
 }

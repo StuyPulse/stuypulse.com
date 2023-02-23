@@ -1,0 +1,43 @@
+---
+import type { MentorType } from '@types';
+import { Picture } from 'astro-imagetools/components';
+
+export interface Props {
+  mentor: MentorType;
+}
+
+const { mentor } = Astro.props;
+---
+
+<!-- design can improve later -->
+<div class="container">
+  <div class="row">
+    <h2>{mentor.name}</h2>
+  </div>
+
+  <div class="row">
+    <div class="col-8">
+      <p>{mentor.description}</p>
+    </div>
+
+    <div class="col-4">
+      {
+        mentor.image ? (
+          <Picture src={mentor.image} alt={mentor.name} />
+        ) : (
+          <strong>
+            <h1 class="fw-bold text-center">{mentor.name}</h1>
+          </strong>
+        )
+      }
+    </div>
+  </div>
+
+  {
+    mentor.woodieFlowers && (
+      <a href={mentor.woodieFlowers}>
+        Read more in their Woodie Flowers Award nomination!
+      </a>
+    )
+  }
+</div>
