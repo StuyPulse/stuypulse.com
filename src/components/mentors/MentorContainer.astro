@@ -16,11 +16,11 @@ const { mentor } = Astro.props;
   </div>
 
   <div class="row">
-    <div class="col-8">
+    <div class="col-sm-8">
       <p>{mentor.description}</p>
     </div>
 
-    <div class="col-4">
+    <div class="col-sm-4">
       {
         mentor.image ? (
           <Picture src={mentor.image} alt={mentor.name} />
