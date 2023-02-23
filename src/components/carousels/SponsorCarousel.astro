@@ -11,11 +11,11 @@ const sponsorData = yml.default;
   data-bs-ride="carousel"
 >
   
-  <div class="carousel-inner">
+  <div class="carousel-inner ">
     {
       sponsorData.map((sponsor: SponsorType, index: number) => (
-        <div class={index == 0 ? "carousel-item bg-body active" : "carousel-item bg-body"} data-bs-interval="1500">
-          <SponsorContainer sponsor = {sponsor} height = "350px" width = "400px" tSize = "60px"/>
+        <div class={index == 0 ? "carousel-item bg-body active d-flex justify-content-center" : "carousel-item bg-body d-flex justify-content-center"} data-bs-interval="1500">
+          <SponsorContainer sponsor = {sponsor} height = "400px" width = "400px" tSize = "60px"/>
         </div>
       ))
     }

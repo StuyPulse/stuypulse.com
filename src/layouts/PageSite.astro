@@ -18,20 +18,9 @@ const { title, image, description } = Astro.props;
   </head>
   <body>
     <Header />
-    <div class="container-lg" style="margin-top:80px">
+    <div class="container-sm" style="margin-top:80px">
       <slot />
     </div>
     <Footer />
-    <style>
-      div {
-        margin: 1rem 2rem;
-      }
-
-      @media screen and (min-width: 800px) {
-        div {
-          margin: 2rem 6rem;
-        }
-      }
-    </style>
   </body>
 </html>
