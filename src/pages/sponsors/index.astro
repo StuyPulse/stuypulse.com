@@ -36,7 +36,7 @@ const sponsorData = yml.default;
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "gold").map((sponsor: SponsorType, index: number) => (
-            <div class="col-md-3 col-sm-6">
+            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
                 <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
             </div>
             ))
@@ -54,7 +54,7 @@ const sponsorData = yml.default;
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "silver").map((sponsor: SponsorType, index: number) => (
-            <div class="col-md-3 col-sm-6">
+            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
                 <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
             </div>
             ))
@@ -72,7 +72,7 @@ const sponsorData = yml.default;
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "bronze").map((sponsor: SponsorType, index: number) => (
-            <div class="col-md-3 col-sm-6">
+            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
                 <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
             </div>
             ))
@@ -90,7 +90,7 @@ const sponsorData = yml.default;
         <div class="accordion-body row">
           {
             sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "aluminum").map((sponsor: SponsorType, index: number) => (
-            <div class="col-md-3 col-sm-6">
+            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
                 <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
             </div>
             ))
