@@ -2,6 +2,53 @@
 import PageSite from '@layouts/PageSite.astro';
 ---
 
-<PageSite title="Website" description={"TEST"}>
-  <h1>hello</h1>
+<PageSite title="Website" description={'TEST'}>
+  <h1>About This Website</h1>
+  <p>
+    This iteration of StuyPulse.com launched in _____. It took the place of our
+    old Jekyll-based website established in 2013, using Astro in its stead, as
+    well as having a more modernized design. This site was developed from
+    2022-2023 by our at the time newly formed I/T Department, consisting of Gus
+    Watkins, Vi Lin, Kelvin Zhao, and Anthony Chen.
+  </p>
+
+  <h3>Website Structure</h3>
+  <p>
+    Continuing with the old site's use of a static site generator, this site
+    uses the static site generator from Astro.js. Astro allows JavaScript and
+    HTML to be blended together seamlessly in a single file in development,
+    compiling to a static site such that no server-side processing is necessary
+    after the site is built. As well as this, this site is hosted on GitHub
+    pages using GitHub actions, decreasing load times.
+  </p>
+  <p>
+    This site uses a combination of Astro files, as well as Markdown and MDX for
+    our larger content collections, such as our blog or robot history. This
+    allows the site to be easily maintained by our I/T department while ensuring
+    that those without HTML or JavaScript experience can add content to the site
+    easily.
+  </p>
+  <p>
+    Furthermore, this site is highly component-ized, such that individual
+    elements shared across pages can be changed or updated more efficiently.
+    This ensures that any future modernization efforts do not require
+    transitioning to a new framework or require a complete overhaul of the site.
+  </p>
+
+  <h3>Problems? Questions? Comments?</h3>
+  <p>
+    Interested in how our site is built? Our site is 100% open source; feel free
+    to take a look at our <a href="https://github.com/StuyPulse/stuypulse.com"
+      >source code</a
+    > to learn more about how we use Astro to create our website.
+  </p>
+  <p>
+    If you would like to contact our I/T department, send us an email and we'll
+    get back to you as soon as we can. We're happy to help with any questions
+    you may have!
+  </p>
+
+  <h4>I/T Directors for 2022-2023</h4>
+  <p><strong>Director of I/T:</strong> Anthony Chen</p>
+  <p><strong>Assistant Director of I/T:</strong> Vi Lin</p>
 </PageSite>
