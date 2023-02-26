@@ -1,102 +1,161 @@
 ---
-import PageSite from '@layouts/PageSite.astro';
-import SponsorContainer from '@components/sponsors/SponsorContainer.astro'
-import type {SponsorType} from '@types';
+import PageSite from "@layouts/PageSite.astro";
+import SponsorContainer from "@components/sponsors/SponsorContainer.astro";
+import type { SponsorType } from "@types";
 
-const yml = await import('@data/sponsors.yml');
+const yml = await import("@data/sponsors.yml");
 const sponsorData = yml.default;
 ---
-<style>
-  .col-md-3, .col-sm-6 {
-    display:flex;
-    justify-content: center;
-    align-items: center;
-  }
 
+<style>
   .inline-icon {
     height: 1.5em;
     width: 1.5em;
     transform: translateY(-0.1em);
   }
 
-  h2 {
+  .row h2 {
     border-bottom: 3px solid #e00;
+  }
+  .list-group-item {
+    margin-bottom: 1em;
+    border-radius: 0.5em;
+  }
+  .list-group-item:hover {
+   background-color: rgba(0, 0, 0, 0.05);
   }
 </style>
 
 <PageSite title="Sponsors" description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running.">
-  <div class="accordion accordion-flush" id="sponsorAccordion">
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseGold" aria-expanded="false" aria-controls="flush-collapseGold">
-          <h3 style ="margin-bottom:0;"><img src="/gold-medal.svg" class="inline-icon"> Gold</h3>
-        </button>
-      </h2>
-      <div id="flush-collapseGold" class="accordion-collapse collapse" aria-labelledby="flush-headingGold">
-        <div class="accordion-body row">
-          {
-            sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "gold").map((sponsor: SponsorType, index: number) => (
-            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
+  <h1 class="mb-4">Sponsors</h1>
+  <div class="row mb-5">
+    <div class="col-sm-8">
+      <div class="accordion accordion-flush" id="sponsorAccordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseGold" aria-expanded="false" aria-controls="flush-collapseGold" >
+              <h3 style="margin-bottom:0;">
+                <img src="/gold-medal.svg" class="inline-icon" /> Gold
+              </h3>
+            </button>
+          </h2>
+          <div id="flush-collapseGold" class="accordion-collapse collapse show" aria-labelledby="flush-headingGold" data-bs-toggle="collapse" data-bs-parent="#sponsorAccordion">
+            <div class="accordion-body row">
+              {
+                sponsorData
+                  .filter((sponsor: { tier: string }) => sponsor.tier == "gold")
+                  .map((sponsor: SponsorType, index: number) => (
+                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
+                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px"/>
+                    </div>
+                  ))
+              }
             </div>
-            ))
-          }
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSilver" aria-expanded="false" aria-controls="flush-collapseSilver">
+              <h3 style="margin-bottom:0;">
+                <img src="/silver-medal.svg" class="inline-icon" /> Silver
+              </h3>
+            </button>
+          </h2>
+          <div id="flush-collapseSilver" class="accordion-collapse collapse" aria-labelledby="flush-headingSilver" data-bs-toggle="collapse" data-bs-parent="#sponsorAccordion">
+            <div class="accordion-body row">
+              {
+                sponsorData
+                  .filter(
+                    (sponsor: { tier: string }) => sponsor.tier == "silver"
+                  )
+                  .map((sponsor: SponsorType, index: number) => (
+                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
+                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px" />
+                    </div>
+                  ))
+              }
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseBronze" aria-expanded="false" aria-controls="flush-collapseBronze">
+              <h3 style="margin-bottom:0;">
+                <img src="/bronze-medal.svg" class="inline-icon" /> Bronze
+              </h3>
+            </button>
+          </h2>
+          <div id="flush-collapseBronze" class="accordion-collapse collapse" aria-labelledby="flush-headingBronze" data-bs-toggle="collapse" data-bs-parent="#sponsorAccordion">
+            <div class="accordion-body row">
+              {
+                sponsorData
+                  .filter(
+                    (sponsor: { tier: string }) => sponsor.tier == "bronze"
+                  )
+                  .map((sponsor: SponsorType, index: number) => (
+                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
+                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px"/>
+                    </div>
+                  ))
+              }
+            </div>
+          </div>
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAluminum" aria-expanded="false" aria-controls="flush-collapseAluminum">
+              <h3 style="margin-bottom:0;">
+                <img src="/aluminum-medal.svg" class="inline-icon" /> Aluminum
+              </h3>
+            </button>
+          </h2>
+          <div id="flush-collapseAluminum" class="accordion-collapse collapse" aria-labelledby="flush-headingAluminum" data-bs-toggle="collapse" data-bs-parent="#sponsorAccordion">
+            <div class="accordion-body row">
+              {
+                sponsorData
+                  .filter(
+                    (sponsor: { tier: string }) => sponsor.tier == "aluminum"
+                  )
+                  .map((sponsor: SponsorType, index: number) => (
+                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
+                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px"/>
+                    </div>
+                  ))
+              }
+            </div>
+          </div>
         </div>
       </div>
     </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSilver" aria-expanded="false" aria-controls="flush-collapseSilver">
-          <h3 style ="margin-bottom:0;"><img src="/silver-medal.svg" class="inline-icon"> Silver</h3>
-        </button>
-      </h2>
-      <div id="flush-collapseSilver" class="accordion-collapse collapse" aria-labelledby="flush-headingSilver">
-        <div class="accordion-body row">
-          {
-            sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "silver").map((sponsor: SponsorType, index: number) => (
-            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
-            </div>
-            ))
-          }
-        </div>
-      </div>
+
+    <div class="col-sm-4 align-middle">
+      <h2 class="mb-3">Sponsorship Levels:</h2>
+      <ul class="list-group list-group-flush d-inline">
+        <img src="/gold-medal.svg" class="inline-icon" /> Gold: $10,000+
+        <li class="list-group-item">
+          <p >Contributors shall receive a thank you package and have their name mentioned during every competition and in the Impact Award video.</p>
+        </li>
+        <img src="/silver-medal.svg" class="inline-icon" /> Silver: $5000-$9999
+        <li class="list-group-item">
+          
+          <p>Sponsors shall have their company logo placed on the competing robot.</p>
+        </li>
+        <img src="/bronze-medal.svg" class="inline-icon" /> Bronze: $1000-$4999
+        <li class="list-group-item">
+          
+          <p>Sponsors shall have their company name/logo on the back of the year's T-shirt, along with an invitation to visit the robotics lab during build season.</p>
+        </li>
+        <img src="/aluminum-medal.svg" class="inline-icon" /> Aluminum: $500-$999
+        <li class="list-group-item">
+          
+          <p>Sponsors shall have their company name/logo placed on our website for a year.</p>
+        </li>
+      </ul>
     </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseBronze" aria-expanded="false" aria-controls="flush-collapseBronze">
-          <h3 style ="margin-bottom:0;"><img src="/bronze-medal.svg" class="inline-icon"> Bronze</h3>
-        </button>
-      </h2>
-      <div id="flush-collapseBronze" class="accordion-collapse collapse" aria-labelledby="flush-headingBronze">
-        <div class="accordion-body row">
-          {
-            sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "bronze").map((sponsor: SponsorType, index: number) => (
-            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
-            </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
-    <div class="accordion-item">
-      <h2 class="accordion-header">
-        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseAluminum" aria-expanded="false" aria-controls="flush-collapseAluminum">
-          <h3 style ="margin-bottom:0;"><img src="/aluminum-medal.svg" class="inline-icon"> Aluminum</h3>
-        </button>
-      </h2>
-      <div id="flush-collapseAluminum" class="accordion-collapse collapse" aria-labelledby="flush-headingAluminum">
-        <div class="accordion-body row">
-          {
-            sponsorData.filter((sponsor: { tier: string; }) => sponsor.tier == "aluminum").map((sponsor: SponsorType, index: number) => (
-            <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                <SponsorContainer sponsor = {sponsor} height = "220px" width = "220px" tSize = "35px"/>
-            </div>
-            ))
-          }
-        </div>
-      </div>
-    </div>
+  </div>
+  <!-- <hr class="justify-content-center w-40"/> -->
+  <div id="info">
+    <h2>Donate To The Team!</h2>
+    <p>give us money</p>
   </div>
 </PageSite>
