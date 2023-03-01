@@ -25,7 +25,11 @@
 - name: Community
   href: /community
 - name: Resources
-  href: /resources
+  dropdown:
+    - name: Documents
+      href: /resources/documents
+    - name: StuySplash
+      href: /resources/stuysplash
 - name: Calendar
   href: /calendar
 - name: Sponsors
