@@ -1,0 +1,32 @@
+---
+import type { YoutubeLinkType } from '@types';
+import type { MarkdownLayoutProps } from 'astro';
+import { Picture } from 'astro-imagetools/components';
+import ImageContainer from '@components/ImageContainer.astro';
+
+type Props = MarkdownLayoutProps<{
+  year: string;
+  playlist?: string;
+}>;
+
+const { frontmatter } = Astro.props;
+---
+
+<h1>{"Stuy Splash  " + frontmatter.year}</h1>
+
+<div class="row">
+    <div class="col-sm-9">
+        <slot class="content"/>
+    </div>
+    <div class="col-sm-2">
+        <h2>Links</h2>
+        <ul>
+            {frontmatter.playlist && (
+                <li><a href={frontmatter.playlist}>Video Recording Playlist</a></li>
+            )}
+        </ul>
+    </div>
+</div>
+
+
+

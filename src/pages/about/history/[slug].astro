@@ -5,7 +5,6 @@ import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
   const historyEntries = await getCollection('history');
-
   return historyEntries.map((entry) => ({
     params: { slug: entry.slug },
     props: { entry }
