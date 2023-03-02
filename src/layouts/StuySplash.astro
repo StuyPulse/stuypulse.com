@@ -12,17 +12,19 @@ type Props = MarkdownLayoutProps<{
 const { frontmatter } = Astro.props;
 ---
 
-<h1>{"Stuy Splash  " + frontmatter.year}</h1>
+<h2>{"Stuy Splash  " + frontmatter.year}</h2>
 
 <div class="row">
-    <div class="col-sm-9">
+    <div class="col-sm-10">
         <slot class="content"/>
     </div>
     <div class="col-sm-2">
         <h2>Links</h2>
         <ul>
-            {frontmatter.playlist && (
+            {frontmatter.playlist ? (
                 <li><a href={frontmatter.playlist}>Video Recording Playlist</a></li>
+            ) : (
+                <li>No video recording playlist found :&#40;</li>
             )}
         </ul>
     </div>
