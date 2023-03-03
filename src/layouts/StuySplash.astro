@@ -26,7 +26,10 @@ const { frontmatter } = Astro.props;
                     <h4 class="d-inline">{presentation.title + " "}</h4>
                     <p class="d-inline-block text-muted mb-2">{" with " + presentation.presenter}</p>
                     <br />
-                    <a href={presentation.url} class="d-block mb-2">Presentation</a>
+                    {presentation.url && (
+                        <a href={presentation.url} class="d-block mb-2">Presentation</a>
+                    )}
+                    
                     <p>{presentation.description}</p>
                     </li>
                 ))
