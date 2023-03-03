@@ -43,6 +43,13 @@ export interface SocialType {
   dropdown?: boolean;
 }
 
+export interface PresentationType {
+  title: string;
+  presenter: string;
+  url?: string;
+  description?: string;
+}
+
 export interface MentorType {
   name: string;
   image: string;
