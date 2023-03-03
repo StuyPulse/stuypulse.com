@@ -49,3 +49,10 @@ export interface MentorType {
   description: string;
   woodieFlowers?: string;
 }
+
+export interface PresentationType {
+  title: string;
+  presenter: string;
+  url?: string;
+  description?: string;
+}

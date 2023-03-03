@@ -1,22 +1,43 @@
 ---
-import type { YoutubeLinkType } from '@types';
 import type { MarkdownLayoutProps } from 'astro';
-import { Picture } from 'astro-imagetools/components';
-import ImageContainer from '@components/ImageContainer.astro';
+import type { PresentationType } from '@types';
 
 type Props = MarkdownLayoutProps<{
   year: string;
+  presentations: PresentationType[];
   playlist?: string;
 }>;
 
 const { frontmatter } = Astro.props;
 ---
+<style>
+
+</style>
 
 <h2>{"Stuy Splash  " + frontmatter.year}</h2>
 
 <div class="row">
     <div class="col-sm-10">
         <slot class="content"/>
+        <ul class="list-group list-group-flush"> 
+            {
+                frontmatter.presentations.map((presentation: PresentationType) => (
+                    <li class="list-group-item">
+                    <h4 class="d-inline">{presentation.title + " "}</h4>
+                    <p class="d-inline-block text-muted mb-2">{" with " + presentation.presenter}</p>
+                    <br />
+                    {presentation.url && (
+                        <a href={presentation.url} class="mb-2">Presentation</a>
+                    )}
+                    {presentation.description && (
+                        <p>{presentation.description}</p>
+                    )}
+                    
+                    </li>
+                ))
+            }
+        </ul>
+        
     </div>
     <div class="col-sm-2">
         <h2>Links</h2>
