@@ -1,102 +1,101 @@
 ---
-import type { LinkType } from "@types";
+import type { LinkType } from '@types';
 
 const { frontmatter } = Astro.props;
 ---
 
-<table class="table table-hover table-sm">
-    {
-      frontmatter.awards && (
-        <tr>
-          <th>Awards</th>
-          <td>
-            <ul>
-              {frontmatter.awards.map((award: String) => (
-                <li>{award}</li>
-              ))}
-            </ul>
-          </td>
-        </tr>
-      )
-    }
-  
-    {
-      frontmatter.youtube_links && (
-        <tr>
-          <th>YouTube Videos</th>
-          <td>
-            <ul>
-              {frontmatter.youtube_links.map((link: LinkType) => (
-                <li>
-                  <a href={link.url}>{link.name}</a>
-                </li>
-              ))}
-            </ul>
-          </td>
-        </tr>
-      )
-    }
-  
-    {
-      frontmatter.flickr && (
-        <tr>
-          <th>Photo Gallery</th>
-          <td>
-            <ul>
+<table class="table table-hover table-sm border-top mx-4">
+  {
+    frontmatter.awards && (
+      <tr>
+        <th>Awards</th>
+        <td>
+          <ul>
+            {frontmatter.awards.map((award: String) => (
+              <li>{award}</li>
+            ))}
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  {
+    frontmatter.youtube_links && (
+      <tr>
+        <th>YouTube Videos</th>
+        <td>
+          <ul>
+            {frontmatter.youtube_links.map((link: LinkType) => (
               <li>
-                <a href={frontmatter.flickr}>
-                  {frontmatter.year + ' photos on Flickr'}
-                </a>
+                <a href={link.url}>{link.name}</a>
               </li>
-            </ul>
-          </td>
-        </tr>
-      )
-    }
-  
-    {
-      frontmatter.cad && (
-        <tr>
-          <th>CAD</th>
-          <td>
+            ))}
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  {
+    frontmatter.flickr && (
+      <tr>
+        <th>Photo Gallery</th>
+        <td>
+          <ul>
             <li>
-              <a href={frontmatter.cad}>{frontmatter.title + "'s CAD file"}</a>
+              <a href={frontmatter.flickr}>
+                {frontmatter.year + ' photos on Flickr'}
+              </a>
             </li>
-          </td>
-        </tr>
-      )
-    }
-  
-    {
-      frontmatter.source && (
-        <tr>
-          <th>Source Code</th>
-          <td>
-            <ul>
-              <li>
-                <a href={frontmatter.source}>
-                  {frontmatter.title + "'s source code"}
-                </a>
-              </li>
-            </ul>
-          </td>
-        </tr>
-      )
-    }
-  
-    <tr>
-      <th>Additional Resources</th>
-      <td>
-        <ul>
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  {
+    frontmatter.cad && (
+      <tr>
+        <th>CAD</th>
+        <td>
           <li>
-            <a
-              href={'https://www.thebluealliance.com/team/694/' +
-                frontmatter.year}
-              >{frontmatter.year + ' season stats on The Blue Alliance'}</a
-            >
+            <a href={frontmatter.cad}>{frontmatter.title + "'s CAD file"}</a>
           </li>
-        </ul>
-      </td>
-    </tr>
-  </table>
-  
+        </td>
+      </tr>
+    )
+  }
+
+  {
+    frontmatter.source && (
+      <tr>
+        <th>Source Code</th>
+        <td>
+          <ul>
+            <li>
+              <a href={frontmatter.source}>
+                {frontmatter.title + "'s source code"}
+              </a>
+            </li>
+          </ul>
+        </td>
+      </tr>
+    )
+  }
+
+  <tr>
+    <th>Additional Resources</th>
+    <td>
+      <ul>
+        <li>
+          <a
+            href={'https://www.thebluealliance.com/team/694/' +
+              frontmatter.year}
+            >{frontmatter.year + ' season stats on The Blue Alliance'}</a
+          >
+        </li>
+      </ul>
+    </td>
+  </tr>
+</table>

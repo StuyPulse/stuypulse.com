@@ -19,21 +19,26 @@ type Props = MarkdownLayoutProps<{
 const { frontmatter } = Astro.props;
 ---
 
+<style>
+  .no-mb :global(p) {
+    margin-bottom: 0;
+  }
+</style>
+
 <h1>{frontmatter.year + ': ' + frontmatter.title}</h1>
-<div class="text-center">
-  <div style="display: inline-block; border: 5px solid #E7E7E7; border-radius: 10px;">
+
+<div class="mx-4 mb-4 clearfix">
+  <div class="float-start rounded me-4" style="border: 0.5rem solid #E7E7E7;">
     <ImageContainer
-      img={frontmatter.photo} 
-      alt={frontmatter.title} 
-      height={"auto"}
-      width={"400px"}
-      tSize={"40px"}
+      img={frontmatter.photo}
+      alt={frontmatter.title}
+      height={'auto'}
+      width={'400px'}
+      tSize={'40px'}
     />
   </div>
+
+  <div class="no-mb"><slot class="content" /></div>
 </div>
-
-<slot class="content" />
-
-<hr />
 
 <HistoryTable frontmatter={frontmatter} />
