@@ -3,6 +3,10 @@ import PageSite from "@layouts/PageSite.astro";
 import SponsorContainer from "@components/sponsors/SponsorContainer.astro";
 import type { SponsorType } from "@types";
 
+let sponsorSize = "160px"
+let textSize = "25px"
+let responsive = "col-6 col-sm-6 col-md-4 col-lg-4 col-xxl-3"
+
 const yml = await import("@data/sponsors.yml");
 const sponsorData = yml.default;
 ---
@@ -29,7 +33,7 @@ const sponsorData = yml.default;
 <PageSite title="Sponsors" description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running.">
   <h1 class="mb-4">Sponsors</h1>
   <div class="row mb-5">
-    <div class="col-sm-8 mb-5">
+    <div class="col-lg-7 mb-5">
       <div class="accordion accordion-flush" id="sponsorAccordion">
         <div class="accordion-item">
           <h2 class="accordion-header">
@@ -45,8 +49,8 @@ const sponsorData = yml.default;
                 sponsorData
                   .filter((sponsor: { tier: string }) => sponsor.tier == "gold")
                   .map((sponsor: SponsorType, index: number) => (
-                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px"/>
+                    <div class={responsive}>
+                      <SponsorContainer sponsor={sponsor} height={sponsorSize} width={sponsorSize} tSize={textSize}/>
                     </div>
                   ))
               }
@@ -69,8 +73,8 @@ const sponsorData = yml.default;
                     (sponsor: { tier: string }) => sponsor.tier == "silver"
                   )
                   .map((sponsor: SponsorType, index: number) => (
-                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px" />
+                    <div class={responsive}>
+                      <SponsorContainer sponsor={sponsor} height={sponsorSize} width={sponsorSize} tSize={textSize} />
                     </div>
                   ))
               }
@@ -93,8 +97,8 @@ const sponsorData = yml.default;
                     (sponsor: { tier: string }) => sponsor.tier == "bronze"
                   )
                   .map((sponsor: SponsorType, index: number) => (
-                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px"/>
+                    <div class={responsive}>
+                      <SponsorContainer sponsor={sponsor} height={sponsorSize} width={sponsorSize} tSize={textSize}/>
                     </div>
                   ))
               }
@@ -117,8 +121,8 @@ const sponsorData = yml.default;
                     (sponsor: { tier: string }) => sponsor.tier == "aluminum"
                   )
                   .map((sponsor: SponsorType, index: number) => (
-                    <div class="col-8 col-sm-6 col-lg-4 col-xxl-3">
-                      <SponsorContainer sponsor={sponsor} height="220px" width="220px" tSize="35px"/>
+                    <div class={responsive}>
+                      <SponsorContainer sponsor={sponsor} height={sponsorSize} width={sponsorSize} tSize={textSize}/>
                     </div>
                   ))
               }
@@ -129,7 +133,7 @@ const sponsorData = yml.default;
     </div>
     <div class="col-sm-1" />
 
-    <div class="col-sm-3 align-middle">
+    <div class="col-sm-4 align-middle">
       <h3 class="mb-3">Sponsorship Levels:</h3>
       <ul class="list-group list-group-flush d-inline">
         <img src="/gold-medal.svg" class="inline-icon" /> Gold: $10,000+
