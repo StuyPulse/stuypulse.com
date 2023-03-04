@@ -21,10 +21,10 @@ const { sponsor, height, width, tSize } = Astro.props;
   sponsor.logo ? (
     <div>
       {sponsor.site == null ? (
-        <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize}/>
+        <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize} placeholder={"none"}/>
       ) : (
         <a href={sponsor.site} target="_blank">
-          <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize}/>
+          <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize} placeholder={"none"}/>
         </a>
       )}
     </div>

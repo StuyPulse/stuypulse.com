@@ -8,9 +8,10 @@ export interface Props {
   height: string;
   width: string;
   tSize: string;
+  placeholder?: string;
 }
 
-const { img, alt, text, height, width, tSize } = Astro.props;
+const { img, alt, text, height, width, tSize, placeholder } = Astro.props;
 ---
 
 <style define:vars={{ height, width, tSize }}>
@@ -45,7 +46,7 @@ const { img, alt, text, height, width, tSize } = Astro.props;
       src={img} 
       alt={alt} 
       width={width}
-      placeholder="none"
+      placeholder={placeholder ? placeholder : "blurred"}
     />
     :
     <p><strong>{text}</strong></p>
