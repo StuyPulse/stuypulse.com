@@ -27,6 +27,10 @@ const tierData = sponsorTiers.default;
     margin-bottom: 1em;
     border-radius: 0.5em;
   }
+
+  p {
+    margin-bottom: 0;
+  }
 </style>
 
 <PageSite title="Sponsors" description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running.">
@@ -67,25 +71,19 @@ const tierData = sponsorTiers.default;
     <div class="col-sm-10 col-lg-4 align-middle">
       <h3 class="mb-3">Sponsorship Levels:</h3>
       <ul class="list-group list-group-flush d-inline">
-        <img src="/gold-medal.svg" class="inline-icon" /> Gold: $10,000+
-        <li class="list-group-item">
-          <p>Contributors shall receive a thank you package and have their name mentioned during every competition and in the Impact Award video.</p>
-        </li>
-        <img src="/silver-medal.svg" class="inline-icon" /> Silver: $5000-$9999
-        <li class="list-group-item">
-          
-          <p>Sponsors shall have their company logo placed on the competing robot.</p>
-        </li>
-        <img src="/bronze-medal.svg" class="inline-icon" /> Bronze: $1000-$4999
-        <li class="list-group-item">
-          
-          <p>Sponsors shall have their company name/logo on the back of the year's T-shirt, along with an invitation to visit the robotics lab during build season.</p>
-        </li>
-        <img src="/aluminum-medal.svg" class="inline-icon" /> Aluminum: $500-$999
-        <li class="list-group-item">
-          
-          <p>Sponsors shall have their company name/logo placed on our website for a year.</p>
-        </li>
+        {
+          tierData.map((sponsorTier: SponsorTierType, index: number) => (
+            <p>
+              <img src={sponsorTier.icon} class="inline-icon" />
+              {sponsorTier.name + ": " + sponsorTier.range}
+            </p>
+            <li class="list-group-item">
+              <p>
+                {sponsorTier.desc}
+              </p>
+            </li>
+          ))
+        }
       </ul>
     </div>
   </div>

@@ -26,6 +26,8 @@ export interface SponsorType {
 export interface SponsorTierType {
   name: string;
   icon: string;
+  range: string;
+  desc: string;
 }
 
 export interface LeadershipType {

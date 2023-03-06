@@ -1,8 +1,16 @@
 - name: Gold
   icon: /gold-medal.svg
+  range: $10,000+
+  desc: Contributors shall receive a thank you package and have their name mentioned during every competition and in the Impact Award video.
 - name: Silver
   icon: /silver-medal.svg
+  range: $5000-$9999
+  desc: Sponsors shall have their company logo placed on the competing robot.
 - name: Bronze
   icon: /bronze-medal.svg
+  range: $1000-$4999
+  desc: Sponsors shall have their company name/logo on the back of the year's T-shirt, along with an invitation to visit the robotics lab during build season.
 - name: Aluminum
   icon: /aluminum-medal.svg
+  range: $500-$999
+  desc: Sponsors shall have their company name/logo placed on our website for a year.
