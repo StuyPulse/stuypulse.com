@@ -72,7 +72,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
     </div>
     <div class = "card-body">
       <div class="row no-gutters">
-        <div class="col-md-3 no-gutters m-0" style="max-width:250px; padding:25px; margin: auto;">
+        <div class="col-10 col-md-4" style="max-width:250px; padding:25px; margin: auto;">
           {
             leadership.image ? (
               <Picture src={leadership.image} alt={leadership.name} />
@@ -83,7 +83,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
             )
           }
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
           <div class="card-body">
             <h3 class="card-text m-0 mb-2 mt-2">{leadership.position}</h3>
             <p class="card-text">{leadership.description}</p>
