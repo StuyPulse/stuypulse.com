@@ -2,6 +2,8 @@
 # Used by: /sponsors, front page
 # For each sponsor, name and tier are required and logo/site are optional.
 
+# Sponsor tiers are listed in data/sponsorTiers.yml, any others won't show up on the site.
+
 - name: SHS Parents' Association
   site: https://stuy-pa.org/
   tier: gold

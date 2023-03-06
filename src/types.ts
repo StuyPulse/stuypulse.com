@@ -23,6 +23,13 @@ export interface SponsorType {
   type: string;
 }
 
+export interface SponsorTierType {
+  name: string;
+  icon: string;
+  range: string;
+  desc: string;
+}
+
 export interface LeadershipType {
   name: string;
   position: string;
