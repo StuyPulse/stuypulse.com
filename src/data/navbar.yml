@@ -27,9 +27,11 @@
 - name: Resources
   dropdown:
     - name: Documents
-      href: /resources/documents
+      href: /resources
     - name: StuySplash
       href: /resources/stuysplash
+    - name: Tutorials
+      href: /resources/tutorials
 - name: Calendar
   href: /calendar
 - name: Sponsors
