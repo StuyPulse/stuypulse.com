@@ -1,0 +1,8 @@
+- name: Gold
+  icon: /gold-medal.svg
+- name: Silver
+  icon: /silver-medal.svg
+- name: Bronze
+  icon: /bronze-medal.svg
+- name: Aluminum
+  icon: /aluminum-medal.svg
