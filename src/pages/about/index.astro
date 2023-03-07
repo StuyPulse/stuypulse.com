@@ -1,6 +1,6 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import { Picture } from "astro-imagetools/components";
+import ImageContainer from "@components/ImageContainer.astro";
 ---
 
 <style>
@@ -20,11 +20,11 @@ import { Picture } from "astro-imagetools/components";
 </style>
 
 <PageSite title="About" description={"TEST"}>
-  <h1 id="about" class="offset mb-4">
+  <h1 id="about mb-3" class="offset mb-4">
     <img src="/694-logo.svg" class="inline-icon" /> About Us
   </h1>
-  <div class="row">
-    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 col-xxl-9 gx-5 mb-3">
+  <div class="row mb-3">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-11 mb-3">
       <h5 class="d-inline">We are StuyPulse, FIRST FRC Team 694.</h5>
       <p class="justify-content-evenly d-inline">
         Our nickname is derived from the idea that we are at the heart of our
@@ -38,11 +38,11 @@ import { Picture } from "astro-imagetools/components";
         chance to further explore their interests and develop skills that will
         allow them to succeed. We are a no-cut, no tryout, all inclusive team
         that strives to make it possible for all individuals to be a part of an
-        accepting community that allows people to ______________________
+        accepting community that allows people to explore the world of robotics
+        and prepare for their futures.
       </p>
-      
     </div>
-    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 col-xxl-3 gx-5">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
       <h5>Learn More</h5>
       <ul>
         <li><a href="#about">About Us</a></li>
@@ -54,16 +54,22 @@ import { Picture } from "astro-imagetools/components";
       </ul>
     </div>
   </div>
-  <iframe
-        class="w-100 mb-5 mt-3"
-        height="500"
-        src="https://www.youtube.com/embed/I2Jz-1qz4eU"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
+  <div class="text-center">
+    <iframe
+    class="w-75 mb-4"
+    style="border:0.5em solid #e00; border-radius:1em;;"
+    height="500"
+    src="https://www.youtube.com/embed/I2Jz-1qz4eU"
+    title="YouTube video player"
+    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+    allowfullscreen
+    >
+    </iframe>
+  </div>
+  
   <div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-8 gx-5">
-      <h2 id="today" class="offset">Team 694 Today</h2>
+    <h2 id="today" class="offset">Team 694 Today</h2>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-7">
       <p>
         Team 694 is made up of about 150 students and participates annually in
         the FIRST Robotics Competition (FRC). During our six-week build season,
@@ -88,25 +94,44 @@ import { Picture } from "astro-imagetools/components";
         planned robot demos for the Spring “inviting local politicians to the
         exciting competitions.”
       </p>
-      <p>
-        Team 694's impact lasts not only in our local community, but also
-        intrinsically, within our team's community. We have a <strong>100%</strong>
-        graduation rate, with most being accepted to some of the <strong>best
-        universities in the world</strong>. To help perpetuate this high standard,
-        we all help to drive one another to do better in school and help each other
-        out when aid is needed.
-      </p>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 col-xxl-4 gx-5 border border-5">
-      <h1>insert some image/s of the team here pls</h1>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-5 mb-3 clearfix">
+      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+        <h1>insert some image/s of the team here pls</h1>
+        <ImageContainer
+          img=""
+          alt="insert some image/s of the team here pls"
+          height={"auto"}
+          width={"auto"}
+          tSize={"40px"}
+        />
+      </div>
     </div>
+    <p>
+      Team 694's impact lasts not only in our local community, but also
+      intrinsically, within our team's community. We have a <strong>100%</strong
+      >
+      graduation rate, with most being accepted to some of the <strong
+        >best universities in the world</strong
+      >. To help perpetuate this high standard, we all help to drive one another
+      to do better in school and help each other out when aid is needed.
+    </p>
   </div>
-  <div class="row mt-5">
-    <div class="col-12 col-sm-12 col-md-6 col-lg-5 col-xl-4 col-xxl-3 gx-5 border border-5 mb-2">
-      <h1>another picture here</h1>
+  <div class="row mt-4">
+    <h2>StuyPulse's Beginnings</h2>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-4 col-xxl-3 mb-2 clearfix" >
+      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+        <h1>another image here</h1>
+        <ImageContainer
+          img=""
+          alt="another image here"
+          height={"auto"}
+          width={"auto"}
+          tSize={"40px"}
+        />
+      </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-6 col-lg-7 col-xl-8 col-xxl-9 gx-5">
-      <h2>StuyPulse's Beginnings</h2>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-8 col-xxl-9">
       <p>
         Our team was founded in the fall of 2000 by a group of students and
         parents who were ready to take on the formidable task of building our
@@ -121,13 +146,14 @@ import { Picture } from "astro-imagetools/components";
     </div>
   </div>
   <div class="row mt-5">
-    <div class="col-12 col-sm-12 col-md-5 col-lg-6 col-xl-7 col-xxl-8 gx-5">
-      <h2>What makes StuyPulse unique?</h2>
+    <h2>What makes StuyPulse unique?</h2>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 col-xxl-7">
       <p>
-        One of the things that Team 694 takes pride in is our <strong>overwhelming
-        diversity</strong>. About forty percent of our team identifies as female, more
-        than fifty percent qualifies for free and/or reduced lunch, and over
-        eighty percent of our team are first generation Americans.
+        One of the things that Team 694 takes pride in is our <strong
+          >overwhelming diversity</strong
+        >. About forty percent of our team identifies as female, more than fifty
+        percent qualifies for free and/or reduced lunch, and over eighty percent
+        of our team are first generation Americans.
       </p>
       <p>
         Our team maintains close-knit relationships with one another despite the
@@ -136,36 +162,54 @@ import { Picture } from "astro-imagetools/components";
         up! The journey to regionals across the country is anything but boring
         and is kept close to our hearts.
       </p>
-      <p>
-        As a team, StuyPulse has gone on to be champions <strong>numerous times</strong>.
-        In 2022, we won the third seed in the Galileo Division and captained the
-        third alliance in the quarterfinals. Additionally, in 2016 we won both regional
-        competititons and the Engineering Inspiration Award at the NYC Regional, and
-        were the sub-division champions of the Curie Subdivision at World
-        Championships. We won the Regional Chairman's Award at the South Florida
-        Regional and the Entrepreneurship Award at the New York City Regional in
-        2017.
-      </p>
+      
     </div>
-    <div class="col-12 col-sm-12 col-md-7 col-lg-6 col-xl-5 col-xxl-4 gx-5 border border-5">
-      <h1>maybe another image here too</h1>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 col-xxl-5">
+      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+        <h1>maybe another image here too</h1>
+        <ImageContainer
+          img=""
+          alt="another image here"
+          height={"auto"}
+          width={"auto"}
+          tSize={"40px"}
+        />
+      </div>
     </div>
+    <p>
+      As a team, StuyPulse has gone on to be champions <strong
+        >numerous times</strong
+      >. In 2022, we won the third seed in the Galileo Division and captained
+      the third alliance in the quarterfinals. Additionally, in 2016 we won
+      both regional competititons and the Engineering Inspiration Award at the
+      NYC Regional, and were the sub-division champions of the Curie
+      Subdivision at World Championships. We won the Regional Chairman's Award
+      at the South Florida Regional and the Entrepreneurship Award at the New
+      York City Regional in 2017.
+    </p>
   </div>
   <div class="row mt-5">
     <h2>Team 694 in Media</h2>
-    <p>A large part of StuyPulse's mission is to help <strong>spread the message of FIRST via
-      newspapers, television, social media, etc</strong>. The local paper The TriBeCa Tribune
-      and the Chinese-language paper China Daily have done segments of our team during
-      the build season. We also make regular appearances in our own school newspaper,
-      The Spectator. At demonstrations and other events we've been interviewed by radio
-      and television stations in Arabic, Russian, and of course English. Our 2009 robot,
-      Michael 1, and our 2010 robot, Donovan, have made several appearances in newspapers
-      and TV programs. Our mentor/adviser Rafael Colón was even chosen as the New Yorker
-      of the Week by NY1, a local television station, and was shown on their channel for
-      an entire week. We demonstrated Rafael, our 2017 robot, and DEStiny, our 2016 robot,
-      at Fox&amp;Friends for the past two years. StuyPulse has also made appearances in
-      renowned magazines such as Popular Mechanics and produces high-quality videos
-      which can be viewed on our <a href="https://www.youtube.com/@StuyPulse">Youtube channel</a>.</p>
+    <p>
+      A large part of StuyPulse's mission is to help <strong
+        >spread the message of FIRST via newspapers, television, social media,
+        etc</strong
+      >. The local paper The TriBeCa Tribune and the Chinese-language paper
+      China Daily have done segments of our team during the build season. We
+      also make regular appearances in our own school newspaper, The Spectator.
+      At demonstrations and other events we've been interviewed by radio and
+      television stations in Arabic, Russian, and of course English. Our 2009
+      robot, Michael 1, and our 2010 robot, Donovan, have made several
+      appearances in newspapers and TV programs. Our mentor/adviser Rafael Colón
+      was even chosen as the New Yorker of the Week by NY1, a local television
+      station, and was shown on their channel for an entire week. We
+      demonstrated Rafael, our 2017 robot, and DEStiny, our 2016 robot, at
+      Fox&amp;Friends for the past two years. StuyPulse has also made
+      appearances in renowned magazines such as Popular Mechanics and produces
+      high-quality videos which can be viewed on our <a
+        href="https://www.youtube.com/@StuyPulse">Youtube channel</a
+      >.
+    </p>
   </div>
   <div class="row mt-5">
     <div class="col-md">
@@ -180,18 +224,20 @@ import { Picture } from "astro-imagetools/components";
         About FIRST
       </h2>
       <p>
-        <a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition of
-        Science and Technology) is a multinational non-profit organization that, in the
-        words of its founder, Dean Kamen, seeks to “transform our culture by creating a
-        world where science and technology are celebrated and where young people dream
-        of becoming science and technology heroes.” From its founding in 1989, FIRST has
-        positively impacted the lives of young students around the world through its accessible
-        and innovative programs. These programs are designed to inspire and encourage
-        participants to pursue careers in science, technology and math, and develop teamwork
-        and skills in public relations, strategy, dedication, and outreach. Through partnerships
-        with local and global businesses, dedicated volunteers with professional backgrounds,
-        and the tireless efforts of students, teachers, and parents, FIRST opens a whole new
-        world for generations of young adults and equips them with the skills to achieve success. 
+        <a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition
+        of Science and Technology) is a multinational non-profit organization that,
+        in the words of its founder, Dean Kamen, seeks to “transform our culture
+        by creating a world where science and technology are celebrated and where
+        young people dream of becoming science and technology heroes.” From its founding
+        in 1989, FIRST has positively impacted the lives of young students around
+        the world through its accessible and innovative programs. These programs
+        are designed to inspire and encourage participants to pursue careers in science,
+        technology and math, and develop teamwork and skills in public relations,
+        strategy, dedication, and outreach. Through partnerships with local and global
+        businesses, dedicated volunteers with professional backgrounds, and the tireless
+        efforts of students, teachers, and parents, FIRST opens a whole new world
+        for generations of young adults and equips them with the skills to achieve
+        success.
       </p>
       <p><a href="/about/first/">Learn more &raquo;</a></p>
     </div>
