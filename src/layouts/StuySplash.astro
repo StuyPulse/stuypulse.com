@@ -15,10 +15,10 @@ const { frontmatter } = Astro.props;
 </style>
 
 <h2>{"Stuy Splash  " + frontmatter.year}</h2>
+<slot class="content"/>
 
 <div class="row">
-    <div class="col-sm-10">
-        <slot class="content"/>
+    <div class="col-12 col-lg-9 order-1 order-lg-0">
         <ul class="list-group list-group-flush"> 
             {
                 frontmatter.presentations.map((presentation: PresentationType) => (
@@ -39,7 +39,7 @@ const { frontmatter } = Astro.props;
         </ul>
         
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-10 col-lg-3 order-0 order-lg-1">
         <h2>Links</h2>
         <ul>
             {frontmatter.playlist ? (
