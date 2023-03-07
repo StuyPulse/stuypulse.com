@@ -1,5 +1,7 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import ImageContainer from '@components/ImageContainer.astro';
+
 ---
 
 <style>
@@ -20,9 +22,9 @@ import PageSite from "@layouts/PageSite.astro";
 
 <PageSite title="Community" description={"TEST"}>
   <h1 class="mb-4">Community and Outreach</h1>
-  <div class="row gx-5">
-    <div class="col-sm-9">
-      <h2>Helping Out Other Teams</h2>
+  <div class="row mb-3">
+    <h2 class="mb-0">Helping Out Other Teams</h2>
+    <div class="col-12 col-sm-12 col-md-7 col-lg-8 col-xl-9 col-xxl-10 mt-3">
       <p>
         Team 694 is always ready to help out struggling teams, whether it is during
         the hectic build season or at the competitions themselves. Throughout the
@@ -40,17 +42,17 @@ import PageSite from "@layouts/PageSite.astro";
         our community and the friendships and loyalties formed are long-lasting.
       </p>
     </div>
-    <div class="col-sm-3 mt-3">
+    <div class="col-12 col-sm-12 col-md-5 col-lg-4 col-xl-3 col-xxl-2 mt-1">
       <h5>Projects and Demos</h5>
-      <p>Take a look at the <a href="community/projects">projects and demos</a> that we have
+      <p>Take a look at the <a href="community">projects and demos</a> that we have
       done for the community!</p>
       <h5 class="mt-4">Resources</h5>
       <p>Check out our <a href="/resources">resources</a> for other teams.</p>
     </div>
   </div>
-  <div class="row mt-4">
+  <div class="row mb-3">
     <h2>FLL</h2>
-    <div class="col-sm-8 gx-5">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 col-xxl-6">
       <p>In the spring of 2001, Team 694 gave a presentation about instituting a
         robotics curriculum to interested teachers. Since then, we have helped inspire
         several schools to get involved in this spectacular program. In addition,
@@ -62,24 +64,32 @@ import PageSite from "@layouts/PageSite.astro";
         Puerto Rico. More specifically, we aided in programming and their project
         presentations. These four teams were the ASJ Robotigers, Knight Hackers, The LEGO
         Builders and The Robogens.</p>
-      <p>Recently, as of 2021, we've also devised our own FLL curriculum, designed
-        specifically to help new teams and their mentors get a solid foundation in the
-        basics of FLL robotics and its associated activities such as the FLL research
-        project. We have finally put this FLL curriculum to use, as we currently mentor
-        three teams, one of which we started ourselves at a nearby church. Dedicated
-        members from our team volunteer to visit the church once a week to help them.
-        A short introduction to the guide and the links to its resources can be found in
-        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">this PDF.</a>
-        <strong>[DOES NOT EXIST]</strong></p>
-    
     </div>
-    <div class="col-sm-4 border border-5">
-      <h1>image from alpha-omega mentoring here??? maybe????</h1>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-6 mb-3 clearfix align-middle">
+      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+        <h1>image from alpha-omega mentoring here??? maybe????</h1>
+        <ImageContainer
+          img=""
+          alt="Alpha-omega mentoring image here????"
+          height={'auto'}
+          width={'auto'}
+          tSize={'40px'}
+        />
+      </div>
     </div>
+    <p>Recently, as of 2021, we've also devised our own FLL curriculum, designed
+      specifically to help new teams and their mentors get a solid foundation in the
+      basics of FLL robotics and its associated activities such as the FLL research
+      project. We have finally put this FLL curriculum to use, as we currently mentor
+      three teams, one of which we started ourselves at a nearby church. Dedicated
+      members from our team volunteer to visit the church once a week to help them.
+      A short introduction to the guide and the links to its resources can be found in
+      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">this PDF.</a>
+      <strong>[DOES NOT EXIST]</strong></p>
   </div>
   <div class="row mt-5">
     <h2>Team 694 Within the School</h2>
-    <div class="col-sm-7 gx-5">
+    <div class="col-12 col-sm-12 col-lg-6 col-xl-7 col-xxl-8">
       <p>
         Following our successful rookie year, Stuyvesant High School was inspired to
         start an “Intro to Robotics” class, taught by our very own head coach and mentor,
@@ -102,16 +112,35 @@ import PageSite from "@layouts/PageSite.astro";
         that no matter where they go, they will spread the message of FIRST robotics.
       </p>
     </div>
-    <div class="col-sm-5  border border-5">
-      <h1>image/video of 694 at open house here???</h1>
+    <div class="col-12 col-sm-12 col-lg-6 col-xl-5 col-xxl-4 mb-3 clearfix justify-content-center align-middle">
+      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+        <h1>open house image here????</h1>
+        <ImageContainer
+          img=""
+          alt="open house image here????"
+          height={'auto'}
+          width={'auto'}
+          tSize={'40px'}
+        />
+      </div>
     </div>
   </div>
   <div class="row mt-5">
     <h2>Public Demonstrations</h2>
-    <div class="col-sm-5 border border-5">
-      <h1>image/video not needed but idk</h1>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 col-xxl-4 clearfix justify-content-center align-middle">
+      
+      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+        <h1>image/video not needed but idk</h1>
+        <ImageContainer
+          img=""
+          alt="idk"
+          height={'auto'}
+          width={'auto'}
+          tSize={'40px'}
+        />
+      </div>
     </div>
-    <div class="col-sm-7 gx-5">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-8">
       <p>Over the years, Team 694 has been featured in numerous demonstrations, shows
         and the media. We most notably appeared in Wired Magazine's 2006 NEXTFEST
         Demonstration, where our 2006 robot, Joshua, played mock matches of the game,
@@ -123,7 +152,8 @@ import PageSite from "@layouts/PageSite.astro";
         have also appeared at Sony Wonder Fair, the NASA events, Maker Faire, and various
         local events. In the midst of busy demonstrations, we also try to increase our
         government's interest in FIRST and other robotics programs through presentations
-        and by _________________</p>
+        and by raising awareness of proposed bills which would support the development
+        of more robotics teams in less-advantaged schools.</p>
     </div>
   </div>
   

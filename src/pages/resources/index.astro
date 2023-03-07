@@ -1,5 +1,6 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import ImageContainer from '@components/ImageContainer.astro';
 ---
 
 <style>
@@ -9,11 +10,11 @@ import PageSite from "@layouts/PageSite.astro";
 </style>
 
 <PageSite title="Resources" description={"TEST"}>
-  <h1>Resources and Documents</h1>
+  <h1 class="mb-4">Resources and Documents</h1>
   <h3>Resources</h3>
   <h4>Stuy Splash</h4>
   <div class="row">
-    <div class="col-sm-8">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-5 col-xl-6 col-xxl-7">
       <p>
         Stuy Splash is an intensive camp for FRC, covering everything from the
         foundation of your robot to the 0's and 1's that make it overweight.
@@ -40,8 +41,17 @@ import PageSite from "@layouts/PageSite.astro";
         >
       </p>
     </div>
-    <div class="col-sm-4 border border-4 border-gray">
-      <p>insert image of stuysplash here?</p>
+    <div class="col-12 col-sm-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 mb-3 clearfix">
+      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+        <ImageContainer
+        img="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/stuysplash_ex.jpg"
+        alt="Stuy Splash 2023, with Mr. Blay presenting"
+        height={'auto'}
+        width={'auto'}
+        tSize={'40px'}
+      />
+    </div>
+    
     </div>
   </div>
 
@@ -98,13 +108,8 @@ import PageSite from "@layouts/PageSite.astro";
     Information regarding our team name, logo, and color usage can be found in
     our branding guide <a
       href="https://stuypulse.com/downloads/teamdocs/BrandingGuide2016-2017.pdf"
-      >here [kind of outdated but whatever]</a
-    >
-  </p>
-  <h4 class="">Operations Plan</h4>
-  <p>
-    We used to have an operations plan thing but it stopped getting updated in
-    2017 lmao
+      >here</a
+    >.
   </p>
   <h4 class="">Press Packet</h4>
   <p>
