@@ -1,6 +1,7 @@
 ---
 import type { MentorType } from '@types';
 import { Picture } from 'astro-imagetools/components';
+import ImageContainer from '@components/ImageContainer.astro';
 
 export interface Props {
   mentor: MentorType;
@@ -9,29 +10,37 @@ export interface Props {
 const { mentor } = Astro.props;
 ---
 
-<!-- design can improve later -->
 <div class="container">
-  <div class="row">
-    <h2>{mentor.name}</h2>
+  <div class="card">
+    <div class="card-header">
+      <div class="row no-gutters">
+        <div class="col-7 d-inline-block align-middle">
+          <h3 class="m-0">{mentor.name}</h3>
+        </div>
+      </div>
+    </div>
+    <div class = "card-body">
+      <div class="row no-gutters">
+        <div class="col-md-4 justify-content-center d-flex align-content-center">
+          {
+            mentor.image ? (
+              <ImageContainer img={mentor.image} alt={mentor.name} height="250px" width="250px" tSize="30px"/>
+            ) : (
+              <strong>
+                <h1 class="fw-bold text-muted text-center ">{mentor.name}</h1>
+              </strong>
+            )
+          }
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <p class="card-text">{mentor.description}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="row">
-    <div class="col-sm-8">
-      <p>{mentor.description}</p>
-    </div>
-
-    <div class="col-sm-4">
-      {
-        mentor.image ? (
-          <Picture src={mentor.image} alt={mentor.name} />
-        ) : (
-          <strong>
-            <h1 class="fw-bold text-center">{mentor.name}</h1>
-          </strong>
-        )
-      }
-    </div>
-  </div>
 
   {
     mentor.woodieFlowers && (
