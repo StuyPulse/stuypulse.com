@@ -18,6 +18,9 @@ import ImageContainer from '@components/ImageContainer.astro';
     visibility: hidden;
     pointer-events: none;
   }
+  .imgcontainer {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);"
+  }
 </style>
 
 <PageSite title="Community" description={"TEST"}>
@@ -52,7 +55,7 @@ import ImageContainer from '@components/ImageContainer.astro';
   </div>
   <div class="row mb-3">
     <h2>FLL</h2>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-5 col-xxl-6">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 col-xxl-5">
       <p>In the spring of 2001, Team 694 gave a presentation about instituting a
         robotics curriculum to interested teachers. Since then, we have helped inspire
         several schools to get involved in this spectacular program. In addition,
@@ -64,28 +67,28 @@ import ImageContainer from '@components/ImageContainer.astro';
         Puerto Rico. More specifically, we aided in programming and their project
         presentations. These four teams were the ASJ Robotigers, Knight Hackers, The LEGO
         Builders and The Robogens.</p>
+        <p>Recently, as of 2021, we've also devised our own FLL curriculum, designed
+        specifically to help new teams and their mentors get a solid foundation in the
+        basics of FLL robotics and its associated activities such as the FLL research
+        project. We have finally put this FLL curriculum to use, as we currently mentor
+        three teams, one of which we started ourselves at a nearby church. Dedicated
+        members from our team volunteer to visit the church once a week to help them.
+        A short introduction to the guide and the links to its resources can be found in
+        <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">this PDF.</a>
+        <strong>[DOES NOT EXIST]</strong></p>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-7 col-xxl-6 mb-3 clearfix align-middle">
-      <div class="p-0 float-end align-middle">
-        <h1>image from alpha-omega mentoring here??? maybe????</h1>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 col-xxl-7 mb-3 clearfix align-middle">
+      <div class="p-0 float-end align-middle imgcontainer">
         <ImageContainer
           img="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/community/stuypulse_fll.jpg"
-          alt="Alpha-omega mentoring image here????"
+          alt="StuyPulse's mentored FLL teams participating at the NYC FLL regional i think"
           height={'auto'}
           width={'auto'}
           tSize={'40px'}
         />
       </div>
     </div>
-    <p>Recently, as of 2021, we've also devised our own FLL curriculum, designed
-      specifically to help new teams and their mentors get a solid foundation in the
-      basics of FLL robotics and its associated activities such as the FLL research
-      project. We have finally put this FLL curriculum to use, as we currently mentor
-      three teams, one of which we started ourselves at a nearby church. Dedicated
-      members from our team volunteer to visit the church once a week to help them.
-      A short introduction to the guide and the links to its resources can be found in
-      <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ" target="_blank">this PDF.</a>
-      <strong>[DOES NOT EXIST]</strong></p>
+    
   </div>
   <div class="row mt-5">
     <h2>Team 694 Within the School</h2>
@@ -113,11 +116,10 @@ import ImageContainer from '@components/ImageContainer.astro';
       </p>
     </div>
     <div class="col-12 col-sm-12 col-lg-6 col-xl-5 col-xxl-4 mb-3 clearfix justify-content-center align-middle">
-      <div class="p-0 align-middle">
-        <h1>open house image here????</h1>
+      <div class="p-0 w-75 align-middle imgcontainer">
         <ImageContainer
-          img=""
-          alt="open house image here????"
+          img="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/community/stuypulse_labopening0.jpg"
+          alt="IDK"
           height={'auto'}
           width={'auto'}
           tSize={'40px'}
@@ -126,20 +128,19 @@ import ImageContainer from '@components/ImageContainer.astro';
     </div>
   </div>
   <div class="row mt-5">
-    <h2>Public Demonstrations</h2>``
+    <h2 class="mb-3">Public Demonstrations</h2>
     <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 col-xxl-4 clearfix justify-content-center align-middle">
-      <div class="p-0 align-middle">
-        <h1>image/video not needed but idk</h1>
+      <div class="p-0 align-middle imgcontainer">
         <ImageContainer
-          img=""
-          alt="idk"
+          img="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/community/stuypulse_steamday1.jpg"
+          alt="Demonstration at Battery Park for Steam Day"
           height={'auto'}
           width={'auto'}
           tSize={'40px'}
         />
       </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-8">
+    <div class=" mt-3 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-8">
       <p>Over the years, Team 694 has been featured in numerous demonstrations, shows
         and the media. We most notably appeared in Wired Magazine's 2006 NEXTFEST
         Demonstration, where our 2006 robot, Joshua, played mock matches of the game,
