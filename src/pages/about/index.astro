@@ -24,7 +24,7 @@ import ImageContainer from "@components/ImageContainer.astro";
     <img src="/694-logo.svg" class="inline-icon" /> About Us
   </h1>
   <div class="row mb-3">
-    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-11 mb-3">
+    <div class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-3 order-sm-1 order-md-0 order-xl-0">
       <h5 class="d-inline">We are StuyPulse, FIRST FRC Team 694.</h5>
       <p class="justify-content-evenly d-inline">
         Our nickname is derived from the idea that we are at the heart of our
@@ -42,7 +42,7 @@ import ImageContainer from "@components/ImageContainer.astro";
         and prepare for their futures.
       </p>
     </div>
-    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-1">
+    <div class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-2 order-sm-0 order-md-0 order-xl-1">
       <h5>Learn More</h5>
       <ul>
         <li><a href="#about">About Us</a></li>
@@ -56,8 +56,8 @@ import ImageContainer from "@components/ImageContainer.astro";
   </div>
   <div class="text-center">
     <iframe
-    class="w-75 mb-4"
-    style="border:0.5em solid #e00; border-radius:1em;;"
+    class="w-75"
+    style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);"
     height="500"
     src="https://www.youtube.com/embed/I2Jz-1qz4eU"
     title="YouTube video player"
@@ -67,7 +67,7 @@ import ImageContainer from "@components/ImageContainer.astro";
     </iframe>
   </div>
   
-  <div class="row">
+  <div class="row mt-5">
     <h2 id="today" class="offset">Team 694 Today</h2>
     <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-7">
       <p>
@@ -95,8 +95,8 @@ import ImageContainer from "@components/ImageContainer.astro";
         exciting competitions.”
       </p>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-5 mb-3 clearfix">
-      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-5 mb-4 clearfix">
+      <div class="p-0 rounded align-middle" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);">
         <ImageContainer
           img="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/community/stuypulse_champs.jpg"
           alt="StuyPulse at the 2022 FIRST Robotics Competition World Championship in Houston"
@@ -118,19 +118,6 @@ import ImageContainer from "@components/ImageContainer.astro";
   </div>
   <div class="row mt-4">
     <h2>StuyPulse's Beginnings</h2>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-4 col-xxl-3 mb-2 clearfix" >
-      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
-        <h1>another image here</h1>
-        <ImageContainer
-          img=""
-          alt="another image here"
-          height={"auto"}
-          width={"auto"}
-          tSize={"40px"}
-        />
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-8 col-xxl-9">
       <p>
         Our team was founded in the fall of 2000 by a group of students and
         parents who were ready to take on the formidable task of building our
@@ -142,11 +129,9 @@ import ImageContainer from "@components/ImageContainer.astro";
         competition, we were destined to succeed: eventually scoring highest in
         our division at the Champtionship Event in only our rookie year.
       </p>
-    </div>
   </div>
-  <div class="row mt-5">
+  <div class="row mt-4">
     <h2>What makes StuyPulse unique?</h2>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-5 col-xl-6 col-xxl-7">
       <p>
         One of the things that Team 694 takes pride in is our <strong
           >overwhelming diversity</strong
@@ -161,21 +146,16 @@ import ImageContainer from "@components/ImageContainer.astro";
         up! The journey to regionals across the country is anything but boring
         and is kept close to our hearts.
       </p>
-      
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-7 col-xl-6 col-xxl-5">
-      <div class="p-0 float-end rounded align-middle" style="border: 0.5rem solid #E7E7E7;">
-        <h1>maybe another image here too</h1>
+      <div class="p-0 rounded align-middle d-inline" style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);">
         <ImageContainer
-          img=""
+          img="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/community/stuypulse_sbpli.jpg"
           alt="another image here"
           height={"auto"}
-          width={"auto"}
+          width={"400px"}
           tSize={"40px"}
         />
-      </div>
     </div>
-    <p>
+    <p class="mt-4">
       As a team, StuyPulse has gone on to be champions <strong
         >numerous times</strong
       >. In 2022, we won the third seed in the Galileo Division and captained
