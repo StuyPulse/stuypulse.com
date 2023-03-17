@@ -1,0 +1,13 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+export interface Props {
+  history: CollectionEntry<'history'>;
+}
+
+const history = Astro.props.history;
+---
+
+<div class="row no-gutters align-items-center">
+  <p>{history.slug}: {history.data.title}</p>
+</div>
