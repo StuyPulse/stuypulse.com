@@ -48,7 +48,7 @@ const tierData = sponsorTiers.default;
                 </h3>
               </button>
             </h2>
-            <div id={"flush-collapse" + sponsorTier.name} class={"accordion-collapse collapse" + (index==0 ? "show" : "")} aria-labelledby={"flush-heading" + sponsorTier.name} data-bs-toggle="collapse" data-bs-parent="#sponsorAccordion">
+            <div id={"flush-collapse" + sponsorTier.name} class={"accordion-collapse collapse " + (index==0 ? "show" : "")} aria-labelledby={"flush-heading" + sponsorTier.name} data-bs-toggle="collapse">
               <div class="accordion-body row">
                 {
                   sponsorData

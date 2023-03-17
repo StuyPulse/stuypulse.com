@@ -17,8 +17,12 @@ import ImageContainer from "@components/ImageContainer.astro";
     visibility: hidden;
     pointer-events: none;
   }
-</style>
 
+  .youtube-video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
+</style>
 <PageSite title="About" description={"TEST"}>
   <h1 id="about mb-3" class="offset mb-4">
     <img src="/694-logo.svg" class="inline-icon" /> About Us
@@ -56,9 +60,8 @@ import ImageContainer from "@components/ImageContainer.astro";
   </div>
   <div class="text-center">
     <iframe
-    class="w-75"
+    class="youtube-video"
     style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);"
-    height="500"
     src="https://www.youtube.com/embed/I2Jz-1qz4eU"
     title="YouTube video player"
     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

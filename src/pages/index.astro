@@ -20,6 +20,10 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     transform: translateY(-0.1em);
     padding-right: 0.25rem;
   }
+  .youtube-video {
+    aspect-ratio: 16 / 9;
+    width: 100%;
+  }
 
   .row {
 
@@ -158,18 +162,18 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
       </div>  
     </div>
     
-    <div class="col-sm-5">
+    <div class="col-lg-5 col-md-12">
       <h2>Recent News</h2>
   
       <NewsMiniPreview entries={frontPosts}/>
   
       <strong><a href="/news">See older news &gt;&gt;</a></strong>
     </div>
-    <div class="col-sm-7">
+    <div class="col-md-12 col-lg-7">
       <h2>Latest YouTube Video</h2>
       <p class="text-muted">Check out our other videos <a href="https://www.youtube.com/@StuyPulse">here</a>!</p>
       <iframe
-        class="w-100"
+        class="youtube-video"
         style="height:23em;"
         src="https://www.youtube-nocookie.com/embed?listType=playlist&list=UUDJr7RUmFfHAXjDg7jaCP5g"
         title="YouTube video player"
