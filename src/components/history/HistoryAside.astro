@@ -1,8 +1,9 @@
 ---
 import { CollectionEntry, getCollection } from 'astro:content';
+import YearNav from './YearNav.astro';
 
 const history = await getCollection('history');
-const sortedHistory:CollectionEntry<'history'>[] = [];
+const sortedHistory: CollectionEntry<'history'>[] = [];
 history.map((entry) => sortedHistory.unshift(entry));
 export interface Props {
   activeYear: string;
@@ -11,38 +12,47 @@ export interface Props {
 const year = Astro.props;
 ---
 
-{
-  sortedHistory.map((entry) => (
-    <div class="row no-gutters align-items-center">
-      <a href={"/about/history/"+entry.slug} class={"pl-5 pb-1 pt-1 align-items-center "+ (!entry.slug.localeCompare(year.activeYear)&&"current") }>
-        <p class={(entry.slug.localeCompare(year.activeYear)?"year":"current") + " mb-0"} >{entry.slug}: {entry.data.title}</p>
-      </a>
+<div class="accordion accordion-flush">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed m-0 p-0 text-center fs-3 d-md-none"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#years"
+        aria-expanded="false"
+        aria-controls="years"
+        style="color: #e00;"
+      >
+        Team History
+      </button>
+      <p
+        class="m-0 text-center d-none d-md-block"
+        style="font-size: 18px; color: #e00;"
+      >
+        Team History
+      </p>
+    </h2>
+    <div id="years" class="accordion-collapse collapse">
+      <div class="accordion-body pt-2">
+        <hr class="mt-1 mb-2" />
+
+        {sortedHistory.map((entry) => <YearNav history={entry} />)}
+      </div>
     </div>
-    
-  ))
-}
+  </div>
+</div>
 
-<style>
-  p {
-    margin-bottom: 0.25rem;
-  }
-  @media screen and (max-width: 992px) {
-    p{
-      margin-left:1rem;
-    }
-  }
-  
-  .row:hover {
-    background-color: rgb(235, 235, 238);
-  }
-  .row:active {
-    background-color: rgb(224, 221, 221);
-  }
-  .current {
-    background-color: rgb(224, 0, 0) ;
-    color: rgb(235, 235, 238) ;
-  }
-  .year {
+<hr />
 
+<script defer>
+  const years = document.getElementById('years');
+
+  function responsiveDropdown() {
+    if (window.innerWidth > 767) years.classList.add('show');
+    else years.classList.remove('show');
   }
-</style>
+
+  responsiveDropdown();
+  window.addEventListener('resize', (e) => responsiveDropdown(), true);
+</script>
