@@ -14,7 +14,7 @@ import PageSite from '@layouts/PageSite.astro';
         if (!calendarEl) throw new Error("Calendar element not found");
         var calendar = new Calendar(calendarEl, {
             googleCalendarApiKey: 'AIzaSyC8aX6KJLfEyiuSJ76hErHB8voNcoAi4yA',
-            initialView: 'listWeek',
+            initialView: window.innerWidth < 768 ? 'listWeek' : 'dayGridMonth',
             plugins: [ listPlugin, googleCalendarPlugin, dayGridPlugin, timeGridPlugin],
             headerToolbar: {
                 left: 'prev,next,today',
