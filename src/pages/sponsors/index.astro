@@ -3,9 +3,9 @@ import PageSite from "@layouts/PageSite.astro";
 import SponsorContainer from "@components/sponsors/SponsorContainer.astro";
 import type { SponsorType, SponsorTierType } from "@types";
 
-let sponsorSize = "160px"
-let textSize = "25px"
-let responsive = "col-6 col-md-4 col-xxl-3"
+let sponsorSize = "160px";
+let textSize = "25px";
+let responsive = "col-6 col-md-4 col-xxl-3";
 
 const sponsors = await import("@data/sponsors.yml");
 const sponsorData = sponsors.default;
@@ -20,7 +20,7 @@ const tierData = sponsorTiers.default;
     transform: translateY(-0.1em);
   }
 
-  .row h2{
+  .row h2 {
     border-bottom: 3px solid #e00;
   }
   .list-group-item {
@@ -33,55 +33,79 @@ const tierData = sponsorTiers.default;
   }
 </style>
 
-<PageSite title="Sponsors" description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running.">
+<PageSite
+  title="Sponsors"
+  description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running."
+>
   <h1 class="mb-4">Sponsors</h1>
   <div class="row mb-5">
     <div class="col-lg-7 mb-5">
       <div class="accordion accordion-flush" id="sponsorAccordion">
         {
           tierData.map((sponsorTier: SponsorTierType, index: number) => (
-          <div class="accordion-item">
-            <h2 class="accordion-header">
-              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target={"#flush-collapse" + sponsorTier.name} aria-expanded="false" aria-controls={"#flush-collapse" + sponsorTier.name}>
-                <h3 style="margin-bottom:0;">
-                  <img src={sponsorTier.icon} class="inline-icon" /> {sponsorTier.name}
-                </h3>
-              </button>
-            </h2>
-            <div id={"flush-collapse" + sponsorTier.name} class={"accordion-collapse collapse " + (index==0 ? "show" : "")} aria-labelledby={"flush-heading" + sponsorTier.name} data-bs-toggle="collapse">
-              <div class="accordion-body row">
-                {
-                  sponsorData
-                    .filter((sponsor: { tier: string }) => sponsor.tier == sponsorTier.name.toLowerCase())
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <button
+                  class="accordion-button collapsed"
+                  type="button"
+                  data-bs-toggle="collapse"
+                  data-bs-target={"#flush-collapse" + sponsorTier.name}
+                  aria-expanded="false"
+                  aria-controls={"#flush-collapse" + sponsorTier.name}
+                >
+                  <h3 style="margin-bottom:0;">
+                    <img src={sponsorTier.icon} class="inline-icon" />{" "}
+                    {sponsorTier.name}
+                  </h3>
+                </button>
+              </h2>
+              <div
+                id={"flush-collapse" + sponsorTier.name}
+                class={
+                  "accordion-collapse collapse " + (index == 0 ? "show" : "")
+                }
+                aria-labelledby={"flush-heading" + sponsorTier.name}
+                data-bs-toggle="collapse"
+              >
+                <div class="accordion-body row">
+                  {sponsorData
+                    .filter(
+                      (sponsor: { tier: string }) =>
+                        sponsor.tier == sponsorTier.name.toLowerCase()
+                    )
                     .map((sponsor: SponsorType, index: number) => (
                       <div class={responsive}>
-                        <SponsorContainer sponsor={sponsor} height={sponsorSize} width={sponsorSize} tSize={textSize}/>
+                        <SponsorContainer
+                          sponsor={sponsor}
+                          height={sponsorSize}
+                          width={sponsorSize}
+                          tSize={textSize}
+                        />
                       </div>
-                    ))
-                }
+                    ))}
+                </div>
               </div>
             </div>
-          </div>
           ))
         }
       </div>
     </div>
-    <div class="col-sm-1" />
+    <div class="col-sm-1"></div>
 
     <div class="col-sm-10 col-lg-4 align-middle">
       <h3 class="mb-3">Sponsorship Levels:</h3>
       <ul class="list-group list-group-flush d-inline">
         {
           tierData.map((sponsorTier: SponsorTierType, index: number) => (
-            <p>
-              <img src={sponsorTier.icon} class="inline-icon" />
-              {sponsorTier.name + ": " + sponsorTier.range}
-            </p>
-            <li class="list-group-item">
+            <>
               <p>
-                {sponsorTier.desc}
+                <img src={sponsorTier.icon} class="inline-icon" />
+                {sponsorTier.name + ": " + sponsorTier.range}
               </p>
-            </li>
+              <li class="list-group-item">
+                <p>{sponsorTier.desc}</p>
+              </li>
+            </>
           ))
         }
       </ul>
@@ -90,12 +114,33 @@ const tierData = sponsorTiers.default;
   <!-- <hr class="justify-content-center w-40"/> -->
   <div id="info">
     <h2>Donate To The Team!</h2>
-    <p>Our robotics team is becoming a greater presence in the Stuyvesant community, with over 150 members in our three robotics teams. With more students joining every year and more projects being done, lots of our equipment and materials are dwindling and getting old. In order to provide students with state-of-the-art materials and more opportunities so that they can continue doing the things they do, we need YOUR help.</p>
+    <p>
+      Our robotics team is becoming a greater presence in the Stuyvesant
+      community, with over 150 members in our three robotics teams. With more
+      students joining every year and more projects being done, lots of our
+      equipment and materials are dwindling and getting old. In order to provide
+      students with state-of-the-art materials and more opportunities so that
+      they can continue doing the things they do, we need YOUR help.
+    </p>
 
-    <p>If you or your company wishes to donate, please click on the donate button <strong>[doesn't exist]</strong> or contact us at <a href="mailto:info@stuypulse.com">info@stuypulse.com</a>.</p>
-      
-    <p>Thank you so much for your continuous support and contribution to the team!</p>
+    <p>
+      If you or your company wishes to donate, please click on the donate button <strong
+        >[doesn't exist]</strong
+      > or contact us at <a href="mailto:info@stuypulse.com"
+        >info@stuypulse.com</a
+      >.
+    </p>
 
-    <p>For more information, see our press packet <a href="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/2022-23SponsorshipPacket.pdf" target="new">here</a>.</p>
+    <p>
+      Thank you so much for your continuous support and contribution to the
+      team!
+    </p>
+
+    <p>
+      For more information, see our press packet <a
+        href="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/2022-23SponsorshipPacket.pdf"
+        target="new">here</a
+      >.
+    </p>
   </div>
 </PageSite>

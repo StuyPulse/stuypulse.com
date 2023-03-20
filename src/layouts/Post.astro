@@ -1,5 +1,5 @@
 ---
-import type { MarkdownLayoutProps } from 'astro';
+import type { MarkdownLayoutProps } from "astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -13,14 +13,15 @@ const { frontmatter } = Astro.props;
 let splitPath = frontmatter.file.split(/content|.md/);
 const filePath = splitPath[1];
 
-let postDate = new Date(frontmatter.date)
-const dateString = postDate.toLocaleDateString('en-us', {
+let postDate = new Date(frontmatter.date);
+const dateString = postDate.toLocaleDateString("en-us", {
   weekday: "long",
   year: "numeric",
   month: "long",
-  day: "2-digit"
-})
+  day: "2-digit",
+});
 ---
+
 <h3><a href={filePath}>&raquo; {frontmatter.title}</a></h3>
 <p>By {frontmatter.author} on {dateString}</p>
 <slot />

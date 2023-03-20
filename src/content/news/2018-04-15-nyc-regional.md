@@ -4,6 +4,7 @@ title: New York City Regional Recap
 author: Leilei Hao
 date: 2018-04-15
 ---
+
 Last weekend, we competed in the New York City Regional.
 Wildcard made team history by going undefeated throughout the entire regional.
 Along with teams 1796 and 743, we won the event, qualifying us for World Championships in Detroit later this month.In addition, we also qualified to compete at the championships by winning the Chairman’s Award, the most prestigious award that can be award to a FRC Team.

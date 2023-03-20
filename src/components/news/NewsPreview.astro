@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
 
 export interface Props {
   entries: CollectionEntry<"news">[];
@@ -9,15 +9,10 @@ export interface Props {
 const { entries, numPosts } = Astro.props;
 
 const contents = [];
-for(let i = 0; i<numPosts; i++){
+for (let i = 0; i < numPosts; i++) {
   let rendered = await entries[i].render();
   contents[i] = rendered.Content;
 }
-
 ---
 
-{
-  contents.map((Content, index) =>
-   <Content/>
-  )
-}
+{contents.map((Content, index) => <Content />)}

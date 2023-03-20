@@ -8,9 +8,9 @@
       "$*": ["./src/*"]
     },
     "typeRoots": [
-        "../../node_modules/@types",
-        "../../node_modules/astro-imagetools",
-        "../../.astro"
+      "../../node_modules/@types",
+      "../../node_modules/astro-imagetools",
+      "../../.astro"
     ]
   }
 }

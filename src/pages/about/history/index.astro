@@ -1,7 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
-const historyEntries = await getCollection('history');
+const historyEntries = await getCollection("history");
 const latestEntry = historyEntries[historyEntries.length - 1];
 const latestYear = latestEntry.slug;
 

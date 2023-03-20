@@ -12,8 +12,8 @@ export interface LinkType {
 export interface CarouselItemType {
   img: string;
   caption: string;
-  'img-link': string;
-  'read-more-link': string;
+  "img-link": string;
+  "read-more-link": string;
 }
 
 export interface SponsorType {

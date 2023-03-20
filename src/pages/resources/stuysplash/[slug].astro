@@ -1,29 +1,28 @@
 ---
-import PageSite from '@layouts/PageSite.astro';
-import PresentationsAside from '$components/resources/PresentationsAside.astro';
-import { getCollection } from 'astro:content';
+import PageSite from "@layouts/PageSite.astro";
+import PresentationsAside from "$components/resources/PresentationsAside.astro";
+import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
-  const stuySplashEntries = await getCollection('stuysplash');
+  const stuySplashEntries = await getCollection("stuysplash");
 
   return stuySplashEntries.map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry }
+    props: { entry },
   }));
 }
 
 const { entry } = Astro.props;
 const { Content } = await entry.render();
-
 ---
 
-<PageSite title="StuySplash" description={'TEST'}>
-  <h1 class="mb-4"> StuySplash Presentations</h1>
+<PageSite title="StuySplash" description={"TEST"}>
+  <h1 class="mb-4">StuySplash Presentations</h1>
   <div class="row">
-    <nav class="col-md-2 text-nowrap" >
+    <nav class="col-md-2 text-nowrap">
       <p class="text-muted text-break text-wrap m-0 p-0 mb-0">Past Years</p>
-      <hr class="mt-2 mb-2 "/>
-      <PresentationsAside activeYear={entry.data.year}/>
+      <hr class="mt-2 mb-2" />
+      <PresentationsAside activeYear={entry.data.year} />
     </nav>
     <div class="col-sm-10 content">
       <Content />
