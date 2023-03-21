@@ -27,14 +27,14 @@ const year = Astro.props;
         Team History
       </button>
       <p
-        class="m-0 text-center d-none d-md-block"
-        style="font-size: 18px; color: #e00;"
+        class="m-0 text-muted text-center d-none d-md-block"
+        style="font-size: 18px;"
       >
         Team History
       </p>
     </h2>
     <div id="years" class="accordion-collapse collapse">
-      <div class="accordion-body pt-2">
+      <div class="accordion-body pt-1">
         <hr class="mt-1 mb-2" />
 
         {sortedHistory.map((entry) => <YearNav history={entry} />)}
