@@ -2,20 +2,32 @@
 import PageSite from '@layouts/PageSite.astro';
 ---
 <style>
-
-  .list-group-item-action.fusion:hover{
-    /* color: #308693; */
+  .list-group-item-action:hover {
+    transition-duration: 500ms;
+    transition-timing-function: ease-in-out;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+  }
+  .list-group-item-action.fusion:hover {
     background-color: #c4f5fc;
   }
 
   .list-group-item-action.fission:hover{
     background-color: #cccccc;
   }
+  .list-group-item-action:hover .inline-icon{
+    transition-duration: 500ms;
+    transition-timing-function: ease-in;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+    border-radius:50%;
+    
+  }
+  
+  
 
   .inline-icon {
     height: 5em;
     transform: translateY(-0.1em);
-    padding-right: 0.25rem;
+    margin-right: 0.25rem;
   }
 </style>
 
@@ -36,8 +48,8 @@ import PageSite from '@layouts/PageSite.astro';
       <p class="mb-1">Check out our FTC Teams:</p>
       <hr class="m-0"/>
       <div class="list-group list-group-flush">
-        <a class="list-group-item list-group-item-action fusion" href="http://fusion479.com"><img src="/479_logo.png" class="inline-icon" />Fusion 479</a>
-        <a class="list-group-item list-group-item-action fission" href="http://fission310.com"><img src="/310_logo.png" class="inline-icon" />Fission 310</a>
+        <a class="list-group-item list-group-item-action fusion" href="http://fusion479.com" target="_blank"><img src="/479_logo.png" class="inline-icon" />Fusion 479</a>
+        <a class="list-group-item list-group-item-action fission" href="http://fission310.com" target="_blank"><img src="/310_logo.png" class="inline-icon" />Fission 310</a>
       </div>
     </div>
   </div>
