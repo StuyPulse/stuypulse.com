@@ -27,7 +27,7 @@ const { frontmatter } = Astro.props;
 <h1>{frontmatter.year + ": " + frontmatter.title}</h1>
 
 <div class="mx-4 mb-4 clearfix">
-  <div class="float-start rounded me-4" style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);">
+  <div class="float-start rounded me-4 mb-2" style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);">
     <ImageContainer
       img={frontmatter.photo}
       alt={frontmatter.title}
