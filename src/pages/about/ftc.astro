@@ -1,0 +1,45 @@
+---
+import PageSite from '@layouts/PageSite.astro';
+---
+<style>
+
+  .list-group-item-action.fusion:hover{
+    /* color: #308693; */
+    background-color: #c4f5fc;
+  }
+
+  .list-group-item-action.fission:hover{
+    background-color: #cccccc;
+  }
+
+  .inline-icon {
+    height: 5em;
+    transform: translateY(-0.1em);
+    padding-right: 0.25rem;
+  }
+</style>
+
+<PageSite title="FTC Teams" description={'TEST'}>
+  <h1 class="mb-4">Our FTC Teams</h1>
+  
+  <!-- <a href="https://google.com">test link</a> -->
+  <div class="row">
+    <div class="order-sm-2 order-md-1 col-12 col-sm-12 col-md-8 col-lg-9 col-xl-9 col-xxl-9">
+      <p>As a part of Stuyvesant Robotics, we share our robotics lab with two other teams: FTC 310 and 479.</p>
+      <h2>FIRST Tech Challenge</h2>
+      <p>FTC differs from FRC in that robots are at most 18x18x18 inches. The FTC build season 
+      also takes place over a longer period of time, six months in comparison to six weeks. But 
+      both FRC and FTC teams design, code, and build their own robot while helping out in 
+      the community!</p>
+    </div>
+    <div class="order-sm-1 order-md-2 col-12 col-sm-12 col-md-4 col-lg-3 col-xl-3 col-xxl-3 mb-3">
+      <p class="mb-1">Check out our FTC Teams:</p>
+      <hr class="m-0"/>
+      <div class="list-group list-group-flush">
+        <a class="list-group-item list-group-item-action fusion" href="http://fusion479.com"><img src="/479_logo.png" class="inline-icon" />Fusion 479</a>
+        <a class="list-group-item list-group-item-action fission" href="http://fission310.com"><img src="/310_logo.png" class="inline-icon" />Fission 310</a>
+      </div>
+    </div>
+  </div>
+  
+</PageSite>
