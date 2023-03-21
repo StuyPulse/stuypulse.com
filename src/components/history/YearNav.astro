@@ -35,7 +35,7 @@ const history = Astro.props.history;
   }
 </style>
 
-<a href={history.slug}>
+<a href={"/about/history/"+history.slug}>
   <div class="row no-gutters align-items-center">
     <p>{history.slug}: {history.data.title}</p>
   </div>
