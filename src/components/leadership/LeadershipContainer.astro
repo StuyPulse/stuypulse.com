@@ -41,7 +41,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
   h3 {
     font-size: var(--hSize);
     margin: 5px;
-    color:black;
+    color: black;
   }
 </style>
 
@@ -53,7 +53,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
           <h3 class="m-0">{leadership.name}</h3>
         </div>
         <div class="col-5 d-inline text-nowrap text-end">
-          <a href={"/../about/departments#" + leadership.department} >
+          <a href={"/../about/departments#" + leadership.department}>
             {
               [
                 "Software Engineering",
@@ -61,7 +61,15 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
                 "Business",
                 "Strategy",
               ].includes(leadership.department) ? (
-                <img src={"/../../" + leadership.department.split(" ")[0].toLowerCase() + ".svg"} alt={leadership.department} width="32px" />
+                <img
+                  src={
+                    "/../../" +
+                    leadership.department.split(" ")[0].toLowerCase() +
+                    ".svg"
+                  }
+                  alt={leadership.department}
+                  width="32px"
+                />
               ) : (
                 <p class="text-white">{leadership.department}</p>
               )
@@ -70,15 +78,20 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
         </div>
       </div>
     </div>
-    <div class = "card-body">
+    <div class="card-body">
       <div class="row no-gutters">
-        <div class="col-10 col-md-4" style="max-width:250px; padding:25px; margin: auto;">
+        <div
+          class="col-10 col-md-4"
+          style="max-width:250px; padding:25px; margin: auto;"
+        >
           {
             leadership.image ? (
               <Picture src={leadership.image} alt={leadership.name} />
             ) : (
               <strong>
-                <h1 class="fw-bold text-muted text-center ">{leadership.name}</h1>
+                <h1 class="fw-bold text-muted text-center ">
+                  {leadership.name}
+                </h1>
               </strong>
             )
           }

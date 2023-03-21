@@ -1,11 +1,10 @@
 ---
-import type { SocialType } from '@types';
-import SocialIcon from './SocialIcon.astro';
+import type { SocialType } from "@types";
+import SocialIcon from "./SocialIcon.astro";
 import bootstrap from "../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js?url";
 
-const socials = (await import('@data/socials.yml')).default;
+const socials = (await import("@data/socials.yml")).default;
 ---
-
 
 <footer class="text-center">
   <hr class="hr-blurry mx-auto mt-5" />
@@ -20,7 +19,5 @@ const socials = (await import('@data/socials.yml')).default;
 
   <p>&copy; {new Date().getFullYear()} StuyPulse.</p>
 
-  <script
-    src={bootstrap}
-  ></script>
+  <script src={bootstrap}></script>
 </footer>

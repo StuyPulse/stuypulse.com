@@ -1,5 +1,5 @@
 ---
-import type { LinkType } from '@types';
+import type { LinkType } from "@types";
 
 const { frontmatter } = Astro.props;
 ---
@@ -45,7 +45,7 @@ const { frontmatter } = Astro.props;
           <ul>
             <li>
               <a href={frontmatter.flickr}>
-                {frontmatter.year + ' photos on Flickr'}
+                {frontmatter.year + " photos on Flickr"}
               </a>
             </li>
           </ul>
@@ -90,9 +90,9 @@ const { frontmatter } = Astro.props;
       <ul>
         <li>
           <a
-            href={'https://www.thebluealliance.com/team/694/' +
+            href={"https://www.thebluealliance.com/team/694/" +
               frontmatter.year}
-            >{frontmatter.year + ' season stats on The Blue Alliance'}</a
+            >{frontmatter.year + " season stats on The Blue Alliance"}</a
           >
         </li>
       </ul>

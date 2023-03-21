@@ -1,5 +1,5 @@
 ---
-import { Picture } from 'astro-imagetools/components';
+import { Picture } from "astro-imagetools/components";
 
 export interface Props {
   img?: string;
@@ -41,14 +41,17 @@ const { img, alt, text, height, width, tSize, placeholder } = Astro.props;
 
 <div class="image-container">
   {
-    img ?
-    <Picture 
-      src={img} 
-      alt={alt} 
-      width={width}
-      placeholder={placeholder ? placeholder : "blurred"} 
-    />
-    :
-    <p><strong>{text}</strong></p>
+    img ? (
+      <Picture
+        src={img}
+        alt={alt}
+        width={width}
+        placeholder={placeholder ? placeholder : "blurred"}
+      />
+    ) : (
+      <p>
+        <strong>{text}</strong>
+      </p>
+    )
   }
 </div>

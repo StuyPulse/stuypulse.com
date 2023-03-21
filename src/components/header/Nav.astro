@@ -1,5 +1,5 @@
 ---
-import type {NavType} from '@types';
+import type { NavType } from "@types";
 
 export interface Props {
   nav: NavType;
@@ -8,35 +8,44 @@ export interface Props {
 
 const { nav, drop } = Astro.props;
 ---
+
 <style>
-  
   a {
-    border-radius: .5em;  
+    border-radius: 0.5em;
   }
-  @media screen and (min-width: 992px ){
+  @media screen and (min-width: 992px) {
     .drop {
       padding-left: 10px !important;
     }
   }
   @media screen and (max-width: 991px ){
     a {
-      padding-left: 20px !important; 
+      padding-left: 20px !important;
     }
   }
-  a:hover{
+  a:hover {
     background-color: rgb(235, 235, 238);
   }
-  a:active{
+  a:active {
     background-color: rgb(224, 221, 221);
   }
-  
-  
 </style>
 <li class="nav-item">
-   
   <!-- deprecated code from when dropdown menu and main navbar navs had different coloring  -->
-  {drop ? 
-    <a class="nav-link active text-black drop" aria-current="page" href= { nav.href }>{ nav.name }</a> :
-    <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a>}
+  {
+    drop ? (
+      <a
+        class="nav-link active text-black drop"
+        aria-current="page"
+        href={nav.href}
+      >
+        {nav.name}
+      </a>
+    ) : (
+      <a class="nav-link active text-black" aria-current="page" href={nav.href}>
+        {nav.name}
+      </a>
+    )
+  }
   <!-- <a class="nav-link active text-black" aria-current="page" href= { nav.href }>{ nav.name }</a> -->
 </li>

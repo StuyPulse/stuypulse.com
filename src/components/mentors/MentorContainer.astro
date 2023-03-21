@@ -1,7 +1,7 @@
 ---
-import type { MentorType } from '@types';
-import { Picture } from 'astro-imagetools/components';
-import ImageContainer from '@components/ImageContainer.astro';
+import type { MentorType } from "@types";
+import { Picture } from "astro-imagetools/components";
+import ImageContainer from "@components/ImageContainer.astro";
 
 export interface Props {
   mentor: MentorType;
@@ -19,12 +19,20 @@ const { mentor } = Astro.props;
         </div>
       </div>
     </div>
-    <div class = "card-body">
+    <div class="card-body">
       <div class="row no-gutters">
-        <div class="col-md-4 justify-content-center d-flex align-content-center">
+        <div
+          class="col-md-4 justify-content-center d-flex align-content-center"
+        >
           {
             mentor.image ? (
-              <ImageContainer img={mentor.image} alt={mentor.name} height="250px" width="250px" tSize="30px"/>
+              <ImageContainer
+                img={mentor.image}
+                alt={mentor.name}
+                height="250px"
+                width="250px"
+                tSize="30px"
+              />
             ) : (
               <strong>
                 <h1 class="fw-bold text-muted text-center ">{mentor.name}</h1>
@@ -40,7 +48,6 @@ const { mentor } = Astro.props;
       </div>
     </div>
   </div>
-
 
   {
     mentor.woodieFlowers && (

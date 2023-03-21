@@ -1,21 +1,33 @@
 ---
-import type {SponsorType} from '@types';
-import SponsorContainer from '@components/sponsors/SponsorContainer.astro'
+import type { SponsorType } from "@types";
+import SponsorContainer from "@components/sponsors/SponsorContainer.astro";
 
-const yml = await import('@data/sponsors.yml');
+const yml = await import("@data/sponsors.yml");
 const sponsorData = yml.default;
 ---
+
 <div
   id="ImageCarousel"
   class="carousel slide carousel-fade"
   data-bs-ride="carousel"
 >
-  
-  <div class="carousel-inner ">
+  <div class="carousel-inner">
     {
       sponsorData.map((sponsor: SponsorType, index: number) => (
-        <div class={index == 0 ? "carousel-item bg-body active d-flex justify-content-center" : "carousel-item bg-body d-flex justify-content-center"} data-bs-interval="1500">
-          <SponsorContainer sponsor = {sponsor} height = "400px" width = "400px" tSize = "60px"/>
+        <div
+          class={
+            index == 0
+              ? "carousel-item bg-body active d-flex justify-content-center"
+              : "carousel-item bg-body d-flex justify-content-center"
+          }
+          data-bs-interval="1500"
+        >
+          <SponsorContainer
+            sponsor={sponsor}
+            height="400px"
+            width="400px"
+            tSize="60px"
+          />
         </div>
       ))
     }

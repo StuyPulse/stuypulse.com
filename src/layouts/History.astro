@@ -1,8 +1,8 @@
 ---
-import type { YoutubeLinkType } from '@types';
-import type { MarkdownLayoutProps } from 'astro';
-import HistoryTable from '@components/history/HistoryTable.astro';
-import ImageContainer from '@components/ImageContainer.astro';
+import type { YoutubeLinkType } from "@types";
+import type { MarkdownLayoutProps } from "astro";
+import HistoryTable from "@components/history/HistoryTable.astro";
+import ImageContainer from "@components/ImageContainer.astro";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -24,16 +24,16 @@ const { frontmatter } = Astro.props;
   }
 </style>
 
-<h1>{frontmatter.year + ': ' + frontmatter.title}</h1>
+<h1>{frontmatter.year + ": " + frontmatter.title}</h1>
 
 <div class="mx-4 mb-4 clearfix">
   <div class="float-start rounded me-4" style="box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 2px 5px 0 rgba(0, 0, 0, 0.19);">
     <ImageContainer
       img={frontmatter.photo}
       alt={frontmatter.title}
-      height={'auto'}
-      width={'400px'}
-      tSize={'40px'}
+      height={"auto"}
+      width={"400px"}
+      tSize={"40px"}
     />
   </div>
 

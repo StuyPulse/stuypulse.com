@@ -11,8 +11,9 @@ export interface Props {
 
 const { sponsor, height, width, tSize } = Astro.props;
 ---
+
 <style>
-  a:hover{
+  a:hover {
     filter: brightness(70%);
   }
 </style>
@@ -21,22 +22,44 @@ const { sponsor, height, width, tSize } = Astro.props;
   sponsor.logo ? (
     <div>
       {sponsor.site == null ? (
-        <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize} placeholder={"none"}/>
+        <ImageContainer
+          img={sponsor.logo}
+          alt={sponsor.name}
+          height={height}
+          width={width}
+          tSize={tSize}
+          placeholder={"none"}
+        />
       ) : (
         <a href={sponsor.site} target="_blank">
-          <ImageContainer img={sponsor.logo} alt={sponsor.name} height={height} width={width} tSize={tSize} placeholder={"none"}/>
+          <ImageContainer
+            img={sponsor.logo}
+            alt={sponsor.name}
+            height={height}
+            width={width}
+            tSize={tSize}
+            placeholder={"none"}
+          />
         </a>
       )}
     </div>
+  ) : sponsor.site ? (
+    <a href={sponsor.site} target="_blank">
+      <ImageContainer
+        text={sponsor.name}
+        height={height}
+        width={width}
+        tSize={tSize}
+      />
+    </a>
   ) : (
-    sponsor.site ? (
-      <a href={sponsor.site} target="_blank">
-        <ImageContainer text={sponsor.name} height={height} width={width} tSize={tSize}/>
-      </a>
-    ) : (
-      <div style="color: #e00">
-        <ImageContainer text={sponsor.name} height={height} width={width} tSize={tSize}/>
-      </div>
-    )
+    <div style="color: #e00">
+      <ImageContainer
+        text={sponsor.name}
+        height={height}
+        width={width}
+        tSize={tSize}
+      />
+    </div>
   )
 }

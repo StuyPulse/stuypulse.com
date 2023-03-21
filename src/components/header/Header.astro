@@ -32,7 +32,11 @@ const navs = (await import("@data/navbar.yml")).default;
       <ul class="navbar-nav">
         {
           navs.map((nav: NavType) =>
-            nav.dropdown ? <Dropdown nav={nav} /> : <Nav nav={nav} drop={false}/>
+            nav.dropdown ? (
+              <Dropdown nav={nav} />
+            ) : (
+              <Nav nav={nav} drop={false} />
+            )
           )
         }
       </ul>

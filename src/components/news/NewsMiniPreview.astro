@@ -1,26 +1,26 @@
 ---
-import type { CollectionEntry } from 'astro:content';
+import type { CollectionEntry } from "astro:content";
 
 export interface Props {
-  entries: CollectionEntry<'news'>[];
+  entries: CollectionEntry<"news">[];
 }
 
 const { entries } = Astro.props;
 
 const posts = [];
 for (const entry of entries) {
-  const dateString = entry.data.date.toLocaleDateString('en-us', {
-    weekday: 'long',
-    year: 'numeric',
-    month: 'long',
-    day: '2-digit'
+  const dateString = entry.data.date.toLocaleDateString("en-us", {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
   });
 
   posts.push({
-    file: 'news/' + entry.slug,
+    file: "news/" + entry.slug,
     title: entry.data.title,
     author: entry.data.author,
-    date: dateString
+    date: dateString,
   });
 }
 ---

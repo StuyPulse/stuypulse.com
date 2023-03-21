@@ -1,8 +1,8 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content';
+import { CollectionEntry, getCollection } from "astro:content";
 
-const history = await getCollection('stuysplash');
-const sortedHistory:CollectionEntry<'stuysplash'>[] = [];
+const history = await getCollection("stuysplash");
+const sortedHistory: CollectionEntry<"stuysplash">[] = [];
 history.map((entry) => sortedHistory.unshift(entry));
 export interface Props {
   activeYear: string;
@@ -14,11 +14,23 @@ const year = Astro.props;
 {
   sortedHistory.map((entry) => (
     <div class="row no-gutters align-items-center">
-      <a href={"/resources/stuysplash/"+entry.slug} class={"pl-5 pb-1 pt-1 align-items-center "+ (!entry.slug.localeCompare(year.activeYear)&&"current") }>
-        <p class={(entry.slug.localeCompare(year.activeYear)?"year":"current") + " mb-0"} >{entry.slug}</p>
+      <a
+        href={"/resources/stuysplash/" + entry.slug}
+        class={
+          "pl-5 pb-1 pt-1 align-items-center " +
+          (!entry.slug.localeCompare(year.activeYear) && "current")
+        }
+      >
+        <p
+          class={
+            (entry.slug.localeCompare(year.activeYear) ? "year" : "current") +
+            " mb-0"
+          }
+        >
+          {entry.slug}
+        </p>
       </a>
     </div>
-    
   ))
 }
 
@@ -27,11 +39,11 @@ const year = Astro.props;
     margin-bottom: 0.25rem;
   }
   @media screen and (max-width: 992px) {
-    p{
-      margin-left:1rem;
+    p {
+      margin-left: 1rem;
     }
   }
-  
+
   .row:hover {
     background-color: rgb(235, 235, 238);
   }
@@ -39,10 +51,9 @@ const year = Astro.props;
     background-color: rgb(224, 221, 221);
   }
   .current {
-    background-color: rgb(224, 0, 0) ;
-    color: rgb(235, 235, 238) ;
+    background-color: rgb(224, 0, 0);
+    color: rgb(235, 235, 238);
   }
   .year {
-
   }
 </style>

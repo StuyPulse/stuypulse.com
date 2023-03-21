@@ -1,9 +1,9 @@
 ---
-import { CollectionEntry, getCollection } from 'astro:content';
-import YearNav from './YearNav.astro';
+import { CollectionEntry, getCollection } from "astro:content";
+import YearNav from "./YearNav.astro";
 
-const history = await getCollection('history');
-const sortedHistory: CollectionEntry<'history'>[] = [];
+const history = await getCollection("history");
+const sortedHistory: CollectionEntry<"history">[] = [];
 history.map((entry) => sortedHistory.unshift(entry));
 export interface Props {
   activeYear: string;
@@ -46,13 +46,13 @@ const year = Astro.props;
 <hr />
 
 <script defer>
-  const years = document.getElementById('years');
+  const years = document.getElementById("years");
 
   function responsiveDropdown() {
-    if (window.innerWidth > 767) years.classList.add('show');
-    else years.classList.remove('show');
+    if (window.innerWidth > 767) years.classList.add("show");
+    else years.classList.remove("show");
   }
 
   responsiveDropdown();
-  window.addEventListener('resize', (e) => responsiveDropdown(), true);
+  window.addEventListener("resize", (e) => responsiveDropdown(), true);
 </script>

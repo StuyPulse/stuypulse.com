@@ -1,13 +1,13 @@
 # The navs in the navbar on the top of the page.
 # Each nav must have the `name` key.
-  # A dropdown must have the `dropdown` key.
-  # A non-dropdown must have the `href` key.
+# A dropdown must have the `dropdown` key.
+# A non-dropdown must have the `href` key.
 # Dropdowns cannot be nested.
 
 # - name: Kickoff
-  # href: /kickoff
+# href: /kickoff
 - name: About
-  dropdown: 
+  dropdown:
     - name: About Us
       href: /about
     - name: History

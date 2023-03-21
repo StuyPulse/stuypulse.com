@@ -1,14 +1,13 @@
 ---
-import { getCollection } from 'astro:content';
-import PageSite from '@layouts/PageSite.astro';
-import Carousel from '@components/carousels/ImageCarousel.astro';
-import SponsorCarousel from '@components/carousels/SponsorCarousel.astro';
-//import { SITE_TITLE } from '@config';
-import getSortedPosts from '@utils/getSortedPosts';
-import { Picture, Img } from "astro-imagetools/components";
-import NewsMiniPreview from '@components/news/NewsMiniPreview.astro';
+import { getCollection } from "astro:content";
+import PageSite from "@layouts/PageSite.astro";
+import Carousel from "@components/carousels/ImageCarousel.astro";
+import SponsorCarousel from "@components/carousels/SponsorCarousel.astro";
+import getSortedPosts from "@utils/getSortedPosts";
+import { Picture } from "astro-imagetools/components";
+import NewsMiniPreview from "@components/news/NewsMiniPreview.astro";
 const POSTS_ON_FRONT_PAGE = 5;
-const newsEntries = await getCollection('news');
+const newsEntries = await getCollection("news");
 const sortedNews = getSortedPosts(newsEntries);
 const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
 ---
@@ -26,7 +25,6 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   }
 
   .row {
-
     justify-content: center;
     align-items: center;
   }
@@ -71,16 +69,16 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     width: 20rem;
     display: flex;
   }
-  /* iframe{
+  /* iframe {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   } */
 </style>
 
-<PageSite title={"Home"} description={'TEST'}>
+<PageSite title={"Home"} description={"TEST"}>
   <div class="row">
     <div class="col">
       <div class="large-name">
-          <img src="/694-logo.svg" alt="694 Logo" class="inline-icon"/>
+        <img src="/694-logo.svg" alt="694 Logo" class="inline-icon" />
         StuyPulse
       </div>
       <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
@@ -101,33 +99,46 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-5 order-1 order-lg-0" style="display: flex; align-items: center; justify-content: center;">
-      <div class = "robotimg" style="box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+    <div
+      class="col-lg-5 order-1 order-lg-0"
+      style="display: flex; align-items: center; justify-content: center;"
+    >
+      <div
+        class="robotimg"
+        style="box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
+      >
         <Picture
           src="https://stuypulse.nyc3.digitaloceanspaces.com/site/img/2023-Jim.jpg"
           alt="Jim, our 2023 robot"
           attributes={{
-            loading: "eager"
+            loading: "eager",
           }}
         />
       </div>
     </div>
     <div class="col order-0 order-lg-1">
-      <div class = "large-name">Jim</div>
-      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">Our 2023 Robot for Charged Up&nbsp;</div>
-      <br>
+      <div class="large-name">Jim</div>
+      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
+        Our 2023 Robot for Charged Up&nbsp;
+      </div>
+      <br />
       <!-- Excelsior was named after the late Stan Lee's catchphrase, as well as the Excelsior pass
          introduced in our home of New York City. Excelsior is the first bot to win three
         Innovation in Control awards in all of FRC history. -->
-        <!-- Excelsior was named after the Excelsior pass introduced in our home of New York City. 
+      <!-- Excelsior was named after the Excelsior pass introduced in our home of New York City. 
         Excelsior is the first bot to win three Innovation in Control awards in all of FRC history.  -->
-      <p>Jim is a cool bot, renowned for its sucess rate at tipping over and getting second. idk man someone give me a cool blurb </p>
-      <a href='/about/history'><button type="button"> Past Competition Robots &gt;&gt;</button></a>
+      <p>
+        Jim is a cool bot, renowned for its sucess rate at tipping over and
+        getting second. idk man someone give me a cool blurb
+      </p>
+      <a href="/about/history"
+        ><button type="button"> Past Competition Robots &gt;&gt;</button></a
+      >
     </div>
   </div>
   <div class="row">
     <div class="col-lg-6 flex-wrap">
-      <div class = "large-name">
+      <div class="large-name">
         <a href="/sponsors/">
           <img
             class="front-page-thumb inline-icon"
@@ -137,41 +148,54 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
         </a>
         Sponsors
       </div>
-      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00; width:8em">Our sponsors:&nbsp;</div>  
-      <p>Our robots could not have been built, had it not been for the generosity of our sponsors. Want to sponsor our award-winning team?</p>
-      <a href='/sponsors#info'><button type="button"> Sponsor Us &gt;&gt;</button></a>
+      <div
+        class="intro-text mb-2"
+        style="border-bottom: 3px solid #e00; width:8em"
+      >
+        Our sponsors:&nbsp;
+      </div>
+      <p>
+        Our robots could not have been built, had it not been for the generosity
+        of our sponsors. Want to sponsor our award-winning team?
+      </p>
+      <a href="/sponsors#info"
+        ><button type="button"> Sponsor Us &gt;&gt;</button></a
+      >
     </div>
 
     <div class="col offset">
       <SponsorCarousel images="sponsors" />
     </div>
-    
   </div>
   <div class="row mt-5">
     <div class="row justify-content-start text-start">
       <div class="large-name">
         <img
-            class="front-page-thumb inline-icon"
-            src="/clock.svg"
-            alt="Clock"
-          />
+          class="front-page-thumb inline-icon"
+          src="/clock.svg"
+          alt="Clock"
+        />
         Latest News
       </div>
       <div class="intro-text mb-4 w-50" style="border-bottom: 3px solid #e00">
         Keep up with the team!&nbsp;
-      </div>  
+      </div>
     </div>
-    
+
     <div class="col-lg-5 col-md-12">
       <h2>Recent News</h2>
-  
-      <NewsMiniPreview entries={frontPosts}/>
-  
+
+      <NewsMiniPreview entries={frontPosts} />
+
       <strong><a href="/news">See older news &gt;&gt;</a></strong>
     </div>
     <div class="col-md-12 col-lg-7">
       <h2>Latest YouTube Video</h2>
-      <p class="text-muted">Check out our other videos <a href="https://www.youtube.com/@StuyPulse">here</a>!</p>
+      <p class="text-muted">
+        Check out our other videos <a href="https://www.youtube.com/@StuyPulse"
+          >here</a
+        >!
+      </p>
       <iframe
         class="youtube-video"
         style="height:23em;"

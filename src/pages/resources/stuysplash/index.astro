@@ -1,7 +1,7 @@
 ---
-import { getCollection } from 'astro:content';
+import { getCollection } from "astro:content";
 
-const StuySplashEntries = await getCollection('stuysplash');
+const StuySplashEntries = await getCollection("stuysplash");
 const latestEntry = StuySplashEntries[StuySplashEntries.length - 1];
 const latestYear = latestEntry.slug;
 

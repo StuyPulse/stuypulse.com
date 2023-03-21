@@ -10,7 +10,7 @@
   font-display: swap;
 }
 body {
-  font-family: "museo-sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+  font-family: "museo-sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   /*margin: auto;*/
   /* padding: 20px; */
   /* max-width: 65ch; */
@@ -44,9 +44,15 @@ img {
 /* calendar fix for mobile */
 @media (max-width: 767px) {
   .fc-toolbar-title {
-      display: none !important;
+    display: none !important;
   }
 }
-h1, h2, h3, h4, h5, h6, .large-name {
-  font-family: "europa","Helvetica Neue",Helvetica,Arial,sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+.large-name {
+  font-family: "europa", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
