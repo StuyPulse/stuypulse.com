@@ -29,9 +29,6 @@ a:hover {
   text-decoration: none;
   color: rgb(114, 0, 0);
 }
-nav a {
-  margin-right: 10px;
-}
 content {
   line-height: 1.6;
 }

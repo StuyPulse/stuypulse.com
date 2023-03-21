@@ -7,7 +7,36 @@ export interface Props {
 
 const history = Astro.props.history;
 ---
+<style>
+  p {
+    margin-bottom: 0;
+    padding: 8px;
+  }
 
-<div class="row no-gutters align-items-center">
-  <p>{history.slug}: {history.data.title}</p>
-</div>
+  a {
+    color: black;
+  }
+
+  a:hover {
+    color: black;
+  }
+  
+  nav a {
+    margin-right: 0px;
+  }
+
+  .row {
+    display: flex;
+    vertical-align: middle;
+  }
+
+  .row:hover {
+    background-color: #eee;
+  }
+</style>
+
+<a href={history.slug}>
+  <div class="row no-gutters align-items-center">
+    <p>{history.slug}: {history.data.title}</p>
+  </div>
+</a>
