@@ -3,9 +3,10 @@ import type { CollectionEntry } from "astro:content";
 
 export interface Props {
   history: CollectionEntry<"history">;
+  currYear: string;
 }
 
-const history = Astro.props.history;
+const { history, currYear }  = Astro.props;
 ---
 <style>
   p {
@@ -33,10 +34,14 @@ const history = Astro.props.history;
   .row:hover {
     background-color: #eee;
   }
+
+  .activeYear {
+    background-color: #eee;
+  }
 </style>
 
 <a href={"/about/history/"+history.slug}>
-  <div class="row no-gutters align-items-center">
+  <div class={"row no-gutters align-items-center" + (currYear == history.slug ? " activeYear" : "")}>
     <p class="mb-0">{history.slug}: {history.data.title}</p>
   </div>
 </a>

@@ -9,7 +9,7 @@ export interface Props {
   activeYear: string;
 }
 
-const year = Astro.props;
+const { activeYear } = Astro.props;
 ---
 
 <div class="accordion accordion-flush">
@@ -37,7 +37,7 @@ const year = Astro.props;
       <div class="accordion-body pt-1">
         <hr class="mt-1 mb-2" />
 
-        {sortedHistory.map((entry) => <YearNav history={entry} />)}
+        {sortedHistory.map((entry) => <YearNav history={entry} currYear={activeYear} />)}
       </div>
     </div>
   </div>
