@@ -10,50 +10,93 @@ export interface Props {
 
 const year = Astro.props;
 ---
-
-{
-  sortedHistory.map((entry) => (
-    <div class="row no-gutters align-items-center">
-      <a
-        href={"/resources/stuysplash/" + entry.slug}
-        class={
-          "pl-5 pb-1 pt-1 align-items-center " +
-          (!entry.slug.localeCompare(year.activeYear) && "current")
-        }
-      >
-        <p
-          class={
-            (entry.slug.localeCompare(year.activeYear) ? "year" : "current") +
-            " mb-0"
-          }
-        >
-          {entry.slug}
-        </p>
-      </a>
-    </div>
-  ))
-}
-
 <style>
   p {
-    margin-bottom: 0.25rem;
+    margin-bottom: 0;
+    padding: 4px;
   }
-  @media screen and (max-width: 992px) {
-    p {
-      margin-left: 1rem;
-    }
+
+  /* a {
+    color: black;
+  } */
+
+  /* a:hover {
+    color: black;
+  } */
+  
+  nav a {
+    margin-right: 0px;
+  }
+
+  .row {
+    display: flex;
+    vertical-align: middle;
   }
 
   .row:hover {
-    background-color: rgb(235, 235, 238);
+    background-color: #eee;
   }
-  .row:active {
-    background-color: rgb(224, 221, 221);
+
+  .activeYear {
+    background-color: rgb(224,0,0);
+    color:white;
   }
-  .current {
-    background-color: rgb(224, 0, 0);
-    color: rgb(235, 235, 238);
-  }
-  .year {
+
+  .activeYear:hover {
+    background-color: rgb(200,0,0);
+    color:#eee;
   }
 </style>
+
+<div class="accordion accordion-flush">
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button
+        class="accordion-button collapsed m-0 p-0 text-center fs-3 d-md-none text-muted"
+        type="button"
+        data-bs-toggle="collapse"
+        data-bs-target="#years"
+        aria-expanded="false"
+        aria-controls="years"
+        style="color: #e00;"
+      >
+        Past Years
+      </button>
+      <p
+        class="m-0 text-muted text-center d-none d-md-block"
+        style="font-size: 18px;"
+      >
+        Past Years
+      </p>
+    </h2>
+    <div id="years" class="accordion-collapse collapse">
+      <div class="accordion-body pt-1">
+        <hr class="mt-1 mb-2" />
+
+        {
+          sortedHistory.map((entry) => (
+            <a href={"/resources/stuysplash/"+entry.slug}>
+              <div class={"row no-gutters align-items-center" + (year.activeYear == entry.slug ? " activeYear" : "")}>
+                <p class="mb-0">{entry.slug}</p>
+              </div>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr />
+
+<script defer>
+  const years = document.getElementById("years");
+
+  function responsiveDropdown() {
+    if (window.innerWidth > 767) years.classList.add("show");
+    else years.classList.remove("show");
+  }
+
+  responsiveDropdown();
+  window.addEventListener("resize", (e) => responsiveDropdown(), true);
+</script>
