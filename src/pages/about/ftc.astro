@@ -1,8 +1,14 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import ImageContainer from "@components/ImageContainer.astro";
+import type { CompetitionType } from "@types.js";
+import type { AchievementsType } from "@types.js";
+const achievements = (await import("@data/ftcawards.yml")).default;
 ---
 
 <style>
+  .list-group-item-action {
+  }
   .list-group-item-action .inline-icon {
     transition-duration: 200ms;
     transition-timing-function: ease-in;
@@ -34,17 +40,17 @@ import PageSite from "@layouts/PageSite.astro";
 </style>
 
 <PageSite title="FTC Teams" description={"TEST"}>
-  <h1 class="mb-4">Our FTC Teams</h1>
+  <h1 class="mb-4">Stuyvesant's FTC Teams</h1>
 
   <!-- <a href="https://google.com">test link</a> -->
   <div class="row">
-    <div class="order-sm-2 order-md-1 col-12 col-sm-12 col-md-8 col-lg-9">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-9">
       <p>
         As a part of Stuyvesant Robotics, we share our robotics lab with two
         other teams: <a href="http://fission310.com" target="_blank">FTC 310</a>
         and <a href="http://fusion479.com" target="_blank">FTC 479</a>.
       </p>
-      <h2>FIRST Tech Challenge</h2>
+      <h2 class="mt-4">FIRST Tech Challenge</h2>
       <p>
         First Tech Challenge (FTC) differs from First Robotics Challenge (FRC)
         in that robots are at most 18x18x18 inches. The FTC build season also
@@ -52,25 +58,113 @@ import PageSite from "@layouts/PageSite.astro";
         six weeks. But both FRC and FTC teams design, code, and build their own
         robot while helping out in the community!
       </p>
-      <p>You can learn more about FTC on First's official site <a href="https://www.firstinspires.org/robotics/ftc">here</a>.</p>
+      <p>
+        You can learn more about FTC on FIRST's official site <a
+          href="https://www.firstinspires.org/robotics/ftc">here</a
+        >.
+      </p>
     </div>
-    <div class="order-sm-1 order-md-2 col-12 col-sm-12 col-md-4 col-lg-3 mb-3">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-3">
       <p class="mb-1">Check out their websites:</p>
       <hr class="m-0" />
       <div class="list-group list-group-flush">
-        <a
-          class="list-group-item list-group-item-action fission"
-          href="http://fission310.com"
-          target="_blank"
-          ><img src="/310_logo.png" class="inline-icon" />Fission 310</a
-        >
-        <a
-          class="list-group-item list-group-item-action fusion"
-          href="http://fusion479.com"
-          target="_blank"
-          ><img src="/479_logo.png" class="inline-icon" />Fusion 479</a
-        >
+        <div class="row">
+          <div class="col-6 col-sm-6 col-md-6 col-lg-12 p-0">
+            <a
+              class="list-group-item list-group-item-action fission border-start-0 border-end-0"
+              href="http://fission310.com"
+              target="_blank"
+              ><img src="/310_logo.png" class="inline-icon" />Fission 310</a
+            >
+          </div>
+          <div class="col-6 col-sm-6 col-md-6 col-lg-12 p-0">
+            <a
+              class="list-group-item list-group-item-action fusion border-start-0 border-end-0"
+              href="http://fusion479.com"
+              target="_blank"
+              ><img src="/479_logo.png" class="inline-icon" />Fusion 479</a
+            >
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+
+  <h2 class="mt-4">Outreach</h2>
+  <div class="row">
+    <div class="col-7">
+      <p class="mb-1">
+        Both 310 and 479 have contributed to their communities through:
+      </p>
+      <ul>
+        <li>
+          Teaming up with Stuyvesant Women Engineers and teaching a lesson about
+          electrical engineering and circuits
+        </li>
+        <li>Helping out at Stuyvesant's CS Dojo</li>
+        <li>
+          Providing online FTC resources through online forums and social media
+          such as the FTC discord server
+        </li>
+        <li>
+          Helping other teams through online forums and social media like the
+          FTC Discord
+        </li>
+      </ul>
+      <h3>310:</h3>
+      <ul>
+        <li>
+          mentored 8 - 11 year olds at theCoderSchool using LEGO Mindstorms kits
+        </li>
+        <li>mentored Puerto Rico and NYC FLL teams</li>
+      </ul>
+      <h3>479:</h3>
+      <ul>
+        <li>
+          did a robot presentation and demo at PS41Q to inspire a group of one
+          hundred 4th graders to pursue robotics in the future
+        </li>
+        <li>gave a robot demo at the LFCDC Summer Camp</li>
+        <li>
+          assisted 694 with mentoring Alpha &amp; Omega by providing translated
+          documents
+        </li>
+      </ul>
+    </div>
+    <div class="col-5">
+
+    </div>
+  </div>
+  <h2 class="mt-4">Awards/Accomplishments (PowerPlay 2022-2023)</h2>
+  <div class="row">
+    {
+      achievements.map((team: AchievementsType) => {
+        return (
+          <div class="col-6">
+            <h3>{team.team}</h3>
+            <ul>
+              {
+                team.competitions.map((competition) => {
+                  return (
+                    <li>{competition.name}
+                    <ul>
+                      {
+                        competition.awards.map((award) => {
+                          return (
+                            <li>{award}</li>
+                          )
+                        })
+                      }
+                      </ul>
+                      </li>
+                  )
+                
+                })
+              }
+            </ul>
+          </div>
+        )
+      })
+    }
   </div>
 </PageSite>

@@ -1,0 +1,20 @@
+- team: 479
+  competitions:
+  - name: Qualifier 3
+    awards: ["Design Award"]
+  - name: Qualifier 5
+    awards: ["Winning Alliance 1st Choice"]
+  - name: Superqualifier 2
+    awards: ["Innovate Award", "Inspire Award 2nd Place", "Finalist Alliance 2nd Choice"]
+  - name: NYC Championship
+    awards: ["Motivate Award", "Inspire Award 3rd Place", "Finalist Alliance 1st Choice"]
+- team: 310
+  competitions:
+  - name: Qualifier 3
+    awards: ["Inspire Award 3rd Place"]
+  - name: Qualifier 5
+    awards: ["Inspire Award", "Winning Alliance Captain"]
+  - name: Superqualifier 2
+    awards: ["Inspire Award 3rd Place", "Finalist Alliance Captain", "?"]
+  - name: NYC Championship
+    awards: ["Innovate Award", "Inspire Award 2nd Place", "Finalist Alliance Captain"]
