@@ -1,13 +1,13 @@
 ---
-import PageSite from "@layouts/PageSite.astro";
-import HistoryAside from "$components/history/HistoryAside.astro";
-import { getCollection } from "astro:content";
+import PageSite from '@layouts/PageSite.astro';
+import HistoryAside from '$components/history/HistoryAside.astro';
+import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
-  const historyEntries = await getCollection("history");
+  const historyEntries = await getCollection('history');
   return historyEntries.map((entry) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry }
   }));
 }
 
@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<PageSite title="History" description={"TEST"}>
+<PageSite title="History" description={'TEST'}>
   <div class="row">
     <nav class="col-md-3 text-nowrap">
       <HistoryAside activeYear={entry.data.year} />
