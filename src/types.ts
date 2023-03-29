@@ -63,3 +63,13 @@ export interface PresentationType {
   url?: string;
   description?: string;
 }
+
+export interface AchievementsType {
+  team: string;
+  competitions: CompetitionType[];
+}
+
+export interface CompetitionType{
+  name: string;
+  awards: string[];
+}
