@@ -74,15 +74,15 @@ const achievements = (await import("@data/ftcawards.yml")).default;
               class="list-group-item list-group-item-action fission border-start-0 border-end-0"
               href="http://fission310.com"
               target="_blank"
-              ><img src="/310_logo.png" class="inline-icon" />Fission 310</a
-            >
+              ><img src="/ftc/310_logo.png" class="inline-icon" />
+              Fission 310 </a>
           </div>
           <div class="col-6 col-sm-6 col-md-6 col-lg-12 p-0">
             <a
               class="list-group-item list-group-item-action fusion border-start-0 border-end-0"
               href="http://fusion479.com"
               target="_blank"
-              ><img src="/479_logo.png" class="inline-icon" />Fusion 479</a
+              ><img src="/ftc/479_logo.png" class="inline-icon" />Fusion 479</a
             >
           </div>
         </div>
@@ -92,7 +92,7 @@ const achievements = (await import("@data/ftcawards.yml")).default;
 
   <h2 class="mt-4">Outreach</h2>
   <div class="row">
-    <div class="col-7">
+    <div class="order-sm-2 order-md-2 order-lg-1 col-12 col-sm-12 col-md-12 col-lg-8 col-xl-7 col-xxl-6">
       <p class="mb-1">
         Both 310 and 479 have contributed to their communities through:
       </p>
@@ -131,8 +131,8 @@ const achievements = (await import("@data/ftcawards.yml")).default;
         </li>
       </ul>
     </div>
-    <div class="col-5">
-
+    <div class="order-sm-1 order-md-1 order-lg-2 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-5 col-xxl-6">
+     <!-- outreach photo will go here -->
     </div>
   </div>
   <h2 class="mt-4">Awards/Accomplishments (PowerPlay 2022-2023)</h2>
@@ -166,5 +166,27 @@ const achievements = (await import("@data/ftcawards.yml")).default;
         )
       })
     }
+  </div>
+  <div class="row mt-4">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+      <h3>FTC 310 Team Photo:</h3>
+      <ImageContainer
+        img={"/ftc/310_team.jpg"}
+        alt={"310 team image"}
+        height={'auto'}
+        width={'500px'}
+        tSize={'40px'}
+      />
+    </div>
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+      <h3>FTC 479 Team Photo:</h3>
+      <ImageContainer
+        img={"/ftc/479_team.jpg"}
+        alt={"479 team image"}
+        height={'auto'}
+        width={'500px'}
+        tSize={'40px'}
+      />
+    </div>
   </div>
 </PageSite>
