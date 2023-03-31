@@ -19,10 +19,10 @@ const { Content } = await entry.render();
 <PageSite title="StuySplash" description={"TEST"}>
   <h1 class="mb-4">StuySplash Presentations</h1>
   <div class="row">
-    <nav class="col-2 text-nowrap">
+    <nav class="col-12 col-sm-12 col-md-2 col-lg-2 text-nowrap">
       <PresentationsAside activeYear={entry.data.year} />
     </nav>
-    <div class="col-10 content">
+    <div class="col-12 col-sm-12 col-md-10 col-lg-10 content">
       <Content />
     </div>
   </div>
