@@ -31,6 +31,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
 
   .card-body {
     padding: 0.2em !important;
+    padding-right: 0.5em !important;
   }
 
   p {
@@ -63,7 +64,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
               ].includes(leadership.department) ? (
                 <img
                   src={
-                    "/../../" +
+                    "/icons/" +
                     leadership.department.split(" ")[0].toLowerCase() +
                     ".svg"
                   }
