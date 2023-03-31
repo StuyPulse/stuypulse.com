@@ -5,9 +5,9 @@ export default defineConfig({
   placeholder: "blurred",
   format: ["webp"],
   includeSourceFormat: true,
-  formatOptions: {
-    webp: {
-      quality: 50,
-    },
+//  formatOptions: {
+//    webp: {
+//      quality: 50,
+//    },
   },
 });
