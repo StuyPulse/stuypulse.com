@@ -1,0 +1,22 @@
+---
+import PageSite from "@layouts/PageSite.astro";
+---
+
+<PageSite title="404" description={"404: Page not found"}>
+
+  <h1>
+    404: Page not found
+  </h1>
+  <p>
+    If you're sure this page has existed before, you can check the <a href="" id="oldurl">old website</a>
+  </p>
+  <script>
+    // if the url contains blog, replace with news
+    if (window.location.href.includes("blog")) {
+      // https://stuypulse.com/blog/2022/11/16/stuy-splash -> https://stuypulse.com/news/2022-11-16-stuy-splash
+      window.location.href = window.location.href.replace("blog", "news").replace(/\/(\d{4})\/(\d{2})\/(\d{2})\//, "/$1-$2-$3-");
+    }
+    // add href to the link, "https://old.stuypulse.com/" + window.location.pathname
+    document.getElementById("oldurl").href = "https://old.stuypulse.com" + window.location.pathname;
+  </script>
+</PageSite>
