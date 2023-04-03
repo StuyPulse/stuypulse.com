@@ -1,9 +1,9 @@
 ---
-import PageSite from "@layouts/PageSite.astro";
-import ImageContainer from "@components/ImageContainer.astro";
-import type { CompetitionType } from "@types.js";
-import type { AchievementsType } from "@types.js";
-const achievements = (await import("@data/ftcawards.yml")).default;
+import PageSite from '@layouts/PageSite.astro';
+import ImageContainer from '@components/ImageContainer.astro';
+import type { CompetitionType } from '@types.js';
+import type { AchievementsType } from '@types.js';
+const achievements = (await import('@data/ftcawards.yml')).default;
 ---
 
 <style>
@@ -39,7 +39,7 @@ const achievements = (await import("@data/ftcawards.yml")).default;
   }
 </style>
 
-<PageSite title="FTC Teams" description={"TEST"}>
+<PageSite title="FTC Teams" description={'TEST'}>
   <h1 class="mb-4">Stuyvesant's FTC Teams</h1>
 
   <!-- <a href="https://google.com">test link</a> -->
@@ -75,7 +75,8 @@ const achievements = (await import("@data/ftcawards.yml")).default;
               href="http://fission310.com"
               target="_blank"
               ><img src="/ftc/310_logo.png" class="inline-icon" />
-              Fission 310 </a>
+              Fission 310
+            </a>
           </div>
           <div class="col-6 col-sm-6 col-md-6 col-lg-12 p-0">
             <a
@@ -92,7 +93,9 @@ const achievements = (await import("@data/ftcawards.yml")).default;
 
   <h2 class="mt-4">Outreach</h2>
   <div class="row">
-    <div class="order-sm-2 order-md-2 order-lg-1 col-12 col-sm-12 col-md-12 col-lg-8 col-xl-7 col-xxl-6">
+    <div
+      class="order-sm-2 order-md-2 order-lg-1 col-12 col-sm-12 col-md-12 col-lg-8 col-xl-7 col-xxl-6"
+    >
       <p class="mb-1">
         Both 310 and 479 have contributed to their communities through:
       </p>
@@ -131,8 +134,16 @@ const achievements = (await import("@data/ftcawards.yml")).default;
         </li>
       </ul>
     </div>
-    <div class="order-sm-1 order-md-1 order-lg-2 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-5 col-xxl-6">
-     <!-- outreach photo will go here -->
+    <div
+      class="order-sm-1 order-md-1 order-lg-2 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-5 col-xxl-6"
+    >
+      <ImageContainer
+        img={'/ftc/outreach.jpg'}
+        alt={'outreach'}
+        height={'auto'}
+        width={'400px'}
+        tSize={'40px'}
+      />
     </div>
   </div>
   <h2 class="mt-4">Awards/Accomplishments (PowerPlay 2022-2023)</h2>
@@ -143,27 +154,21 @@ const achievements = (await import("@data/ftcawards.yml")).default;
           <div class="col-6">
             <h3>{team.team}</h3>
             <ul>
-              {
-                team.competitions.map((competition) => {
-                  return (
-                    <li>{competition.name}
+              {team.competitions.map((competition) => {
+                return (
+                  <li>
+                    {competition.name}
                     <ul>
-                      {
-                        competition.awards.map((award) => {
-                          return (
-                            <li>{award}</li>
-                          )
-                        })
-                      }
-                      </ul>
-                      </li>
-                  )
-                
-                })
-              }
+                      {competition.awards.map((award) => {
+                        return <li>{award}</li>;
+                      })}
+                    </ul>
+                  </li>
+                );
+              })}
             </ul>
           </div>
-        )
+        );
       })
     }
   </div>
@@ -171,8 +176,8 @@ const achievements = (await import("@data/ftcawards.yml")).default;
     <div class="col-12 col-sm-12 col-md-12 col-lg-6">
       <h3>FTC 310 Team Photo:</h3>
       <ImageContainer
-        img={"/ftc/310_team.jpg"}
-        alt={"310 team image"}
+        img={'/ftc/310_team.jpg'}
+        alt={'310 team image'}
         height={'auto'}
         width={'400px'}
         tSize={'40px'}
@@ -181,8 +186,8 @@ const achievements = (await import("@data/ftcawards.yml")).default;
     <div class="col-12 col-sm-12 col-md-12 col-lg-6">
       <h3>FTC 479 Team Photo:</h3>
       <ImageContainer
-        img={"/ftc/479_team.jpg"}
-        alt={"479 team image"}
+        img={'/ftc/479_team.jpg'}
+        alt={'479 team image'}
         height={'auto'}
         width={'400px'}
         tSize={'40px'}
