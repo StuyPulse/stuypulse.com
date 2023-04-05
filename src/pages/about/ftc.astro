@@ -8,6 +8,7 @@ const achievements = (await import('@data/ftcawards.yml')).default;
 
 <style>
   .list-group-item-action {
+    
   }
   .list-group-item-action .inline-icon {
     transition-duration: 200ms;
@@ -36,6 +37,10 @@ const achievements = (await import('@data/ftcawards.yml')).default;
     height: 5em;
     transform: translateY(-0.1em);
     margin-right: 0.5rem;
+  }
+
+  .img-container{
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
   }
 </style>
 
@@ -94,7 +99,7 @@ const achievements = (await import('@data/ftcawards.yml')).default;
   <h2 class="mt-4">Outreach</h2>
   <div class="row">
     <div
-      class="order-sm-2 order-md-2 order-lg-1 col-12 col-sm-12 col-md-12 col-lg-8 col-xl-7 col-xxl-6"
+      class="order-sm-2 order-md-2 order-lg-1 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-8"
     >
       <p class="mb-1">
         Both 310 and 479 have contributed to their communities through:
@@ -135,15 +140,17 @@ const achievements = (await import('@data/ftcawards.yml')).default;
       </ul>
     </div>
     <div
-      class="order-sm-1 order-md-1 order-lg-2 col-12 col-sm-12 col-md-12 col-lg-4 col-xl-5 col-xxl-6"
+      class="order-lg-2 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 col-xxl-4 my-3"
     >
-      <ImageContainer
-        img={'/ftc/outreach.jpg'}
-        alt={'outreach'}
-        height={'auto'}
-        width={'400px'}
-        tSize={'40px'}
-      />
+      <div class="img-container p-0 float-start align-middle">
+        <ImageContainer
+          img={'/ftc/outreach.jpg'}
+          alt={'outreach'}
+          height={'auto'}
+          width={'400px'}
+          tSize={'40px'}
+        />
+      </div>  
     </div>
   </div>
   <h2 class="mt-4">Awards/Accomplishments (PowerPlay 2022-2023)</h2>
@@ -173,25 +180,30 @@ const achievements = (await import('@data/ftcawards.yml')).default;
     }
   </div>
   <div class="row mt-4">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-2">
       <h3>FTC 310 Team Photo:</h3>
-      <ImageContainer
-        img={'/ftc/310_team.jpg'}
-        alt={'310 team image'}
-        height={'auto'}
-        width={'400px'}
-        tSize={'40px'}
-      />
+      <div class="img-container float-start align-middle">
+        <ImageContainer
+          img={'/ftc/310_team.jpg'}
+          alt={'310 team image'}
+          height={'auto'}
+          width={'400px'}
+          tSize={'40px'}
+        />
+      </div>
     </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+    <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-2">
       <h3>FTC 479 Team Photo:</h3>
-      <ImageContainer
-        img={'/ftc/479_team.jpg'}
-        alt={'479 team image'}
-        height={'auto'}
-        width={'400px'}
-        tSize={'40px'}
-      />
+      <div class="img-container float-start align-middle">
+        <ImageContainer
+          img={'/ftc/479_team.jpg'}
+          alt={'479 team image'}
+          height={'auto'}
+          width={'400px'}
+          tSize={'40px'}
+        />
+      </div>
+      
     </div>
   </div>
 </PageSite>
