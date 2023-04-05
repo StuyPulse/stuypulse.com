@@ -39,17 +39,16 @@ const { frontmatter } = Astro.props;
     </ul>
   </div>
   <div class="col-sm-10 col-lg-3 order-0 order-lg-1">
-    <h2>Links</h2>
-    <ul>
+    
       {
-        frontmatter.playlist ? (
+        frontmatter.playlist && (
+        <h2>Links</h2>
+        <ul>
           <li>
             <a href={frontmatter.playlist}>Video Recording Playlist</a>
           </li>
-        ) : (
-          <li>No video recording playlist found :&#40;</li>
-        )
+        </ul>
+        ) 
       }
-    </ul>
   </div>
 </div>
