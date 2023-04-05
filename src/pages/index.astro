@@ -5,6 +5,7 @@ import Carousel from "@components/carousels/ImageCarousel.astro";
 import SponsorCarousel from "@components/carousels/SponsorCarousel.astro";
 import getSortedPosts from "@utils/getSortedPosts";
 import { Picture } from "astro-imagetools/components";
+import ImageContainer from "@components/ImageContainer.astro";
 import NewsMiniPreview from "@components/news/NewsMiniPreview.astro";
 const POSTS_ON_FRONT_PAGE = 5;
 const newsEntries = await getCollection("news");
@@ -107,12 +108,9 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
         class="robotimg"
         style="box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
       >
-        <Picture
-          src="https://stuypulse.nyc3.digitaloceanspaces.com/site/img/2023-Jim.jpg"
+        <ImageContainer
+          img="https://stuypulse.nyc3.digitaloceanspaces.com/site/img/2023-Jim.jpg"
           alt="Jim, our 2023 robot"
-          attributes={{
-            loading: "eager",
-          }}
         />
       </div>
     </div>
@@ -127,33 +125,32 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
         Innovation in Control awards in all of FRC history. -->
       <!-- Excelsior was named after the Excelsior pass introduced in our home of New York City. 
         Excelsior is the first bot to win three Innovation in Control awards in all of FRC history.  -->
-      <p>
-        Jim is a cool bot, renowned for its sucess rate at tipping over and
-        getting second. idk man someone give me a cool blurb
-      </p>
+      <p> Jim is our current bot for the 2023 FRC season, Charged Up. Notable for its simplistic yet highly effective design, Jim has powered us to being finalists at the Midwest regional, as well as undefeated in the Long Island #2 Regional.</p>
       <a href="/about/history"
         ><button type="button"> Past Competition Robots &gt;&gt;</button></a
       >
     </div>
   </div>
   <div class="row">
-    <div class="col-lg-6 flex-wrap">
-      <div class="large-name">
-        <a href="/sponsors/">
-          <img
-            class="front-page-thumb inline-icon"
-            src="/icons/red-diamond.svg"
-            alt="Gem"
-          />
-        </a>
-        Sponsors
+    <div class="col-lg-6 flex-wrap" >
+      <div class="mb-2" style="border-bottom: 3px solid #e00;">
+        <div class="large-name" >
+          <a href="/sponsors/">
+            <img
+              class="front-page-thumb inline-icon"
+              src="/icons/red-diamond.svg"
+              alt="Gem"
+            />
+          </a>
+          Sponsors
+        </div>
+        <div
+          class="intro-text"
+        >
+          Our sponsors:&nbsp;
+        </div>
       </div>
-      <div
-        class="intro-text mb-2"
-        style="border-bottom: 3px solid #e00; width:8em"
-      >
-        Our sponsors:&nbsp;
-      </div>
+      
       <p>
         Our robots could not have been built, had it not been for the generosity
         of our sponsors. Want to sponsor our award-winning team?
