@@ -15,7 +15,7 @@ const { entry } = Astro.props;
 const { Content } = await entry.render();
 ---
 
-<PageSite title="History" description={'TEST'}>
+<PageSite title="History" description={'History of the robots made by our team.'}>
   <div class="row">
     <nav class="col-md-3 text-nowrap">
       <HistoryAside activeYear={entry.data.year} />
