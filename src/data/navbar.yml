@@ -22,7 +22,7 @@
       href: /about/ftc
     - name: Website
       href: /about/website
-    
+
 - name: News
   href: /news
 - name: Community
@@ -35,6 +35,8 @@
       href: /resources/stuysplash
     - name: Tutorials
       href: /resources/tutorials
+    - name: Charter
+      href: /resources/charter
 - name: Calendar
   href: /calendar
 - name: Sponsors

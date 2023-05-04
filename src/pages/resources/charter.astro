@@ -1,0 +1,15 @@
+---
+import PageSite from '@layouts/PageSite.astro';
+import { marked } from 'marked';
+
+const res = await fetch(
+  'https://raw.githubusercontent.com/StuyPulse/Charter/main/README.md'
+);
+
+// trusting that theres no XSS in the charter lols
+const content = marked.parse(await res.text());
+---
+
+<PageSite title="Charter" description={'The StuyPulse Team Charter.'}>
+  <Fragment set:html={content} />
+</PageSite>
