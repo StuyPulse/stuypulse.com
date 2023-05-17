@@ -3,7 +3,7 @@ import PageSite from "@layouts/PageSite.astro";
 import SponsorContainer from "@components/sponsors/SponsorContainer.astro";
 import type { SponsorType, SponsorTierType } from "@types";
 
-let sponsorSize = "160px";
+let sponsorSize = "180px";
 let textSize = "25px";
 let responsive = "col-6 col-md-4 col-xxl-3";
 
@@ -38,23 +38,23 @@ const tierData = sponsorTiers.default;
   description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running."
 >
   <h1 class="mb-4">Sponsors</h1>
-  <div class="row mb-5">
-    <div class="col-lg-7 mb-5">
+  <div class="row mb-3">
+    <div class="col-lg-8 mb-5">
       <div class="accordion accordion-flush" id="sponsorAccordion">
         {
           tierData.map((sponsorTier: SponsorTierType, index: number) => (
             <div class="accordion-item">
               <h2 class="accordion-header">
                 <button
-                  class="accordion-button collapsed"
-                  type="button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={"#flush-collapse" + sponsorTier.name}
-                  aria-expanded="false"
-                  aria-controls={"#flush-collapse" + sponsorTier.name}
+                  class="accordion-button"
+                  // type="button"
+                  // data-bs-toggle="collapse"
+                  // data-bs-target={"#flush-collapse" + sponsorTier.name}
+                  // aria-expanded="false"
+                  // aria-controls={"#flush-collapse" + sponsorTier.name}
                 >
                   <h3 style="margin-bottom:0;">
-                    <img src={sponsorTier.icon} class="inline-icon" />{" "}
+                    <img src={sponsorTier.icon} class="inline-icon" />
                     {sponsorTier.name}
                   </h3>
                 </button>
@@ -62,12 +62,12 @@ const tierData = sponsorTiers.default;
               <div
                 id={"flush-collapse" + sponsorTier.name}
                 class={
-                  "accordion-collapse collapse " + (index == 0 ? "show" : "")
+                  "accordion-collapse collapse show" 
                 }
                 aria-labelledby={"flush-heading" + sponsorTier.name}
                 data-bs-toggle="collapse"
               >
-                <div class="accordion-body row">
+                <div class="accordion-body row justify-content-center">
                   {sponsorData
                     .filter(
                       (sponsor: { tier: string }) =>
@@ -90,25 +90,25 @@ const tierData = sponsorTiers.default;
         }
       </div>
     </div>
-    <div class="col-sm-1"></div>
 
+    
     <div class="col-sm-10 col-lg-4 align-middle">
       <h3 class="mb-3">Sponsorship Levels:</h3>
-      <ul class="list-group list-group-flush d-inline">
-        {
-          tierData.map((sponsorTier: SponsorTierType, index: number) => (
-            <>
-              <p>
-                <img src={sponsorTier.icon} class="inline-icon" />
-                {sponsorTier.name + ": " + sponsorTier.range}
-              </p>
-              <li class="list-group-item">
-                <p>{sponsorTier.desc}</p>
-              </li>
-            </>
-          ))
-        }
-      </ul>
+    <ul class="list-group list-group-flush d-inline">
+      {
+        tierData.map((sponsorTier: SponsorTierType, index: number) => (
+          <>
+            <p>
+              <img src={sponsorTier.icon} class="inline-icon" />
+              {sponsorTier.name + ": " + sponsorTier.range}
+            </p>
+            <li class="list-group-item">
+              <p>{sponsorTier.desc}</p>
+            </li>
+          </>
+        ))
+      }
+    </ul>
     </div>
   </div>
   <!-- <hr class="justify-content-center w-40"/> -->
