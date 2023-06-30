@@ -48,3 +48,21 @@
   tier: aluminum
 - name: Doan Family
   tier: bronze
+- name: The Tadchiev Firm, P.C.
+  site: https://www.tadchievlaw.com/
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/tadchiev.png
+  tier: aluminum
+- name: BNY Mellon
+  site: https://www.bnymellon.com/
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/bny_mellon.png
+  tier: bronze
+- name: Jiang Family
+  tier: bronze
+- name: Liu Family
+  tier: bronze
+- name: Macquarie
+  site: https://www.macquarie.com/us/en.html
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/macquarie.jpg
+  tier: bronze
+- name: Belliveau Family
+  tier: bronze
