@@ -31,13 +31,13 @@
   description: The Vice President of Business is the second-­in-­command for the Business department. The VPoB should have knowledge of what the President of Business is currently doing and should be able to direct the Business department in the event of the PoB’s absence. They have extensive knowledge of all award submissions as well as basic knowledge of each part of the robot.
   department: Business
 - name: Anthony C.
-  position: Director of I/T
+  position: Co-Director of I/T
   image: /ecac/Anthony_C.jpg
   description: The job of the Director of I/T is to create new technology related to team logistics,integrate and develop of existing technology, document existing tools, and teach members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team’s website is up to date.
   department: Software Engineering
 - name: Gus W.
-  position: Assistant Director of I/T
-  description: The Assistant Director of I/T is to be familiar with all aspects of the I/T department and should be ready to assume the job of the Director of I/T if necessary.
+  position: Co-Director of I/T
+  description: The job of the Director of I/T is to create new technology related to team logistics,integrate and develop of existing technology, document existing tools, and teach members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team’s website is up to date.
   department: Software Engineering
 - name: Shaurya S.
   position: Co-Director of Newbie Relations
