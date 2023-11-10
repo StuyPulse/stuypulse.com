@@ -7,6 +7,7 @@ export interface Props {
 }
 
 const { nav } = Astro.props;
+nav.name += " ";
 ---
 
 <style>
@@ -60,6 +61,6 @@ const { nav } = Astro.props;
     {nav.name}
   </a>
   <ul class="dropdown-menu rounded-0 p-2 border-none">
-    {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} drop={true} />)}
+    {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} />)}
   </ul>
 </li>

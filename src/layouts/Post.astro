@@ -14,6 +14,7 @@ let splitPath = frontmatter.file.split(/content|.md/);
 const filePath = splitPath[1];
 
 let postDate = new Date(frontmatter.date);
+console.log("the date before localization is " + postDate);
 const dateString = postDate.toLocaleDateString("en-us", {
   weekday: "long",
   year: "numeric",

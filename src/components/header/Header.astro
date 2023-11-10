@@ -35,7 +35,7 @@ const navs = (await import("@data/navbar.yml")).default;
             nav.dropdown ? (
               <Dropdown nav={nav} />
             ) : (
-              <Nav nav={nav} drop={false} />
+              <Nav nav={nav} />
             )
           )
         }
