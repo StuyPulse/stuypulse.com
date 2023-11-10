@@ -7,7 +7,7 @@ import { astroImageTools } from "astro-imagetools";
 // https://astro.build/config
 export default defineConfig({
   // Change this when the site is deployed to the real domain
-  site: "https://new.stuypulse.com",
+  site: "https://stuypulse.com",
   integrations: [mdx(), sitemap(), astroImageTools],
   vite: {
     plugins: [yaml()],
