@@ -1,5 +1,6 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+
 ---
 
 <PageSite title="Calendar" description="Calendar for Team 694, used for meeting schedules and competitions.">
@@ -10,6 +11,15 @@ import PageSite from "@layouts/PageSite.astro";
     import googleCalendarPlugin from "@fullcalendar/google-calendar";
     import dayGridPlugin from "@fullcalendar/daygrid";
     import timeGridPlugin from "@fullcalendar/timegrid";
+
+    function timeFormat(date) {
+      return date.toLocaleTimeString([], {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+      });
+    }
+
     document.addEventListener("DOMContentLoaded", function () {
       var calendarEl = document.getElementById("calendar");
       if (!calendarEl) throw new Error("Calendar element not found");
@@ -49,12 +59,11 @@ import PageSite from "@layouts/PageSite.astro";
               "stuypulse.com_oqgqev21591htqsjdhhg34mh3k@group.calendar.google.com",
           },
         ],
-        eventClick: function (arg) {
-          // opens events in a popup window
-          window.open(arg.event.url);
+        eventClick: function ({event, jsEvent}) {
+          alert(`${event.title} (${timeFormat(event.start)} - ${timeFormat(event.end)})`);
 
           // prevents current tab from navigating
-          arg.jsEvent.preventDefault();
+          jsEvent.preventDefault();
         },
       });
       calendar.render();
