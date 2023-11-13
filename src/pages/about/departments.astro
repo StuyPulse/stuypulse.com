@@ -3,26 +3,18 @@ import PageSite from "@layouts/PageSite.astro";
 ---
 
 <style>
-  .offset::before {
-    display: block;
-    content: " ";
-    margin-top: -62px;
-    height: 62px;
-    visibility: hidden;
-    pointer-events: none;
-  }
+.text-size {
+  height: calc(1.3rem + 0.6vw);
+}
 </style>
 
 <PageSite title="Departments" description={"A description of the departments on our team."}>
   <h1 class="mb-4">Departments</h1>
-  <div id="Engineering" class="offset">
-    <img
-      class="d-inline-block"
-      src="/icons/engineering.svg"
-      alt="E"
-      width="40px"
-    />
-    <h3 class="d-inline-block align-middle">Engineering</h3>
+  <div id="Engineering">
+    <h3 class="d-inline-block align-middle">
+      <img class="d-inline-block text-size" src="/icons/engineering.svg" alt="E" />
+      Engineering
+    </h3>
     <p>
       Engineering is responsible for designing and building the robot. Every
       build season, Engineering divides up into smaller groups consisting of 4-6
@@ -41,14 +33,11 @@ import PageSite from "@layouts/PageSite.astro";
       >.
     </p>
   </div>
-  <div id="Software Engineering" class="offset">
-    <img
-      class="d-inline-block"
-      src="/icons/software.svg"
-      alt="E"
-      width="40px"
-    />
-    <h3 class="d-inline-block align-middle">Software Engineering</h3>
+  <div id="Software Engineering">
+    <h3 class="d-inline-block align-middle">
+      <img class="d-inline-block text-size" src="/icons/software.svg" alt="SE" />
+      Software Engineering
+    </h3>
     <p>
       The job of the programmers is to write software which controls the robot's
       logic and motion on the playing field, as well as to ensure that the
@@ -71,14 +60,11 @@ import PageSite from "@layouts/PageSite.astro";
       >.
     </p>
   </div>
-  <div id="Business" class="offset">
-    <img
-      class="d-inline-block"
-      src="/icons/business.svg"
-      alt="E"
-      width="40px"
-    />
-    <h3 class="d-inline-block align-middle">Business</h3>
+  <div id="Business">
+    <h3 class="d-inline-block align-middle">
+      <img class="d-inline-block text-size" src="/icons/business.svg" alt="B" />
+      Business
+    </h3>
     <p>
       Our Business department has a very diverse list of responsibilities. It is
       in charge of fundraising, branding, logistical work like meals during
@@ -94,14 +80,11 @@ import PageSite from "@layouts/PageSite.astro";
       logistics of events and paperwork.
     </p>
   </div>
-  <div id="Strategy" class="offset">
-    <img
-      class="d-inline-block"
-      src="/icons/strategy.svg"
-      alt="E"
-      width="40px"
-    />
-    <h3 class="d-inline-block align-middle">Strategy</h3>
+  <div id="Strategy">
+    <h3 class="d-inline-block align-middle">
+      <img class="d-inline-block text-size" src="/icons/strategy.svg" alt="S" />
+      Strategy
+    </h3>
     <p>
       Provides strategic assistance regarding robot design, gameplay, and
       alliance selections.
