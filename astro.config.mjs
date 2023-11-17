@@ -15,4 +15,7 @@ export default defineConfig({
       cssCodeSplit: false,
     },
   },
+  prefetch: {
+    prefetchAll: true
+  }
 });
