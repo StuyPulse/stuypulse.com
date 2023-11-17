@@ -9,7 +9,6 @@ const { entries } = Astro.props;
 
 const posts = [];
 for (const entry of entries) {
-  console.log("the date before localization is " + entry.data.date);
   const dateString = entry.data.date.toLocaleDateString("en-us", {
     weekday: "long",
     year: "numeric",
