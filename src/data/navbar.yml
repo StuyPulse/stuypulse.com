@@ -4,8 +4,8 @@
 # A non-dropdown must have the `href` key.
 # Dropdowns cannot be nested.
 
-# - name: Kickoff
-# href: /kickoff
+- name: Kickoff
+  href: /kickoff
 - name: About
   dropdown:
     - name: About Us
@@ -22,7 +22,6 @@
       href: /about/ftc
     - name: Website
       href: /about/website
-
 - name: News
   href: /news
 - name: Community
