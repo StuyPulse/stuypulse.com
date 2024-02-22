@@ -48,6 +48,10 @@
   tier: aluminum
 - name: Doan Family
   tier: bronze
+- name: Knitty City
+  site: https://knittycitynyc.com/
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/knitty_city.png
+  tier: aluminum
 - name: The Tadchiev Firm, P.C.
   site: https://www.tadchievlaw.com/
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/tadchiev.png
