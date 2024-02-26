@@ -72,6 +72,8 @@
   tier: aluminum
 - name: Gordon Franken
   tier: aluminum
+- name: Chin Family
+  tier: aluminum
 - name: Eli Lipsky
   tier: aluminum
 - name: Jonah J. Sachs Wetstone
@@ -86,7 +88,4 @@
   tier: aluminum
 - name: Yi Lin Mu
   tier: aluminum
-- name: Knitty City
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/knitty_city.png
-  site: https://knittycitynyc.com/
-  tier: aluminum
+
