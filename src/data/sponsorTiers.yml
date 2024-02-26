@@ -1,3 +1,7 @@
+- name: Platinum
+  icon: /icons/platinum-medal.svg
+  range: Highest Overall Sponsor
+  desc: Sponsor shall receive the honor of naming the robot.
 - name: Gold
   icon: /icons/gold-medal.svg
   range: $10,000+

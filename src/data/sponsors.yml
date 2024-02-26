@@ -6,76 +6,87 @@
 
 - name: SHS Parents' Association
   site: https://stuy-pa.org/
+  tier: platinum
+
+- name: SHS Alumni Association
+  site: https://www.stuyalumni.org/
   tier: gold
-- name: D.E. Shaw &amp; Co.
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/deshaw.png
-  site: https://www.deshaw.com/
+
+- name: Julian Moore
   tier: silver
-- name: Mary Ann Belliveau
-- name: Con Edison
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/conedison.png
-  site: https://www.coned.com/
+- name: Navid Kashem
+  tier: silver
+
+- name: Comcast
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/comcast.png
+  site: https://corporate.comcast.com/
   tier: bronze
-- name: ABB
-  site: https://global.abb/group/en
-  logo: https://stuypulse.nyc3.digitaloceanspaces.com/site/sponsorships/img/abb.png
-  tier: bronze
-- name: Google
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/google1.png
-  site: https://about.google/
+- name: Ferguson Family
   tier: bronze
 - name: Bloomberg
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/bloomberg.png
   site: https://www.bloomberg.com/
   tier: bronze
-- name: Joe Ricci
-  tier: aluminum
-- name: Amazon
-  site: https://www.aboutamazon.com/
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/amazon1.png
+- name: Con Edison
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/conedison.png
+  site: https://www.coned.com/
   tier: bronze
-- name: NASA
-  site: https://www.nasa.gov/
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/nasa.png
-  tier: silver
-- name: Alec Mori
-  tier: aluminum
-- name: Gene Haas Foundation
-  site: https://ghaasfoundation.org/
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/ghaas.png
+- name: Intuitive Foundation
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/intuitive_foundation.png
+  site: https://www.intuitive-foundation.org/
   tier: bronze
-- name: Yan Family
-  tier: aluminum
-- name: Doan Family
-  tier: bronze
-- name: Knitty City
-  site: https://knittycitynyc.com/
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/knitty_city.png
-  tier: aluminum
-- name: The Tadchiev Firm, P.C.
-  site: https://www.tadchievlaw.com/
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/tadchiev.png
-  tier: aluminum
-- name: BNY Mellon
-  site: https://www.bnymellon.com/
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/bny_mellon.png
-  tier: bronze
-- name: Jiang Family
-  tier: bronze
-- name: Liu Family
+- name: Dustin Doan
   tier: bronze
 - name: Macquarie
   site: https://www.macquarie.com/us/en.html
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/macquarie.jpg
   tier: bronze
+- name: E & K Jewelry LLC
+  tier: bronze
+- name: Ting Yu
+  tier: bronze
+- name: Whimsy Tech Inc
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/whimsy_tech.png
+  site: https://www.whimsytech.net/
+  tier: bronze
+- name: Yirong Liu
+  tier: bronze
 - name: Belliveau Family
   tier: bronze
-- name: Julian Moore
+- name: Steven Gurney-Goldman
   tier: bronze
+
+- name: Min-er Chen
+  tier: aluminum
+- name: Jacob B. Falk
+  tier: aluminum
+- name: Kevin Fertig
+  tier: aluminum
+- name: Ryan Rakower
+  tier: aluminum
 - name: Adobe Express
-  site: https://www.adobe.com/express/
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/adobe_express.png
+  site: https://www.adobe.com/express/
   tier: aluminum
 - name: Howard Cohen
   tier: aluminum
-- name: Julian Moore
+- name: Gordon Franken
+  tier: aluminum
+- name: Eli Lipsky
+  tier: aluminum
+- name: Jonah J. Sachs Wetstone
+  tier: aluminum
+- name: Caroline Lee
+  tier: aluminum
+- name: Jason Lee
+  tier: aluminum
+- name: Hu Min Wu
+  tier: aluminum
+- name: Vicky Wang
+  tier: aluminum
+- name: Yi Lin Mu
+  tier: aluminum
+- name: Knitty City
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/knitty_city.png
+  site: https://knittycitynyc.com/
+  tier: aluminum
