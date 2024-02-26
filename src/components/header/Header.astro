@@ -1,8 +1,8 @@
 ---
-import type { NavType } from "@types.js";
-import Nav from "./Nav.astro";
-import Dropdown from "./Dropdown.astro";
-const navs = (await import("@data/navbar.yml")).default;
+import type { NavType } from '@types.js';
+import Nav from './Nav.astro';
+import Dropdown from './Dropdown.astro';
+const navs = (await import('@data/navbar.yml')).default;
 ---
 
 <nav class="navbar navbar-expand-lg fixed-top mb-3">
@@ -32,11 +32,7 @@ const navs = (await import("@data/navbar.yml")).default;
       <ul class="navbar-nav">
         {
           navs.map((nav: NavType) =>
-            nav.dropdown ? (
-              <Dropdown nav={nav} />
-            ) : (
-              <Nav nav={nav} />
-            )
+            nav.dropdown ? <Dropdown nav={nav} /> : <Nav nav={nav} />
           )
         }
       </ul>
@@ -52,7 +48,9 @@ const navs = (await import("@data/navbar.yml")).default;
 
 <style>
   .navbar {
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    box-shadow:
+      0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      0 6px 20px 0 rgba(0, 0, 0, 0.19);
     background: linear-gradient(
       180deg,
       rgba(224, 0, 0, 1) 59px,
@@ -62,12 +60,13 @@ const navs = (await import("@data/navbar.yml")).default;
 
   @media screen and (min-width: 992px) {
     .navbar {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
+      box-shadow:
+        0 4px 8px 0 rgba(0, 0, 0, 0.2),
         0 6px 20px 0 rgba(0, 0, 0, 0.19);
       background: linear-gradient(
         300deg,
-        rgb(246, 251, 255, 1) 41em,
-        rgb(138, 142, 145) 41.5em,
+        rgb(246, 251, 255, 1) 37em,
+        rgb(138, 142, 145) 37.5em,
         rgba(224, 0, 0, 1) 10em
       );
     }
