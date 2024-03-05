@@ -10,4 +10,5 @@ export default defineConfig({
       quality: 100,
     },
   },
+  
 });
