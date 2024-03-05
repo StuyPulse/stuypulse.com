@@ -12,12 +12,12 @@ import PageSite from "@layouts/PageSite.astro";
     import dayGridPlugin from "@fullcalendar/daygrid";
     import timeGridPlugin from "@fullcalendar/timegrid";
 
-    function timeFormat(date) {
-      return date.toLocaleTimeString([], {
+    function timeFormat(date: Date | null) {
+      return date !== null ? date.toLocaleTimeString([], {
         hour: "numeric",
         minute: "2-digit",
         hour12: true,
-      });
+      }) : "empty";
     }
 
     document.addEventListener("DOMContentLoaded", function () {
