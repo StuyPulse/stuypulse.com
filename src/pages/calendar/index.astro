@@ -37,6 +37,9 @@ import PageSite from "@layouts/PageSite.astro";
           center: "title",
           right: "listWeek,dayGridMonth,timeGridWeek",
         },
+        footerToolbar: {
+          center: "addCalendar"
+        },
         contentHeight: "auto",
         fixedWeekCount: false,
         nowIndicator: true,
@@ -45,7 +48,7 @@ import PageSite from "@layouts/PageSite.astro";
             text: "Add to Google Calendar",
             click: function () {
               window.open(
-                "https://calendar.google.com/calendar/u/2/r?cid=info@stuypulse.com&cid=stuypulse.com_oqgqev21591htqsjdhhg34mh3k@group.calendar.google.com"
+                "https://calendar.google.com/calendar/u/2/r?cid=info@stuypulse.com"
               );
             },
           },
@@ -53,11 +56,7 @@ import PageSite from "@layouts/PageSite.astro";
         eventSources: [
           {
             googleCalendarId: "info@stuypulse.com",
-          },
-          {
-            googleCalendarId:
-              "stuypulse.com_oqgqev21591htqsjdhhg34mh3k@group.calendar.google.com",
-          },
+          }
         ],
         eventClick: function ({event, jsEvent}) {
           alert(`${event.title} (${timeFormat(event.start)} - ${timeFormat(event.end)})`);
