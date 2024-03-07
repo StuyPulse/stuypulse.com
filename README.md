@@ -18,8 +18,8 @@ Interested in how our site is built? Our site is 100% open source; feel free to 
 
 If you would like to contact our I/T department, send us an email and we'll get back to you as soon as we can. We're happy to help with any questions you may have!
 
-## I/T Directors for 2023-2024
+## I/T Leadership for 2023-2024
 
-**Director of I/T:** Anthony Chen
+**Co-Director of I/T:** Anthony Chen
 
-**Assistant Director of I/T:** Gus Watkins
+**Co-Director of I/T:** Gus Watkins
