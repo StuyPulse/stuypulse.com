@@ -2,7 +2,7 @@
 
 ## About This Website
 
-This iteration of StuyPulse.com launched on August 1st, 2023. It took the place of our old Jekyll-based website established in 2013, using Astro in its stead, as well as having a more modernized design. This site was developed from 2022-2023 by our at the time newly formed I/T Department, consisting of Gus Watkins, Vi Lin, Kelvin Zhao, and Anthony Chen.
+This iteration of StuyPulse.com launched on August 1st, 2023. It took the place of our old Jekyll-based website established in 2013, using Astro in its stead, as well as having a more modernized design. This site was developed from 2022-2023 by our at the time newly formed I/T Department, consisting of Gus Watkins, Ivy Lin, Kelvin Zhao, and Anthony Chen.
 
 ## Website Structure
 
