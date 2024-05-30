@@ -4,18 +4,15 @@
 #check old site for positions
 
 - name: Colyi C.
-  position: President of Software Engineering
-  image: /ecac/Ben_G.jpg
+  position: President of Software Engineering 
   description: The President of Software Engineering primarily manages the development of robot code and all related software. They also manage the design and development of all human interfaces and control systems. The PoSE is responsible for the production of documentation concerning the control system on all levels, such as pinout sheets and systems check guidelines. They work closely with the PoE to effectively manage the development of the control system alongside the hardware. The PoSE also collaborates with the strategy team to develop effective solutions for both the teleoperated and autonomous modes, as well as the Business team to coordinate events and regional activities, such as seminars. The PoSE must effectively manage the software development team in order to accomplish these responsibilities and must have the same level of familiarity with the robot as the PoE.
   department: Software Engineering
 - name: Harry B.
   position: President of Engineering
-  image: /ecac/Elwin_A.jpg
   description: The President of Engineering is familiar with every part of the robot, able to explain the part to another team member or a judge, as well as able to repair any part of the robot if it is broken. They are also knowledgeable about the details of the Chairman’s Award submission and other award submissions.
   department: Engineering
 - name: Cindy Z.
   position: President of Business
-  image: /ecac/Allison_Z.jpg
   description: The President of Business holds final responsibility for all outreach, logistics, and award submissions for the team. They have full knowledge of all awards and shall present the Chairman’s Award or assign the presentation to someone else deemed competent. The PoM also has adequate knowledge of the other two departments.
   department: Business
 - name: Kalimul K.
@@ -32,7 +29,6 @@
   department: Business
 - name: Gus W.
   position: Director of I/T
-  image: /ecac/Anthony_C.jpg
   description: The job of the Director of I/T is to create new technology related to team logistics,integrate and develop of existing technology, document existing tools, and teach members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team’s website is up to date.
   department: Software Engineering
 - name: Gus W.
@@ -41,7 +37,6 @@
   department: Software Engineering
 - name: Mustafa A.
   position: Co-Director of Newbie Relations
-  image: /ecac/Shaurya_S.jpg
   description: The Director of Newbie Relations for software engineering is responsible for the education of new members in software engineering, development of a curriculum, and ensuring the lessons are made in advance. The DoNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
   department: Software Engineering
 - name: Rahul D.
@@ -90,7 +85,6 @@
   department: Engineering
 - name: Kara Y.
   position: Director of Finance
-  image: /ecac/Jiayu_Y.jpg
   description: The Director of Finance must ensure the stability of the team’s finances, such as the budget of each department in conjunction with the EEC and Faculty Advisors. The DoF must also maintain stable relationships with sponsors and contact them on a regular basis.
   department: Business
 - name: Ryan L.
@@ -99,12 +93,10 @@
   department: Business
 - name: Christina C.
   position: Co-Director of Public Relations
-  image: /ecac/Faiza_M.jpg
   description: The Director of Public Relations will plan for outreach events and direct all outreach initiatives, such as StuySplash and public demonstrations. At the same time, the DoPR is responsible for creating a strong team media presence using blogs, photographs, videos, social media, and other media.
   department: Business
 - name: Juliet Badillo F.
   position: Co-Director of Public Relations
-  image: /ecac/Faiza_M.jpg
   description: The Director of Public Relations will plan for outreach events and direct all outreach initiatives, such as StuySplash and public demonstrations. At the same time, the DoPR is responsible for creating a strong team media presence using blogs, photographs, videos, social media, and other media.
   department: Business
 - name: Gary J.
@@ -113,7 +105,6 @@
   department: Business
 - name: Justin M.
   position: Director of Strategy
-  image: /ecac/Andrew_L.jpg
   description: The Director of Strategy is to ensure all team members know game rules and robot restrictions. During the build season, he/she can suggest features for the robot that will allow for possible gameplay strategies. In addition, the DoS assembles and educates a group of scouts that will gather information on other teams during the competition. During competition, the DoS is responsible for creating and communicating with the drive teams of our alliance strategies for each match, and should make a list of the top 24 teams for alliance selections. This Director shall also be responsible for the selection and practice of the driver, operator, and human player. The drive team will be selected through tryouts organised by the Director, and conflicting responsibilities as well as other factors will be taken into account for the final selection. The drive team must be approved by the majority of the EC and the Faculty Advisors.
   department: Strategy
 - name: Brendon
