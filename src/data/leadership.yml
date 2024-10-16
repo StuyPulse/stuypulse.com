@@ -9,6 +9,7 @@
   department: Software Engineering
 - name: Harry B.
   position: President of Engineering
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/HarryB.jpg
   description: The President of Engineering is familiar with every part of the robot, able to explain the part to another team member or a judge, as well as able to repair any part of the robot if it is broken. They are also knowledgeable about the details of the Chairman’s Award submission and other award submissions.
   department: Engineering
 - name: Cindy Z.
@@ -45,6 +46,7 @@
   department: Software Engineering
 - name: Rain S.
   position: Director of Electronics
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RainS.jpg
   description: The Director of Electronics sets up and manages the electronic systems on the robot to FIRST regulations. They cooperate with both engineers and software engineers to ensure that the electronic systems are organised and able to be modified if needed. The DoE is also responsible for the education of other members in the electronics subdepartment.
   department: Engineering
 - name: Rachel K.
