@@ -62,6 +62,7 @@
   department: Engineering
 - name: Ryan Z.
   position: Director of Lab Operations and Safety
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RyanZ.jpg
   description: The Director of Lab Operations and Safety, at the highest level, is responsible for the smooth running of the team's workspaces. They are responsible for keeping a detailed inventory of the tools and construction materials in the laboratory as well as a record of materials used in the construction of the robot. The Co-DoLOS is also responsible for ensuring that all necessary safety rules are observed in the lab during build season. The Co-DoLOS will automatically be appointed Safety Captain at the competition and will be responsible for carrying out all duties therein.
   department: Engineering
 - name: Jaco X.
@@ -71,6 +72,7 @@
   department: Engineering
 - name: Amelia N.
   position: Director of Machining
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/AmeliaN.jpg
   description: The Primary Machinist is responsible for the maintaining the mill, lathe, and their parts. He/she must also make sure that there will be at least two members of the team that will be able to use the mill in the upcoming year, including the Primary Machinist. If there are fewer than two such members, the Primary Machinist is responsible for training new members.
   department: Engineering
 - name: Esther L.
@@ -89,10 +91,12 @@
   department: Engineering
 - name: Vinson C.
   position: Director of Procurement
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/VincentC.jpg
   description: The Director of Procurement is responsible for overseeing and actualizing the procurement of goods necessary for the team’s operation. The DoP is similarly responsible for identifying adequate substitutes when a necessary resource cannot be obtained from the traditional supplier for a reasonable cost. All procurement requests must be approved by a faculty advisor. The DoP is also required to maintain a detailed, uptodate account of the team’s expenditures, available on request.
   department: Engineering
 - name: Kara Y.
   position: Director of Finance
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/KaraY.jpg
   description: The Director of Finance must ensure the stability of the team’s finances, such as the budget of each department in conjunction with the EEC and Faculty Advisors. The DoF must also maintain stable relationships with sponsors and contact them on a regular basis.
   department: Business
 - name: Ryan L.
@@ -116,6 +120,7 @@
   department: Business
 - name: Justin M.
   position: Director of Strategy
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/JustinM.jpg
   description: The Director of Strategy is to ensure all team members know game rules and robot restrictions. During the build season, he/she can suggest features for the robot that will allow for possible gameplay strategies. In addition, the DoS assembles and educates a group of scouts that will gather information on other teams during the competition. During competition, the DoS is responsible for creating and communicating with the drive teams of our alliance strategies for each match, and should make a list of the top 24 teams for alliance selections. This Director shall also be responsible for the selection and practice of the driver, operator, and human player. The drive team will be selected through tryouts organised by the Director, and conflicting responsibilities as well as other factors will be taken into account for the final selection. The drive team must be approved by the majority of the EC and the Faculty Advisors.
   department: Strategy
 - name: Rain S.
