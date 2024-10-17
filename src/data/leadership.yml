@@ -53,11 +53,12 @@
   department: Engineering
 - name: Rachel K.
   position: Co-Assistant Director of Electronics
-  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RachelK%20(2).jpg
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RachelK%20(3).jpg
   description: The Assistant Director of Electronics is familiar with all aspects of the electronic systems on the robot and be able to assume the jobs of Director of Electronics at any time.
   department: Engineering
 - name: Elin K.
   position: Co-Assistant Director of Electronics
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/ElinK.jpg
   description: The Assistant Director of Electronics is familiar with all aspects of the electronic systems on the robot and be able to assume the jobs of Director of Electronics at any time.
   department: Engineering
 - name: Ryan Z.
@@ -106,6 +107,7 @@
   department: Business
 - name: Christina C.
   position: Co-Director of Public Relations
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/Christina.jpg
   description: The Director of Public Relations will plan for outreach events and direct all outreach initiatives, such as StuySplash and public demonstrations. At the same time, the DoPR is responsible for creating a strong team media presence using blogs, photographs, videos, social media, and other media.
   department: Business
 - name: Juliet Badillo F.
@@ -144,4 +146,5 @@
   department: PulseLabs
 - name: Tyler L.
   position: Co-Director of PulseLabs
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/Tyler.jpg
   department: PulseLabs
