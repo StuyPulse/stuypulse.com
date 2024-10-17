@@ -26,6 +26,7 @@
   department: Engineering
 - name: Rachel U.
   position: Vice President of Business
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RachelK.jpg
   description: The Vice President of Business is the second-­in-­command for the Business department. The VPoB should have knowledge of what the President of Business is currently doing and should be able to direct the Business department in the event of the PoB’s absence. They have extensive knowledge of all award submissions as well as basic knowledge of each part of the robot.
   department: Business
 - name: Gus W.
@@ -92,6 +93,7 @@
   department: Business
 - name: Ryan L.
   position: Director of Operations
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RyanL.jpg
   description: The Director of Operations will handle the day-to-day operations of the Business department and the whole team. The DoO is responsible for paperwork, trip planning, managing deadlines and other logistics regarding the team. The Director of Operations is also responsible for award submissions, as well as a timeline that will guide the team smoothly through a busy building season and keep the pace of work going through pre-season and post-season.
   department: Business
 - name: Christina C.
@@ -113,10 +115,12 @@
   department: Strategy
 - name: Rain S.
   position: Director of Impact
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RainS.jpg
   description: -N/A-
   department: Business
 - name: Si Xuan L.
   position: Assistant Director of Impact
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/SiXuan.jpg
   description: -N/A-
   department: Business
 - name: Brendon
