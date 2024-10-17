@@ -83,6 +83,7 @@
   department: Engineering
 - name: Tracy Y.
   position: Co-Assistant Director of Machining
+  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/TracyY.jpg
   description: The Assistant Machinist is to be familiar with all aspects of machining and be ready to assume the jobs of Director of Machining if necessary.
   department: Engineering
 - name: Zhi Han Y.
@@ -128,12 +129,12 @@
 - name: Rain S.
   position: Director of Impact
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RainS.jpg
-  description: -N/A-
+  description:  The Director of Impact leads all Impact efforts including documentation, presentation, and scheduling practices. They are in charge of making sure presenters get tried out and may be a presenter.
   department: Business
 - name: Si Xuan L.
   position: Assistant Director of Impact
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/SiXuan.jpg
-  description: -N/A-
+  description: The Assistant Director of Impact assists in all Impact efforts including documentation, presentation, and scheduling practices. They may be a presenter.
   department: Business
 - name: Brendon
   position: Assistant Director of Strategy
@@ -143,8 +144,10 @@
 - name: Jaco X.
   position: Co-Director of PulseLabs
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/JacoX.jpg
+  description: The Director of PulseLabs will assist the EC in organizing all research and development (R&D) efforts. They will maintain a system of documentation distribution, ensure documentation produced by PulseLabs members are up to standards outlined by authoritative documents, update said authoritative documents as needed. They should have a level of understanding of all ongoing and past research projects, maintain a clear line of communication with the EC to ensure research goes smoothly and subsequent knowledge is communicated and applied, ensure researched knowledge is transferred to the larger team, ensure research efforts are published in a timely manner, and publish an annual report as to the state of PulseLabs, which is to be completed by the end of the school year (see exception in the PulseLabs section for the 2025 season). During the build season, the DoPLs will be responsible for assisting the EC in ensuring that the research efforts are communicated to the rest of the team, and that the knowledge gained from such research efforts are applied to the robot. The DoPLs will also be responsible for ensuring that the robot's design and features, especially those derived from research efforts, are documented, updated, and published as necessary.
   department: PulseLabs
 - name: Tyler L.
   position: Co-Director of PulseLabs
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/Tyler.jpg
+  description: The Director of PulseLabs will assist the EC in organizing all research and development (R&D) efforts. They will maintain a system of documentation distribution, ensure documentation produced by PulseLabs members are up to standards outlined by authoritative documents, update said authoritative documents as needed. They should have a level of understanding of all ongoing and past research projects, maintain a clear line of communication with the EC to ensure research goes smoothly and subsequent knowledge is communicated and applied, ensure researched knowledge is transferred to the larger team, ensure research efforts are published in a timely manner, and publish an annual report as to the state of PulseLabs, which is to be completed by the end of the school year (see exception in the PulseLabs section for the 2025 season). During the build season, the DoPLs will be responsible for assisting the EC in ensuring that the research efforts are communicated to the rest of the team, and that the knowledge gained from such research efforts are applied to the robot. The DoPLs will also be responsible for ensuring that the robot's design and features, especially those derived from research efforts, are documented, updated, and published as necessary.
   department: PulseLabs
