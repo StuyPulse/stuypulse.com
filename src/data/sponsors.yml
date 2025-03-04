@@ -4,88 +4,88 @@
 
 # Sponsor tiers are listed in data/sponsorTiers.yml, any others won't show up on the site.
 
+- name: Belliveau Family
+  tier: platinum
+
+# gold
+
 - name: SHS Parents' Association
   site: https://stuy-pa.org/
-  tier: platinum
+  tier: gold
 
 - name: SHS Alumni Association
   site: https://www.stuyalumni.org/
   tier: gold
 
-- name: Julian Moore
+# silver
+
+- name: NYC FIRST
+  logo: https://cdn.prod.website-files.com/5d45ab770ae4a12ae3df8293/5d6e9b9c05289a91768c0f51_NYCFIRST_linear_RGB.png
+  site: https://www.nycfirst.org/
   tier: silver
-- name: Navid Kashem
+
+- name: Bloomberg
+  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/bloomberg.png
+  site: https://www.bloomberg.com/
   tier: silver
+
+- name: HBK
+  logo: /sponsors/hbk.png
+  site: https://www.hbk.com/
+  tier: silver
+
+# bronze
+
+- name: Steven Gurney Goldman
+  tier: bronze
 
 - name: Comcast
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/comcast.png
   site: https://corporate.comcast.com/
   tier: bronze
-- name: Ferguson Family
+
+- name: Gene Haas
+  site: https://www.ghaasfoundation.org/
   tier: bronze
-- name: Bloomberg
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/bloomberg.png
-  site: https://www.bloomberg.com/
-  tier: bronze
-- name: Con Edison
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/conedison.png
-  site: https://www.coned.com/
-  tier: bronze
+
 - name: Intuitive Foundation
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/intuitive_foundation.png
   site: https://www.intuitive-foundation.org/
   tier: bronze
+
+- name: Richard Leung & Faye Chan
+  tier: bronze
+
 - name: Dustin Doan
   tier: bronze
-- name: Macquarie
-  site: https://www.macquarie.com/us/en.html
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/macquarie.jpg
-  tier: bronze
-- name: E & K Jewelry LLC
-  tier: bronze
-- name: Ting Yu
-  tier: bronze
-- name: Whimsy Tech Inc
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/whimsy_tech.png
-  site: https://www.whimsytech.net/
-  tier: bronze
-- name: Yirong Liu
-  tier: bronze
-- name: Belliveau Family
-  tier: bronze
-- name: Steven Gurney-Goldman
+
+- name: Five Rings
+  logo: https://events.umich.edu/media/attachments/2024/08/event_125390_original-1.jpeg
+  site: https://fiverings.com/
   tier: bronze
 
-- name: Min-er Chen
+- name: Julian Moore
+  tier: bronze
+
+- name: Min Zhou
+  tier: bronze
+
+# aluminum
+
+- name: The Boeing Compa Corporate
   tier: aluminum
-- name: Jacob B. Falk
+
+- name: Jake Falk
   tier: aluminum
-- name: Kevin Fertig
-  tier: aluminum
+
 - name: Ryan Rakower
   tier: aluminum
-- name: Adobe Express
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/adobe_express.png
-  site: https://www.adobe.com/express/
-  tier: aluminum
-- name: Howard Cohen
-  tier: aluminum
-- name: Gordon Franken
-  tier: aluminum
-- name: Chin Family
-  tier: aluminum
-- name: Eli Lipsky
-  tier: aluminum
-- name: Jonah J. Sachs Wetstone
-  tier: aluminum
-- name: Caroline Lee
-  tier: aluminum
+
 - name: Jason Lee
   tier: aluminum
-- name: Hu Min Wu
-  tier: aluminum
-- name: Vicky Wang
-  tier: aluminum
-- name: Yi Lin Mu
+
+- name: Gordon Franken
   tier: aluminum
 
+- name: Caroline Lee
+  tier: aluminum
