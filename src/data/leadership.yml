@@ -8,22 +8,22 @@
   description: The President of Software Engineering primarily manages the development of robot code and all related software. They also manage the design and development of all human interfaces and control systems. The PoSE is responsible for the production of documentation concerning the control system on all levels, such as pinout sheets and systems check guidelines. They work closely with the PoE to effectively manage the development of the control system alongside the hardware. The PoSE also collaborates with the strategy team to develop effective solutions for both the teleoperated and autonomous modes, as well as the Business team to coordinate events and regional activities, such as seminars. The PoSE must effectively manage the software development team in order to accomplish these responsibilities and must have the same level of familiarity with the robot as the PoE.
   department: Software Engineering
 - name: Harry B.
-  position: President of Engineering
+  position: President of Mechanical Engineering
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/HarryB.jpg
-  description: The President of Engineering is familiar with every part of the robot, able to explain the part to another team member or a judge, as well as able to repair any part of the robot if it is broken. They are also knowledgeable about the details of the Chairman’s Award submission and other award submissions.
-  department: Engineering
+  description: The President of Mechanical Engineering is familiar with every part of the robot, able to explain the part to another team member or a judge, as well as able to repair any part of the robot if it is broken. They are also knowledgeable about the details of the Chairman’s Award submission and other award submissions.
+  department: Mechanical Engineering
 - name: Cindy Z.
   position: President of Business
   description: The President of Business holds final responsibility for all outreach, logistics, and award submissions for the team. They have full knowledge of all awards and shall present the Chairman’s Award or assign the presentation to someone else deemed competent. The PoM also has adequate knowledge of the other two departments.
   department: Business
 - name: Kalimul K.
   position: Vice President of Software Engineering
-  description: The Vice President of Software Engineering is the second­-in-­command for the Software Engineering department. They have knowledge of what the President of Software Engineering is currently doing and should be able to direct the Software Engineering department in the event of the PoSE’s absence, as well as collaborate with the President of Engineering in managing the overall robot project.
+  description: The Vice President of Software Engineering is the second­-in-­command for the Software Mechanical Engineering department. They have knowledge of what the President of Software Engineering is currently doing and should be able to direct the Software Mechanical Engineering department in the event of the PoSE’s absence, as well as collaborate with the President of Mechanical Engineering in managing the overall robot project.
   department: Software Engineering
 - name: Henry Z.
-  position: Vice President of Engineering
-  description: The Vice President of Engineering is considered the second-in-command for the Engineering department. They have knowledge of what the Presidents are currently doing and is able to direct the Engineering department in the event of the PoE’s absence. The VPoE also has extensive knowledge of each part of the robot as well as basic knowledge of all awards submissions.
-  department: Engineering
+  position: Vice President of Mechanical Engineering
+  description: The Vice President of Mechanical Engineering is considered the second-in-command for the Mechanical Engineering department. They have knowledge of what the Presidents are currently doing and is able to direct the Mechanical Engineering department in the event of the PoE’s absence. The VPoE also has extensive knowledge of each part of the robot as well as basic knowledge of all awards submissions.
+  department: Mechanical Engineering
 - name: Rachel U.
   position: Vice President of Business
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RachelK.jpg
@@ -50,52 +50,52 @@
   position: Director of Electronics
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RainS.jpg
   description: The Director of Electronics sets up and manages the electronic systems on the robot to FIRST regulations. They cooperate with both engineers and software engineers to ensure that the electronic systems are organised and able to be modified if needed. The DoE is also responsible for the education of other members in the electronics subdepartment.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Rachel K.
   position: Co-Assistant Director of Electronics
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RachelK%20(3).jpg
   description: The Assistant Director of Electronics is familiar with all aspects of the electronic systems on the robot and be able to assume the jobs of Director of Electronics at any time.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Elin K.
   position: Co-Assistant Director of Electronics
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/ElinK.jpg
   description: The Assistant Director of Electronics is familiar with all aspects of the electronic systems on the robot and be able to assume the jobs of Director of Electronics at any time.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Ryan Z.
   position: Director of Lab Operations and Safety
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/RyanZ.jpg
   description: The Director of Lab Operations and Safety, at the highest level, is responsible for the smooth running of the team's workspaces. They are responsible for keeping a detailed inventory of the tools and construction materials in the laboratory as well as a record of materials used in the construction of the robot. The Co-DoLOS is also responsible for ensuring that all necessary safety rules are observed in the lab during build season. The Co-DoLOS will automatically be appointed Safety Captain at the competition and will be responsible for carrying out all duties therein.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Jaco X.
   position: Director of Design
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/JacoX.jpg
   description: The Director of Design is responsible for the upkeep of the CAD model of the robot and all elements thereof with the aid of a CAD team. This CAD team is to be instructed in the use of CAD programs and led by the Director of Design.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Amelia N.
   position: Director of Machining
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/AmeliaN.jpg
   description: The Primary Machinist is responsible for the maintaining the mill, lathe, and their parts. He/she must also make sure that there will be at least two members of the team that will be able to use the mill in the upcoming year, including the Primary Machinist. If there are fewer than two such members, the Primary Machinist is responsible for training new members.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Esther L.
   position: Co-Assistant Director of Machining
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/EstherL.jpg
   description: The Assistant Machinist is to be familiar with all aspects of machining and be ready to assume the jobs of Director of Machining if necessary.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Tracy Y.
   position: Co-Assistant Director of Machining
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/TracyY.jpg
   description: The Assistant Machinist is to be familiar with all aspects of machining and be ready to assume the jobs of Director of Machining if necessary.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Zhi Han Y.
   position: Director of Field Construction
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/ZhiHan.jpg
   description: It is the job of the Director of Field Construction to construct the field of the released game with acceptable accuracy. For each function that the robot has to perform, it is this person’s responsibility to ensure that at least one set of the field elements involved in that task is procured and produced. However, the DoFC will also be responsible for all other fields, including FLL, FTC, and FRC fields. They are responsible for the upkeep of the shipping/robot crates and building new robot carts.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Vinson C.
   position: Director of Procurement
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/VincentC.jpg
   description: The Director of Procurement is responsible for overseeing and actualizing the procurement of goods necessary for the team’s operation. The DoP is similarly responsible for identifying adequate substitutes when a necessary resource cannot be obtained from the traditional supplier for a reasonable cost. All procurement requests must be approved by a faculty advisor. The DoP is also required to maintain a detailed, uptodate account of the team’s expenditures, available on request.
-  department: Engineering
+  department: Mechanical Engineering
 - name: Kara Y.
   position: Director of Finance
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/KaraY.jpg
