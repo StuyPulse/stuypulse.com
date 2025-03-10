@@ -34,10 +34,10 @@
   site: https://www.hbk.com/
   tier: silver
 
-# bronze
+- name: The Cobras
+  tier: silver
 
-- name: Steven Gurney Goldman
-  tier: bronze
+# bronze
 
 - name: Comcast
   logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/comcast.png
@@ -71,12 +71,6 @@
   tier: bronze
 
 # aluminum
-
-- name: Jake Falk
-  tier: aluminum
-
-- name: Ryan Rakower
-  tier: aluminum
 
 - name: Jason Lee
   tier: aluminum
