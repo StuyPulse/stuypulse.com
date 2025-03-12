@@ -3,11 +3,6 @@
 
 #check old site for positions
 
-- name: Colyi C.
-  position: President of Software Engineering 
-  description: The President of Software Engineering primarily manages the development of robot code and all related software. They also manage the design and development of all human interfaces and control systems. The PoSE is responsible for the production of documentation concerning the control system on all levels, such as pinout sheets and systems check guidelines. They work closely with the PoE to effectively manage the development of the control system alongside the hardware. The PoSE also collaborates with the strategy team to develop effective solutions for both the teleoperated and autonomous modes, as well as the Business team to coordinate events and regional activities, such as seminars. The PoSE must effectively manage the software development team in order to accomplish these responsibilities and must have the same level of familiarity with the robot as the PoE.
-  department: Software Engineering
-
 - name: Harry B.
   position: President of Mechanical Engineering
   image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/HarryB.jpg
@@ -21,6 +16,7 @@
 
 - name: Kalimul K.
   position: Vice President of Software Engineering
+  image: /ecac/Kalimul_K.jpg
   description: The Vice President of Software Engineering is the second­-in-­command for the Software Mechanical Engineering department. They have knowledge of what the President of Software Engineering is currently doing and should be able to direct the Software Mechanical Engineering department in the event of the PoSE's absence, as well as collaborate with the President of Mechanical Engineering in managing the overall robot project.
   department: Software Engineering
 
@@ -49,6 +45,7 @@
 
 - name: Ian S.
   position: Director of Software Newbie Relations
+  image: /ecac/Ian_S.jpg
   description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
   department: Software Engineering
 
@@ -61,11 +58,6 @@
 - name: Rahul D.
   position: Co-Director of Software Newbie Relations
   description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
-  department: Software Engineering
-
-- name: Gus W.
-  position: Director of I/T
-  description: The job of the Director of I/T is to create new technology related to team logistics,integrate and develop of existing technology, document existing tools, and teach members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team's website is up to date.
   department: Software Engineering
 
 - name: Veronika G.
@@ -87,6 +79,7 @@
 
 - name: Elin K.
   position: Co-Assistant Director of Electronics
+  image: /ecac/Elin_K.jpg
   description: The Assistant Director of Electronics is familiar with all aspects of the electronic systems on the robot and be able to assume the jobs of Director of Electronics at any time.
   department: Mechanical Engineering
 
