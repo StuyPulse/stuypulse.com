@@ -80,3 +80,13 @@
 
 - name: Caroline Lee
   tier: aluminum
+
+- name: Integras Intelligence
+  logo: /sponsors/integras.jpg
+  site: https://integrasintel.com/
+  tier: aluminum
+
+- name: 4RB
+  logo: /sponsors/4rb.png
+  site: https://4rb.net/
+  tier: aluminum
