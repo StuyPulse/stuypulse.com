@@ -8,6 +8,8 @@
   dropdown:
     - name: About Us
       href: /about
+    - name: Board
+      href: /about/board
     - name: History
       href: /about/history
     - name: Leadership

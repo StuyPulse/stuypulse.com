@@ -1,0 +1,79 @@
+---
+import PageSite from "@layouts/PageSite.astro"
+---
+
+<style>
+    .center {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .box {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card {
+        height: 75px;
+        min-width: 300px;
+        border: #9c9c9c 1px solid;
+        position: relative;
+        margin-top: 10px;
+    }
+
+    .card > h1 {
+        font-size: x-large;
+        background-color: white;
+        position: absolute;
+        top: -13px;
+        left: 10px;
+        padding: 0px 10px 0px 10px;
+    }
+
+    .card > p {
+        font-size: large;
+        margin-left: auto;
+        margin-top: auto;
+        padding: 13px 15px 0px 15px;
+    }
+</style>
+
+<PageSite title="Board" description={"Meet the board of our nonprofit organization."}>
+    <div class="center">
+        <h1>Board</h1>
+        <div class="box">
+            <div class="card">
+                <h1>Kevin Wang</h1>
+                <p>President</p>
+            </div>
+        
+            <div class="card">
+                <h1>Richard Leung</h1>
+                <p>Vice President, Treasurer</p>
+            </div>
+            
+            <div class="card">
+                <h1>Joseph Blay</h1>
+                <p>Faculty Director</p>
+            </div>
+        
+            <div class="card">
+                <h1>Navid Kashem</h1>
+                <p>Secretary, Mentor Director</p>
+            </div>
+
+            <div class="card">
+                <h1>Dustin Doan</h1>
+                <p>Director</p>
+            </div>
+
+            <div class="card">
+                <h1>James Lonardo</h1>
+                <p>Director</p>
+            </div>
+        </div>
+    </div>
+</PageSite>
