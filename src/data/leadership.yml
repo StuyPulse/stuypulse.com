@@ -141,6 +141,11 @@
   description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
   department: Software Engineering
 
+- name: Lucas O.
+  position: Assistant Director of Software Newbie Relations (ADoSNR)
+  description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
+  department: Software Engineering
+
 - name: Daniel Y.
   position: Director of I/T (DoIT)
   description: Responsible for creating new technology related to team logistics, continuous integration and development of existing technology, documenting existing tools, teaching members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team's website is up to date. The Director of I/T is also responsible for raising violations of the EC/AC attendence policy.
