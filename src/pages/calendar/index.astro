@@ -36,6 +36,13 @@ import PageSite from "@layouts/PageSite.astro";
       }) : "empty";
     }
 
+    function dayFormat(date: Date | null) {
+      return date !== null ? date.toLocaleDateString([], {
+        month: "short",
+        day: "numeric"
+      }) : "empty";
+    }
+
     function showEventModal(event: any) {
       const modal = document.getElementById("eventModal");
       const modalTitle = document.getElementById("modalTitle");
@@ -47,8 +54,9 @@ import PageSite from "@layouts/PageSite.astro";
 
       modalTitle.textContent = event.title;
 
-      modalTitle.textContent = event.title;
-      modalTime.textContent = `${timeFormat(event.start)} - ${timeFormat(event.end)}`;
+      const time = timeFormat(event.start) == timeFormat(event.end) ? `All Day` : `${timeFormat(event.start)} - ${timeFormat(event.end)}`;
+      const day = dayFormat(event.start) == dayFormat(event.end) ? dayFormat(event.start) : `${dayFormat(event.start)} - ${dayFormat(event.end)}`;      
+      modalTime.textContent = `${day}: ${time}`;
 
       const description = event.extendedProps.description || "";
       const location = event.extendedProps.location || "";
@@ -57,8 +65,21 @@ import PageSite from "@layouts/PageSite.astro";
       const zoomLink = (description.match(zoomRegex) || location.match(zoomRegex) || [])[0];
 
       if (description) {
-        modalDescription.textContent = description;
-        modalDescription.style.display = "block";
+        const cleanDescription = (text: string) => {
+          let cleaned = text.replace(/<a[^>]*href="[^"]*zoom\.us[^"]*"[^>]*>.*?<\/a>/gi, '');
+          cleaned = cleaned.replace(/(https:\/\/[a-z0-9.-]*zoom\.us\/[^\s]+)/gi, '');
+          cleaned = cleaned.replace(/\s+/g, ' ').trim();
+          return cleaned;
+        };
+        
+        const cleanedDescription = cleanDescription(description);
+
+        if (cleanedDescription) {
+          modalDescription.textContent = cleanedDescription;
+          modalDescription.style.display = "block";
+        } else {
+          modalDescription.style.display = "none";
+        }
       } else {
         modalDescription.style.display = "none";
       }
