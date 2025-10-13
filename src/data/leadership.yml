@@ -5,11 +5,13 @@
 
 - name: Henry Z.
   position: President of Mechanical Engineering (PoME)
+  image: /ecac/Henry_Z.jpg
   description: The President of Mechanical Engineering manages and oversees the construction and maintenance of the robot. They delegate the construction of the mechanisms of the robot. They are familiar with every mechanisms of the robot and able to explain the mechanisms to another team member or a judge. The PoE is also responsible for making administrative decisions for newbie education. Throughout the build season, they are a major contributor to the CAD and oversee the pits during competitions. They also communicate and work closely with the PoSE, Director of Electronics, and Director of Design to maintain the robot's systems.
   department: Mechanical Engineering
 
 - name: Ruicheng Q.
   position: Vice President of Mechanical Engineering (VPoME)
+  image: /ecac/Ruicheng_Q.jpg
   description: The Vice President of Mechanical Engineering is considered the second-in-command for the Mechanical Engineering department. They have knowledge of what the Presidents are currently doing and is able to direct the Mechanical Engineering division in the event of the PoME's absence. The VPoME also has extensive knowledge of each part of the robot.
   department: Mechanical Engineering
 
@@ -33,20 +35,24 @@
 
 - name: Alex W.
   position: Vice President of Software Engineering (VPoSE)
+  image: /ecac/Alex_W.jpg
   description: The Vice President of Software Engineering is the second-in-command for the Software Engineering department. They have knowledge of what the President of Software Engineering is currently doing and should be able to direct the Software Engineering department in the event of the PoSE's absence, as well as collaborate with the President of Mechanical Engineering in managing the overall robot project.
   department: Software Engineering
 
 - name: Rachel K.
-  position: Director of Electronics (DoE)
+  position: Director of Electronics (DoE)]
+  image: /ecac/Rachel_K.jpg
   description: The Director of Electronics sets up and manages the electronic systems on the robot to FIRST regulations. They cooperate with both engineers and software engineers to ensure that the electronic systems are organised and able to be modified if needed. The DoE is also responsible for the education of other members in the electronics subdepartment. The Director of Electronics is also responsible for the creation and management of the pneumatic system on the robot according to FIRST regulations. The director is responsible for the upkeep and maintenance of all compressors, solenoids, and pistons. Additionally, they are responsibile for the CAD associated with the control system, including the vision.
   department: Mechanical Engineering
 
 - name: Elin K.
+  image: /ecac/Elin_K.jpg
   position: Director of Electronics (DoE)
   description: The Director of Electronics sets up and manages the electronic systems on the robot to FIRST regulations. They cooperate with both engineers and software engineers to ensure that the electronic systems are organised and able to be modified if needed. The DoE is also responsible for the education of other members in the electronics subdepartment. The Director of Electronics is also responsible for the creation and management of the pneumatic system on the robot according to FIRST regulations. The director is responsible for the upkeep and maintenance of all compressors, solenoids, and pistons. Additionally, they are responsibile for the CAD associated with the control system, including the vision.
   department: Mechanical Engineering
 
 - name: Nicole C.
+  image: /ecac/Nicole_C.jpg
   position: Assistant Director of Electronics (ADoE)
   description: The Assistant Director of Electronics is familiar with all aspects of the electronic systems on the robot and be able to assume the jobs of Director of Electronics at any time.
   department: Mechanical Engineering
@@ -58,22 +64,25 @@
   department: Mechanical Engineering
 
 - name: Esther L.
+  image: /ecac/Esther_L.jpg
   position: Director of Mechanical Newbie Education (DoMNR)
-  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/EstherL.jpg
   description: The Director of Mechanical Newbie Relations is responsible for the education of new members in mechanical engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoMNR is also responsible for ensuring the new members feel included, and have tasks during the off-season. The DoMNR is also responsible in making sure that all the veterans are well equipped andunderstand their task to help teach the newbies. They are also responsible for managing newbie education.
   department: Mechanical Engineering
 
 - name: Christina L.
+  image: /ecac/Christina_L.jpg
   position: Director of Mechanical Newbie Education (DoMNR)
   description: The Director of Mechanical Newbie Relations is responsible for the education of new members in mechanical engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoMNR is also responsible for ensuring the new members feel included, and have tasks during the off-season. The DoMNR is also responsible in making sure that all the veterans are well equipped andunderstand their task to help teach the newbies. They are also responsible for managing newbie education.
   department: Mechanical Engineering
 
 - name: Leslie G.
+  image: /ecac/Leslie_G.jpg
   position: Assistant Director of Mechanical Newbie Education (ADoMNR)
   description: The Director of Mechanical Newbie Relations is responsible for the education of new members in mechanical engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoMNR is also responsible for ensuring the new members feel included, and have tasks during the off-season. The DoMNR is also responsible in making sure that all the veterans are well equipped andunderstand their task to help teach the newbies. They are also responsible for managing newbie education.
   department: Mechanical Engineering
 
 - name: Marsiha B.
+  image: /ecac/Marsiha_B.jpg
   position: Assistant Director of Lab Operations and Safety (ADoLOS)
   description: The Director of Lab Operations and Safety, at the highest level, is responsible for the smooth running of the team's workspaces. They are responsible for keeping a detailed inventory of the tools and construction materials in the laboratory as well as a record of materials used in the construction of the robot. The DoLOS is also responsible for ensuring that all necessary safety rules are observed in the lab during build season.
   department: Mechanical Engineering
@@ -89,11 +98,13 @@
   department: Mechanical Engineering
 
 - name: Oliver H.
+  image: /ecac/Oliver_H.jpg
   position: Director of Machining (DoM)
   description: There are three leadership positions total, one for each section of the machining department (Waterjet; CNC and Laser Cutter; Bridgeport, Lathe, and other miscellaneous machines). Two of these positions are the ADoM, while the DoM position is for one qualified member who is specialized in at least one machining section and is willing to learn/has experience in the other machining sections. The DoM's primary responsibility is to supervise the machining subcategories while leading their respective sections of machining, while also providing feedback to other ADoMs and members of their respective sections. The DoM represents machining as a whole when it comes to general discussions and final decisions
   department: Mechanical Engineering
 
 - name: Anson Y.
+  image: /ecac/Anson_Y.jpg
   position: Assistant Director of Machining (ADoM)
   description: There are three leadership positions total, one for each section of the machining department (Waterjet; CNC and Laser Cutter; Bridgeport, Lathe, and other miscellaneous machines). Two of these positions are the ADoM, while the DoM position is for one qualified member who is specialized in at least one machining section and is willing to learn/has experience in the other machining sections. The DoM's primary responsibility is to supervise the machining subcategories while leading their respective sections of machining, while also providing feedback to other ADoMs and members of their respective sections. The DoM represents machining as a whole when it comes to general discussions and final decisions
   department: Mechanical Engineering
@@ -116,37 +127,37 @@
   department: Mechanical Engineering
 
 - name: Ehan F.
+  image: /ecac/Ehan_F.jpg
   position: Director of Procurement (DoP)
   description: The Director of Procurement is responsible for overseeing and actualizing the procurement of goods necessary for the team's operation. The DoP is similarly responsible for identifying adequate substitutes when a necessary resource cannot be obtained from the traditional supplier for a reasonable cost. All procurement requests must be approved by a faculty advisor. The DoP is also required to maintain a detailed, uptodate account of the team's expenditures, available on request.
   department: Mechanical Engineering
 
 - name: Belal H.
+  image: /ecac/Belal_H.jpg
   position: Director of Procurement (DoP)
   description: The Director of Procurement is responsible for overseeing and actualizing the procurement of goods necessary for the team's operation. The DoP is similarly responsible for identifying adequate substitutes when a necessary resource cannot be obtained from the traditional supplier for a reasonable cost. All procurement requests must be approved by a faculty advisor. The DoP is also required to maintain a detailed, uptodate account of the team's expenditures, available on request.
   department: Mechanical Engineering
 
 - name: Rahul D.
+  image: /ecac/Rahul_D.jpg
   position: Director of Software Newbie Relations (DoSNR)
   description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
   department: Software Engineering
 
 - name: Zixi Q.
+  image: /ecac/Zixi_Q.jpg
   position: Director of Software Newbie Relations (DoSNR)
   description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
   department: Software Engineering
 
 - name: Mustafa A.
+  image: /ecac/Mustafa_A.jpg
   position: Director of Software Newbie Relations (DoSNR)
-  image: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/leadership/Mustafa.jpg
-  description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
-  department: Software Engineering
-
-- name: Lucas O.
-  position: Assistant Director of Software Newbie Relations (ADoSNR)
   description: The Director of Software Newbie Relations is responsible for the education of new members in software engineering, engagining newbies in all efforts related to the robot or team, development of a curriculum, and ensuring the lessons are made in advance. The DoSNR is also responsible for ensuring the new members feel included, and have tasks during the off-season.
   department: Software Engineering
 
 - name: Daniel Y.
+  image: /ecac/Daniel_Y.jpg
   position: Director of I/T (DoIT)
   description: Responsible for creating new technology related to team logistics, continuous integration and development of existing technology, documenting existing tools, teaching members interested in I/T. The director ensures that I/T responsibilities are focused on the team website, the team manager, and important tools for attendance. The director of I/T will also have to communicate with business to ensure the team's website is up to date. The Director of I/T is also responsible for raising violations of the EC/AC attendence policy.
   department: Software Engineering
@@ -158,21 +169,25 @@
   department: Business
 
 - name: Jolie Y.
+  image: /ecac/Jolie_Y.jpg
   position: Director of Finance (DoF)
   description: The Director of Finance is directly responsible for creating the yearly Financial Plan to indicate the fundraising goal for the year. In addition, the Director of Finance is also responsible for fundraising through applying for grants and contacting current or potentially new sponsors. The Director of Finance must also maintain stable relationships with sponsors and contact them on a regular basis.
   department: Business
 
 - name: Tahmid U.
+  image: /ecac/Tahmid_U.jpg
   position: Director of Media (DoM)
   description: The Director of Media is responsible for the creation of all visual and media content for our social media platforms. They are also responsible for taking pictures and videos at all team events. They are to work alongside the Director of Public Relations to create necessary content. The DoM is also responsible for leading and educating the members of the media team, composed of members from all three departments and in charge of all media related matters (e.g. videos, pictures, etc.).
   department: Business
 
 - name: Lixin Z.
+  image: /ecac/Lixin_Z.jpg
   position: Director of Operations (DoO)
   description: The Director of Operations will handle the day-­to-­day operations of the entire team. The Director of Operations is responsible for all paperwork, trip planning, managing deadlines and other logistics regarding the team. Their responsibilities may include collecting team dues, participant information like IDs, and attendance.
   department: Business
 
 - name: Weifen C.
+  image: /ecac/Weifen_C.jpg
   position: Director of Impact (DoI)
   description: The Director of Impact will lead all efforts to prepare for the Impact Award, including documentation, presentation, and scheduling practices. They will communicate with EC/AC of all departments to sustain team culture and work alongside the DoA to cover goals for awards. They are in charge of Impact presenter try-outs and may be a presenter. They will prepare and print any needed material. Other submitted awards will be led by the Business EC/AC.
   department: Business
@@ -190,6 +205,7 @@
   department: Strategy
 
 - name: Murphy L.
+  image: /ecac/Murphy_L.jpg
   position: Assistant Director of Strategy (ADoS)
   description: The Assistant Director of Strategy is responsible for collaborating with the Director of Strategy and the strategy team throughout the season. The Assistant Director of Strategy is to be familiar with all aspects of strategy and be ready to assume the jobs of Director of Strategy if necessary.
   department: Strategy

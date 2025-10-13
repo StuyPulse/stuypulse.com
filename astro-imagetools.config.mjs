@@ -1,7 +1,7 @@
 import { defineConfig } from "astro-imagetools/config";
 
 export default defineConfig({
-  cacheDir: "/.astro-imagetools-cache",
+  cacheDir: "node_modules/.cache/astro-imagetools",
   placeholder: "blurred",
   format: ["webp"],
   includeSourceFormat: true,
