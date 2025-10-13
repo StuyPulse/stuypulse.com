@@ -87,11 +87,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
         >
           {
             leadership.image ? (
-              (leadership.image.startsWith("/") || leadership.image.startsWith("http")) ? (
-                <img src={leadership.image} alt={leadership.name} style="width:100%; height:auto; object-fit:contain;" />
-              ) : (
-                <Picture src={leadership.image} alt={leadership.name} />
-              )
+              <img src={leadership.image} alt={leadership.name} />
             ) : (
               <strong>
                 <h1 class="fw-bold text-muted text-center ">{leadership.name}</h1>

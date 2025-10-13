@@ -82,21 +82,18 @@ const imageData = yml.default;
       imageData.map((image: CarouselItemType, index: number) => (
         <div class={index == 0 ? "carousel-item active" : "carousel-item"}>
           {image["img-link"] == null ? (
-            <Picture
+            <img
               src={image.img}
               alt="..."
-              attributes={{
-                class: "d-block w-100",
-              }}
+              class="d-block w-100"
             />
           ) : (
             <a href={image["img-link"]} target="_blank">
-              <Picture
+              <img
                 src={image.img}
                 alt="..."
-                attributes={{
-                  class: "d-block w-100",
-                }}
+                class="d-block w-100"
+
               />
             </a>
           )}
