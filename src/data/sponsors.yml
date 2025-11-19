@@ -37,6 +37,11 @@
 - name: The Cobras
   tier: silver
 
+- name: D.E. Shaw
+  logo: /sponsors/deshaw.jpg
+  site: https://www.deshaw.com/
+  tier: silver
+
 # bronze
 
 - name: Comcast
