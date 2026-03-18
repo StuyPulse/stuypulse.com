@@ -6,5 +6,5 @@ link: /newsletters/2026-02-28-week-0-newsletter.pdf
 date: 2026-02-28
 ---
 
-This is the [Rebuilt Week 6 Newsletter 2026](/newsletters/2026-02-28-week-0-newsletter.pdf)! Check it out!
+This is the [Rebuilt Week 0 Newsletter 2026](/newsletters/2026-02-28-week-0-newsletter.pdf)! Check it out!
 
