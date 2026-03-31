@@ -95,6 +95,11 @@ const { frontmatter } = Astro.props;
             >{frontmatter.year + " season stats on The Blue Alliance"}</a
           >
         </li>
+        {frontmatter.links && frontmatter.links.map((link: LinkType) => (
+        <li>
+          <a href={link.url}>{link.name}</a>
+        </li>
+      ))}
       </ul>
     </td>
   </tr>
