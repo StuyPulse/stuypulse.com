@@ -10,6 +10,7 @@ export interface Props {
 }
 
 const { sponsor, height, width, tSize } = Astro.props;
+const actualWidth = sponsor.wide ? "360px" : width;
 ---
 
 <style>
@@ -20,13 +21,13 @@ const { sponsor, height, width, tSize } = Astro.props;
 
 {
   sponsor.logo ? (
-    <div>
+    <div style="width: 100%; display: flex; justify-content: center;">
       {sponsor.site == null ? (
         <ImageContainer
           img={sponsor.logo}
           alt={sponsor.name}
           height={height}
-          width={width}
+          width={actualWidth}
           tSize={tSize}
           placeholder={"none"}
         />
@@ -36,7 +37,7 @@ const { sponsor, height, width, tSize } = Astro.props;
             img={sponsor.logo}
             alt={sponsor.name}
             height={height}
-            width={width}
+            width={actualWidth}
             tSize={tSize}
             placeholder={"none"}
           />

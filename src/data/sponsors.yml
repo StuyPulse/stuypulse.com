@@ -6,11 +6,17 @@
 
 # platinum
 - name: SHS Parents' Association
+  logo: /sponsors/StuyPA.png
   site: https://stuy-pa.org/
   tier: platinum
+  wide: true
 
 # gold
 - name: Vivian & Edward Lin Charitable Fund
+  tier: gold
+- name: SHS Alumni Association
+  logo: /sponsors/stuyalumni.png
+  site: https://www.stuyalumni.org/
   tier: gold
 
 # silver
@@ -18,7 +24,12 @@
   logo: /sponsors/deshaw.jpg
   site: https://www.deshaw.com/
   tier: silver
-- name: LiLi & Marcus
+- name: LiLy & Marcus
+  tier: silver
+- name: Gene Haas Foundation
+  site: https://www.ghaasfoundation.org/
+  tier: silver
+- name: The Lasher Family
   tier: silver
 
 # bronze
@@ -78,13 +89,4 @@
 - name: Daniel Lau Parent
   tier: aluminum
 - name: FLL Chinatown Center
-  tier: aluminum
-- name: Gene Haas Foundation
-  site: https://www.ghaasfoundation.org/
-  tier: aluminum
-- name: The Lasher Family
-  tier: aluminum
-- name: SHS Alumni Association
-  logo: /sponsors/stuyalumni.png
-  site: https://www.stuyalumni.org/
   tier: aluminum

@@ -21,6 +21,7 @@ export interface SponsorType {
   logo: string;
   site: string;
   type: string;
+  wide: boolean;
 }
 
 export interface SponsorTierType {
