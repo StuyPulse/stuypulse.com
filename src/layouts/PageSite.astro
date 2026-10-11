@@ -7,8 +7,9 @@ export interface Props {
   title: string;
   description: string;
   image?: string;
+  showStuySplashBanner?: boolean;
 }
-const { title, image, description } = Astro.props;
+const { title, image, description, showStuySplashBanner = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
@@ -21,10 +22,24 @@ const { title, image, description } = Astro.props;
     />
   </head>
   <body>
-    <Header />
-    <div class="container-sm" style="margin-top:80px">
+    <Header showStuySplashBanner={showStuySplashBanner} />
+    <div class:list={["container-sm", "page-content", { "with-stuysplash-banner": showStuySplashBanner }]}>
       <slot />
     </div>
     <Footer />
   </body>
 </html>
+
+<style>
+  .page-content {
+    margin-top: 80px;
+  }
+  .page-content.with-stuysplash-banner {
+    margin-top: 132px;
+  }
+  @media screen and (max-width: 575px) {
+    .page-content.with-stuysplash-banner {
+      margin-top: 144px;
+    }
+  }
+</style>

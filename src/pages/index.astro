@@ -87,12 +87,20 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   .stuysplash-links button {
     margin-top: 0;
   }
+  #stuysplash {
+    scroll-margin-top: 9rem;
+  }
+  @media screen and (max-width: 575px) {
+    #stuysplash {
+      scroll-margin-top: 10rem;
+    }
+  }
   /* iframe {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   } */
 </style>
 
-<PageSite title={"Home"} description={"Team 694 is an award-winning FIRST robotics team from New York City. Find out about our team, its history, and view pictures and videos."}>
+<PageSite title={"Home"} description={"Team 694 is an award-winning FIRST robotics team from New York City. Find out about our team, its history, and view pictures and videos."} showStuySplashBanner={true}>
   <div class="row">
     <div class="col">
       <div class="large-name">
@@ -118,15 +126,15 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
   </div>
   <div class="row">
     <div class="col">
-      <div class="large-name">StuySplash</div>
+      <div class="large-name" id="stuysplash">StuySplash</div>
       <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
         StuyPulse's 2026 Annual Lecture Series&nbsp;
       </div>
       <br />
       <p>
-        Share your knowledge with the FRC community at StuySplash! All students,
-        mentors, parents, and alumni are welcome, and topics range anywhere from
-        efficient CAD to building lasting outreach initiatives.
+        Share your knowledge with the FRC community at StuySplash on December
+        12th! In 2025, we had 25 presentations and 276 attendees from across 3
+        states. Signups for presenters and attendees are now open!
       </p>
       <div class="stuysplash-links">
         <a href="https://forms.gle/tnJWybez9SDajAnt7"
