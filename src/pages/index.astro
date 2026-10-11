@@ -70,6 +70,23 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
     width: 20rem;
     display: flex;
   }
+  .stuysplash-photo {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    box-shadow: 0 3px 6px rgb(0 0 0 / 20%), 0 6px 20px rgb(0 0 0 / 19%);
+  }
+  .stuysplash-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+  }
+  .stuysplash-links button {
+    margin-top: 0;
+  }
   /* iframe {
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
   } */
@@ -124,6 +141,41 @@ const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
       <a href="/about/history"
         ><button type="button"> Past Competition Robots &gt;&gt;</button></a
       >
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <div class="large-name">StuySplash</div>
+      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
+        StuyPulse's 2026 Annual Lecture Series&nbsp;
+      </div>
+      <br />
+      <p>
+        Share your knowledge with the FRC community at StuySplash! All students,
+        mentors, parents, and alumni are welcome, and topics range anywhere from
+        efficient CAD to building lasting outreach initiatives.
+      </p>
+      <div class="stuysplash-links">
+        <a href="https://docs.google.com/forms/d/1cbyd6DM4YLS0nLdipjl3_ux1b-ufm8nrApPGMurUB7A/viewform?edit_requested=true"
+          ><button type="button">Attendee Sign Up</button></a
+        >
+        <a href="https://docs.google.com/forms/d/1XwPhg-uftsyxoegRx0r4vFJvg06CTUnQe1iOY_hTmLQ/viewform?edit_requested=true"
+          ><button type="button">Presenter Sign Up</button></a
+        >
+        <a href="/resources/stuysplash/2025/"
+          ><button type="button">Past Presentations</button></a
+        >
+      </div>
+    </div>
+    <div class="col-lg-5">
+      <img
+        class="stuysplash-photo"
+        src="/stuysplash/past-stuysplash.jpg"
+        alt="A presenter speaking to attendees at a past StuySplash event"
+        width="1600"
+        height="903"
+        loading="lazy"
+      />
     </div>
   </div>
   <div class="row">
