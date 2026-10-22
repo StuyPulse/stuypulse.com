@@ -1,11 +1,28 @@
 ---
-import { getCollection } from "astro:content";
-
-const StuySplashEntries = await getCollection("stuysplash");
-const latestEntry = StuySplashEntries[StuySplashEntries.length - 1];
-const latestYear = latestEntry.slug;
-
-const url = `0; url=/resources/stuysplash/${latestYear}`;
+import PageSite from "@layouts/PageSite.astro";
+import PresentationsAside from "$components/resources/PresentationsAside.astro";
 ---
 
-<meta http-equiv="refresh" content={url} />
+<PageSite title="StuySplash 2026" description="StuyPulse's annual lecture series is back for 2026! Sign up to attend or present at StuySplash on December 12th.">
+  <h1 class="mb-4">StuySplash 2026</h1>
+  <div class="row">
+    <nav class="col-12 col-sm-12 col-md-2 col-lg-2 text-nowrap" aria-label="Past StuySplash presentations">
+      <PresentationsAside activeYear="2026" />
+    </nav>
+    <div class="col-12 col-sm-12 col-md-10 col-lg-10 content">
+      <p>
+        StuyPulse's annual lecture series is back for 2026! Share your knowledge
+        with the FRC community at StuySplash on December 12th. All students,
+        mentors, parents, and alumni are welcome, and topics range anywhere from
+        efficient CAD to building lasting outreach initiatives. In 2025, we had
+        25 presentations and 276 attendees from across 3 states. Signups for
+        presenters and attendees are now open!
+      </p>
+      <div class="d-flex flex-wrap gap-3 mb-4">
+        <a class="btn btn-danger" href="https://forms.gle/tnJWybez9SDajAnt7">Attendee Sign Up</a>
+        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSfqC0uEmiOw1NMjHvdJKZxJ6xfuuimvwlfqYuV553WP7APFtA/viewform">Presenter Sign Up</a>
+      </div>
+      <p><a href="/resources/stuysplash/2025/">View past presentations from StuySplash 2025</a></p>
+    </div>
+  </div>
+</PageSite>
