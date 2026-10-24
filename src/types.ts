@@ -34,7 +34,7 @@ export interface SponsorTierType {
 export interface LeadershipType {
   name: string;
   position: string;
-  image: string;
+  image?: string;
   description: string;
   department: string;
 }
