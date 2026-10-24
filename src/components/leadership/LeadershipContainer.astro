@@ -1,6 +1,5 @@
 ---
 import type { LeadershipType } from "@types";
-import { Picture } from "astro-imagetools/components";
 
 export interface Props {
   leadership: LeadershipType;
@@ -11,6 +10,7 @@ export interface Props {
 }
 
 const { leadership, height, width, tSize, hSize } = Astro.props;
+const initials = leadership.name.split(/\s+/).map((part) => part[0]).join("");
 ---
 
 <style define:vars={{ height, width, tSize, hSize }}>
@@ -22,11 +22,29 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
     width: var(--width);
   }
   .card-header {
-    /* background: linear-gradient(
-      270deg,
-      rgba(255, 255, 255, 1) 6rem,
-      rgba(224, 0, 0, 1) 7.5rem
-    ); */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
+  .card-header h3 {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
+  .card-header a {
+    flex-shrink: 0;
+  }
+  .portrait-placeholder {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 1;
+    width: 100%;
+    background: #f2f2f2;
+    border: 1px solid #e5e5e5;
+    border-radius: 4px;
+    color: #6c757d;
+    font-size: 2.5rem;
+    font-weight: 700;
   }
 
   .card-body {
@@ -49,11 +67,7 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
 <div class="leadership-container">
   <div class="card">
     <div class="card-header">
-      <div class="row no-gutters">
-        <div class="col-7 d-inline-block align-middle">
           <h3 class="m-0">{leadership.name}</h3>
-        </div>
-        <div class="col-5 d-inline text-nowrap text-end">
           <a href={"/../about/departments#" + leadership.department}>
             {
               [
@@ -76,8 +90,6 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
               )
             }
           </a>
-        </div>
-      </div>
     </div>
     <div class="card-body">
       <div class="row no-gutters">
@@ -85,15 +97,11 @@ const { leadership, height, width, tSize, hSize } = Astro.props;
           class="col-10 col-md-4"
           style="max-width:250px; padding:25px; margin: auto;"
         >
-          {
-            leadership.image ? (
-              <img src={leadership.image} alt={leadership.name} />
-            ) : (
-              <strong>
-                <h1 class="fw-bold text-muted text-center ">{leadership.name}</h1>
-              </strong>
-            )
-          }
+          {leadership.image ? (
+            <img src={leadership.image} alt={leadership.name} />
+          ) : (
+            <div class="portrait-placeholder" aria-hidden="true">{initials}</div>
+          )}
         </div>
         <div class="col-md-8">
           <div class="card-body">
