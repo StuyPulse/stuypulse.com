@@ -43,8 +43,8 @@ for (let i = 1; i <= Math.ceil(sortedNews.length / POSTS_PER_PAGE); i++) {
 }
 ---
 
-<PageSite title={"News"} description={"News and blogposts by our team!"}>
-  <h1 class="mb-4">News and Blogposts</h1>
+<PageSite title={entry ? entry.data.title : "News"} description={"News and blogposts by our team!"}>
+  <h1 class="mb-4">{entry ? entry.data.title : "News and Blogposts"}</h1>
   {
     entry ? (
       <div>

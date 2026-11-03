@@ -1,0 +1,62 @@
+# Pages CMS (https://pagescms.org): the upload form the business team uses.
+# Every save is a commit to this repo, so the site rebuilds on its own.
+# How to use it: docs/publishing-newsletters.md
+
+media:
+  - name: newsletters
+    label: Newsletter PDFs
+    input: public/newsletters
+    output: /newsletters
+    rename: safe
+    extensions: [pdf]
+  - name: news_images
+    label: News images
+    input: public/news-images
+    output: /news-images
+    rename: safe
+    categories: [image]
+
+content:
+  - name: news
+    label: Newsletters & news
+    type: collection
+    path: src/content/news
+    format: yaml-frontmatter
+    filename: "{year}-{month}-{day}-{primary}.md"
+    view:
+      fields: [title, date]
+      primary: title
+      sort: [date, title]
+      default:
+        sort: date
+        order: desc
+    fields:
+      - name: title
+        label: Title
+        type: string
+        required: true
+        description: "Shown on the site, for example: Rebuilt Week 1 Newsletter 2027"
+      - name: date
+        label: Date
+        type: date
+        required: true
+        options:
+          format: yyyy-MM-dd
+      - name: author
+        label: Author
+        type: string
+        description: Leave empty to show StuyPulse.
+      - name: link
+        label: Newsletter PDF
+        type: file
+        description: Upload the PDF here. Leave empty for a written post.
+        options:
+          media: newsletters
+          extensions: [pdf]
+      - name: body
+        label: Post text
+        type: rich-text
+        description: Optional for a newsletter. Shown when there is no PDF.
+        options:
+          format: markdown
+          media: news_images
