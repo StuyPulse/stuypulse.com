@@ -1,0 +1,180 @@
+---
+// Every season as one heartbeat: a spike per robot, as tall as the awards it won.
+import { getCollection } from "astro:content";
+
+export interface Props {
+  // Years whose robot photo sits on its peak.
+  photoYears?: number[];
+}
+const { photoYears = [] } = Astro.props;
+
+const robots = (await getCollection("history")).sort((a, b) => a.data.year - b.data.year);
+const latestYear = robots[robots.length - 1].data.year;
+const W = 1000, H = 300, base = 260, s = W / robots.length;
+let d = `M0 ${base}`;
+const spikes = robots.map((robot, i) => {
+  const awards = robot.data.awards?.length ?? 0;
+  const x = i * s + s / 2, y = base - awards * 20;
+  d += ` L${x - s * 0.3} ${base} L${x - s * 0.12} ${base + 12} L${x} ${y} L${x + s * 0.14} ${base + 18} L${x + s * 0.3} ${base}`;
+  return {
+    name: robot.data.title,
+    year: robot.data.year,
+    slug: robot.slug,
+    awards,
+    photo: photoYears.includes(robot.data.year) ? robot.data.photo : undefined,
+    left: (x / W) * 100,
+    top: (y / H) * 100,
+  };
+});
+d += ` L${W} ${base}`;
+const plural = (n: number) => `${n} award${n === 1 ? "" : "s"}`;
+---
+
+<div class="chart" data-heartbeat>
+  <svg viewBox={`0 0 ${W} ${H}`} preserveAspectRatio="none" aria-hidden="true"><path d={d}></path></svg>
+  <div class="tip" aria-hidden="true"></div>
+  {spikes.map((spike) => (
+    <a
+      class:list={["spike", { pic: spike.photo, big: spike.year === latestYear }]}
+      style={`left:${spike.left}%;top:${spike.top}%`}
+      href={`/about/history/${spike.slug}`}
+      aria-label={`${spike.name}, ${spike.year}, ${plural(spike.awards)}`}
+      data-tip={`<b>${spike.name}</b> ${spike.year}, ${plural(spike.awards)}`}
+    >
+      {spike.photo && <img src={spike.photo} alt="" loading="lazy" />}
+    </a>
+  ))}
+</div>
+<div class="years">
+  <span>{robots[0].data.year}, {robots[0].data.title}</span>
+  <span>{latestYear}, {robots[robots.length - 1].data.title}</span>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>("[data-heartbeat]").forEach((chart) => {
+    const tip = chart.querySelector<HTMLElement>(".tip")!;
+    chart.querySelectorAll<HTMLElement>(".spike").forEach((spike) => {
+      const show = () => {
+        tip.innerHTML = spike.dataset.tip ?? "";
+        tip.style.left = spike.style.left;
+        tip.style.top = spike.style.top;
+        tip.classList.add("show");
+      };
+      const hide = () => tip.classList.remove("show");
+      spike.addEventListener("mouseenter", show);
+      spike.addEventListener("focus", show);
+      spike.addEventListener("mouseleave", hide);
+      spike.addEventListener("blur", hide);
+    });
+  });
+</script>
+
+<style>
+  .chart {
+    position: relative;
+    height: 340px;
+    margin-top: 48px;
+  }
+  svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  path {
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 3;
+    stroke-linejoin: round;
+    vector-effect: non-scaling-stroke;
+  }
+  .spike {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    margin: -15px 0 0 -15px;
+    border-radius: 50%;
+  }
+  .spike::after {
+    content: "";
+    position: absolute;
+    inset: 9px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 0 0 4px #fff;
+    transition: transform 0.15s ease;
+  }
+  .spike:hover::after,
+  .spike:focus-visible::after {
+    transform: scale(1.5);
+  }
+  .spike.pic {
+    width: 64px;
+    height: 64px;
+    margin: -32px 0 0 -32px;
+    overflow: hidden;
+    box-shadow: 0 0 0 4px var(--red), 0 0 0 8px #fff;
+    transition: transform 0.15s ease;
+  }
+  .spike.pic:hover {
+    transform: scale(1.08);
+  }
+  .spike.pic::after {
+    display: none;
+  }
+  .spike.big {
+    width: 104px;
+    height: 104px;
+    margin: -52px 0 0 -52px;
+  }
+  .spike img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tip {
+    position: absolute;
+    z-index: 5;
+    transform: translate(-50%, calc(-100% - 46px));
+    background: var(--ink);
+    color: #fff;
+    border-radius: 18px;
+    padding: 10px 16px;
+    font-size: 15px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.12s ease;
+  }
+  .tip.show {
+    opacity: 1;
+  }
+  .years {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    color: var(--soft);
+    font-size: 16px;
+    margin-top: 8px;
+  }
+  @media (max-width: 860px) {
+    .chart {
+      height: 240px;
+      margin: 28px 24px 0;
+    }
+    .spike:not(.pic) {
+      display: none;
+    }
+    .spike.pic {
+      width: 40px;
+      height: 40px;
+      margin: -20px 0 0 -20px;
+      box-shadow: 0 0 0 3px var(--red), 0 0 0 6px #fff;
+    }
+    .spike.big {
+      width: 60px;
+      height: 60px;
+      margin: -30px 0 0 -30px;
+    }
+  }
+</style>

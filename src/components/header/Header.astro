@@ -3,153 +3,139 @@ import type { NavType } from '@types.js';
 import Nav from './Nav.astro';
 import Dropdown from './Dropdown.astro';
 const navs = (await import('@data/navbar.yml')).default;
+const splash = (await import('@data/stuysplash.yml')).default;
 export interface Props {
-  showStuySplashBanner?: boolean;
+  showBanner?: boolean;
+  // The page starts with its own red hero, so the header runs straight into it.
+  joined?: boolean;
 }
-const { showStuySplashBanner = false } = Astro.props;
+const { showBanner = false, joined = false } = Astro.props;
+const donate = navs.find((nav: NavType) => nav.href === '/donate');
+const links = navs.filter((nav: NavType) => nav !== donate);
 ---
 
-{showStuySplashBanner && (
+{showBanner && splash.showBanner && (
   <div class="stuysplash-banner">
-    <div class="stuysplash-banner-copy">
-      <strong>StuySplash 2026</strong>
-      <span>December 12</span>
-    </div>
-    <a href="/#stuysplash">Learn more about StuySplash <span aria-hidden="true">→</span></a>
+    <strong>StuySplash {splash.year}</strong>
+    <span>{splash.date}</span>
+    <a href="/resources/stuysplash">Sign up</a>
   </div>
 )}
-<nav class:list={["navbar", "navbar-expand-lg", "fixed-top", "mb-3", { "with-stuysplash-banner": showStuySplashBanner }]}>
-  <div class="container-fluid">
-    <a class="navbar-brand text-white" href="/">
-      <img src="/icons/694_white.svg" width="32px" height="32px" />
+<header class:list={["site-header", { joined }]}>
+  <nav class="navbar navbar-expand-lg" aria-label="Main">
+    <a class="brand" href="/">
+      <img src="/icons/694_white.svg" width="38" height="38" alt="" />
       StuyPulse
     </a>
 
     <button
-      class="navbar-toggler"
+      class="menu-button navbar-toggler"
       type="button"
       data-bs-toggle="collapse"
       data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown"
       aria-expanded="false"
-      aria-label="Toggle navigation"
     >
-      <span class="navbar-toggler-icon"></span>
+      Menu
     </button>
 
-    <div
-      class="collapse navbar-collapse flex-row-reverse"
-      id="navbarNavDropdown"
-    >
-      <div style="height:10px"></div>
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
-        {
-          navs.map((nav: NavType) =>
-            nav.dropdown ? <Dropdown nav={nav} /> : <Nav nav={nav} />
-          )
-        }
+        {links.map((nav: NavType) => (nav.dropdown ? <Dropdown nav={nav} /> : <Nav nav={nav} />))}
       </ul>
-      <style>
-        /* .navbar-nav:last-child {
-          // bg color light blue
-          background: rgb(246, 251, 255);
-        } */
-      </style>
+      {donate && <a class="pill pill-white donate" href={donate.href}>Donate</a>}
     </div>
-  </div>
-</nav>
+  </nav>
+</header>
 
 <style>
   .stuysplash-banner {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1040;
     display: flex;
-    width: 100%;
-    height: 52px;
     align-items: center;
     justify-content: center;
-    gap: 1.5rem;
-    padding: 0 1.25rem;
-    background-color: #fff;
-    border-bottom: 1px solid #e5e5e5;
-    color: #333;
+    gap: 14px;
+    flex-wrap: wrap;
+    padding: 10px var(--gutter);
+    background: var(--red-dark);
+    color: #fff;
+    font-size: 16px;
   }
-  .stuysplash-banner-copy {
-    display: flex;
-    align-items: baseline;
-    gap: 0.75rem;
-  }
-  .stuysplash-banner-copy strong {
-    font-weight: 700;
-    color: #333;
+  .stuysplash-banner span {
+    opacity: 0.9;
   }
   .stuysplash-banner a {
-    flex-shrink: 0;
-    border-radius: 999px;
-    padding: 0.35rem 0.85rem;
-    background-color: red;
-    color: white;
+    color: #fff;
     font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
   }
-  .stuysplash-banner a:hover,
-  .stuysplash-banner a:focus-visible {
-    background-color: #e00;
-    color: white;
+  .site-header {
+    position: relative;
+    z-index: 20;
+    background: var(--red);
+    color: #fff;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
   }
-  .stuysplash-banner a:focus-visible {
-    outline: 3px solid #e00;
-    outline-offset: 2px;
-  }
-  .with-stuysplash-banner {
-    top: 52px;
-  }
-  @media screen and (max-width: 575px) {
-    .stuysplash-banner {
-      height: 64px;
-      padding: 0 0.75rem;
-      gap: 0.75rem;
-    }
-    .stuysplash-banner-copy {
-      flex-direction: column;
-      gap: 0;
-      font-size: 0.9rem;
-      line-height: 1.25;
-    }
-    .stuysplash-banner-copy span {
-      font-size: 0.8rem;
-    }
-    .stuysplash-banner a {
-      padding: 0.45rem 0.75rem;
-      font-size: 0.85rem;
-    }
-    .with-stuysplash-banner {
-      top: 64px;
-    }
+  .site-header.joined {
+    border-radius: 0;
   }
   .navbar {
-    box-shadow:
-      0 4px 8px 0 rgba(0, 0, 0, 0.2),
-      0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    background: linear-gradient(
-      180deg,
-      rgba(224, 0, 0, 1) 59px,
-      rgb(246, 251, 255) 0px
-    );
+    padding: 22px var(--gutter);
+    gap: 16px;
   }
-
-  @media screen and (min-width: 992px) {
-    .navbar {
-      box-shadow:
-        0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-      background: linear-gradient(
-        300deg,
-        rgb(246, 251, 255, 1) 43em,
-        rgb(138, 142, 145) 43.5em,
-        rgba(224, 0, 0, 1) 10em
-      );
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: #fff;
+    font-weight: 800;
+    font-size: 24px;
+    letter-spacing: -0.02em;
+  }
+  .brand:hover {
+    color: #fff;
+  }
+  .menu-button {
+    height: 48px;
+    padding: 0 20px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 16px;
+  }
+  .menu-button:focus {
+    box-shadow: none;
+  }
+  .navbar-collapse {
+    justify-content: flex-end;
+    gap: 22px;
+  }
+  .navbar-nav {
+    gap: 6px;
+    align-items: center;
+  }
+  .donate {
+    min-height: 48px;
+  }
+  @media (max-width: 991px) {
+    .navbar-collapse {
+      margin-top: 12px;
+      padding: 16px;
+      border-radius: var(--radius-md);
+      background: #fff;
+    }
+    .navbar-nav {
+      align-items: stretch;
+      gap: 2px;
+    }
+    .donate {
+      margin-top: 12px;
+      width: 100%;
+      background: var(--red);
+      color: #fff;
     }
   }
 </style>

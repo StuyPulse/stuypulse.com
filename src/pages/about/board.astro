@@ -1,79 +1,58 @@
 ---
-import PageSite from "@layouts/PageSite.astro"
+import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
+
+const board: { name: string; role: string }[] = (await import("@data/board.yml")).default;
+const initials = (name: string) => name.split(/\s+/).map((part) => part[0]).join("").slice(0, 3);
 ---
 
-<style>
-    .center {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
+<PageSite title="Board of Directors" description="Meet the board of the StuyPulse nonprofit organization." fullBleed>
+  <PageHead title="Board of Directors" intro="The volunteers who run StuyPulse's nonprofit, which holds the team's funds and sponsorships." />
 
-    .box {
-        display: flex;
-        gap: 10px;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-
-    .card {
-        height: 75px;
-        min-width: 300px;
-        border: #9c9c9c 1px solid;
-        position: relative;
-        margin-top: 10px;
-    }
-
-    .card > h1 {
-        font-size: x-large;
-        background-color: white;
-        position: absolute;
-        top: -13px;
-        left: 10px;
-        padding: 0px 10px 0px 10px;
-    }
-
-    .card > p {
-        font-size: large;
-        margin-left: auto;
-        margin-top: auto;
-        padding: 13px 15px 0px 15px;
-    }
-</style>
-
-<PageSite title="Board of Directors" description={"Meet the board of our nonprofit organization."}>
-    <div class="center">
-        <h1>Board of Directors</h1>
-        <div class="box">
-            <div class="card">
-                <h1>Kevin Wang</h1>
-                <p>President</p>
-            </div>
-        
-            <div class="card">
-                <h1>Richard Leung</h1>
-                <p>Vice President, Treasurer</p>
-            </div>
-            
-            <div class="card">
-                <h1>Joseph Blay</h1>
-                <p>Faculty Director</p>
-            </div>
-        
-            <div class="card">
-                <h1>Navid Kashem</h1>
-                <p>Secretary, Mentor Director</p>
-            </div>
-
-            <div class="card">
-                <h1>Dustin Doan</h1>
-                <p>Director</p>
-            </div>
-
-            <div class="card">
-                <h1>James Lonardo</h1>
-                <p>Director</p>
-            </div>
-        </div>
-    </div>
+  <ul class="band board">
+    {board.map((member) => (
+      <li>
+        <span class="face" aria-hidden="true">{initials(member.name)}</span>
+        <b>{member.name}</b>
+        <span>{member.role}</span>
+      </li>
+    ))}
+  </ul>
 </PageSite>
+
+<style>
+  .board {
+    list-style: none;
+    margin: 0;
+    max-width: 1120px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 40px 24px;
+  }
+  li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .face {
+    display: grid;
+    place-items: center;
+    width: 112px;
+    height: 112px;
+    margin-bottom: 14px;
+    border-radius: 50%;
+    background: var(--blush);
+    color: var(--red);
+    font-weight: 800;
+    font-size: 34px;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+  }
+  b {
+    font-size: 23px;
+    letter-spacing: -0.01em;
+  }
+  li > span:last-child {
+    color: var(--soft);
+  }
+</style>

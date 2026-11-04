@@ -1,11 +1,30 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
 ---
 
-<PageSite title="Alumni" description={"???"}>
-  <h1>Alumni Association</h1>
-  <h1>sean says this site doesnt exist anymroe</h1>
-  <p>We are a group of StuyPulse alumni spanning our team's existence who are in the process of setting up a team alumni organization.  Our goal is to make it easier for StuyPulse alums to communicate with each other and keep up with the team, as well as give current team members better ways to learn from us. With a recent decline in marketing and engineering mentors, StuyPulse needs our help more than ever.
-  </p>
-  <p>To accomplish this task, we run two ongoing projects. First, we have created a google group for job offers/advice, meetups, memories, and whatever else team alumni like to talk about.  Secondly, we're working on a regular newsletter to keep us up to date on the awesome things that the team and individual alumni are doing, as well as to give students an opportunity to ask for our help.</p>
+<PageSite title="Alumni" description="StuyPulse alumni: stay in touch with the team, mentor current members and keep up with each other." fullBleed>
+  <PageHead title="Alumni" intro="Once you're on StuyPulse, you're on it for good. Stay in touch, and help the students who came after you.">
+    <div class="actions">
+      <a class="pill pill-white" href="mailto:info@stuypulse.com?subject=StuyPulse%20alumni">Get in touch</a>
+    </div>
+  </PageHead>
+
+  <div class="band prose">
+    <p>
+      StuyPulse alumni span the team's whole history, back to 2001. We want to make it easier for alumni to keep up with
+      each other and with the team, and for current members to learn from them.
+    </p>
+    <p>
+      There's an alumni group for job openings and advice, meetups, and memories. With fewer marketing and engineering
+      mentors than we used to have, the team needs alumni help more than ever. Email
+      <a href="mailto:info@stuypulse.com">info@stuypulse.com</a> to join the group, or to mentor.
+    </p>
+  </div>
 </PageSite>
+
+<style>
+  .prose {
+    max-width: 1120px;
+  }
+</style>

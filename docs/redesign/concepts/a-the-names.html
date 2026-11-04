@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concept A: The Names</title>
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300..500;1,6..72,300..500&family=Figtree:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#21181a; --soft:#75696b; --red:#d4102c; --mist:#f3f2f1; }
+  * { box-sizing:border-box; margin:0 }
+  html { -webkit-font-smoothing:antialiased }
+  body { background:#fff; color:var(--ink); font:400 17px/1.55 Figtree,sans-serif }
+  nav { display:flex; justify-content:space-between; align-items:center; padding:26px 48px; font-size:15px }
+  nav .mark { font:400 22px/1 Newsreader,serif; display:flex; align-items:center; gap:10px }
+  nav .links { display:flex; gap:32px; color:var(--soft) }
+  .hero { display:grid; grid-template-columns:minmax(0,7fr) minmax(0,5fr); gap:64px; padding:32px 48px 72px; align-items:start }
+  h1 { font:300 clamp(2.5rem,4.3vw,4.25rem)/1.06 Newsreader,serif; letter-spacing:-.018em; max-width:17em; font-optical-sizing:auto }
+  .names { margin-top:44px; font:300 clamp(1.5rem,2.35vw,2.3rem)/1.3 Newsreader,serif; color:#b3acad; letter-spacing:-.008em; max-width:29em }
+  .names a { color:inherit; text-decoration:none; transition:color .15s; cursor:pointer }
+  .names a:hover, .names a.on { color:var(--ink) }
+  .names a.on:last-of-type, .names a:last-of-type { color:var(--red) }
+  figure { position:sticky; top:32px }
+  figure .frame { aspect-ratio:4/5; overflow:hidden; border-radius:3px; background:var(--mist) }
+  figure img { width:100%; height:100%; object-fit:cover; display:block }
+  figcaption { display:flex; justify-content:space-between; padding-top:12px; font-size:15px }
+  figcaption i { font:italic 400 19px/1.2 Newsreader,serif }
+  figcaption span { color:var(--soft) }
+  .after { display:flex; justify-content:space-between; gap:48px; padding:56px 48px 80px; border-top:1px solid #ece9e8; }
+  .after p { font:300 clamp(1.5rem,2.4vw,2.25rem)/1.2 Newsreader,serif; max-width:24em }
+  .after a { color:var(--red); white-space:nowrap }
+</style>
+</head>
+<body>
+<nav>
+  <div class="mark"><svg width="30" height="16" viewBox="0 0 30 16" fill="none" stroke="#d4102c" stroke-width="1.4"><path d="M0 10h10l2 2 3-11 3 14 2-5h10"/></svg>StuyPulse</div>
+  <div class="links"><span>The team</span><span>Robots</span><span>StuySplash</span><span>News</span><span>Sponsor us</span></div>
+</nav>
+<section class="hero">
+  <div>
+    <h1>Since 2001, the students of Stuyvesant have built twenty-six robots, and given every one of them a name.</h1>
+    <p class="names" id="n"></p>
+  </div>
+  <figure>
+    <div class="frame"><img id="p" src="../../../public/home/tribecbot.jpg" alt=""></div>
+    <figcaption><i id="c">Tribecbot</i><span id="d">2026, ten awards</span></figcaption>
+  </figure>
+</section>
+<section class="after">
+  <p>We are FIRST Robotics Team 694. No cuts and no tryouts, because the only thing you need to bring is your curiosity.</p>
+  <a href="#">Meet the team</a>
+</section>
+<script>
+const C='https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/',O=C+'old-bots/';
+const R=[['Stuyle',2001,1,O+'2001_Stuyle.jpg'],['Jack',2002,2,O+'2002_Jack.jpg'],['Lola',2003,2,O+'2003_Lola.jpg'],['Larry',2004,2,O+'2004_Larry.jpg'],['Yvette',2005,5,O+'2005_Yvette.jpg'],['Joshua',2006,3,O+'2006_Joshua.jpg'],['Tom',2007,5,O+'2007_Tom.jpg'],['DESbot',2008,4,O+'2008_DESbot.jpg'],['Michael1',2009,2,O+'2009_Michael1.jpg'],['Donovan',2010,5,O+'2010_Donovan.jpg'],['DESdroid',2011,4,O+'2011_DESdroid.jpg'],['JoeBot',2012,4,O+'2012_Joebot.jpg'],['DESiree',2013,4,O+'2013_DESiree.jpg'],['DESmond',2014,2,O+'2014_DESmond.jpg'],['PEGasus1',2015,5,O+'2015_PEGasus1.jpg'],['DEStiny',2016,6,O+'2016_DEStiny.jpg'],['Rafael',2017,8,O+'2017-Rafael.jpg'],['Wildcard',2018,10,O+'2018-Wildcard-single.jpg'],['Alfred',2019,11,'https://stuypulse.nyc3.digitaloceanspaces.com/site/img/Alfred.jpg'],['Edwin',2020,2,C+'edwin.jpg'],['Elektra',2021,2,O+'2021_Elektra.jpg'],['Excelsior',2022,8,C+'Excelsior.JPG'],['Jim',2023,8,O+'2023_Jim.jpg'],['Izzi',2024,4,O+'Izzi.jpeg'],['Aunt Mary',2025,9,'../../../public/robots/2025_Aunt_Mary.jpg'],['Tribecbot',2026,10,'../../../public/home/tribecbot.jpg']];
+const n=document.getElementById('n');
+n.innerHTML=R.map((r,i)=>`<a data-i="${i}">${r[0]}</a>${i<R.length-2?', ':i==R.length-2?', and ':'.'}`).join('');
+n.addEventListener('mouseover',e=>{const a=e.target.closest('a');if(!a)return;const r=R[a.dataset.i];p.src=r[3];c.textContent=r[0];d.textContent=`${r[1]}, ${r[2]} award${r[2]==1?'':'s'}`});
+const p=document.getElementById('p'),c=document.getElementById('c'),d=document.getElementById('d');
+</script>
+</body>
+</html>

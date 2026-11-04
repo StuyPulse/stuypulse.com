@@ -2,6 +2,8 @@
 
 For the business team. You don't need GitHub or any code.
 
+If you have a GitHub account with access to the repo, the editor at [stuypulse.com/admin](https://stuypulse.com/admin/) does this and more. See [editing-the-website.md](editing-the-website.md).
+
 ## Post a newsletter
 
 1. Open the invite email and sign in at [app.pagescms.org](https://app.pagescms.org).

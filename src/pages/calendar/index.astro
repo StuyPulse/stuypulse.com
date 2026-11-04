@@ -1,301 +1,185 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
 
+// Subscribe link for the team's public Google Calendar (info@stuypulse.com).
+const SUBSCRIBE = "https://calendar.google.com/calendar/u/0?cid=aW5mb0BzdHV5cHVsc2UuY29t";
 ---
 
-<PageSite title="Calendar" description="Calendar for Team 694, used for meeting schedules and competitions.">
-  <div id="eventModal" class="modal">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h2 id="modalTitle"></h2>
-        <span class="close">&times;</span>
-      </div>
-      <div class="modal-body">
-        <p id="modalTime"></p>
-        <p id="modalDescription"></p>
-        <div id="modalActions" class="modal-actions">
-          <button id="joinZoomButton" class="zoom-btn" style="display: none;">Join Zoom Meeting</button>
-        </div>
-      </div>
+<PageSite title="Calendar" description="Meetings, competitions and events for StuyPulse, FRC Team 694." fullBleed>
+  <PageHead title="Calendar" intro="Meetings, competitions and events. Click an event for its details.">
+    <div class="actions">
+      <a class="pill pill-white" href={SUBSCRIBE} target="_blank" rel="noopener">Add to Google Calendar</a>
     </div>
-  </div>
+  </PageHead>
 
-  <script>
-    // import fullcalendar
-    import { Calendar } from "@fullcalendar/core";
-    import listPlugin from "@fullcalendar/list";
-    import googleCalendarPlugin from "@fullcalendar/google-calendar";
-    import dayGridPlugin from "@fullcalendar/daygrid";
-    import timeGridPlugin from "@fullcalendar/timegrid";
-
-    function timeFormat(date: Date | null) {
-      return date !== null ? date.toLocaleTimeString([], {
-        hour: "numeric",
-        minute: "2-digit",
-        hour12: true,
-      }) : "empty";
-    }
-
-    function dayFormat(date: Date | null) {
-      return date !== null ? date.toLocaleDateString([], {
-        month: "short",
-        day: "numeric"
-      }) : "empty";
-    }
-
-    function showEventModal(event: any) {
-      const modal = document.getElementById("eventModal");
-      const modalTitle = document.getElementById("modalTitle");
-      const modalTime = document.getElementById("modalTime");
-      const modalDescription = document.getElementById("modalDescription");
-      const joinZoomButton = document.getElementById("joinZoomButton");
-
-      if (!modal || !modalTitle || !modalTime || !modalDescription || !joinZoomButton) return;
-
-      modalTitle.textContent = event.title;
-
-      const time = timeFormat(event.start) == timeFormat(event.end) ? `All Day` : `${timeFormat(event.start)} - ${timeFormat(event.end)}`;
-      const day = dayFormat(event.start) == dayFormat(event.end) ? dayFormat(event.start) : `${dayFormat(event.start)} - ${dayFormat(event.end)}`;      
-      modalTime.textContent = `${day}: ${time}`;
-
-      const description = event.extendedProps.description || "";
-      const location = event.extendedProps.location || "";
-
-      const zoomRegex = /(https:\/\/[a-z0-9.-]*zoom\.us\/[^\s]+)/i;
-      const zoomLink = (description.match(zoomRegex) || location.match(zoomRegex) || [])[0];
-
-      if (description) {
-        const cleanDescription = (text: string) => {
-          let cleaned = text.replace(/<a[^>]*href="[^"]*zoom\.us[^"]*"[^>]*>.*?<\/a>/gi, '');
-          cleaned = cleaned.replace(/(https:\/\/[a-z0-9.-]*zoom\.us\/[^\s]+)/gi, '');
-          cleaned = cleaned.replace(/\s+/g, ' ').trim();
-          return cleaned;
-        };
-        
-        const cleanedDescription = cleanDescription(description);
-
-        if (cleanedDescription) {
-          modalDescription.textContent = cleanedDescription;
-          modalDescription.style.display = "block";
-        } else {
-          modalDescription.style.display = "none";
-        }
-      } else {
-        modalDescription.style.display = "none";
-      }
-
-      if (zoomLink) {
-        joinZoomButton.style.display = "inline-block";
-        joinZoomButton.onclick = () => {
-          window.open(zoomLink, "_blank");
-          closeModal();
-        };
-      } else {
-        joinZoomButton.style.display = "none";
-      }
-
-      modal.style.display = "block";
-    }
-
-    function closeModal() {
-      const modal = document.getElementById("eventModal");
-      if (modal) {
-        modal.style.display = "none";
-      }
-    }
-
-    document.addEventListener("DOMContentLoaded", function () {
-      var calendarEl = document.getElementById("calendar");
-      if (!calendarEl) throw new Error("Calendar element not found");
-
-      const modal = document.getElementById("eventModal");
-      const closeButton = document.querySelector(".close") as HTMLElement;
-
-      if (closeButton) {
-        closeButton.onclick = closeModal // error: Property 'onclick' does not exist on type 'Element'
-      }
-
-      if (modal) {
-        window.onclick = function(event) {
-          if (event.target === modal) {
-            closeModal();
-          }
-        };
-      }
-
-      var calendar = new Calendar(calendarEl, {
-        googleCalendarApiKey: "AIzaSyC8aX6KJLfEyiuSJ76hErHB8voNcoAi4yA",
-        initialView: window.innerWidth < 768 ? "listWeek" : "dayGridMonth",
-        plugins: [
-          listPlugin,
-          googleCalendarPlugin,
-          dayGridPlugin,
-          timeGridPlugin,
-        ],
-        headerToolbar: {
-          left: "prev,next,today",
-          center: "title",
-          right: "listWeek,dayGridMonth,timeGridWeek",
-        },
-        footerToolbar: {
-          center: "addCalendar"
-        },
-        contentHeight: "auto",
-        fixedWeekCount: false,
-        nowIndicator: true,
-        customButtons: {
-          addCalendar: {
-            text: "Add to Google Calendar",
-            click: function () {
-              window.open(
-                "https://calendar.google.com/calendar/u/2/r?cid=info@stuypulse.com"
-              );
-            },
-          },
-        },
-        eventSources: [
-          {
-            googleCalendarId: "info@stuypulse.com",
-          }
-        ],
-        eventClick: function ({event, jsEvent}) {
-          // alert(`${event.title} (${timeFormat(event.start)} - ${timeFormat(event.end)})`);
-
-          // prevents current tab from navigating
-          jsEvent.preventDefault();
-
-          showEventModal(event);
-        },
-      });
-      calendar.render();
-    });
-  </script>
-  <style>
-    .modal {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      overflow: auto;
-      background-color: rgba(0, 0, 0, 0.5);
-      animation: fadeIn 0.3s ease-in-out;
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
-    }
-
-    .modal-content {
-      background-color: #fefefe;
-      margin: 10% auto;
-      padding: 0;
-      border-radius: 8px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-      animation: slideIn 0.3s ease-out;
-    }
-
-    @keyframes slideIn {
-      from { 
-        transform: translateY(-50px);
-        opacity: 0;
-      }
-      to { 
-        transform: translateY(0);
-        opacity: 1;
-      }
-    }
-
-    .modal-header {
-      padding: 20px 20px 10px 20px;
-      border-bottom: 1px solid #e0e0e0;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .modal-header h2 {
-      margin: 0;
-      color: #333;
-      font-size: 1.5em;
-      font-weight: 600;
-    }
-
-    .close {
-      color: #aaa;
-      font-size: 28px;
-      font-weight: bold;
-      cursor: pointer;
-      line-height: 1;
-      transition: color 0.2s ease;
-    }
-
-    .close:hover,
-    .close:focus {
-      color: #555;
-    }
-
-    .modal-body {
-      padding: 20px;
-    }
-
-    .modal-body p {
-      margin: 0 0 15px 0;
-      color: #666;
-      line-height: 1.5;
-    }
-
-    .modal-actions {
-      margin-top: 20px;
-      text-align: center;
-    }
-
-    .zoom-btn {
-      background: linear-gradient(135deg, #2D8CFF, #1E6FDD);
-      color: white;
-      border: none;
-      padding: 12px 24px;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      transition: all 0.2s ease;
-      box-shadow: 0 2px 8px rgba(45, 140, 255, 0.3);
-    }
-
-    .zoom-btn:hover {
-      background: linear-gradient(135deg, #1E6FDD, #155ABB);
-      transform: translateY(-1px);
-      box-shadow: 0 4px 12px rgba(45, 140, 255, 0.4);
-    }
-
-    .zoom-btn:active {
-      transform: translateY(0);
-    }
-
-    @media (max-width: 768px) {
-      .modal-content {
-        width: 95%;
-        margin: 50% auto;
-        transform: translateY(-50%);
-      }
-      
-      .modal-header h2 {
-        font-size: 1.3em;
-      }
-      
-      .modal-body {
-        padding: 15px;
-      }
-    }
-  </style>
-
-  <div class="container">
+  <div class="band">
     <div id="calendar"></div>
   </div>
+
+  <dialog id="event" aria-labelledby="event-title">
+    <form method="dialog">
+      <button class="close" aria-label="Close">×</button>
+    </form>
+    <h2 id="event-title"></h2>
+    <p class="when"></p>
+    <p class="where"></p>
+    <p class="what"></p>
+    <a class="pill pill-red zoom" target="_blank" rel="noopener" hidden>Join the Zoom meeting</a>
+  </dialog>
 </PageSite>
+
+<script>
+  import { Calendar, type EventApi } from "@fullcalendar/core";
+  import listPlugin from "@fullcalendar/list";
+  import googleCalendarPlugin from "@fullcalendar/google-calendar";
+  import dayGridPlugin from "@fullcalendar/daygrid";
+  import timeGridPlugin from "@fullcalendar/timegrid";
+
+  const dialog = document.getElementById("event") as HTMLDialogElement;
+  const field = (selector: string) => dialog.querySelector(selector) as HTMLElement;
+  const ZOOM = /https:\/\/[a-z0-9.-]*zoom\.us\/[^\s"<]+/i;
+
+  // Google Calendar descriptions can contain HTML; show them as plain text.
+  const plainText = (html: string) => {
+    const div = document.createElement("div");
+    div.innerHTML = html.replace(/<br\s*\/?>/gi, "\n");
+    return (div.textContent ?? "").replace(ZOOM, "").trim();
+  };
+
+  const when = (event: EventApi) => {
+    const day: Intl.DateTimeFormatOptions = { weekday: "long", month: "long", day: "numeric" };
+    const time: Intl.DateTimeFormatOptions = { hour: "numeric", minute: "2-digit" };
+    const start = event.start!;
+    if (event.allDay) return start.toLocaleDateString("en-US", day);
+    const end = event.end ? ` to ${event.end.toLocaleTimeString("en-US", time)}` : "";
+    return `${start.toLocaleDateString("en-US", day)}, ${start.toLocaleTimeString("en-US", time)}${end}`;
+  };
+
+  const show = (event: EventApi) => {
+    const description = event.extendedProps.description ?? "";
+    const location = event.extendedProps.location ?? "";
+    const zoom = (description.match(ZOOM) ?? location.match(ZOOM) ?? [])[0];
+    field("h2").textContent = event.title;
+    field(".when").textContent = when(event);
+    field(".where").textContent = location.replace(ZOOM, "").trim();
+    field(".what").textContent = plainText(description);
+    const button = field(".zoom") as HTMLAnchorElement;
+    button.hidden = !zoom;
+    if (zoom) button.href = zoom;
+    dialog.showModal();
+  };
+
+  // Clicking the dimmed backdrop closes the dialog too.
+  dialog.addEventListener("click", (e) => {
+    if (e.target === dialog) dialog.close();
+  });
+
+  new Calendar(document.getElementById("calendar")!, {
+    googleCalendarApiKey: "AIzaSyC8aX6KJLfEyiuSJ76hErHB8voNcoAi4yA",
+    eventSources: [{ googleCalendarId: "info@stuypulse.com" }],
+    plugins: [listPlugin, googleCalendarPlugin, dayGridPlugin, timeGridPlugin],
+    initialView: window.innerWidth < 768 ? "listMonth" : "dayGridMonth",
+    headerToolbar: {
+      left: "prev,next today",
+      center: "title",
+      right: window.innerWidth < 768 ? "" : "dayGridMonth,listMonth",
+    },
+    buttonText: { today: "Today", month: "Month", list: "List" },
+    contentHeight: "auto",
+    fixedWeekCount: false,
+    nowIndicator: true,
+    eventClick: ({ event, jsEvent }) => {
+      jsEvent.preventDefault();
+      show(event);
+    },
+  }).render();
+</script>
+
+<style>
+  #calendar {
+    max-width: 1240px;
+    --fc-border-color: var(--rose);
+    --fc-today-bg-color: var(--blush);
+    --fc-event-bg-color: var(--red);
+    --fc-event-border-color: var(--red);
+    --fc-button-bg-color: var(--blush);
+    --fc-button-border-color: transparent;
+    --fc-button-text-color: var(--ink);
+    --fc-button-hover-bg-color: var(--rose);
+    --fc-button-hover-border-color: transparent;
+    --fc-button-active-bg-color: var(--red);
+    --fc-button-active-border-color: transparent;
+    --fc-list-event-hover-bg-color: var(--blush);
+    --fc-neutral-bg-color: var(--blush);
+  }
+  #calendar :global(.fc-button) {
+    border-radius: 999px !important;
+    padding: 8px 18px;
+    font-weight: 700;
+    text-transform: none;
+    box-shadow: none !important;
+  }
+  #calendar :global(.fc-button-active) {
+    color: #fff;
+  }
+  #calendar :global(.fc-button-group) {
+    gap: 6px;
+  }
+  #calendar :global(.fc-toolbar-title) {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  #calendar :global(.fc-scrollgrid) {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  #calendar :global(a) {
+    color: inherit;
+  }
+  dialog {
+    width: min(520px, calc(100% - 32px));
+    border: 0;
+    border-radius: var(--radius-md);
+    padding: 32px;
+    color: var(--ink);
+  }
+  dialog::backdrop {
+    background: rgba(38, 21, 22, 0.5);
+  }
+  .close {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--blush);
+    color: var(--ink);
+    font-size: 26px;
+    line-height: 1;
+  }
+  dialog h2 {
+    font-size: 30px;
+    margin: 0 48px 0 0;
+  }
+  dialog p {
+    margin: 12px 0 0;
+    white-space: pre-line;
+  }
+  dialog p:empty {
+    display: none;
+  }
+  .when {
+    color: var(--red);
+    font-weight: 700;
+  }
+  .what,
+  .where {
+    color: var(--soft);
+  }
+  .zoom {
+    margin-top: 24px;
+  }
+</style>

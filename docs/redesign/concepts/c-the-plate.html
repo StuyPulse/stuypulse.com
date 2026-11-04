@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concept C: The Plate</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&family=Hanken+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#1c2230; --soft:#667084; --red:#d4122c; --paper:#fbfcfd }
+  * { box-sizing:border-box; margin:0 }
+  html { -webkit-font-smoothing:antialiased }
+  body { background:var(--paper); color:var(--ink); font:400 16px/1.55 "Hanken Grotesk",sans-serif; min-height:100vh }
+  nav { display:flex; justify-content:space-between; padding:26px 44px; font-size:15px }
+  nav div { display:flex; gap:30px; color:var(--soft) }
+  .wrap { display:grid; grid-template-columns:minmax(0,4fr) minmax(0,8fr); gap:24px; padding:12px 44px 40px; align-items:center }
+  h1 { font:400 clamp(2.75rem,5vw,5rem)/1 "Cormorant Garamond",serif; letter-spacing:-.015em }
+  .wrap p { margin-top:24px; max-width:32ch; color:var(--soft); font-size:18px }
+  .wrap a { display:inline-block; margin-top:24px; color:var(--red) }
+  svg { display:block; width:100%; height:auto; max-height:82vh }
+  .note { font:italic 500 27px "Cormorant Garamond",serif; fill:var(--ink) }
+  .rule { stroke:var(--red); stroke-width:1.5; fill:none }
+  .dot { fill:var(--red) }
+</style>
+</head>
+<body>
+<nav><span>StuyPulse</span><div><span>The team</span><span>Robots</span><span>StuySplash</span><span>News</span><span>Sponsor us</span></div></nav>
+<section class="wrap">
+  <div>
+    <h1>Every part of this robot was argued over by a teenager.</h1>
+    <p>Tribecbot, our 2026 robot, designed, built and programmed by the students of Stuyvesant High School.</p>
+    <a href="#">Take it apart</a>
+  </div>
+  <svg viewBox="300 560 1500 1120" role="img" aria-label="Tribecbot with notes on its parts">
+    <defs><clipPath id="r"><rect x="420" y="640" width="980" height="1020" rx="6"/></clipPath></defs>
+    <image href="../../../public/home/tribecbot.jpg" x="0" y="0" width="1500" height="2000" clip-path="url(#r)"/>
+    <g>
+      <circle class="dot" cx="1225" cy="845" r="6"/><path class="rule" d="M1225 845 L1420 720"/><text class="note" x="1432" y="728">a light that tells the field</text><text class="note" x="1432" y="762">it is ready</text>
+      <circle class="dot" cx="1040" cy="900" r="6"/><path class="rule" d="M1040 900 L1420 900"/><text class="note" x="1432" y="908">clear, so the wiring can</text><text class="note" x="1432" y="942">be checked at a glance</text>
+            <circle class="dot" cx="1150" cy="1490" r="6"/><path class="rule" d="M1150 1490 L1420 1490"/><text class="note" x="1432" y="1498">hand-painted, and proud</text><text class="note" x="1432" y="1532">of the number</text>
+    </g>
+  </svg>
+</section>
+</body>
+</html>

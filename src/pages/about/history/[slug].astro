@@ -1,6 +1,5 @@
 ---
 import PageSite from '@layouts/PageSite.astro';
-import HistoryAside from '$components/history/HistoryAside.astro';
 import { getCollection } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -12,16 +11,15 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+// The robot page itself is laid out by src/layouts/History.astro.
 const { Content } = await entry.render();
 ---
 
-<PageSite title="History" description={'History of the robots made by our team.'}>
-  <div class="row">
-    <nav class="col-md-3 text-nowrap">
-      <HistoryAside activeYear={entry.data.year} />
-    </nav>
-    <div class="col-md-8 content">
-      <Content />
-    </div>
-  </div>
+<PageSite
+  title={`${entry.data.title}, our ${entry.data.year} robot`}
+  description={`${entry.data.title} was StuyPulse's ${entry.data.year} robot${entry.data.awards?.length ? `, with ${entry.data.awards.length} awards` : ''}.`}
+  image={entry.data.photo}
+  fullBleed
+>
+  <Content />
 </PageSite>

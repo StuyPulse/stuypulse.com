@@ -4,6 +4,10 @@
 # A non-dropdown must have the `href` key.
 # Dropdowns cannot be nested.
 
+- name: Join
+  href: /join
+- name: Robots
+  href: /about/history
 - name: About
   dropdown:
     - name: About Us

@@ -1,87 +1,145 @@
 ---
-import { getCollection } from "astro:content";
-import { POSTS_PER_PAGE } from "@config";
-import NewsPreview from "@components/news/NewsPreview.astro";
-import Paginator from "@components/news/Paginator.astro";
+// Serves both single posts (/news/2026-02-28-week-0-newsletter) and older archive pages (/news/2).
+import { getCollection, type CollectionEntry } from "astro:content";
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
+import NewsList from "@components/news/NewsList.astro";
 import getSortedPosts from "@utils/getSortedPosts";
+import { POSTS_PER_LIST_PAGE, formatDate, kindOf } from "@utils/news";
 
 export async function getStaticPaths() {
-  const newsEntries = await getCollection("news");
-  let postResult = newsEntries.map((entry) => {
-    return {
+  const posts = getSortedPosts(await getCollection("news"));
+  const pages = Math.ceil(posts.length / POSTS_PER_LIST_PAGE);
+  return [
+    ...posts.map((entry, i) => ({
       params: { slug: entry.slug },
-      props: { entry },
-    };
-  });
-
-  let entryList = [];
-  for (let i = 1; i <= Math.ceil(newsEntries.length / POSTS_PER_PAGE); i++) {
-    entryList.push({ params: { slug: String(i) } });
-  }
-  return [...postResult, ...entryList];
+      props: { entry, newer: posts[i - 1], older: posts[i + 1] },
+    })),
+    // Page 1 lives at /news/; the number is kept for old links.
+    ...Array.from({ length: pages }, (_, i) => ({
+      params: { slug: String(i + 1) },
+      props: { page: i + 1, pages, posts: posts.slice(i * POSTS_PER_LIST_PAGE, (i + 1) * POSTS_PER_LIST_PAGE) },
+    })),
+  ];
 }
 
-const newsEntries = await getCollection("news");
-let sortedNews = getSortedPosts(newsEntries);
-
-const { slug } = Astro.params;
-const { entry } = Astro.props;
-
-let ent = entry ? await entry.render() : null;
-const Content = ent ? ent.Content : null;
-
-let ENTRY_START = (Number(slug) - 1) * POSTS_PER_PAGE;
-let ENTRY_END = Number(slug) * POSTS_PER_PAGE;
-// console.log(ENTRY_START);
-let paginatedPosts = sortedNews.slice(ENTRY_START, ENTRY_END);
-// console.log(paginatedPosts);
-
-let entryList = [];
-for (let i = 1; i <= Math.ceil(sortedNews.length / POSTS_PER_PAGE); i++) {
-  entryList.push(i);
-}
+type Props = {
+  entry?: CollectionEntry<"news">;
+  newer?: CollectionEntry<"news">;
+  older?: CollectionEntry<"news">;
+  page?: number;
+  pages?: number;
+  posts?: CollectionEntry<"news">[];
+};
+const { entry, newer, older, page, pages, posts } = Astro.props;
+const Content = entry ? (await entry.render()).Content : null;
+const kind = entry ? kindOf(entry) : null;
 ---
 
-<PageSite title={entry ? entry.data.title : "News"} description={"News and blogposts by our team!"}>
-  <h1 class="mb-4">{entry ? entry.data.title : "News and Blogposts"}</h1>
-  {
-    entry ? (
-      <div>
-        {entry.data.link ? (
-          <>
-            <iframe src={entry.data.link} width="100%" height="700px" />
-            <div class="row">
-              <div class="col">
-                <h4>
-                  <a href="/news/">See other posts &raquo;</a>
-                </h4>
-              </div>
-            </div>
-          </>
-        ) : (
-          <div class="row">
-            <div class="col">
-              <Content />
-              <h4>
-                <a href="/news/">See other posts &raquo;</a>
-              </h4>
-            </div>
-          </div>
-        )}
-      </div>
-    ) : (
-      <div>
-        <div class="row">
-          <div class="col">
-            <NewsPreview
-              entries={paginatedPosts}
-              numPosts={paginatedPosts.length}
-            />
-          </div>
+{entry ? (
+  <PageSite title={entry.data.title} description={`${entry.data.title}, from StuyPulse on ${formatDate(entry.data.date)}.`} fullBleed>
+    <PageHead title={entry.data.title}>
+      <p class="meta">
+        <time datetime={entry.data.date.toISOString().slice(0, 10)}>{formatDate(entry.data.date)}</time>
+        {entry.data.author !== "StuyPulse" && <span>by {entry.data.author}</span>}
+      </p>
+      {entry.data.link && (
+        <div class="actions">
+          <a class="pill pill-white" href={entry.data.link} target="_blank" rel="noopener">
+            {kind === "pdf" ? "Open the PDF" : "Open the newsletter"}
+          </a>
+          {kind === "pdf" && <a class="pill pill-ghost" href={entry.data.link} download>Download</a>}
         </div>
-        <Paginator numPages={entryList} currPost={Number(slug)} />
-      </div>
-    )
+      )}
+    </PageHead>
+
+    <div class="band post">
+      {kind === "pdf" && (
+        <object class="pdf" data={entry.data.link} type="application/pdf" title={entry.data.title}>
+          <p>Your browser can't show the PDF here. <a href={entry.data.link}>Open it instead</a>.</p>
+        </object>
+      )}
+      {kind === "canva" && (
+        <p class="lede">This newsletter was made in Canva and opens on their site.</p>
+      )}
+      {Content && <div class="prose"><Content /></div>}
+
+      <nav class="next" aria-label="More newsletters">
+        {newer ? <a href={`/news/${newer.slug}`}><span>Newer</span><b>{newer.data.title}</b></a> : <span />}
+        {older ? <a class="older" href={`/news/${older.slug}`}><span>Older</span><b>{older.data.title}</b></a> : <span />}
+      </nav>
+      <a class="pill pill-line" href="/news/">All newsletters</a>
+    </div>
+  </PageSite>
+) : (
+  <PageSite title={`Newsletters, page ${page}`} description="Newsletters, build updates and team news from StuyPulse, FRC Team 694." fullBleed>
+    <NewsList posts={posts!} page={page!} pages={pages!} />
+  </PageSite>
+)}
+
+<style>
+  .meta {
+    display: flex;
+    gap: 14px;
+    margin: 18px 0 0;
+    font-size: 19px;
+    opacity: 0.92;
   }
-</PageSite>
+  .actions {
+    margin-top: 24px;
+  }
+  .post {
+    max-width: 1120px;
+  }
+  .pdf {
+    display: block;
+    width: 100%;
+    height: min(1100px, 85vh);
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    margin-bottom: 40px;
+  }
+  .prose {
+    margin-bottom: 40px;
+  }
+  .next {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  .next a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 22px 26px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    color: var(--ink);
+  }
+  .next a:hover {
+    color: var(--red);
+  }
+  .next .older {
+    text-align: right;
+  }
+  .next span {
+    color: var(--soft);
+    font-size: 15px;
+  }
+  .next b {
+    font-size: 19px;
+    line-height: 1.25;
+  }
+  @media (max-width: 640px) {
+    .next {
+      grid-template-columns: 1fr;
+    }
+    .next .older {
+      text-align: left;
+    }
+    .pdf {
+      height: 70vh;
+    }
+  }
+</style>

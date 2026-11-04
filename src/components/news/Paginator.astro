@@ -1,79 +1,57 @@
 ---
 export interface Props {
-  numPages: number[];
-  currPost: number;
+  pages: number;
+  current: number;
 }
-
-const { numPages, currPost } = Astro.props;
-let shownPages = [];
-if (currPost < 5) {
-  for (let i = 1; i < 8; i++) {
-    shownPages.push(i);
-  }
-} else if (currPost > numPages.length - 4) {
-  for (let i = numPages.length - 6; i <= numPages.length; i++) {
-    shownPages.push(i);
-  }
-} else {
-  for (let i = currPost - 3; i <= currPost + 3; i++) {
-    shownPages.push(i);
-  }
-}
+const { pages, current } = Astro.props;
+const href = (page: number) => (page === 1 ? "/news/" : `/news/${page}/`);
 ---
 
+{pages > 1 && (
+  <nav class="pager" aria-label="Older and newer newsletters">
+    {current > 1 ? <a class="pill pill-line" href={href(current - 1)}>Newer</a> : <span />}
+    <ol>
+      {Array.from({ length: pages }, (_, i) => i + 1).map((page) => (
+        <li>
+          <a href={href(page)} aria-current={page === current ? "page" : undefined}>{page}</a>
+        </li>
+      ))}
+    </ol>
+    {current < pages ? <a class="pill pill-line" href={href(current + 1)}>Older</a> : <span />}
+  </nav>
+)}
+
 <style>
-  nav a {
-    margin-right: 0 !important;
+  .pager {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-top: 56px;
+    flex-wrap: wrap;
   }
-
-  .page-link {
-    color: #e00 !important;
+  ol {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 0;
+    margin: 0;
   }
-
-  .active {
-    background-color: #e00 !important;
-    border-color: #e00 !important;
-    color: white !important;
+  ol a {
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    color: var(--ink);
+    font-weight: 700;
+  }
+  ol a:hover {
+    background: var(--blush);
+  }
+  ol a[aria-current] {
+    background: var(--red);
+    color: #fff;
   }
 </style>
-
-<nav aria-label="...">
-  <ul class="pagination justify-content-center">
-    <li class={currPost - 1 != 0 ? 'page-item' : 'page-item disabled'}>
-      <a class="page-link" href={'/news/' + String(currPost - 1)}>&laquo;</a>
-    </li>
-    {
-      currPost > 4 && (
-        <li class="page-item disabled">
-          <a class="page-link">...</a>
-        </li>
-      )
-    }
-    {
-      shownPages.map((num: number) => (
-        <li class="page-item">
-          <a
-            class={num != currPost ? 'page-link' : 'page-link active'}
-            href={'/news/' + String(num)}
-          >
-            {num}
-          </a>
-        </li>
-      ))
-    }
-    {
-      currPost < numPages.length - 3 && (
-        <li class="page-item disabled">
-          <a class="page-link">...</a>
-        </li>
-      )
-    }
-    <li
-      class={currPost < numPages[numPages.length - 1]
-        ? 'page-item'
-        : 'page-item disabled'}
-    >
-      <a class="page-link" href={'/news/' + String(currPost + 1)}>&raquo;</a>
-    </li>
-  </ul>
-</nav>

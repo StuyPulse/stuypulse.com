@@ -1,4 +1,8 @@
+# Awards for our sister FTC teams. Edit it from /admin (FTC awards).
+# Used by: /about/ftc
+
 - team: 479
+  season: 2022–23 (POWERPLAY)
   competitions:
   - name: Qualifier 3
     awards: ["Design Award"]
@@ -9,6 +13,7 @@
   - name: NYC Championship
     awards: ["Motivate Award", "Inspire Award 3rd Place", "Finalist Alliance 1st Choice"]
 - team: 310
+  season: 2022–23 (POWERPLAY)
   competitions:
   - name: Qualifier 3
     awards: ["Inspire Award 3rd Place"]

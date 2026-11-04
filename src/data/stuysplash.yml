@@ -1,0 +1,17 @@
+# This year's StuySplash. Edit it from /admin (Site settings > StuySplash).
+# Used by: the announcement bar and StuySplash tile on the home page, and /resources/stuysplash.
+
+year: 2026
+# Shown big on the home page tile.
+shortDate: "12.12"
+date: Saturday, December 12
+time: 9:30 to 4
+summary: >-
+  A free day of talks for FRC teams, run by our students. Students, mentors, parents and alumni are
+  all welcome, and talks range from efficient CAD to building outreach that lasts.
+lastYear: Last year we had 25 talks and 276 people from three states.
+attendForm: https://forms.gle/tnJWybez9SDajAnt7
+presentForm: https://docs.google.com/forms/d/e/1FAIpQLSfqC0uEmiOw1NMjHvdJKZxJ6xfuuimvwlfqYuV553WP7APFtA/viewform
+# Turn these off once StuySplash is over.
+showBanner: true
+showOnHome: true

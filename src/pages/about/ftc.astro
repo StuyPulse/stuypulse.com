@@ -1,177 +1,155 @@
 ---
 import PageSite from '@layouts/PageSite.astro';
-import ImageContainer from '@components/ImageContainer.astro';
-import type { CompetitionType } from '@types.js';
-import type { AchievementsType } from '@types.js';
-const achievements = (await import('@data/ftcawards.yml')).default;
+import PageHead from '@components/redesign/PageHead.astro';
+import type { AchievementsType } from '@types';
+
+const achievements: (AchievementsType & { season?: string })[] = (await import('@data/ftcawards.yml')).default;
+const teams = [
+  {
+    number: '310',
+    name: 'Fission 310',
+    site: 'https://fission310.com',
+    logo: '/ftc/310_logo.png',
+    photo: '/ftc/310_team.jpg',
+    outreach: 'Fission works with local and global FLL teams, and mentors elementary and middle schoolers at CoderSchool.',
+  },
+  {
+    number: '479',
+    name: 'Fusion 479',
+    site: 'https://fusion479.github.io/',
+    logo: '/ftc/479_logo.png',
+    photo: '/ftc/479_team.jpg',
+    outreach: 'Fusion demos robots at elementary schools, such as P.S. 41Q, and at the FLCDC summer camp.',
+  },
+];
 ---
 
+<PageSite title="FTC teams" description="Stuyvesant's two FIRST Tech Challenge teams, Fission 310 and Fusion 479, who share our lab." fullBleed>
+  <PageHead
+    title="Our FTC teams"
+    intro="We share our lab with two sister FIRST Tech Challenge teams, who build smaller robots over a longer season."
+  >
+    <div class="actions">
+      <a class="pill pill-white" href="https://www.firstinspires.org/robotics/ftc">What is FTC?</a>
+    </div>
+  </PageHead>
+
+  <div class="band teams">
+    {teams.map((team) => {
+      const record = achievements.find((entry) => String(entry.team) === team.number);
+      return (
+        <section aria-labelledby={`t${team.number}`}>
+          <img class="photo" src={team.photo} alt={`The ${team.name} team`} loading="lazy" />
+          <div class="name">
+            <img class="logo" src={team.logo} alt="" />
+            <h2 id={`t${team.number}`}>{team.name}</h2>
+          </div>
+          <p>{team.outreach}</p>
+          <a class="pill pill-red" href={team.site}>Visit their website</a>
+          {record && (
+            <>
+              <h3>Awards{record.season ? `, ${record.season}` : ''}</h3>
+              <ul class="awards">
+                {record.competitions.map((competition) => (
+                  <li>
+                    <b>{competition.name}</b>
+                    <span>{competition.awards.join(', ')}</span>
+                  </li>
+                ))}
+              </ul>
+            </>
+          )}
+        </section>
+      );
+    })}
+  </div>
+
+  <section class="band split" aria-labelledby="together">
+    <div class="prose">
+      <h2 id="together" class="band-title">Outreach together</h2>
+      <p>
+        Both FTC teams work with Stuyvesant Women Engineers to teach electrical engineering to girls interested in the field,
+        and with CS Dojo, a student-run tutoring group at Stuyvesant. They're also active in FTC forums and servers, sharing
+        what they've built to help new teams.
+      </p>
+    </div>
+    <img src="/ftc/outreach.jpg" alt="FTC members teaching younger students to build robots" loading="lazy" />
+  </section>
+</PageSite>
+
 <style>
-  .list-group-item-action {
-    
+  .teams {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 4vw, 56px);
   }
-  .list-group-item-action .inline-icon {
-    transition-duration: 200ms;
-    transition-timing-function: ease-in;
+  .photo {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-md);
   }
-  .list-group-item-action:hover {
-    transition-duration: 400ms;
-    transition-timing-function: ease-in-out;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+  .name {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 24px;
   }
-  .list-group-item-action.fusion:hover {
-    background-color: #c4f5fc;
-  }
-
-  .list-group-item-action.fission:hover {
-    background-color: #cccccc;
-  }
-
-  .list-group-item-action:hover .inline-icon {
-    transition-duration: 400ms;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+  .logo {
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
+    object-fit: cover;
+    background: var(--blush);
   }
-
-  .inline-icon {
-    height: 5em;
-    transform: translateY(-0.1em);
-    margin-right: 0.5rem;
+  h2 {
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    margin: 0;
   }
-
-  .img-container{
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+  section > p {
+    color: var(--soft);
+    margin: 16px 0 20px;
+  }
+  h3 {
+    font-size: 22px;
+    margin: 36px 0 0;
+  }
+  .awards {
+    list-style: none;
+    padding: 0;
+    margin: 14px 0 0;
+    display: grid;
+    gap: 10px;
+  }
+  .awards li {
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;
+    border-radius: 22px;
+    background: var(--blush);
+  }
+  .awards span {
+    color: var(--soft);
+    font-size: 16px;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+    padding-top: 0;
+  }
+  .split h2 {
+    margin-top: 0;
+  }
+  .split img {
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+  @media (max-width: 860px) {
+    .teams,
+    .split {
+      grid-template-columns: 1fr;
+    }
   }
 </style>
-
-<PageSite title="FTC Teams" description="Hub for links to our school's FTC teams websites and descriptions.">
-  <h1 class="mb-4">Stuyvesant's FTC Teams</h1>
-
-  <!-- <a href="https://google.com">test link</a> -->
-  <div class="row">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-9">
-      <p>
-        As part of Stuyvesant Robotics, we share our robotics lab with our two sister FTC teams: <a href="http://fission310.com" target="_blank">FTC 310</a>
-        and <a href="http://fusion479.com" target="_blank">FTC 479</a>.
-      </p>
-      <h2 class="mt-4">FIRST Tech Challenge</h2>
-      <p>
-        While all three teams focus on robotics, our neighboring FTC teams create smaller robots in a span of 6 months, while we follow FRC guidelines for a season of 6 weeks. Despite these differences, we all prioritize community outreach. 
-      </p>
-      <p>
-        You can learn more about FTC on FIRST's official site <a
-          href="https://www.firstinspires.org/robotics/ftc">here</a
-        >.
-      </p>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-3">
-      <p class="mb-1">Check out their websites:</p>
-      <hr class="m-0" />
-      <div class="list-group list-group-flush">
-        <div class="row">
-          <div class="col-6 col-sm-6 col-md-6 col-lg-12 p-0">
-            <a
-              class="list-group-item list-group-item-action fission border-start-0 border-end-0"
-              href="http://fission310.com"
-              target="_blank"
-              ><img src="/ftc/310_logo.png" class="inline-icon" />
-              Fission 310
-            </a>
-          </div>
-          <div class="col-6 col-sm-6 col-md-6 col-lg-12 p-0">
-            <a
-              class="list-group-item list-group-item-action fusion border-start-0 border-end-0"
-              href="https://fusion479.github.io/"
-              target="_blank"
-              ><img src="/ftc/479_logo.png" class="inline-icon" />Fusion 479</a
-            >
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <h2 class="mt-4">Outreach</h2>
-  <p>Together, the FTC teams collaborate with Stuyvesant Women Engineers to teach electrical engineering to aspiring girls and with CS Dojo, which is a Stuyvesant student-led organization linked with tutoring students in various languages. Moreover, both teams are avid participants in forums and servers for FTC discussion and often share their resources and developments to help out new teams.   </p>
-  <div class="row">
-    <div
-      class="order-sm-2 order-md-2 order-lg-1 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-8"
-    >
-    <br>
-      <h3>Fission 310:</h3>
-      <p>Fission 310 works with both local and global FLL teams and mentors elementary and middle schoolers at CoderSchool to inspire more young children to join the fascinating world of robotics.
-      </p>
-    <br>
-      <h3>Fusion 479:</h3>
-      <p>Similarly, Fusion 479 works with elementary schools, such as P.S. 41Q and FLCDC Summer Camp to demo robots to interested future engineers. 
-      </p>
-    </div>
-    <div
-      class="order-lg-2 col-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 col-xxl-4 my-3"
-    >
-      <div class="img-container p-0 float-start align-middle">
-        <ImageContainer
-          img={'/ftc/outreach.jpg'}
-          alt={'outreach'}
-          height={'auto'}
-          width={'full'}
-          tSize={'40px'}
-        />
-      </div>  
-    </div>
-  </div>
-  <h2 class="mt-4">Awards/Accomplishments (PowerPlay 2022-2023)</h2>
-  <div class="row">
-    {
-      achievements.map((team: AchievementsType) => {
-        return (
-          <div class="col-6">
-            <h3>{team.team}</h3>
-            <ul>
-              {team.competitions.map((competition) => {
-                return (
-                  <li>
-                    {competition.name}
-                    <ul>
-                      {competition.awards.map((award) => {
-                        return <li>{award}</li>;
-                      })}
-                    </ul>
-                  </li>
-                );
-              })}
-            </ul>
-          </div>
-        );
-      })
-    }
-  </div>
-  <div class="row mt-4">
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-2">
-      <h3>FTC 479 Team Photo:</h3>
-      <div class="img-container float-start align-middle">
-        <ImageContainer
-          img={'/ftc/479_team.jpg'}
-          alt={'479 team image'}
-          height={'auto'}
-          width={'full'}
-          tSize={'40px'}
-        />
-      </div>
-      
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 my-2">
-      <h3>FTC 310 Team Photo:</h3>
-      <div class="img-container float-start align-middle">
-        <ImageContainer
-          img={'/ftc/310_team.jpg'}
-          alt={'310 team image'}
-          height={'auto'}
-          width={'full'}
-          tSize={'40px'}
-        />
-      </div>
-    </div>
-    
-  </div>
-</PageSite>

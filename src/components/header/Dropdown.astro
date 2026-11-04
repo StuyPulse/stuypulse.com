@@ -7,60 +7,59 @@ export interface Props {
 }
 
 const { nav } = Astro.props;
-nav.name += " ";
 ---
 
-<style>
-  a {
-    border-radius: 0.5em;
-  }
-  a:hover {
-    background-color: rgb(235, 235, 238);
-  }
-  a:active {
-    background-color: rgb(224, 221, 221);
-  }
-
-  @media screen and (max-width: 991px){
-    a {
-      padding-left: 20px !important;
-    }
-    .dropdown-menu {
-      margin-left: 30px !important;
-    }
-  }
-
-  @media screen and (min-width: 992px) {
-    .dropdown {
-      position: relative;
-      top: 7.5px;
-    }
-    ul {
-      background-color: rgb(246, 251, 255) !important;
-      border-top: 2px !important;
-      border-top-color: rgb(246, 251, 255) !important;
-    }
-    .dropdown-toggle {
-      position: relative;
-      top: -7.5px;
-    }
-    .dropdown-menu {
-      box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2),
-        0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    }
-  }
-</style>
 <li class="nav-item dropdown">
   <a
-    class="nav-link dropdown-toggle text-black"
-    href={nav.href}
+    class="nav-link dropdown-toggle"
+    href="#"
     role="button"
     data-bs-toggle="dropdown"
     aria-expanded="false"
   >
     {nav.name}
   </a>
-  <ul class="dropdown-menu rounded-0 p-2 border-none">
-    {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} />)}
+  <ul class="dropdown-menu">
+    {nav.dropdown && nav.dropdown.map((_nav) => <Nav nav={_nav} inMenu />)}
   </ul>
 </li>
+
+<style>
+  .nav-link {
+    padding: 10px 14px !important;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 500;
+    font-size: 17px;
+  }
+  .nav-link:hover,
+  .nav-link:focus-visible,
+  .nav-link.show {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+  .dropdown-menu {
+    margin-top: 8px !important;
+    padding: 8px;
+    border: 0;
+    border-radius: 24px;
+    box-shadow: 0 20px 40px -16px rgba(60, 0, 4, 0.45);
+  }
+  @media (max-width: 991px) {
+    .nav-link {
+      color: var(--ink);
+      border-radius: 16px;
+    }
+    .nav-link:hover,
+    .nav-link:focus-visible,
+    .nav-link.show {
+      background: var(--blush);
+      color: var(--red);
+    }
+    .dropdown-menu {
+      margin: 0 0 6px 12px !important;
+      padding: 0;
+      box-shadow: none;
+    }
+  }
+</style>

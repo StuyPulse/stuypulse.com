@@ -1,0 +1,15 @@
+# Board of directors of the StuyPulse nonprofit. Edit it from /admin (Board).
+# Used by: /about/board
+
+- name: Kevin Wang
+  role: President
+- name: Richard Leung
+  role: Vice President, Treasurer
+- name: Joseph Blay
+  role: Faculty Director
+- name: Navid Kashem
+  role: Secretary, Mentor Director
+- name: Dustin Doan
+  role: Director
+- name: James Lonardo
+  role: Director

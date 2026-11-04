@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StuyPulse robots mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+  .marquee { overflow: hidden; white-space: nowrap; padding: 26px 0 0; position: relative; z-index: 2 }
+  .marquee div { display: inline-flex; gap: 30px; align-items: center; font-weight: 800; font-size: clamp(56px, 7vw, 92px); letter-spacing: -.04em; font-variation-settings: "opsz" 96; animation: slide 70s linear infinite }
+  .marquee .o { color: transparent; -webkit-text-stroke: 2px #fff }
+  .marquee svg { width: 64px; height: 36px; flex: none }
+  @keyframes slide { to { transform: translateX(-50%) } }
+  @media (prefers-reduced-motion: reduce) { .marquee div { animation: none } }
+
+  .feature { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(28px, 5vw, 72px); align-items: center; padding: 40px var(--gutter) 0; position: relative; z-index: 2 }
+  .orb { position: relative; aspect-ratio: 1; max-width: 560px; width: 100%; justify-self: center }
+  .orb .ring { position: absolute; inset: 0; border-radius: 50%; border: 2px solid #fff; opacity: .25 }
+  .orb .ring:nth-child(2) { inset: 7%; opacity: .4 } .orb .ring:nth-child(3) { inset: 14%; opacity: .6 }
+  .orb .pic { position: absolute; inset: 21%; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 6px #fff, 0 30px 60px -20px rgba(60,0,4,.6) }
+  .orb .pic img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 65% }
+  .awards { list-style: none; padding: 0; margin-top: 26px; display: flex; flex-wrap: wrap; gap: 10px }
+  .awards li { background: rgba(255,255,255,.16); border-radius: 999px; padding: 8px 16px; font-size: 16px; font-weight: 500 }
+  .awards li.win { background: #fff; color: var(--red); font-weight: 700 }
+  .feature .year { font-weight: 700; font-size: 20px; opacity: .9 }
+
+  .filters { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 28px }
+  .filters button { font: inherit; font-weight: 600; font-size: 16px; border: 0; border-radius: 999px; padding: 10px 18px; background: var(--blush); color: var(--ink); cursor: pointer }
+  .filters button[aria-pressed="true"] { background: var(--red); color: #fff }
+  .grid-bots { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 28px 20px; margin-top: 40px }
+  .bot { text-decoration: none }
+  .bot .img { position: relative; aspect-ratio: 1; border-radius: var(--radius-md); overflow: hidden; background: var(--blush) }
+  .bot img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s ease }
+  .bot:hover img { transform: scale(1.04) }
+  .bot .n { position: absolute; left: 12px; top: 12px; background: #fff; color: var(--red); border-radius: 999px; padding: 4px 12px; font-weight: 700; font-size: 15px }
+  .bot b { display: block; margin-top: 12px; font-size: 21px; letter-spacing: -.01em }
+  .bot span { color: var(--soft); font-size: 16px }
+  @media (max-width: 860px) { .feature { grid-template-columns: 1fr } .grid-bots { grid-template-columns: repeat(2, 1fr) } }
+</style>
+</head>
+<body>
+<header class="on-red hero-red">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="index.html"><img src="../../../public/icons/694_white.svg" alt="">StuyPulse</a>
+    <div class="links"><a href="join.html">Join</a><a href="robots.html" aria-current="page">Robots</a><a href="index.html#splash">StuySplash</a><a href="index.html#news">Newsletters</a><a href="sponsors.html">Sponsors</a></div>
+    <a class="pill white donate" href="sponsors.html">Donate</a>
+    <button class="menu" aria-label="Open menu">Menu</button>
+  </nav>
+  <div class="marquee" aria-hidden="true"><div id="m"></div></div>
+  <div class="feature">
+    <div>
+      <span class="chip white">This season</span>
+      <h1>Tribecbot</h1>
+      <p class="year" style="margin-top:14px">2026, our 26th robot</p>
+      <ul class="awards">
+        <li class="win">New York City Regional Winners</li>
+        <li>Finger Lakes Regional Finalist</li>
+        <li>Gotham Regional Finalist</li>
+        <li>Engineering Inspiration Award</li>
+        <li>Excellence in Engineering Award</li>
+        <li>Autonomous Award</li>
+        <li>3rd place, Milstein Division</li>
+      </ul>
+      <div class="actions"><a class="pill white" href="#">See Tribecbot</a><a class="pill ghost" href="#">Code on GitHub</a></div>
+    </div>
+    <div class="orb"><span class="ring"></span><span class="ring"></span><span class="ring"></span><div class="pic"><img src="../../../public/home/tribecbot.jpg" alt="Tribecbot on the field"></div></div>
+  </div>
+</header>
+
+<section class="section" aria-labelledby="all">
+  <h2 id="all">Every robot since 2001</h2>
+  <p class="lede">Twenty-six of them, each named by the team that built it. The number is how many awards it won.</p>
+  <div class="filters" role="group" aria-label="Show robots from">
+    <button aria-pressed="true">All</button><button aria-pressed="false">2020s</button><button aria-pressed="false">2010s</button><button aria-pressed="false">2000s</button>
+  </div>
+  <div class="grid-bots" id="grid"></div>
+</section>
+
+<footer class="footer">
+  <div><b>StuyPulse, FRC Team 694</b>Stuyvesant High School<br>345 Chambers Street, New York, NY</div>
+  <ul><li><a href="join.html">Join the team</a></li><li><a href="robots.html">Our robots</a></li><li><a href="index.html#splash">StuySplash</a></li><li><a href="index.html#news">Newsletters</a></li></ul>
+  <ul><li><a href="sponsors.html">Sponsor us</a></li><li><a href="#">Calendar</a></li><li><a href="#">Instagram</a></li><li><a href="#">GitHub</a></li></ul>
+</footer>
+<script src="robots.js"></script>
+<script>
+const beat = '<svg viewBox="0 0 64 36" aria-hidden="true"><path d="M0 20H20l5-13 6 26 5-13h28" fill="none" stroke="#fff" stroke-width="3" stroke-linejoin="round"/></svg>';
+const names = ROBOTS.slice().reverse().map(([n], i) => `<span class="${i % 2 ? 'o' : ''}">${n}</span>${beat}`).join('');
+document.getElementById('m').innerHTML = names + names;
+const grid = document.getElementById('grid');
+const render = decade => {
+  grid.innerHTML = ROBOTS.slice().reverse().filter(r => !decade || Math.floor(r[1] / 10) * 10 === decade || (decade === 2000 && r[1] < 2010))
+    .map(([n, y, a, img]) => `<a class="bot" href="#"><div class="img"><img src="${img}" alt="" loading="lazy"><span class="n">${a} award${a === 1 ? '' : 's'}</span></div><b>${n}</b><span>${y}</span></a>`).join('');
+};
+render();
+document.querySelectorAll('.filters button').forEach((b, i) => b.addEventListener('click', () => {
+  document.querySelectorAll('.filters button').forEach(x => x.setAttribute('aria-pressed', x === b));
+  render([0, 2020, 2010, 2000][i]);
+}));
+</script>
+</body>
+</html>

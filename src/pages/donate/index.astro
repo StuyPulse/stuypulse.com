@@ -1,28 +1,93 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import Hero from "@components/redesign/Hero.astro";
 ---
 
-<PageSite title="Donate!" description="Donate to StuyPulse!">
-  <div id="info">
-    <h2>Donate To The Team!</h2>
-    <p>
-      Our robotics team is becoming a greater presence in the Stuyvesant
-      community, with over 150 members in our three robotics teams. With more
-      students joining every year and more projects being done, lots of our
-      equipment and materials are dwindling and getting old. In order to provide
-      students with state-of-the-art materials and more opportunities so that
-      they can continue doing the things they do, we need YOUR help.
-    </p>
+<PageSite title="Donate" description="Donate to StuyPulse, FRC Team 694. Donations pay for robot parts, tools and competition fees." fullBleed>
+  <Hero
+    title="Donate to the team."
+    intro="Every robot, competition and StuySplash is paid for by people like you. Donations buy parts, tools and competition fees, and replace equipment that's worn out."
+    photo="/home/tribecbot.jpg"
+    photoAlt="Tribecbot, our 2026 robot"
+    stickers={["Thank you!"]}
+  >
+    <Fragment slot="actions">
+      <a class="pill pill-white" href="#ways">Ways to give</a>
+      <a class="pill pill-ghost" href="/sponsors">Sponsor as a company</a>
+    </Fragment>
+  </Hero>
 
-    <p>
-      If you or your company wishes to donate, contact us at 
-      <a href="mailto:info@stuypulse.com">info@stuypulse.com</a> or donate using Paypal below. Please note that Paypal charges a 3% fee, so donating with Zelle to frcfinance@stuypulse.com is a viable alternative.
-    </p>
-
-    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="m-4 text-center">
-      <input type="hidden" name="cmd" value="_s-xclick">
-      <input type="hidden" name="hosted_button_id" value="HS5273F9CJHU4">
-      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <!-- <img alt="PayPal donation button" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1"> -->
-    </form>
+  <section class="band" id="ways" aria-labelledby="ways-title">
+    <h2 id="ways-title" class="band-title">Ways to give</h2>
+    <div class="ways">
+      <div class="way way-red">
+        <h3>Zelle</h3>
+        <p>No fees, so all of it reaches the team. Send it to:</p>
+        <p class="addr">frcfinance@stuypulse.com</p>
+      </div>
+      <div class="way">
+        <h3>PayPal or card</h3>
+        <p>PayPal keeps about 3% as a fee.</p>
+        <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+          <input type="hidden" name="cmd" value="_s-xclick" />
+          <input type="hidden" name="hosted_button_id" value="HS5273F9CJHU4" />
+          <button class="pill pill-red" type="submit">Donate with PayPal</button>
+        </form>
+      </div>
+      <div class="way">
+        <h3>Companies and larger gifts</h3>
+        <p>Sponsors get their name or logo on our robot, shirts and website.</p>
+        <div class="actions">
+          <a class="pill pill-line" href="/sponsors#info">See sponsor levels</a>
+          <a class="pill pill-line" href="mailto:info@stuypulse.com">Email us</a>
+        </div>
+      </div>
+    </div>
+  </section>
 </PageSite>
+
+<style>
+  .ways {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 20px;
+    margin-top: 40px;
+  }
+  .way {
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+    padding: clamp(28px, 3vw, 40px);
+  }
+  .way h3 {
+    font-size: 30px;
+    margin: 0;
+  }
+  .way p {
+    margin: 12px 0 0;
+    color: var(--soft);
+  }
+  .way form,
+  .way .actions {
+    margin-top: 24px;
+  }
+  .way-red {
+    background: var(--red);
+    color: #fff;
+  }
+  .way-red p {
+    color: #fff;
+    opacity: 0.92;
+  }
+  .way-red .addr {
+    opacity: 1;
+    font-weight: 800;
+    font-size: clamp(20px, 2vw, 26px);
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere;
+  }
+  @media (max-width: 960px) {
+    .ways {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

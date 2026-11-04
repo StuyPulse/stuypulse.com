@@ -1,0 +1,66 @@
+---
+// Smaller red hero for inner pages: title, a line of intro and optional buttons or chips.
+export interface Props {
+  title: string;
+  intro?: string;
+}
+const { title, intro } = Astro.props;
+---
+
+<section class="page-head">
+  <svg class="beat" viewBox="0 0 1440 90" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 66 H1060 L1084 66 L1100 18 L1118 90 L1134 46 L1146 66 H1440"></path>
+  </svg>
+  <div class="inner">
+    <slot name="before" />
+    <h1>{title}</h1>
+    {intro && <p class="intro">{intro}</p>}
+    <slot />
+  </div>
+</section>
+
+<style>
+  .page-head {
+    position: relative;
+    overflow: hidden;
+    background: var(--red);
+    color: #fff;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    padding: 16px var(--gutter) 76px;
+  }
+  .beat {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 90px;
+    pointer-events: none;
+  }
+  .beat path {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.3);
+    stroke-width: 3;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+  }
+  .inner {
+    position: relative;
+    max-width: 1120px;
+  }
+  h1 {
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin: 0;
+  }
+  .intro {
+    font-size: clamp(18px, 1.7vw, 22px);
+    margin: 20px 0 0;
+    max-width: 46ch;
+  }
+  @media (max-width: 860px) {
+    .page-head {
+      padding-bottom: 60px;
+    }
+  }
+</style>

@@ -1,29 +1,158 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import LeadershipContainer from "@components/leadership/LeadershipContainer.astro";
+import PageHead from "@components/redesign/PageHead.astro";
 import type { LeadershipType } from "@types";
 
-const yml = await import("@data/leadership.yml");
-const leaderData = yml.default;
+const leaders: LeadershipType[] = (await import("@data/leadership.yml")).default;
+
+const departments = [
+  { name: "Mechanical Engineering", id: "mechanical", icon: "/icons/mechanical.svg" },
+  { name: "Software Engineering", id: "software", icon: "/icons/software.svg" },
+  { name: "Business", id: "business", icon: "/icons/business.svg" },
+  { name: "Strategy", id: "strategy", icon: "/icons/strategy.svg" },
+];
+// Anyone in a department not listed above still shows up, under their own heading.
+for (const leader of leaders) {
+  if (!departments.some((dept) => dept.name === leader.department)) {
+    departments.push({ name: leader.department, id: leader.department.toLowerCase().replace(/\W+/g, "-"), icon: "" });
+  }
+}
+
+// One card per person per department, even when they hold several roles.
+const people = (department: string) => {
+  const byName = new Map<string, { name: string; image?: string; roles: { title: string; text: string }[] }>();
+  for (const leader of leaders.filter((l) => l.department === department)) {
+    const person = byName.get(leader.name) ?? { name: leader.name, image: leader.image, roles: [] };
+    person.image ??= leader.image;
+    person.roles.push({ title: leader.position.replace(/\s*\([^)]*\)\s*$/, ""), text: leader.description });
+    byName.set(leader.name, person);
+  }
+  return [...byName.values()];
+};
+const initials = (name: string) => name.split(/\s+/).map((part) => part[0]).join("").slice(0, 3);
+const count = new Set(leaders.map((leader) => leader.name)).size;
 ---
 
-<PageSite
-  title="Leadership"
-  description={"Leaders of various departments and subdepartments in our team."}
->
-  <h1>2027 Executive & Appointed Council</h1>
-  {
-    leaderData.map((leader: LeadershipType) => (
-      <>
-        <div class="mb-3" />
-        <LeadershipContainer
-          leadership={leader}
-          height="auto"
-          width="auto"
-          tSize="15px"
-          hSize="27px"
-        />
-      </>
-    ))
-  }
+<PageSite title="Leadership" description="The students who lead StuyPulse's departments this year." fullBleed>
+  <PageHead title="Leadership" intro={`The 2027 Executive and Appointed Council: ${count} students who run the team.`}>
+    <ul class="jump">
+      {departments.map((dept) => <li><a href={`#${dept.id}`}>{dept.name}</a></li>)}
+    </ul>
+  </PageHead>
+
+  {departments.map((dept) => {
+    const list = people(dept.name);
+    return list.length > 0 && (
+      <section class="band dept" id={dept.id} aria-labelledby={`${dept.id}-title`}>
+        <h2 id={`${dept.id}-title`} class="band-title">
+          {dept.icon && <span class="ic"><img src={dept.icon} alt="" /></span>}
+          {dept.name}
+        </h2>
+        <ul class="people">
+          {list.map((person) => (
+            <li>
+              {person.image ? (
+                <img class="face" src={person.image} alt="" loading="lazy" />
+              ) : (
+                <span class="face initials" aria-hidden="true">{initials(person.name)}</span>
+              )}
+              <h3>{person.name}</h3>
+              {person.roles.map((role) => (
+                <>
+                  <p class="role">{role.title}</p>
+                  <p class="what">{role.text}</p>
+                </>
+              ))}
+            </li>
+          ))}
+        </ul>
+      </section>
+    );
+  })}
 </PageSite>
+
+<style>
+  .jump {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .jump a {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+  }
+  .jump a:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+  .dept {
+    scroll-margin-top: 16px;
+  }
+  .dept + .dept {
+    padding-top: 0;
+  }
+  .band-title {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .ic {
+    display: grid;
+    place-items: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: var(--blush);
+    flex: none;
+  }
+  .ic img {
+    width: 30px;
+  }
+  .people {
+    list-style: none;
+    padding: 0;
+    margin: 36px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 40px 28px;
+  }
+  .face {
+    display: grid;
+    place-items: center;
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: var(--blush);
+  }
+  .initials {
+    color: var(--red);
+    font-weight: 800;
+    font-size: 34px;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+  }
+  h3 {
+    font-size: 23px;
+    margin: 18px 0 6px;
+  }
+  .role {
+    margin: 10px 0 0;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1.3;
+  }
+  .what {
+    margin: 4px 0 0;
+    color: var(--soft);
+    font-size: 15px;
+    line-height: 1.5;
+  }
+</style>

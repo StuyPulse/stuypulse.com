@@ -1,6 +1,5 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PresentationsAside from "$components/resources/PresentationsAside.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -13,17 +12,14 @@ export async function getStaticPaths() {
 }
 
 const { entry } = Astro.props;
+// The page itself is laid out by src/layouts/StuySplash.astro.
 const { Content } = await entry.render();
 ---
 
-<PageSite title="StuySplash" description={"An archive of our StuySplash presentations."}>
-  <h1 class="mb-4">StuySplash Presentations</h1>
-  <div class="row">
-    <nav class="col-12 col-sm-12 col-md-2 col-lg-2 text-nowrap">
-      <PresentationsAside activeYear={entry.data.year} />
-    </nav>
-    <div class="col-12 col-sm-12 col-md-10 col-lg-10 content">
-      <Content />
-    </div>
-  </div>
+<PageSite
+  title={`StuySplash ${entry.data.year} talks`}
+  description={`Slides from the ${entry.data.presentations.length} talks at StuySplash ${entry.data.year}, StuyPulse's free day of talks for FRC teams.`}
+  fullBleed
+>
+  <Content />
 </PageSite>

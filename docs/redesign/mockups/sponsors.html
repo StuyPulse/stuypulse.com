@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>StuyPulse sponsors mockup</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+
+  .s1 { right: 20px; top: -18px; transform: rotate(5deg) }
+  .tiers { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; margin-top: 44px; align-items: end }
+  .tier { border-radius: 32px; background: var(--blush); padding: 28px 24px; display: flex; flex-direction: column; gap: 10px }
+  .tier img { width: 52px; height: 52px }
+  .tier b { font-size: 24px; letter-spacing: -.02em }
+  .tier .amt { font-weight: 800; font-size: 22px; color: var(--red) }
+  .tier p { color: var(--soft); font-size: 16px; line-height: 1.45 }
+  .tier.top { background: var(--red); color: #fff; min-height: 360px }
+  .tier.top .amt { color: #fff } .tier.top p { color: #fff; opacity: .92 }
+  .tier:nth-child(2) { min-height: 330px } .tier:nth-child(3) { min-height: 300px } .tier:nth-child(4) { min-height: 280px } .tier:nth-child(5) { min-height: 260px }
+  .group { margin-top: 56px }
+  .group h3 { display: flex; align-items: center; gap: 12px }
+  .group h3 img { width: 36px }
+  .ask { margin: 0 20px; border-radius: var(--radius-lg); display: grid; grid-template-columns: 1.2fr 1fr; gap: 40px; align-items: center }
+  .ask .photo .frame { aspect-ratio: 16/10 }
+  @media (max-width: 860px) { .tiers, .ask { grid-template-columns: 1fr } .tier, .tier.top { min-height: 0 !important } .ask { margin: 0 12px } }
+</style>
+</head>
+<body>
+<header class="on-red hero-red">
+  <nav class="nav" aria-label="Main">
+    <a class="logo" href="index.html"><img src="../../../public/icons/694_white.svg" alt="">StuyPulse</a>
+    <div class="links"><a href="join.html">Join</a><a href="robots.html">Robots</a><a href="index.html#splash">StuySplash</a><a href="index.html#news">Newsletters</a><a href="sponsors.html" aria-current="page">Sponsors</a></div>
+    <a class="pill white donate" href="#give">Donate</a>
+    <button class="menu" aria-label="Open menu">Menu</button>
+  </nav>
+  <svg class="beat" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path d="M0 120 H520 L560 120 L585 40 L615 200 L640 90 L660 120 H1440"/></svg>
+  <div class="grid">
+    <div>
+      <h1>Help us build the next one.</h1>
+      <p class="intro">Every robot, every competition trip and every StuySplash is paid for by parents, alumni and companies who believe in what Stuy students can build.</p>
+      <div class="actions"><a class="pill white" href="#give">Donate now</a><a class="pill ghost" href="#tiers">See sponsor levels</a></div>
+    </div>
+    <div class="photo">
+      <div class="frame"><img src="../../../public/home/tribecbot.jpg" alt="Tribecbot, with sponsor logos on its bumpers"></div>
+      <span class="sticker s1">Your logo here</span>
+    </div>
+  </div>
+</header>
+
+<section class="section" id="tiers" aria-labelledby="t-title">
+  <h2 id="t-title">Sponsor levels</h2>
+  <p class="lede">Sponsors from the past year, and what each level gets.</p>
+  <div class="tiers">
+    <div class="tier top"><img src="../../../public/icons/platinum-medal.svg" alt=""><b>Platinum</b><span class="amt">Top sponsor</span><p>You name the robot.</p></div>
+    <div class="tier"><img src="../../../public/icons/gold-medal.svg" alt=""><b>Gold</b><span class="amt">$10,000+</span><p>A thank-you package, and your name at every competition and in our Impact Award video.</p></div>
+    <div class="tier"><img src="../../../public/icons/silver-medal.svg" alt=""><b>Silver</b><span class="amt">$5,000+</span><p>Your logo on the competition robot.</p></div>
+    <div class="tier"><img src="../../../public/icons/bronze-medal.svg" alt=""><b>Bronze</b><span class="amt">$1,000+</span><p>Your logo on the team T-shirt, and a visit to the lab during build season.</p></div>
+    <div class="tier"><img src="../../../public/icons/aluminum-medal.svg" alt=""><b>Aluminum</b><span class="amt">$500+</span><p>Your logo on this website for a year.</p></div>
+  </div>
+
+  <div class="group"><h3><img src="../../../public/icons/platinum-medal.svg" alt="">Platinum</h3><div class="logos"><span><img src="../../../public/sponsors/StuyPA.png" alt="SHS Parents' Association"></span></div></div>
+  <div class="group"><h3><img src="../../../public/icons/gold-medal.svg" alt="">Gold</h3><div class="logos"><span><img src="../../../public/sponsors/stuyalumni.png" alt="SHS Alumni Association"></span><span>Vivian &amp; Edward Lin Charitable Fund</span></div></div>
+  <div class="group"><h3><img src="../../../public/icons/silver-medal.svg" alt="">Silver</h3><div class="logos"><span><img src="../../../public/sponsors/deshaw.jpg" alt="D.E. Shaw"></span><span>Gene Haas Foundation</span><span>LiLy &amp; Marcus</span><span>The Lasher Family</span></div></div>
+  <div class="group"><h3><img src="../../../public/icons/bronze-medal.svg" alt="">Bronze</h3><div class="logos"><span><img src="https://cdn.prod.website-files.com/5d45ab770ae4a12ae3df8293/5d6e9b9c05289a91768c0f51_NYCFIRST_linear_RGB.png" alt="NYC FIRST"></span><span><img src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/comcast.png" alt="Comcast"></span><span><img src="../../../public/sponsors/ptc.png" alt="PTC"></span><span><img src="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/intuitive_foundation.png" alt="Intuitive Foundation"></span><span><img src="../../../public/sponsors/integras.jpg" alt="Integras Intelligence"></span><span>Dustin Doan</span><span>Steven Lam</span></div></div>
+</section>
+
+<section class="on-red ask section" id="give" aria-labelledby="g-title">
+  <div><h2 id="g-title">Any amount helps.</h2><p class="lede">Donations pay for parts, tools and competition fees.</p><div class="actions"><a class="pill white" href="#">Donate online</a><a class="pill ghost" href="#">Get our sponsor packet</a></div></div>
+  <div class="photo"><div class="frame"><img src="../../../public/home/team-2026.jpg" alt="The 2026 team"></div></div>
+</section>
+
+<footer class="footer">
+  <div><b>StuyPulse, FRC Team 694</b>Stuyvesant High School<br>345 Chambers Street, New York, NY</div>
+  <ul><li><a href="join.html">Join the team</a></li><li><a href="robots.html">Our robots</a></li><li><a href="index.html#splash">StuySplash</a></li><li><a href="index.html#news">Newsletters</a></li></ul>
+  <ul><li><a href="sponsors.html">Sponsor us</a></li><li><a href="#">Calendar</a></li><li><a href="#">Instagram</a></li><li><a href="#">GitHub</a></li></ul>
+</footer>
+</body>
+</html>

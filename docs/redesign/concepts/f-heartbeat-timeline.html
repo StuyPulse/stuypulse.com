@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Option F: Heartbeat Timeline</title>
+<link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#e0131d; --red-dark:#b30d16; --blush:#fff2f1; --ink:#2b1718; --soft:#7a6162 }
+  * { box-sizing:border-box; margin:0 }
+  html { -webkit-font-smoothing:antialiased }
+  body { font:400 18px/1.55 Rubik,system-ui,sans-serif; color:var(--ink); background:#fff }
+  .pill { display:inline-block; padding:15px 28px; border-radius:999px; font-weight:600; text-decoration:none; font-size:17px }
+  .pill.red { background:var(--red); color:#fff } .pill.white { background:#fff; color:var(--red) }
+  .pill.line { box-shadow:inset 0 0 0 2px var(--red); color:var(--red) }
+  nav { display:flex; justify-content:space-between; align-items:center; padding:24px 56px }
+  nav .logo { display:flex; align-items:center; gap:12px; font-weight:700; font-size:24px; color:var(--red) }
+  nav .logo img { height:38px } nav .links { display:flex; gap:32px; font-weight:500 }
+
+  .hero { display:grid; grid-template-columns:1fr 1fr; align-items:center; padding:30px 56px 40px; gap:40px }
+  h1 { font-weight:800; font-size:clamp(3.4rem,6.6vw,6.3rem); line-height:.95; letter-spacing:-.035em; color:var(--red) }
+  .hero p { font-size:21px; color:var(--soft); margin:24px 0 32px; max-width:32ch }
+  .hero .actions { display:flex; gap:12px }
+  .orb { position:relative; aspect-ratio:1; max-width:600px; justify-self:center; width:100% }
+  .orb .ring { position:absolute; inset:0; border-radius:50%; border:2px solid var(--red); opacity:.18 }
+  .orb .ring:nth-child(2) { inset:7%; opacity:.3 } .orb .ring:nth-child(3) { inset:14%; opacity:.5 }
+  .orb .ring:first-child { animation:pulse 2.6s ease-out 2 }
+  @keyframes pulse { 0% { transform:scale(.92); opacity:.6 } 100% { transform:scale(1.04); opacity:.18 } }
+  @media (prefers-reduced-motion:reduce) { .orb .ring { animation:none } }
+  .orb .pic { position:absolute; inset:21%; border-radius:50%; overflow:hidden; background:var(--red); box-shadow:0 26px 60px -20px rgba(120,0,8,.5) }
+  .orb .pic img { width:100%; height:100%; object-fit:cover; object-position:50% 70% }
+  .orb .tag { position:absolute; right:2%; bottom:16%; background:var(--red); color:#fff; border-radius:999px; padding:12px 22px; font-weight:600; font-size:17px }
+
+  .band { background:var(--red); color:#fff; padding:90px 56px 70px; border-radius:56px; margin:30px 20px 0 }
+  .band h2 { font-weight:700; font-size:clamp(2.2rem,4vw,3.6rem); letter-spacing:-.03em; line-height:1 }
+  .band p { opacity:.9; font-size:19px; margin-top:12px; max-width:56ch }
+  .chart { position:relative; height:330px; margin-top:40px }
+  .chart svg { position:absolute; inset:0; width:100%; height:100% }
+  .chart path { fill:none; stroke:#fff; stroke-width:3; stroke-linejoin:round; vector-effect:non-scaling-stroke }
+  .dot { position:absolute; width:58px; height:58px; margin:-29px 0 0 -29px; border-radius:50%; border:3px solid #fff; overflow:hidden; background:#fff }
+  .dot img { width:100%; height:100%; object-fit:cover }
+  .dot.big { width:96px; height:96px; margin:-48px 0 0 -48px; border-width:4px }
+  .years { display:flex; justify-content:space-between; font-weight:600; opacity:.85; font-size:16px }
+
+  .row { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; padding:20px }
+  .card { border-radius:40px; padding:44px; background:var(--blush) }
+  .card h3 { font-weight:700; font-size:30px; letter-spacing:-.02em; margin:18px 0 10px; line-height:1.1 }
+  .card p { color:var(--soft); margin-bottom:24px }
+  .card .ic { width:64px; height:64px; border-radius:50%; background:var(--red); display:grid; place-items:center }
+  .card .ic img { width:34px; filter:brightness(0) invert(1) }
+  .card.r { background:var(--red); color:#fff } .card.r p { color:#fff; opacity:.9 } .card.r .ic { background:#fff } .card.r .ic img { filter:none }
+  @media (max-width:800px) {
+    nav .links { display:none } .hero,.row { grid-template-columns:1fr } nav,.hero { padding-left:20px; padding-right:20px }
+    .band { padding:56px 24px; margin:20px 10px 0 } .dot { width:34px; height:34px; margin:-17px 0 0 -17px }
+  }
+</style>
+</head>
+<body>
+<nav><div class="logo"><img src="../../../public/icons/694-logo.svg" alt="">StuyPulse</div><div class="links"><span>About</span><span>Robots</span><span>StuySplash</span><span>Newsletters</span><span>Sponsors</span></div><a class="pill red" href="#">Donate</a></nav>
+
+<header class="hero">
+  <div>
+    <h1>Find your pulse at Stuy.</h1>
+    <p>FIRST Robotics Team 694. Students design, build, program and fund a competition robot every year.</p>
+    <div class="actions"><a class="pill red" href="#">Join the team</a><a class="pill line" href="#">Sponsor us</a></div>
+  </div>
+  <div class="orb"><span class="ring"></span><span class="ring"></span><span class="ring"></span><div class="pic"><img src="../../../public/home/tribecbot.jpg" alt="Tribecbot, our 2026 robot"></div><span class="tag">Tribecbot, 2026</span></div>
+</header>
+
+<section class="band">
+  <h2>26 seasons, one heartbeat.</h2>
+  <p>Each spike is a season. The taller it is, the more awards that robot brought home.</p>
+  <div class="chart" id="chart"></div>
+  <div class="years"><span>2001</span><span>2026</span></div>
+</section>
+
+<div class="row">
+  <article class="card r"><div class="ic"><img src="../../../public/icons/clock.svg" alt=""></div><h3>StuySplash, December 12</h3><p>A free day of talks for FRC teams, run by our students.</p><a class="pill white" href="#">Sign up</a></article>
+  <article class="card"><div class="ic"><img src="../../../public/icons/business.svg" alt=""></div><h3>No cuts, no tryouts</h3><p>Mechanical, software, business or strategy. Pick one, or try them all.</p><a class="pill red" href="#">How to join</a></article>
+  <article class="card"><div class="ic"><img src="../../../public/icons/software.svg" alt=""></div><h3>Newsletters</h3><p>Build updates, competition results and who's new on the team.</p><a class="pill line" href="#">Read the latest</a></article>
+</div>
+<script>
+const C='https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/',O=C+'old-bots/';
+const a=[1,2,2,2,5,3,5,4,2,5,4,4,4,2,5,6,8,10,11,2,2,8,8,4,9,10];
+const pics={17:O+'2018-Wildcard-single.jpg',18:'https://stuypulse.nyc3.digitaloceanspaces.com/site/img/Alfred.jpg',21:C+'Excelsior.JPG',24:'../../../public/robots/2025_Aunt_Mary.jpg',25:'../../../public/home/tribecbot.jpg',0:O+'2001_Stuyle.jpg',4:O+'2005_Yvette.jpg',9:O+'2010_Donovan.jpg',15:O+'2016_DEStiny.jpg'};
+const W=1000,H=300,base=250,s=W/a.length;let d=`M0 ${base}`;const pts=[];
+a.forEach((n,i)=>{const x=i*s+s/2,y=base-n*20;d+=` L${x-s*.3} ${base} L${x-s*.12} ${base+12} L${x} ${y} L${x+s*.14} ${base+18} L${x+s*.3} ${base}`;pts.push([x,y])});
+let h=`<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true"><path d="${d} L${W} ${base}"/></svg>`;
+for(const i in pics){const [x,y]=pts[i];h+=`<span class="dot${i==25?' big':''}" style="left:${x/W*100}%;top:${y/H*100}%"><img src="${pics[i]}" alt=""></span>`}
+document.getElementById('chart').innerHTML=h;
+</script>
+</body>
+</html>

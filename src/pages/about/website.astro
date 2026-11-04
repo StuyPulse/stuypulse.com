@@ -1,54 +1,65 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
+import type { LeadershipType } from "@types";
+
+// I/T directors come straight from the leadership list, so this stays current.
+const leaders: LeadershipType[] = (await import("@data/leadership.yml")).default;
+const it = leaders.filter((leader) => /I\/T/.test(leader.position));
 ---
 
-<PageSite title="Website" description={"Details about this website and its history."}>
-  <h1>About This Website</h1>
-  <p>
-    This iteration of StuyPulse.com launched on August 1st, 2023. It took the place of our
-    old Jekyll-based website established in 2013, using Astro in its stead, as
-    well as having a more modernized design. This site was developed from
-    2022-2023 by our at the time newly formed I/T Department, consisting of Gus
-    Watkins, Ivy Lin, Kelvin Zhao, and Anthony Chen.
-  </p>
+<PageSite title="About this website" description="How stuypulse.com is built, and who maintains it." fullBleed>
+  <PageHead title="About this website" intro="stuypulse.com is built and run by students in our I/T department.">
+    <div class="actions">
+      <a class="pill pill-white" href="https://github.com/StuyPulse/stuypulse.com">See the source code</a>
+      <a class="pill pill-ghost" href="mailto:info@stuypulse.com?subject=Website">Email I/T</a>
+    </div>
+  </PageHead>
 
-  <h3>Website Structure</h3>
-  <p>
-    Continuing with the old site's use of a static site generator, this site
-    uses the static site generator from Astro.js. Astro allows JavaScript and
-    HTML to be blended together seamlessly in a single file in development,
-    compiling to a static site such that no server-side processing is necessary
-    after the site is built. As well as this, this site is hosted on GitHub
-    pages using GitHub actions, decreasing load times.
-  </p>
-  <p>
-    This site uses a combination of Astro files, as well as Markdown and MDX for
-    our larger content collections, such as our blog or robot history. This
-    allows the site to be easily maintained by our I/T department while ensuring
-    that those without HTML or JavaScript experience can add content to the site
-    easily.
-  </p>
-  <p>
-    Furthermore, this site is highly component-ized, such that individual
-    elements shared across pages can be changed or updated more efficiently.
-    This ensures that any future modernization efforts do not require
-    transitioning to a new framework or require a complete overhaul of the site.
-  </p>
+  <div class="band prose">
+    {it.length > 0 && (
+      <>
+        <h2>Who runs it</h2>
+        <ul class="people">
+          {it.map((leader) => <li><b>{leader.name}</b>, {leader.position.replace(/\s*\([^)]*\)$/, "")}</li>)}
+        </ul>
+      </>
+    )}
 
-  <h3>Problems? Questions? Comments?</h3>
-  <p>
-    Interested in how our site is built? Our site is 100% open source; feel free
-    to take a look at our <a href="https://github.com/StuyPulse/stuypulse.com"
-      >source code</a
-    > to learn more about how we use Astro to create our website.
-  </p>
-  <p>
-    If you would like to contact our I/T department, send us an email and we'll
-    get back to you as soon as we can. We're happy to help with any questions
-    you may have!
-  </p>
+    <h2>History</h2>
+    <p>
+      This version of stuypulse.com launched on August 1, 2023, replacing the Jekyll site we'd used since 2013. It was
+      built in 2022 and 2023 by our then-new I/T department: Gus Watkins, Ivy Lin, Kelvin Zhao and Anthony Chen. In 2026
+      it was redesigned in red and white.
+    </p>
 
-  <h4>I/T Leadership for 2023-2024</h4>
-  <p><strong>Co-Director of I/T:</strong> Anthony Chen</p>
-  <p><strong>Co-Director of I/T:</strong> Gus Watkins</p>
+    <h2>How it's built</h2>
+    <p>
+      The site is built with <a href="https://astro.build">Astro</a>, a static site generator, so pages are made ahead of
+      time and no server is needed. It's hosted on GitHub Pages and rebuilt by GitHub Actions every time something changes.
+    </p>
+    <p>
+      Newsletters, robots, StuySplash talks, leadership, mentors and sponsors are kept as Markdown and YAML files. Team
+      members can edit them without writing code, using the editor at <a href="/admin/">stuypulse.com/admin</a>.
+    </p>
+    <p>
+      The whole site is open source. Take a look at the
+      <a href="https://github.com/StuyPulse/stuypulse.com">source code on GitHub</a> to see how it works.
+    </p>
+  </div>
 </PageSite>
+
+<style>
+  .prose {
+    max-width: 1120px;
+  }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .prose h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+  }
+  .people {
+    padding-left: 1.2em;
+  }
+</style>

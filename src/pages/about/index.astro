@@ -1,225 +1,291 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import ImageContainer from "@components/ImageContainer.astro";
+import Hero from "@components/redesign/Hero.astro";
+
+const facts = [
+  { big: "20+", text: "languages spoken at home" },
+  { big: "70%+", text: "first-generation Americans" },
+  { big: "50%+", text: "qualify for free or reduced lunch" },
+  { big: "100%", text: "graduation rate" },
+];
+const more = [
+  { name: "Robots", href: "/about/history" },
+  { name: "Departments", href: "/about/departments" },
+  { name: "Leadership", href: "/about/leadership" },
+  { name: "Mentors", href: "/about/mentors" },
+  { name: "FTC teams", href: "/about/ftc" },
+  { name: "Board", href: "/about/board" },
+];
 ---
 
-<style>
-  .inline-icon {
-    height: 1em;
-    transform: translateY(-0.1em);
-    padding-right: 0.25rem;
-  }
-  .offset::before {
-    display: block;
-    content: " ";
-    margin-top: -62px;
-    height: 62px;
-    visibility: hidden;
-    pointer-events: none;
-  }
+<PageSite title="About" description="StuyPulse is FIRST Robotics Team 694 from Stuyvesant High School in New York City: about 150 students, no cuts and no tryouts." fullBleed>
+  <Hero
+    title="We are StuyPulse."
+    intro="FIRST Robotics Team 694 from Stuyvesant High School. Our name comes from being the heart of our school and our community."
+    photo="/team/2026.jpg"
+    photoAlt="The StuyPulse team in 2026"
+    stickers={["Team 694", "About 150 students"]}
+  >
+    <Fragment slot="actions">
+      <a class="pill pill-white" href="#video">Watch our video</a>
+      <a class="pill pill-ghost" href="/join">Join the team</a>
+    </Fragment>
+  </Hero>
 
-  .youtube-video {
-    aspect-ratio: 16 / 9;
-    width: 100%;
-  }
-</style>
-<PageSite title="About" description={"A description of our team, as well as our history."}>
-  <h1 id="about mb-3" class="offset mb-4">
-    <img src="/icons/694-logo.svg" class="inline-icon" /> About Us
-  </h1>
-  <div class="row mb-3">
-    <div
-      class="col-12 col-sm-12 col-md-8 col-lg-9 col-xl-10 col-xxl-10 mb-3 order-sm-1 order-md-0 order-xl-0"
-    >
-      <h5 class="d-inline">We are StuyPulse, FIRST FRC Team 694.</h5>
-      <p class="justify-content-evenly d-inline">
-        Our nickname is derived from the idea that we are at the heart of our
-        student body and local community. The mission of StuyPulse is to help students 
-        find their pulse for lifelong learning through a team culture that shares 
-        knowledge and gives back to the community. Our goal is to incentivize STEM ideas
-        and cultivate skills in engineering, programming, business, teamwork,
-        and leadership through our participation in FIRST Robotics Competitions.
-        We hope to serve as an inspiration for people in our community and
-        educate them on the wonders of the scientific community while
-        simultaneously giving back through various outreach events. Our priority
-        is making sure that everyone even slightly interested in STEM has the
-        chance to further explore their interests and develop skills that will
-        allow them to succeed. We are a no-cut, no tryout, all inclusive team
-        that strives to make it possible for all individuals to be a part of an
-        accepting community that allows people to explore the world of robotics
-        and prepare for their futures.
+  <section class="band mission" aria-labelledby="mission">
+    <h2 id="mission" class="band-title">Find your pulse.</h2>
+    <div class="cols">
+      <p class="lede">
+        Our mission is to help students find their pulse for lifelong learning, through a team culture that shares knowledge
+        and gives back to the community.
       </p>
-    </div>
-    <div
-      class="col-12 col-sm-12 col-md-4 col-lg-3 col-xl-2 col-xxl-2 order-sm-0 order-md-0 order-xl-1"
-    >
-      <h5>Learn More</h5>
-      <ul>
-        <li><a href="#about">About Us</a></li>
-        <li><a href="/about/history">Team History</a></li>
-        <li><a href="/about/departments">Departments</a></li>
-        <li><a href="/about/leadership">Leadership</a></li>
-        <li><a href="/about/mentors">Mentors</a></li>
-        <li><a href="#first">About First</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="text-center">
-    <iframe
-      class="youtube-video"
-      style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);"
-      src="https://www.youtube.com/embed/WiNKmPqEj0c?si=XbtFmOqnF-isRfyy"
-      title="YouTube video player"
-      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-      allowfullscreen
-    >
-    </iframe>
-  </div>
-
-  <div class="row mt-5">
-    <h2 id="today" class="offset">Team 694 Today</h2>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-7">
-      <p>
-        Team 694 is made up of about 150 students and participates annually in
-        the FIRST Robotics Competition (FRC). During our six-week build season,
-        we work <strong>almost daily</strong> in our laboratory at Stuyvesant as
-        our dedicated team members collaborate to design, construct, and program
-        our competing robot with the help of gracious parents and volunteer mentors.
-      </p>
-      <p>
-        We strive to <strong>share our experience with teams in need</strong>.
-        To this end we mentor teams and schools both in FRC, FIRSTTech, and
-        FIRST Lego League, as well as performing street-level demos in our
-        school. Our team is currently mentoring FLL teams across the city and
-        hoping to expand our efforts. Furthermore, we also assist FRC teams
-        during competitions with PulseCrew, which is made up of a group of
-        experienced students dedicated to helping others with any Software or
-        Mechanical Engineering issues they may encounter. When we hosted our
-        labs grand opening in December 2022, we demoed our robot for various
-        members of our school's staff as well as Councilmembers and Senators.
-        Continuing our efforts in expanding STEM opportunities, we invited an
-        assemblymember to tour our lab in November 2025.
-      </p>
-    </div>
-    <div
-      class="col-12 col-sm-12 col-md-12 col-lg-12 col-xl-6 col-xxl-5 mb-4 clearfix"
-    >
-      <div
-        class="p-0 rounded align-middle"
-        style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);"
-      >
-        <ImageContainer
-          img="/team/2026.jpg"
-          alt="StuyPulse Team Picture"
-          height={"auto"}
-          width={"auto"}
-          tSize={"40px"}
-        />
+      <div class="prose">
+        <p>
+          Through FIRST Robotics Competitions we build skills in engineering, programming, business, teamwork and leadership.
+          We want anyone even slightly interested in STEM to get the chance to explore it, so we're a no-cut, no-tryout team
+          where everyone has a place.
+        </p>
+        <p>
+          We also want to inspire people around us, and teach them about science and engineering through outreach events.
+        </p>
       </div>
     </div>
+  </section>
+
+  <section class="facts" aria-labelledby="who">
+    <h2 id="who">Who we are</h2>
+    <ul>
+      {facts.map((fact) => <li><b>{fact.big}</b><span>{fact.text}</span></li>)}
+    </ul>
     <p>
-      Team 694's impact lasts not only in our local community, but also
-      intrinsically, within our team's community. We have a <strong>100%</strong
-      >
-      graduation rate, with most being accepted to some of the <strong
-        >best universities in the world</strong
-      >. To help perpetuate this high standard, we all help to drive one another
-      to do better in school and help each other out when aid is needed.
+      We stay close despite our size. Team dinners, extravaganzas and birthday shout-outs help, and so do the long trips to
+      regionals across the country. Most of us go on to some of the best universities in the world, and we push each other to
+      do well in school.
     </p>
-  </div>
-  <div class="row mt-4">
-    <h2>StuyPulse's Beginnings</h2>
-    <p>
-      Our team was founded in the fall of 2000 by a group of students and
-      parents who were ready to take on the formidable task of building our
-      first robot. They shared a common interest in robotics, and although few
-      on the team had known each other prior to forming the team, they quickly
-      learned the importance of cooperation and teamwork, and used it to
-      accumulate the team members, sponsors, and mentors we have today. From the
-      moment we raised funds for the daunting entrance fees to the FIRST
-      competition, we were destined to succeed: eventually scoring highest in
-      our division at the Champtionship Event in only our rookie year.
-    </p>
-  </div>
-  <div class="row mt-4">
-    <h2>What makes StuyPulse unique?</h2>
-    <p>
-      One of the things that Team 694 takes pride in is our <strong
-        >overwhelming diversity</strong
-      >. Our team speaks over twenty languages at home, and more than fifty
-      percent qualify for free and/or reduced lunch, and over seventy percent
-      of our team are first generation Americans.
-    </p>
-    <p>
-      Our team maintains close-knit relationships with one another despite the
-      sheer number of members we have. Bonding occurs naturally, yet events such
-      as our team dinner, extravaganzas, and honorary birthday mentions help
-      speed this up! The journey to regionals across the country is anything
-      but boring and is kept close to our hearts.
-    </p>
-    <div
-      class="p-0 m-0 mx-auto d-inline-block"
-    >
-      <ImageContainer
-        img="/team/HVR.jpg"
-        alt="another image here"
-        height={"auto"}
-        width={"auto"}
-        tSize={"40px"}
-      />
+  </section>
+
+  <section class="band" id="video" aria-labelledby="video-title">
+    <h2 id="video-title" class="band-title">Our 2024 Impact Award video</h2>
+    <div class="video">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed/WiNKmPqEj0c"
+        title="StuyPulse 2024 Impact Award video"
+        loading="lazy"
+        allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
     </div>
-    <p class="text-muted text-center mt-2">
-      StuyPulse at the 2025 Hudson Valley Regional
-    </p>
-    <p class="mt-3">
-      As a team, StuyPulse has gone on to be champions <strong
-        >numerous times</strong
-      >. In 2025, we won all three of our regional events and went on to the
-      semifinals. Weve qualified for Champs in Houston for the last several years.
-    </p>
-  </div>
-  <div class="row mt-5">
-    <h2>Team 694 in Media</h2>
-    <p>
-      A large part of StuyPulse's mission is to help <strong
-        >spread the message of FIRST via newsletters, television, social media,
-        and more</strong
-      >. The local papers The TriBeCa Tribune and Tribeca Citizen and the
-      Chinese-language paper China Daily have done segments of our team during
-      the build season. We also make regular appearances in our own school
-      newspaper, The Spectator. At demonstrations and other events weve been
-      interviewed by radio and television stations in Arabic, Russian, and of
-      course English. Weve made frequent appearances on the YouTube channel
-      FUN Robotics Network, where we showcase our robots and the mechanisms
-      behind it.
-    </p>
-  </div>
-  <div class="mt-5">
-    <h2 id="first" class="offset">
-      <a href="http://www.usfirst.org/"
-        ><img
-          class="inline-icon"
-          src="/icons/first-logo.svg"
-          alt="FIRST logo"
-        /></a
-      >
-      About FIRST
-    </h2>
-    <p>
-      <a href="http://www.usfirst.org/">FIRST</a> (For Inspiration and Recognition
-      of Science and Technology) is a multinational non-profit organization that,
-      in the words of its founder, Dean Kamen, seeks to “transform our culture by
-      creating a world where science and technology are celebrated and where young
-      people dream of becoming science and technology heroes.” From its founding
-      in 1989, FIRST has positively impacted the lives of young students around the
-      world through its accessible and innovative programs. These programs are designed
-      to inspire and encourage participants to pursue careers in science, technology
-      and math, and develop teamwork and skills in public relations, strategy, dedication,
-      and outreach. Through partnerships with local and global businesses, dedicated
-      volunteers with professional backgrounds, and the tireless efforts of students,
-      teachers, and parents, FIRST opens a whole new world for generations of young
-      adults and equips them with the skills to achieve success.
-    </p>
-    <p><a href="/about/first/">Learn more &raquo;</a></p>
-  </div>
+  </section>
+
+  <section class="band split" aria-labelledby="today">
+    <div class="prose">
+      <h2 id="today" class="band-title">Team 694 today</h2>
+      <p>
+        About 150 students compete in the FIRST Robotics Competition each year. During build season we work almost every day
+        in our lab at Stuyvesant, designing, building and programming the robot with help from parents and volunteer
+        mentors.
+      </p>
+      <p>
+        We share what we know with teams who need it. We mentor FRC, FTC and FLL teams and schools across the city, and run
+        demos in and around our school. At competitions, PulseCrew, a group of experienced students, helps other FRC teams
+        fix software and mechanical problems.
+      </p>
+      <p>
+        When we opened our new lab in December 2022, we demoed our robot for school staff, City Council members and
+        senators, and in November 2025 an Assembly member toured the lab.
+      </p>
+      <p>
+        We've been champions many times. In 2025 we won all three of our regionals and reached the semifinals, and in 2026
+        Tribecbot won the New York City Regional. We've qualified for the Championship in Houston for the last several years.
+      </p>
+    </div>
+    <figure>
+      <img src="/team/HVR.jpg" alt="StuyPulse at the 2025 Hudson Valley Regional" loading="lazy" />
+      <figcaption>At the 2025 Hudson Valley Regional</figcaption>
+    </figure>
+  </section>
+
+  <section class="band split reverse" aria-labelledby="start">
+    <div class="prose">
+      <h2 id="start" class="band-title">How we started</h2>
+      <p>
+        StuyPulse was founded in the fall of 2000 by students and parents ready to build their first robot. Few of them knew
+        each other before, but they quickly learned to work together, and gathered the members, sponsors and mentors the
+        team still has today. After raising the money for the FIRST entry fees, they scored highest in their division at
+        the Championship in their rookie year.
+      </p>
+      <h2 class="band-title media">In the news</h2>
+      <p>
+        Spreading the message of FIRST is a big part of what we do. The TriBeCa Tribune, Tribeca Citizen and China Daily
+        have covered our build seasons, and we're often in our school paper, The Spectator. We've been interviewed on radio
+        and TV in Arabic, Russian and English, and appear often on the FUN Robotics Network YouTube channel.
+      </p>
+    </div>
+    <div class="first" id="first">
+      <img src="/icons/first-logo.svg" alt="FIRST" />
+      <h2 class="band-title">About FIRST</h2>
+      <p>
+        FIRST (For Inspiration and Recognition of Science and Technology) is a nonprofit founded by Dean Kamen in 1989. Its
+        programs inspire young people to pursue science, technology and engineering, and to build teamwork, outreach and
+        leadership skills along the way, with help from businesses, volunteers, teachers and parents.
+      </p>
+      <a class="pill pill-red" href="https://www.firstinspires.org/">Visit FIRST</a>
+    </div>
+  </section>
+
+  <nav class="band more" aria-labelledby="more-title">
+    <h2 id="more-title" class="band-title">More about us</h2>
+    <ul>
+      {more.map((link) => <li><a class="pill pill-line" href={link.href}>{link.name}</a></li>)}
+    </ul>
+  </nav>
 </PageSite>
+
+<style>
+  .cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(24px, 5vw, 64px);
+    margin-top: 28px;
+  }
+  .cols .lede {
+    margin: 0;
+    font-size: clamp(22px, 2.2vw, 28px);
+    line-height: 1.35;
+    color: var(--ink);
+  }
+  .cols .prose p:first-child {
+    margin-top: 0;
+  }
+  .facts {
+    margin: 0 20px;
+    padding: clamp(56px, 7vw, 96px) var(--gutter);
+    border-radius: var(--radius-lg);
+    background: var(--red);
+    color: #fff;
+    text-align: center;
+  }
+  .facts h2 {
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    margin: 0;
+  }
+  .facts ul {
+    list-style: none;
+    padding: 0;
+    margin: 44px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  .facts li {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--red);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 24px;
+  }
+  .facts b {
+    font-size: 48px;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    font-variation-settings: "opsz" 96;
+  }
+  .facts li span {
+    margin-top: 8px;
+    font-size: 16px;
+    line-height: 1.25;
+    color: var(--ink);
+  }
+  .facts p {
+    max-width: 60ch;
+    margin: 44px auto 0;
+    font-size: 19px;
+    opacity: 0.94;
+  }
+  .video {
+    margin-top: 32px;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: start;
+    padding-top: 0;
+  }
+  .split h2 {
+    margin-top: 0;
+  }
+  .split .media {
+    margin-top: 48px;
+  }
+  figure {
+    margin: 0;
+  }
+  figure img {
+    width: 100%;
+    border-radius: var(--radius-md);
+  }
+  figcaption {
+    margin-top: 10px;
+    color: var(--soft);
+    font-size: 15px;
+  }
+  .first {
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+    padding: clamp(28px, 3.4vw, 44px);
+  }
+  .first img {
+    height: 56px;
+    margin-bottom: 20px;
+  }
+  .first p {
+    margin: 14px 0 24px;
+    color: var(--soft);
+  }
+  .more {
+    padding-top: 0;
+  }
+  .more ul {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  @media (max-width: 860px) {
+    .cols,
+    .split {
+      grid-template-columns: 1fr;
+    }
+    .facts {
+      margin: 0 12px;
+    }
+    .facts li {
+      width: 150px;
+      height: 150px;
+      padding: 16px;
+    }
+    .facts b {
+      font-size: 36px;
+    }
+    .facts li span {
+      font-size: 14px;
+    }
+  }
+</style>

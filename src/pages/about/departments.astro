@@ -1,93 +1,123 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
 ---
 
-<style>
-.text-size {
-  height: calc(1.3rem + 0.6vw);
-}
-</style>
+<PageSite title="Departments" description="What each of StuyPulse's four departments does: Mechanical Engineering, Software Engineering, Business and Strategy." fullBleed>
+  <PageHead title="Departments" intro="Everyone on StuyPulse joins one of four departments. Here's what each one does.">
+    <div class="actions"><a class="pill pill-white" href="/join">How to join</a></div>
+  </PageHead>
 
-<PageSite title="Departments" description={"A description of the departments on our team."}>
-  <h1 class="mb-4">Departments</h1>
-  <div id="Engineering">
-    <h3 class="d-inline-block align-middle">
-      <img class="d-inline-block text-size" src="/icons/engineering.svg" alt="E" />
-      Mechanical Engineering
-    </h3>
-    <p>
-      Mechanical Engineering is responsible for designing and building the robot. Every
-      build season, Mechanical Engineering divides up into smaller groups consisting of 4-6
-      students, at least one of whom is a veteran member. These groups focus on
-      individual parts of the robot such as the drive train, electronics and
-      mechanisms. There is often more than one mechanism group either focusing
-      on different parts of the robot, or competing against each other for the
-      better design. To keep track of all these groups, we have a President and
-      Vice President of Mechanical Engineering. It is their job to make sure that all of
-      engineering runs smoothly. We also have many directors, including the
-      Primary Machinist, Director of Lab Operations and Safety, Director of
-      Procurement, Director and Assistant Director of Electronics, Director and
-      Assistant Director of Strategy, Director of Design, and Director of Field
-      Construction. More information about these positions can be found <a
-        href="/about/leadership">here</a
-      >.
-    </p>
-  </div>
-  <div id="Software Engineering">
-    <h3 class="d-inline-block align-middle">
-      <img class="d-inline-block text-size" src="/icons/software.svg" alt="SE" />
-      Software Engineering
-    </h3>
-    <p>
-      The job of the programmers is to write software which controls the robot's
-      logic and motion on the playing field, as well as to ensure that the
-      electronic systems are running smoothly. Essentially, they breathe life
-      into otherwise lifeless metal. The programming team is also responsible
-      for making sure all of the old robots have working code so that they are
-      prepared to perform for demonstrations. Because most incoming members
-      having little or no programming experience, we take it upon ourselves to
-      teach everyone to program using the Java language. Teaching a large group
-      of students to program a robot is no easy task, given our painfully short
-      time frame. The pressure and patience pays off, however, when we see our
-      code being executed by a 120lb robot soaring across the field. Team 694
-      also believes in open source software and the free distribution of our
-      code to the greater community. All of our code is free for anyone to look
-      at and learn from. Note: Some files may not be under the same open
-      license, please check the comments of each file for specific licensing
-      information. All of our code (past and present) is open source and
-      available for viewing on <a
-        href="https://github.com/StuyPulse/stuypulse.com">our Github</a
-      >.
-    </p>
-  </div>
-  <div id="Business">
-    <h3 class="d-inline-block align-middle">
-      <img class="d-inline-block text-size" src="/icons/business.svg" alt="B" />
-      Business
-    </h3>
-    <p>
-      Our Business department has a very diverse list of responsibilities. It is
-      in charge of fundraising, branding, logistical work like meals during
-      build season and travel planning, award submissions, outreach as well as
-      any other task that does not fall under the other departments. To make
-      sure all these projects are running smoothly, we have a President and Vice
-      President of Business. They are also responsible for being the primary
-      contact for our sponsors. Our Director of Public Relations is responsible
-      for coordinating all of our outreach efforts, which include mentoring FLL,
-      FTC, and FRC teams as well as maintaining a strong presence on the media.
-      Our Director of Finance maintains contact with sponsors and ensures the
-      stability of the budget, and our Director of Operations helps out with the
-      logistics of events and paperwork.
-    </p>
-  </div>
-  <div id="Strategy">
-    <h3 class="d-inline-block align-middle">
-      <img class="d-inline-block text-size" src="/icons/strategy.svg" alt="S" />
-      Strategy
-    </h3>
-    <p>
-      Provides strategic assistance regarding robot design, gameplay, and
-      alliance selections.
-    </p>
+  <div class="band depts">
+    <section id="mechanical" aria-labelledby="mech">
+      <span class="ic"><img src="/icons/mechanical.svg" alt="" /></span>
+      <div>
+        <h2 id="mech">Mechanical Engineering</h2>
+        <p>
+          Mechanical Engineering designs and builds the robot. Every build season the department splits into groups of 4 to 6
+          students, each with at least one veteran member. Each group focuses on one part of the robot, such as the drive train,
+          electronics or a mechanism. Sometimes two mechanism groups compete for the better design.
+        </p>
+        <p>
+          The President and Vice President of Mechanical Engineering keep the groups running smoothly, with directors for
+          machining, lab safety, procurement, electronics, design, field construction and more. See who they are on the
+          <a href="/about/leadership#mechanical">leadership page</a>.
+        </p>
+      </div>
+    </section>
+
+    <section id="software" aria-labelledby="soft">
+      <span class="ic"><img src="/icons/software.svg" alt="" /></span>
+      <div>
+        <h2 id="soft">Software Engineering</h2>
+        <p>
+          Software writes the code that controls the robot on the field and keeps its electronics running. They also keep every
+          old robot's code working, so the robots are ready for demos.
+        </p>
+        <p>
+          Most new members have little or no programming experience, so we teach everyone Java from the start. It's no easy
+          task in a short season, but it pays off when our code drives a 120 lb robot across the field. All of our code, past
+          and present, is open source on <a href="https://github.com/StuyPulse">GitHub</a>. Some files may carry a different
+          license, so check each file's comments.
+        </p>
+      </div>
+    </section>
+
+    <section id="business" aria-labelledby="biz">
+      <span class="ic"><img src="/icons/business.svg" alt="" /></span>
+      <div>
+        <h2 id="biz">Business</h2>
+        <p>
+          Business handles everything that keeps the team running: fundraising, sponsors, branding, meals during build season,
+          travel, award submissions and outreach. The President and Vice President of Business are the main contact for our
+          sponsors.
+        </p>
+        <p>
+          The Director of Public Relations coordinates outreach, including mentoring FLL, FTC and FRC teams and running our
+          social media. The Director of Finance keeps the budget stable and works with sponsors.
+        </p>
+      </div>
+    </section>
+
+    <section id="strategy" aria-labelledby="strat">
+      <span class="ic"><img src="/icons/strategy.svg" alt="" /></span>
+      <div>
+        <h2 id="strat">Strategy</h2>
+        <p>
+          Strategy helps decide how the robot should be designed, how it plays each match, and which teams we pick as
+          alliance partners.
+        </p>
+      </div>
+    </section>
   </div>
 </PageSite>
+
+<style>
+  .depts {
+    max-width: 1120px;
+    display: grid;
+    gap: 64px;
+  }
+  section {
+    display: grid;
+    grid-template-columns: 96px 1fr;
+    gap: clamp(20px, 4vw, 44px);
+    scroll-margin-top: 16px;
+  }
+  .ic {
+    display: grid;
+    place-items: center;
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
+    background: var(--blush);
+  }
+  .ic img {
+    width: 48px;
+  }
+  h2 {
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    margin: 18px 0 0;
+  }
+  p {
+    margin: 16px 0 0;
+    max-width: 68ch;
+    font-size: 18px;
+  }
+  p a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  @media (max-width: 640px) {
+    section {
+      grid-template-columns: 1fr;
+    }
+    .ic {
+      width: 72px;
+      height: 72px;
+    }
+    .ic img {
+      width: 36px;
+    }
+  }
+</style>

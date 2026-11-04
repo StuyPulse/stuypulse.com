@@ -1,42 +1,68 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
+
+const guides = [
+  {
+    title: "Driver Station troubleshooting",
+    text: "Fixes for common Driver Station problems, from our Software Engineering department.",
+    href: "https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/694TroubleshootingGuide.pdf",
+    action: "Open the guide (PDF)",
+  },
+  {
+    title: "FLL curriculum",
+    text: "Our FIRST LEGO League curriculum, made to give new teams and their mentors a solid start.",
+    href: "/resources/tutorials/fll",
+    action: "See the curriculum",
+  },
+  {
+    title: "StuySplash talks",
+    text: "Slides and recordings from every StuySplash since 2012, on everything from drive trains to marketing.",
+    href: "/resources/stuysplash",
+    action: "Browse the talks",
+  },
+];
 ---
 
+<PageSite title="Tutorials" description="Guides from StuyPulse for FRC and FLL teams." fullBleed>
+  <PageHead title="Tutorials" intro="Guides we've written for other FRC and FLL teams." />
+
+  <ul class="band guides">
+    {guides.map((guide) => (
+      <li>
+        <h2>{guide.title}</h2>
+        <p>{guide.text}</p>
+        <a class="pill pill-red" href={guide.href}>{guide.action}</a>
+      </li>
+    ))}
+  </ul>
+</PageSite>
+
 <style>
+  .guides {
+    list-style: none;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(28px, 3vw, 40px);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  h2 {
+    font-size: 30px;
+    margin: 0;
+  }
   p {
-    text-indent: 20px;
+    margin: 12px 0 24px;
+    color: var(--soft);
+  }
+  .pill {
+    margin-top: auto;
   }
 </style>
-<PageSite title="Tutorials" description={"Tutorials for FRC teams."}>
-  <h1 class="mb-4">Tutorials</h1>
-  <h4>Driver Station Troubleshooting Guide</h4>
-  <p>
-    Encountering Driver Station issues and don't know what's causing them? Take
-    a look at our <a
-      href="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/694TroubleshootingGuide.pdf"
-      >Driver Station Troubleshooting Guide</a
-    >, a document published by our Software Mechanical Engineering department with
-    solutions to common Driver Station issues.
-  </p>
-  <h4>Fundraising</h4>
-  <p>
-    Fundraising is a very important aspect of maintaining any FIRST Robotics
-    team. Here's our<a href="/resources/tutorials/fundraising"
-      > guide </a
-    >on how to raise money for your team.
-  </p>
-  <h4>FLL Curriculum</h4>
-  <p>
-    Click <a href="/resources/tutorials/fll">here</a> for our FLL curriculum guide,
-    designed to help new teams and mentors.
-  </p>
-
-  <h4>Video Production</h4>
-  <p>
-    Creating videos for or about your team can be fun or can very tedious.
-    Whether your experience are one or the other is dependent on how you carry
-    out all the parts of the video production process. Click <a
-      href="/resources/tutorials/video">here</a> for our guide on how to get started with
-    creating media for your team.
-  </p>
-</PageSite>

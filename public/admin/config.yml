@@ -1,0 +1,323 @@
+# Sveltia CMS, the editor at stuypulse.com/admin. Docs: https://sveltiacms.app/en/docs
+# Every save is a commit to main, so the live site rebuilds a few minutes later.
+# How to use it and how to set up sign-in: docs/editing-the-website.md
+
+backend:
+  name: github
+  repo: StuyPulse/stuypulse.com
+  branch: main
+  commit_messages:
+    create: "Add {{collection}} \"{{slug}}\" from the website editor"
+    update: "Update {{collection}} \"{{slug}}\" from the website editor"
+    delete: "Delete {{collection}} \"{{slug}}\" from the website editor"
+    uploadMedia: "Upload \"{{path}}\" from the website editor"
+    deleteMedia: "Delete \"{{path}}\" from the website editor"
+  # Sign in with a GitHub access token for now. To add a "Sign In with GitHub" button, deploy
+  # https://github.com/sveltia/sveltia-cms-auth, put its URL in base_url and add oauth below.
+  # base_url: https://stuypulse-cms-auth.example.workers.dev
+  auth_methods: [token]
+
+site_url: https://stuypulse.com
+
+media_folder: /public/uploads
+public_folder: /uploads
+
+collections:
+  - name: news
+    label: Newsletters & news
+    label_singular: Newsletter
+    description: Newsletters show up on stuypulse.com/news and the home page.
+    folder: /src/content/news
+    extension: md
+    format: frontmatter
+    create: true
+    delete: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{fields.title}} ({{fields.date}})"
+    sortable_fields:
+      fields: [date, title]
+      default:
+        field: date
+        direction: descending
+    preview_path: "news/{{slug}}"
+    # Images added to a written post.
+    media_folder: /public/news-images
+    public_folder: /news-images
+    fields:
+      - name: title
+        label: Title
+        hint: "For example: Rebuilt Week 1 Newsletter 2027"
+      - name: date
+        label: Date
+        widget: datetime
+        type: date
+        format: YYYY-MM-DD
+        input_timezone: utc
+      - name: link
+        label: Newsletter PDF
+        widget: file
+        required: false
+        accept: application/pdf,.pdf
+        media_folder: /public/newsletters
+        public_folder: /newsletters
+        hint: Upload the PDF. You can also paste a Canva share link. Leave it empty for a written post.
+      - name: author
+        label: Author
+        required: false
+        hint: Leave empty to show StuyPulse.
+      - name: body
+        label: Post text
+        widget: markdown
+        required: false
+        hint: Optional for a newsletter. Use it for a written post.
+
+  - name: robots
+    label: Robots
+    label_singular: Robot
+    description: One page per season's robot, at stuypulse.com/about/history.
+    folder: /src/content/history
+    extension: md
+    format: frontmatter
+    create: true
+    delete: false
+    slug: "{{fields.year}}"
+    identifier_field: title
+    summary: "{{fields.year}}: {{fields.title}}"
+    sortable_fields:
+      fields: [year, title]
+      default:
+        field: year
+        direction: descending
+    preview_path: "about/history/{{slug}}"
+    fields:
+      - { name: layout, widget: hidden, default: $layouts/History.astro }
+      - { name: title, label: Robot name }
+      - { name: year, label: Season, widget: number, value_type: int }
+      - name: photo
+        label: Photo
+        widget: image
+        required: false
+        media_folder: /public/robots
+        public_folder: /robots
+      - name: awards
+        label: Awards
+        label_singular: Award
+        widget: list
+        required: false
+        hint: One award per line. Awards with "Winner" in them are highlighted.
+      - { name: source, label: Source code link, required: false }
+      - { name: cad, label: CAD link, required: false }
+      - { name: flickr, label: Photo album link, required: false }
+      - name: youtube_links
+        label: Videos
+        label_singular: Video
+        widget: list
+        required: false
+        hint: The first single video (not a playlist) is shown on the robot's page.
+        fields:
+          - { name: name, label: Name }
+          - { name: url, label: YouTube link }
+      - name: links
+        label: Other links
+        label_singular: Link
+        widget: list
+        required: false
+        fields:
+          - { name: name, label: Name }
+          - { name: url, label: Link }
+      - { name: body, label: Story, widget: markdown, required: false }
+
+  - name: stuysplash_years
+    label: StuySplash talks
+    label_singular: StuySplash year
+    description: Past talks, at stuypulse.com/resources/stuysplash. This year's date and sign-up links are under Site settings.
+    folder: /src/content/stuysplash
+    extension: md
+    format: frontmatter
+    create: true
+    delete: false
+    slug: "{{fields.year}}"
+    identifier_field: year
+    summary: "StuySplash {{fields.year}}"
+    sortable_fields:
+      fields: [year]
+      default:
+        field: year
+        direction: descending
+    fields:
+      - { name: layout, widget: hidden, default: $layouts/StuySplash.astro }
+      - { name: year, label: Year, widget: number, value_type: int }
+      - { name: playlist, label: Recordings playlist link, required: false }
+      - name: presentations
+        label: Talks
+        label_singular: Talk
+        widget: list
+        summary: "{{fields.title}}"
+        fields:
+          - { name: title, label: Title }
+          - { name: presenter, label: Presenter, required: false }
+          - { name: url, label: Slides link, required: false }
+          - { name: description, label: Description, widget: text, required: false }
+      - { name: body, label: Intro, widget: markdown, required: false }
+
+  - name: settings
+    label: Site settings
+    files:
+      - name: stuysplash
+        label: This year's StuySplash
+        file: src/data/stuysplash.yml
+        # The banner and tile on the home page, and the top of the StuySplash page.
+        fields:
+          - { name: year, label: Year, widget: number, value_type: int }
+          - { name: date, label: Date, hint: "For example: Saturday, December 12" }
+          - { name: shortDate, label: Short date, hint: "Shown big on the home page tile, for example: 12.12" }
+          - { name: time, label: Time, hint: "For example: 9:30 to 4" }
+          - { name: summary, label: Description, widget: text }
+          - { name: lastYear, label: Last year's numbers, required: false }
+          - { name: attendForm, label: Attendee sign-up link, required: false }
+          - { name: presentForm, label: Presenter sign-up link, required: false }
+          - { name: showBanner, label: Show the banner on the home page, widget: boolean }
+          - { name: showOnHome, label: Show the tile on the home page, widget: boolean }
+
+      - name: leadership
+        label: Leadership
+        file: src/data/leadership.yml
+        # Shown on stuypulse.com/about/leadership, grouped by department. Add one item per role.
+        fields:
+          - name: leaders
+            label: Leaders
+            label_singular: Leader
+            widget: list
+            root: true
+            summary: "{{fields.name}}: {{fields.position}}"
+            fields:
+              - { name: name, label: Name }
+              - { name: position, label: Role, hint: "For example: Director of I/T (DoIT)" }
+              - name: department
+                label: Department
+                widget: select
+                options: [Mechanical Engineering, Software Engineering, Business, Strategy]
+              - name: image
+                label: Photo
+                widget: image
+                required: false
+                media_folder: /public/ecac
+                public_folder: /ecac
+              - { name: description, label: What they do, widget: text }
+
+      - name: mentors
+        label: Mentors
+        file: src/data/mentors.yml
+        # Shown on stuypulse.com/about/mentors.
+        fields:
+          - name: mentors
+            label: Mentors
+            label_singular: Mentor
+            widget: list
+            root: true
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name }
+              - name: image
+                label: Photo
+                widget: image
+                required: false
+                media_folder: /public/mentors
+                public_folder: /mentors
+              - { name: description, label: Bio, widget: text, required: false }
+              - { name: woodieFlowers, label: Woodie Flowers nomination link, required: false }
+
+      - name: board
+        label: Board of directors
+        file: src/data/board.yml
+        fields:
+          - name: board
+            label: Board members
+            label_singular: Board member
+            widget: list
+            root: true
+            summary: "{{fields.name}}: {{fields.role}}"
+            fields:
+              - { name: name, label: Name }
+              - { name: role, label: Role }
+
+      - name: sponsors
+        label: Sponsors
+        file: src/data/sponsors.yml
+        # Shown on stuypulse.com/sponsors and the home page.
+        fields:
+          - name: sponsors
+            label: Sponsors
+            label_singular: Sponsor
+            widget: list
+            root: true
+            summary: "{{fields.name}} ({{fields.tier}})"
+            fields:
+              - { name: name, label: Name }
+              - name: tier
+                label: Level
+                widget: select
+                options: [platinum, gold, silver, bronze, aluminum]
+              - name: logo
+                label: Logo
+                widget: image
+                required: false
+                media_folder: /public/sponsors
+                public_folder: /sponsors
+              - { name: site, label: Website, required: false }
+              - { name: wide, label: Wide logo, widget: boolean, required: false, default: false }
+
+      - name: sponsor_levels
+        label: Sponsor levels
+        file: src/data/sponsorTiers.yml
+        fields:
+          - name: tiers
+            label: Levels
+            label_singular: Level
+            widget: list
+            root: true
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name }
+              - { name: icon, label: Icon }
+              - { name: range, label: Amount }
+              - { name: desc, label: What sponsors get, widget: text }
+
+      - name: ftc
+        label: FTC awards
+        file: src/data/ftcawards.yml
+        fields:
+          - name: teams
+            label: Teams
+            label_singular: Team
+            widget: list
+            root: true
+            summary: "FTC {{fields.team}}"
+            fields:
+              - { name: team, label: Team number }
+              - { name: season, label: Season, hint: "For example: 2022–23 (POWERPLAY)" }
+              - name: competitions
+                label: Competitions
+                label_singular: Competition
+                widget: list
+                summary: "{{fields.name}}"
+                fields:
+                  - { name: name, label: Competition }
+                  - { name: awards, label: Awards, widget: list }
+
+      - name: socials
+        label: Social links
+        file: src/data/socials.yml
+        # The icons in the footer.
+        fields:
+          - name: socials
+            label: Links
+            label_singular: Link
+            widget: list
+            root: true
+            summary: "{{fields.name}}"
+            fields:
+              - { name: name, label: Name }
+              - { name: url, label: Link }
+              - { name: icon, label: Icon }

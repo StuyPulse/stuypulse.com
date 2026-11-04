@@ -1,11 +1,275 @@
 ---
 import { getCollection } from "astro:content";
+import PageSite from "@layouts/PageSite.astro";
+import Hero from "@components/redesign/Hero.astro";
 
-const historyEntries = await getCollection("history");
-const latestEntry = historyEntries[historyEntries.length - 1];
-const latestYear = latestEntry.slug;
-
-const url = `0; url=/about/history/${latestYear}`;
+const robots = (await getCollection("history")).sort((a, b) => b.data.year - a.data.year);
+const latest = robots[0];
+const awards = latest.data.awards ?? [];
+const plural = (n: number) => `${n} award${n === 1 ? "" : "s"}`;
+const ordinal = (n: number) => n + (["th", "st", "nd", "rd"][(n % 100 > 10 && n % 100 < 14) || n % 10 > 3 ? 0 : n % 10]);
+const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10) * 10))];
 ---
 
-<meta http-equiv="refresh" content={url} />
+<PageSite
+  title="Robots"
+  description={`Every StuyPulse robot since ${robots[robots.length - 1].data.year}, with the awards each one won.`}
+  fullBleed
+>
+  <div class="marquee" aria-hidden="true">
+    <div>
+      {[0, 1].map(() =>
+        robots.map((robot, i) => (
+          <>
+            <span class:list={{ outline: i % 2 }}>{robot.data.title}</span>
+            <svg viewBox="0 0 64 36"><path d="M0 20H20l5-13 6 26 5-13h28" /></svg>
+          </>
+        ))
+      )}
+    </div>
+  </div>
+  <Hero title={latest.data.title} intro={`${latest.data.year}, our ${ordinal(robots.length)} robot`}>
+    <span slot="before" class="chip chip-white">This season</span>
+    <Fragment slot="after">
+      <ul class="awards">
+        {awards.map((award) => <li class:list={{ win: /winner/i.test(award) }}>{award}</li>)}
+      </ul>
+      <div class="actions"><a class="pill pill-white" href={`/about/history/${latest.slug}`}>See {latest.data.title}</a></div>
+    </Fragment>
+    <div slot="side" class="orb">
+      <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+      <div class="pic"><img src={latest.data.photo} alt={`${latest.data.title} on the field`} /></div>
+    </div>
+  </Hero>
+
+  <section class="section" aria-labelledby="all">
+    <h2 id="all">Every robot since {robots[robots.length - 1].data.year}</h2>
+    <p class="lede">{robots.length} of them, each named by the team that built it. The number is how many awards it won.</p>
+    <div class="filters" role="group" aria-label="Show robots from">
+      <button type="button" aria-pressed="true" data-decade="">All</button>
+      {decades.map((decade) => <button type="button" aria-pressed="false" data-decade={decade}>{decade}s</button>)}
+    </div>
+    <ul class="grid-bots">
+      {robots.map((robot) => (
+        <li data-decade={Math.floor(robot.data.year / 10) * 10}>
+          <a class="bot" href={`/about/history/${robot.slug}`}>
+            <div class="img">
+              {robot.data.photo && <img src={robot.data.photo} alt="" loading="lazy" />}
+              <span class="n">{plural(robot.data.awards?.length ?? 0)}</span>
+            </div>
+            <b>{robot.data.title}</b>
+            <span>{robot.data.year}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</PageSite>
+
+<script>
+  const buttons = document.querySelectorAll<HTMLButtonElement>(".filters button");
+  buttons.forEach((button) =>
+    button.addEventListener("click", () => {
+      buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
+      document.querySelectorAll<HTMLElement>(".grid-bots li").forEach((li) => {
+        li.hidden = !!button.dataset.decade && li.dataset.decade !== button.dataset.decade;
+      });
+    })
+  );
+</script>
+
+<style>
+  .marquee {
+    overflow: hidden;
+    white-space: nowrap;
+    background: var(--red);
+    color: #fff;
+    padding-top: 8px;
+  }
+  .marquee > div {
+    display: inline-flex;
+    gap: 30px;
+    align-items: center;
+    font-weight: 800;
+    font-size: clamp(56px, 7vw, 92px);
+    letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 96;
+    animation: slide 90s linear infinite;
+  }
+  .marquee .outline {
+    color: transparent;
+    -webkit-text-stroke: 2px #fff;
+  }
+  .marquee svg {
+    width: 64px;
+    height: 36px;
+    flex: none;
+  }
+  .marquee path {
+    fill: none;
+    stroke: #fff;
+    stroke-width: 3;
+    stroke-linejoin: round;
+  }
+  @keyframes slide {
+    to {
+      transform: translateX(-50%);
+    }
+  }
+  .chip {
+    margin-bottom: 18px;
+  }
+  .awards {
+    list-style: none;
+    padding: 0;
+    margin: 22px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .awards li {
+    background: rgba(255, 255, 255, 0.16);
+    border-radius: 999px;
+    padding: 7px 15px;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  .awards li.win {
+    background: #fff;
+    color: var(--red);
+    font-weight: 700;
+  }
+  .orb {
+    position: relative;
+    aspect-ratio: 1;
+    max-width: 540px;
+    width: 100%;
+    justify-self: center;
+  }
+  .ring {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    opacity: 0.25;
+  }
+  .ring:nth-child(2) {
+    inset: 7%;
+    opacity: 0.4;
+  }
+  .ring:nth-child(3) {
+    inset: 14%;
+    opacity: 0.6;
+  }
+  .ring:first-child {
+    animation: pulse 2.6s ease-out 3;
+  }
+  @keyframes pulse {
+    from {
+      transform: scale(0.92);
+      opacity: 0.6;
+    }
+    to {
+      transform: scale(1.04);
+      opacity: 0.25;
+    }
+  }
+  .pic {
+    position: absolute;
+    inset: 21%;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 6px #fff, 0 30px 60px -20px rgba(60, 0, 4, 0.6);
+  }
+  .pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 65%;
+  }
+
+  .section {
+    padding: clamp(72px, 9vw, 120px) var(--gutter);
+  }
+  h2 {
+    font-size: clamp(2.3rem, 4.4vw, 4rem);
+    margin: 0;
+  }
+  .filters {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-top: 28px;
+  }
+  .filters button {
+    font: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    border: 0;
+    border-radius: 999px;
+    padding: 10px 18px;
+    background: var(--blush);
+    color: var(--ink);
+  }
+  .filters button[aria-pressed="true"] {
+    background: var(--red);
+    color: #fff;
+  }
+  .grid-bots {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 28px 20px;
+  }
+  .bot {
+    color: var(--ink);
+  }
+  .bot:hover {
+    color: var(--red);
+  }
+  .img {
+    position: relative;
+    aspect-ratio: 1;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--blush);
+  }
+  .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+  }
+  .bot:hover .img img {
+    transform: scale(1.04);
+  }
+  .n {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    background: #fff;
+    color: var(--red);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .bot b {
+    display: block;
+    margin-top: 12px;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+  }
+  .bot span:last-child {
+    color: var(--soft);
+    font-size: 16px;
+  }
+  @media (max-width: 860px) {
+    .grid-bots {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px 12px;
+    }
+  }
+</style>

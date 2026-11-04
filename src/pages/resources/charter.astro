@@ -1,15 +1,32 @@
 ---
 import PageSite from '@layouts/PageSite.astro';
+import PageHead from '@components/redesign/PageHead.astro';
 import { marked } from 'marked';
 
-const res = await fetch(
-  'https://raw.githubusercontent.com/StuyPulse/charter.stuypulse.com/refs/heads/main/README.md'
-);
-
-// trusting that theres no XSS in the charter lols
-const content = marked.parse(await res.text());
+// The charter lives in its own repo; pull the latest copy when the site builds.
+const SOURCE = 'https://github.com/StuyPulse/charter.stuypulse.com';
+const res = await fetch('https://raw.githubusercontent.com/StuyPulse/charter.stuypulse.com/refs/heads/main/README.md').catch(() => null);
+// The charter is our own document, so its HTML is trusted.
+const content = res?.ok ? await marked.parse(await res.text()) : null;
 ---
 
-<PageSite title="Charter" description={'The StuyPulse Team Charter.'}>
-  <Fragment set:html={content} />
+<PageSite title="Charter" description="The StuyPulse team charter: how the team is structured and governed." fullBleed>
+  <PageHead title="Team charter" intro="How StuyPulse is structured and governed.">
+    <div class="actions"><a class="pill pill-white" href={SOURCE}>See it on GitHub</a></div>
+  </PageHead>
+  <div class="band prose charter">
+    {content ? <Fragment set:html={content} /> : <p>The charter couldn't be loaded. <a href={SOURCE}>Read it on GitHub</a>.</p>}
+  </div>
 </PageSite>
+
+<style>
+  .charter {
+    max-width: 1120px;
+  }
+  .charter :global(h1) {
+    display: none;
+  }
+  .charter :global(h2) {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+  }
+</style>

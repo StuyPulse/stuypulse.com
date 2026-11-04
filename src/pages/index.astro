@@ -1,262 +1,308 @@
 ---
 import { getCollection } from "astro:content";
 import PageSite from "@layouts/PageSite.astro";
-import Carousel from "@components/carousels/ImageCarousel.astro";
-import SponsorCarousel from "@components/carousels/SponsorCarousel.astro";
+import Hero from "@components/redesign/Hero.astro";
+import Heartbeat from "@components/redesign/Heartbeat.astro";
 import getSortedPosts from "@utils/getSortedPosts";
-import { Picture } from "astro-imagetools/components";
-import ImageContainer from "@components/ImageContainer.astro";
-import NewsMiniPreview from "@components/news/NewsMiniPreview.astro";
-const POSTS_ON_FRONT_PAGE = 5;
-const newsEntries = await getCollection("news");
-const sortedNews = getSortedPosts(newsEntries);
-const frontPosts = sortedNews.slice(0, POSTS_ON_FRONT_PAGE);
+import type { SponsorType } from "@types";
+
+const latestPost = getSortedPosts(await getCollection("news"))[0];
+const splash = (await import("@data/stuysplash.yml")).default;
+const robots = await getCollection("history");
+
+const sponsors: (SponsorType & { tier: string })[] = (await import("@data/sponsors.yml")).default;
+const tierOrder = ["platinum", "gold", "silver", "bronze", "aluminum"];
+const sponsorLogos = sponsors
+  .filter((sponsor) => sponsor.logo)
+  .sort((a, b) => tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier))
+  .slice(0, 8);
+
+const departments = [
+  { name: "Mechanical", icon: "/icons/mechanical.svg" },
+  { name: "Software", icon: "/icons/software.svg" },
+  { name: "Business", icon: "/icons/business.svg" },
+  { name: "Strategy", icon: "/icons/strategy.svg" },
+];
 ---
 
+<PageSite
+  title="Home"
+  description="Team 694 is an award-winning FIRST robotics team from New York City. Find out about our team, its history, and view pictures and videos."
+  showBanner
+  fullBleed
+>
+  <Hero
+    title="Find your pulse."
+    intro="We're FIRST Robotics Team 694 from Stuyvesant High School. Students design, build, program and fund a new robot every year."
+    photo="/home/team-2026.jpg"
+    photoAlt="The 2026 StuyPulse team"
+    stickers={["No cuts", "No tryouts", "Since 2001"]}
+  >
+    <Fragment slot="actions">
+      <a class="pill pill-white" href="/join">Join the team</a>
+      <a class="pill pill-ghost" href="/sponsors">Support us</a>
+    </Fragment>
+  </Hero>
+
+  <section class="section" aria-labelledby="beat-title">
+    <div class="head">
+      <div>
+        <h2 id="beat-title">{robots.length} seasons, one heartbeat.</h2>
+        <p class="lede">Each spike is a season. The taller it is, the more awards that robot brought home. Point at one to see it.</p>
+      </div>
+      <a class="pill pill-line" href="/about/history">See every robot</a>
+    </div>
+    <Heartbeat photoYears={[2001, 2005, 2010, 2016, 2019, 2022, 2026]} />
+  </section>
+
+  <div class:list={["tiles", { solo: !splash.showOnHome }]}>
+    {splash.showOnHome && (
+      <article class="tile tile-red" id="stuysplash">
+        <span class="big" aria-hidden="true">{splash.shortDate}</span>
+        <span class="chip chip-white">{splash.date}, {splash.time}</span>
+        <h2>StuySplash {splash.year}</h2>
+        <p>{splash.summary} {splash.lastYear}</p>
+        <div class="actions">
+          {splash.attendForm && <a class="pill pill-white" href={splash.attendForm}>Sign up to attend</a>}
+          {splash.presentForm && <a class="pill pill-ghost" href={splash.presentForm}>Give a talk</a>}
+          <a class="pill pill-ghost" href="/resources/stuysplash">Past talks</a>
+        </div>
+      </article>
+    )}
+    <article class="tile tile-blush" id="news">
+      <div class="faces">
+        <img src="/community/Open_House.jpg" alt="" />
+        <img src="/community/BPC_Demo.jpg" alt="" />
+        <img src="/community/Stuy_Balta.jpg" alt="" />
+      </div>
+      <h2>What we've been up to</h2>
+      <p>Our newsletters cover build updates, competition results and who's new on the team.{latestPost && <> The latest is <strong>{latestPost.data.title}</strong>.</>}</p>
+      <div class="actions">
+        {latestPost && <a class="pill pill-red" href={latestPost.data.link || `/news/${latestPost.slug}`}>Read the latest</a>}
+        <a class="pill pill-line" href="/news">All newsletters</a>
+      </div>
+    </article>
+  </div>
+
+  <section class="join section" aria-labelledby="join-title">
+    <h2 id="join-title">No cuts. No tryouts.</h2>
+    <p class="lede">If you go to Stuy and you're curious, there's a spot for you. Pick a department, or try them all.</p>
+    <div class="depts">
+      {departments.map((dept) => (
+        <a class="dept" href={`/join#${dept.name.toLowerCase()}`}>
+          <i><img src={dept.icon} alt="" /></i>
+          <b>{dept.name}</b>
+        </a>
+      ))}
+    </div>
+    <div class="actions center"><a class="pill pill-white" href="/join">How to join</a></div>
+  </section>
+
+  <section class="section" aria-labelledby="sp-title">
+    <div class="head">
+      <div>
+        <h2 id="sp-title">Built with help from</h2>
+        <p class="lede">Parents, alumni and companies who keep the lab running.</p>
+      </div>
+      <a class="pill pill-red" href="/sponsors">Become a sponsor</a>
+    </div>
+    <ul class="logos">
+      {sponsorLogos.map((sponsor) => (
+        <li>
+          <a href={sponsor.site || "/sponsors"} target={sponsor.site ? "_blank" : undefined} rel="noopener noreferrer">
+            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
+</PageSite>
+
 <style>
-  .inline-icon {
-    height: 1em;
-    width: 1em;
-    transform: translateY(-0.1em);
-    padding-right: 0.25rem;
+  .section {
+    padding: clamp(72px, 9vw, 120px) var(--gutter);
   }
-  .youtube-video {
-    aspect-ratio: 16 / 9;
-    width: 100%;
+  h2 {
+    font-size: clamp(2.3rem, 4.4vw, 4rem);
+    margin: 0;
   }
-
-  .row {
-    justify-content: center;
-    align-items: center;
-  }
-  .col,
-  .col-lg-7,
-  .col-lg-5 {
-    margin-bottom: 3rem;
-  }
-
-  p {
-    margin-bottom: 0.25rem;
-  }
-
-  .large-name {
-    font-size: 4rem;
-    font-weight: bold;
-    color: red;
-    line-height: 1;
-    margin-bottom: 5px;
-  }
-  .intro-text {
-    font-size: 1.3rem;
-    margin-bottom: 0;
-    display: inline-block;
-  }
-  button {
-    background-color: red;
-    color: white;
-    border-radius: 51px;
-    border-style: none;
-    padding: 10px 20px;
-    text-align: center;
-    font-size: 16px;
-    cursor: pointer;
-    margin-top: 0.5rem;
-  }
-
-  button:hover {
-    background-color: #e00;
-  }
-  .robotimg {
-    width: 20rem;
+  .head {
     display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px;
+    flex-wrap: wrap;
   }
-  .stuysplash-photo {
-    display: block;
-    width: 100%;
-    height: auto;
-    aspect-ratio: 16 / 9;
+
+  .tiles {
+    display: grid;
+    grid-template-columns: 1.25fr 1fr;
+    gap: 20px;
+    padding: 0 20px;
+  }
+  .tiles.solo {
+    grid-template-columns: 1fr;
+  }
+  .tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    padding: clamp(32px, 4vw, 52px);
+    min-height: 460px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+  }
+  .tile p {
+    margin: 14px 0 0;
+    font-size: 19px;
+    max-width: 40ch;
+  }
+  .tile .chip {
+    margin-bottom: 18px;
+  }
+  .tile .actions {
+    margin-top: 26px;
+  }
+  .tile-red {
+    background: var(--red);
+    color: #fff;
+  }
+  .tile-blush {
+    background: var(--blush);
+  }
+  .tile-blush p {
+    color: var(--soft);
+  }
+  .big {
+    position: absolute;
+    right: 36px;
+    top: 20px;
+    font-weight: 800;
+    font-size: clamp(120px, 15vw, 220px);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    opacity: 0.17;
+    font-variation-settings: "opsz" 96;
+  }
+  .faces {
+    display: flex;
+    margin-bottom: auto;
+    padding-bottom: 28px;
+  }
+  .faces img {
+    width: 96px;
+    height: 96px;
+    border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 3px 6px rgb(0 0 0 / 20%), 0 6px 20px rgb(0 0 0 / 19%);
+    border: 5px solid var(--blush);
+    margin-right: -22px;
   }
-  .stuysplash-links {
+
+  .join {
+    margin: 20px;
+    border-radius: var(--radius-lg);
+    background: var(--red);
+    color: #fff;
+    text-align: center;
+  }
+  .join h2 {
+    font-size: clamp(3rem, 7vw, 6.4rem);
+  }
+  .join .lede {
+    margin: 18px auto 0;
+    color: #fff;
+    opacity: 0.92;
+  }
+  .depts {
+    display: flex;
+    justify-content: center;
+    gap: clamp(16px, 3vw, 32px);
+    margin-top: 56px;
+    flex-wrap: wrap;
+  }
+  .dept {
+    width: 170px;
+    color: #fff;
+  }
+  .dept:hover {
+    color: #fff;
+  }
+  .dept i {
+    display: grid;
+    place-items: center;
+    width: 112px;
+    height: 112px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: #fff;
+    transition: transform 0.2s ease;
+  }
+  .dept:hover i {
+    transform: translateY(-4px);
+  }
+  .dept img {
+    width: 54px;
+    height: 54px;
+  }
+  .dept b {
+    display: block;
+    margin-top: 14px;
+    font-size: 20px;
+  }
+  .actions.center {
+    justify-content: center;
+    margin-top: 52px;
+  }
+
+  .logos {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
-    margin-top: 0.5rem;
+    gap: 16px;
   }
-  .stuysplash-links button {
-    margin-top: 0;
+  .logos a {
+    display: grid;
+    place-items: center;
+    height: 96px;
+    padding: 0 28px;
+    border-radius: 999px;
+    background: var(--blush);
   }
-  #stuysplash {
-    scroll-margin-top: 9rem;
+  .logos img {
+    max-height: 54px;
+    max-width: 170px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
   }
-  @media screen and (max-width: 575px) {
-    #stuysplash {
-      scroll-margin-top: 10rem;
+
+  @media (max-width: 860px) {
+    .tiles {
+      grid-template-columns: 1fr;
+      padding: 0 12px;
+    }
+    .tile {
+      min-height: 0;
+    }
+    .join {
+      margin: 12px;
+    }
+    .depts {
+      gap: 24px 12px;
+    }
+    .dept {
+      width: calc(50% - 6px);
+    }
+    .dept i {
+      width: 88px;
+      height: 88px;
+    }
+    .dept img {
+      width: 42px;
+      height: 42px;
     }
   }
-  /* iframe {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
-  } */
 </style>
-
-<PageSite title={"Home"} description={"Team 694 is an award-winning FIRST robotics team from New York City. Find out about our team, its history, and view pictures and videos."} showStuySplashBanner={true}>
-  <div class="row">
-    <div class="col">
-      <div class="large-name">
-        <img src="/icons/694-logo.svg" alt="694 Logo" class="inline-icon" />
-        StuyPulse
-      </div>
-      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
-        FIRST Robotics Competition Team 694&nbsp;
-      </div>
-      <br />
-      <p>
-        We are StuyPulse, <a href="http://stuy.enschool.org/"
-          >Stuyvesant High School's</a
-        >
-        award-winning FIRST Robotics team. We seek to impact young adults by cultivating
-        skills in engineering, programming, and business through FIRST.
-      </p>
-      <a href="/about"><button type="button"> Learn More &gt;&gt;</button></a>
-    </div>
-    <div class="col-lg-7">
-      <Carousel />
-    </div>
-  </div>
-  <div class="row">
-    <div class="col">
-      <div class="large-name" id="stuysplash">StuySplash</div>
-      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
-        StuyPulse's 2026 Annual Lecture Series&nbsp;
-      </div>
-      <br />
-      <p>
-        Share your knowledge with the FRC community at StuySplash on December
-        12th from 9:30am - 4:00pm! In 2025, we had 25 presentations and 276 attendees from across 3
-        states. Signups for presenters and attendees are now open!
-      </p>
-      <div class="stuysplash-links">
-        <a href="https://forms.gle/tnJWybez9SDajAnt7"
-          ><button type="button">Attendee Sign Up</button></a
-        >
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSfqC0uEmiOw1NMjHvdJKZxJ6xfuuimvwlfqYuV553WP7APFtA/viewform"
-          ><button type="button">Presenter Sign Up</button></a
-        >
-        <a href="/resources/stuysplash/2025/"
-          ><button type="button">Past Presentations</button></a
-        >
-      </div>
-    </div>
-    <div class="col-lg-5">
-      <img
-        class="stuysplash-photo"
-        src="/stuysplash/past-stuysplash.jpg"
-        alt="A presenter speaking to attendees at a past StuySplash event"
-        width="1600"
-        height="903"
-        loading="lazy"
-      />
-    </div>
-  </div>
-  <div class="row">
-    <div
-      class="col-lg-5 order-1 order-lg-0"
-      style="display: flex; align-items: center; justify-content: center;"
-    >
-      <div
-        class="robotimg"
-        style="box-shadow: 0 3px 6px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);"
-      >
-        <ImageContainer
-          img="/robots/2026_TribecBot.jpg"
-          alt="TribecBot, our 2026 Robot"
-        />
-      </div>
-    </div>
-    <div class="col order-0 order-lg-1">
-      <div class="large-name">Tribecbot</div>
-      <div class="intro-text mb-2" style="border-bottom: 3px solid #e00">
-        Our 2026 Robot for REBUILT&nbsp;
-      </div>
-      <br />
-      <p> Tribecbot is our current bot for the 2026 FRC season, REBUILT.</p>
-      <a href="/about/history"
-        ><button type="button"> Past Competition Robots &gt;&gt;</button></a
-      >
-    </div>
-  </div>
-  <div class="row">
-    <div class="col-lg-6 flex-wrap" >
-      <div class="mb-2">
-        <div class="large-name" >
-          <a href="/sponsors/">
-            <img
-              class="front-page-thumb inline-icon"
-              src="/icons/red-diamond.svg"
-              alt="Gem"
-            />
-          </a>
-          Sponsors
-        </div>
-        <div
-          class="intro-text" style = "border-bottom: 3px solid #e00;"
-        >
-          Our sponsors:&nbsp;
-        </div>
-      </div>
-      
-      <p>
-        Our robots could not have been built, had it not been for the generosity
-        of our sponsors. Want to sponsor our award-winning team?
-      </p>
-      <a href="/sponsors#info"
-        ><button type="button"> Sponsor Us &gt;&gt;</button></a
-      >
-    </div>
-
-    <div class="col offset">
-      <SponsorCarousel images="sponsors" />
-    </div>
-  </div>
-  <div class="row mt-3">
-    <div class="mb-3 justify-content-start text-start">
-      <div class="large-name">
-        <img
-          class="front-page-thumb inline-icon"
-          src="/icons/clock.svg"
-          alt="Clock"
-        />
-        Latest News
-      </div>
-      <div
-        class="intro-text" style = "border-bottom: 3px solid #e00;"
-      >
-        Keep up with the team!&nbsp;
-      </div>
-    </div>
-
-    <div class="col-lg-5 col-md-12">
-      <h2>Recent News</h2>
-
-      <NewsMiniPreview entries={frontPosts} />
-
-      <strong><a href="/news">See older news &gt;&gt;</a></strong>
-    </div>
-    <div class="col-md-12 col-lg-7">
-      <h2>Latest YouTube Video</h2>
-      <p class="text-muted">
-        Check out our other videos <a href="https://www.youtube.com/@StuyPulse"
-          >here</a
-        >!
-      </p>
-      <iframe
-        class="youtube-video"
-        style="height:23em;"
-        src="https://www.youtube-nocookie.com/embed?listType=playlist&list=UUDJr7RUmFfHAXjDg7jaCP5g"
-        title="YouTube video player"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowfullscreen></iframe>
-    </div>
-  </div>
-</PageSite>

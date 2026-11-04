@@ -13,6 +13,7 @@
   "dependencies": {
     "@astrojs/mdx": "^2.1.1",
     "@astrojs/sitemap": "3.6.0",
+    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "@fullcalendar/core": "^6.1.11",
     "@fullcalendar/daygrid": "^6.1.11",
     "@fullcalendar/google-calendar": "^6.1.11",

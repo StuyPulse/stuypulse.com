@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Concept B: The Thread</title>
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --ink:#17181c; --soft:#6f7178; --red:#e0122f; --air:#f5f6f7 }
+  * { box-sizing:border-box; margin:0 }
+  html { -webkit-font-smoothing:antialiased }
+  body { background:#fff; color:var(--ink); font:400 18px/1.5 "Schibsted Grotesk",sans-serif }
+  nav { display:flex; justify-content:space-between; padding:28px 40px; font-size:15px; font-weight:500 }
+  nav div { display:flex; gap:30px; color:var(--soft); font-weight:400 }
+  h1 { font-weight:400; font-size:clamp(2.75rem,6.1vw,6rem); line-height:1.02; letter-spacing:-.038em; padding:40px 40px 0; max-width:15em }
+  h1 em { font-style:normal; color:var(--soft) }
+  .thread { display:block; width:100%; height:190px; margin-top:8px; overflow:visible }
+  .thread path { fill:none; stroke:var(--red); stroke-width:1.25; vector-effect:non-scaling-stroke; stroke-linejoin:round }
+  .meta { display:flex; justify-content:space-between; padding:6px 40px 0; font-size:14px; color:var(--soft) }
+  .photo { margin:32px 40px 0; height:62vh; border-radius:14px; overflow:hidden; background:var(--air) }
+  .photo img { width:100%; height:100%; object-fit:cover; object-position:50% 74%; display:block }
+</style>
+</head>
+<body>
+<nav><span>StuyPulse</span><div><span>The team</span><span>Robots</span><span>StuySplash</span><span>News</span><span>Sponsor us</span></div></nav>
+<h1>A hundred and fifty students. One heartbeat. <em>Twenty-six seasons of it.</em></h1>
+<svg class="thread" id="t" viewBox="0 0 1000 200" preserveAspectRatio="none" aria-hidden="true"></svg>
+<div class="meta"><span>2001, Stuyle</span><span>Each beat is a season, and its height is the awards that robot won</span><span>2026, Tribecbot</span></div>
+<div class="photo"><img src="../../../public/home/team-2026.jpg" alt=""></div>
+<script>
+const a=[1,2,2,2,5,3,5,4,2,5,4,4,4,2,5,6,8,10,11,2,2,8,8,4,9,10],s=1000/a.length;let d='M0 170';
+a.forEach((n,i)=>{const x=i*s,h=n*14;d+=` L${x+s*.34} 170 L${x+s*.42} 175 L${x+s*.5} ${170-h} L${x+s*.58} 180 L${x+s*.66} 170`});
+document.getElementById('t').innerHTML=`<path d="${d} L1000 170"/>`;
+</script>
+</body>
+</html>

@@ -1,127 +1,207 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import SponsorContainer from "@components/sponsors/SponsorContainer.astro";
+import Hero from "@components/redesign/Hero.astro";
 import type { SponsorType, SponsorTierType } from "@types";
 
-let sponsorSize = "180px";
-let textSize = "25px";
-let responsive = "col-6 col-md-4 col-xxl-3";
-
-const sponsors = await import("@data/sponsors.yml");
-const sponsorData = sponsors.default;
-const sponsorTiers = await import(`@data/sponsorTiers.yml`);
-const tierData = sponsorTiers.default;
+const sponsors: (SponsorType & { tier: string })[] = (await import("@data/sponsors.yml")).default;
+const tiers: SponsorTierType[] = (await import("@data/sponsorTiers.yml")).default;
+const groups = tiers
+  .map((tier) => ({ tier, sponsors: sponsors.filter((sponsor) => sponsor.tier === tier.name.toLowerCase()) }))
+  .filter((group) => group.sponsors.length);
+const PACKET = "https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE-/view?usp=drivesdk";
 ---
-
-<style>
-  .inline-icon {
-    height: 1.5em;
-    width: 1.5em;
-    transform: translateY(-0.1em);
-  }
-
-  .row h2 {
-    border-bottom: 3px solid #e00;
-  }
-  .list-group-item {
-    margin-bottom: 1em;
-    border-radius: 0.5em;
-  }
-
-  p {
-    margin-bottom: 0;
-  }
-</style>
 
 <PageSite
   title="Sponsors"
   description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running."
+  fullBleed
 >
-  <h1 class="mb-4">Sponsors</h1>
-  <div class="row mb-3">
-    <div class="col-lg-8 mb-5">
-      <p> Thank you so much for your continuous support and contribution to the team! </p>
-      <p> To find out how to sponsor our team, click <a href="https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE-/view?usp=drivesdk" target="new">here</a>. </p>
-      <div class="accordion accordion-flush" id="sponsorAccordion">
-        {
-          tierData.map((sponsorTier: SponsorTierType, index: number) => (
-            <div class="accordion-item">
-              <h2 class="accordion-header">
-                <button
-                  class="accordion-button"
-                  // type="button"
-                  // data-bs-toggle="collapse"
-                  // data-bs-target={"#flush-collapse" + sponsorTier.name}
-                  // aria-expanded="false"
-                  // aria-controls={"#flush-collapse" + sponsorTier.name}
-                >
-                  <h3 style="margin-bottom:0;">
-                    <img src={sponsorTier.icon} class="inline-icon" />
-                    {sponsorTier.name}
-                  </h3>
-                </button>
-              </h2>
-              <div
-                id={"flush-collapse" + sponsorTier.name}
-                class={
-                  "accordion-collapse collapse show" 
-                }
-                aria-labelledby={"flush-heading" + sponsorTier.name}
-                data-bs-toggle="collapse"
+  <Hero
+    title="Help us build the next one."
+    intro="Our robots, competitions and StuySplash are made possible by parents, alumni and companies who support what Stuy students build."
+    photo="/home/tribecbot.jpg"
+    photoAlt="Tribecbot, our 2026 robot"
+    stickers={["Your logo here"]}
+  >
+    <Fragment slot="actions">
+      <a class="pill pill-white" href="/donate">Donate</a>
+      <a class="pill pill-ghost" href={PACKET} target="_blank" rel="noopener noreferrer">Get our sponsor packet</a>
+    </Fragment>
+  </Hero>
+
+  <section class="section" id="info" aria-labelledby="t-title">
+    <h2 id="t-title">Sponsor levels</h2>
+    <p class="lede">What each level of support gets.</p>
+    <div class="tiers">
+      {tiers.map((tier, i) => (
+        <div class:list={["tier", { top: i === 0 }]}>
+          <img src={tier.icon} alt="" />
+          <b>{tier.name}</b>
+          <span class="amt">{tier.range}</span>
+          <p>{tier.desc}</p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="section thanks" aria-labelledby="s-title">
+    <h2 id="s-title">Thank you to our sponsors</h2>
+    {groups.map(({ tier, sponsors }) => (
+      <div class="group">
+        <h3><img src={tier.icon} alt="" />{tier.name}</h3>
+        <ul class="logos">
+          {sponsors.map((sponsor) => (
+            <li>
+              <a
+                href={sponsor.site || undefined}
+                target={sponsor.site ? "_blank" : undefined}
+                rel="noopener noreferrer"
               >
-                <div class="accordion-body row justify-content-center">
-                  {sponsorData
-                    .filter(
-                      (sponsor: { tier: string }) =>
-                        sponsor.tier == sponsorTier.name.toLowerCase()
-                    )
-                    .map((sponsor: SponsorType, index: number) => (
-                      <div class={responsive}>
-                        <SponsorContainer
-                          sponsor={sponsor}
-                          height={sponsorSize}
-                          width={sponsorSize}
-                          tSize={textSize}
-                        />
-                      </div>
-                    ))}
-                </div>
-              </div>
-            </div>
-          ))
-        }
+                {sponsor.logo ? <img src={sponsor.logo} alt={sponsor.name} loading="lazy" /> : sponsor.name}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </section>
+
+  <section class="ask section" aria-labelledby="g-title">
+    <div>
+      <h2 id="g-title">Any amount helps.</h2>
+      <p class="lede">Donations pay for robot parts, tools and competition fees. To sponsor as a company, start with our packet.</p>
+      <div class="actions">
+        <a class="pill pill-white" href="/donate">Donate</a>
+        <a class="pill pill-ghost" href={PACKET} target="_blank" rel="noopener noreferrer">Sponsor packet</a>
+        <a class="pill pill-ghost" href="mailto:info@stuypulse.com">Email us</a>
       </div>
     </div>
-
-    
-    <div class="col-sm-10 col-lg-4 align-middle">
-      <h3 class="mb-3">Sponsorship Levels:</h3>
-    <ul class="list-group list-group-flush d-inline">
-      {
-        tierData.map((sponsorTier: SponsorTierType, index: number) => (
-          <>
-            <p>
-              <img src={sponsorTier.icon} class="inline-icon" />
-              {sponsorTier.name + ": " + sponsorTier.range}
-            </p>
-            <li class="list-group-item">
-              <p>{sponsorTier.desc}</p>
-            </li>
-          </>
-        ))
-      }
-    </ul>
-    </div>
-  </div>
-  <!-- <hr class="justify-content-center w-40"/> -->
-  
-
-    <!-- <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top" class="m-4">
-      <input type="hidden" name="cmd" value="_s-xclick">
-      <input type="hidden" name="hosted_button_id" value="HS5273F9CJHU4">
-      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <img alt="PayPal donation button" src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" width="1" height="1">
-    </form> -->
-
-  </div>
+    <img src="/home/team-2026.jpg" alt="The 2026 StuyPulse team" loading="lazy" />
+  </section>
 </PageSite>
+
+<style>
+  .section {
+    padding: clamp(72px, 9vw, 120px) var(--gutter);
+  }
+  h2 {
+    font-size: clamp(2.3rem, 4.4vw, 4rem);
+    margin: 0;
+  }
+  .tiers {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 44px;
+  }
+  .tier {
+    border-radius: 32px;
+    background: var(--blush);
+    padding: 28px 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .tier img {
+    width: 52px;
+    height: 52px;
+  }
+  .tier b {
+    font-size: 24px;
+    letter-spacing: -0.02em;
+  }
+  .amt {
+    font-weight: 800;
+    font-size: 20px;
+    color: var(--red);
+  }
+  .tier p {
+    color: var(--soft);
+    font-size: 16px;
+    line-height: 1.45;
+    margin: 0;
+  }
+  .tier.top {
+    background: var(--red);
+    color: #fff;
+  }
+  .tier.top .amt,
+  .tier.top p {
+    color: #fff;
+  }
+  .thanks {
+    padding-top: 0;
+  }
+  .group {
+    margin-top: 48px;
+  }
+  .group h3 {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 28px;
+    margin: 0;
+  }
+  .group h3 img {
+    width: 36px;
+  }
+  .logos {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+  }
+  .logos a {
+    display: grid;
+    place-items: center;
+    min-height: 88px;
+    padding: 0 28px;
+    border-radius: 999px;
+    background: var(--blush);
+    color: var(--ink);
+    font-weight: 700;
+  }
+  .logos img {
+    max-height: 50px;
+    max-width: 170px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+  .ask {
+    margin: 0 20px;
+    border-radius: var(--radius-lg);
+    background: var(--red);
+    color: #fff;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .ask .lede {
+    color: #fff;
+    opacity: 0.92;
+  }
+  .ask img {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    border-radius: 32px;
+    box-shadow: 0 30px 60px -24px rgba(70, 0, 4, 0.55);
+  }
+  @media (max-width: 1100px) {
+    .tiers {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 860px) {
+    .tiers,
+    .ask {
+      grid-template-columns: 1fr;
+    }
+    .ask {
+      margin: 0 12px;
+    }
+  }
+</style>

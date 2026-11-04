@@ -1,39 +1,97 @@
 ---
-import type { SocialType } from '@types';
+import type { NavType, SocialType } from '@types';
 import SocialIcon from './SocialIcon.astro';
 import bootstrap from '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js?url';
 
 const socials = (await import('@data/socials.yml')).default;
+const navs: NavType[] = (await import('@data/navbar.yml')).default;
+const about = navs.find((nav) => nav.name === 'About')?.dropdown ?? [];
+const more = navs.filter((nav) => nav.href);
 ---
 
-<footer class="text-center mb-4">
-  <hr class="hr-blurry mx-auto mt-5" />
-
-  <div>
-    <table class="w-75 table table-borderless mx-auto">
-      <tr>
-        {socials.map((social: SocialType) => <SocialIcon social={social} />)}
-      </tr>
-    </table>
+<footer class="site-footer">
+  <div class="who">
+    <b>StuyPulse, FRC Team 694</b>
+    <p>
+      Stuyvesant High School<br />
+      <a
+        target="_blank"
+        rel="noopener noreferrer"
+        href="https://www.google.com/maps/place/Stuyvesant+High+School/@40.7178149,-74.0164171,17z/data=!4m6!3m5!1s0x89c25a1db5f8b8c9:0xb5084500683f46f9!8m2!3d40.7178149!4d-74.0138422!16zL20vMDI2MDM2?entry=ttu"
+        >345 Chambers St, New York, NY</a
+      ><br />
+      <a href="mailto:info@stuypulse.com">info@stuypulse.com</a>
+    </p>
+    <ul class="socials">
+      {socials.map((social: SocialType) => <SocialIcon social={social} />)}
+    </ul>
   </div>
-  <div>
-    <div class="row w-100">
-      <div class="col">
-        <a target="_blank" href="mailto: info@stuypulse.com">
-          info@stuypulse.com</a
-        >
-      </div>
-      <div class="col">&copy; {new Date().getFullYear()} StuyPulse</div>
-      <div class="col">
-        <a
-          target="_bnplank"
-          href="https://www.google.com/maps/place/Stuyvesant+High+School/@40.7178149,-74.0164171,17z/data=!4m6!3m5!1s0x89c25a1db5f8b8c9:0xb5084500683f46f9!8m2!3d40.7178149!4d-74.0138422!16zL20vMDI2MDM2?entry=ttu"
-        >
-          345 Chambers St, New York, NY</a
-        >
-      </div>
-    </div>
-  </div>
+  <ul class="links">
+    {about.map((nav) => <li><a href={nav.href}>{nav.name}</a></li>)}
+  </ul>
+  <ul class="links">
+    {more.map((nav) => <li><a href={nav.href}>{nav.name.replace('!', '')}</a></li>)}
+  </ul>
+  <p class="copy">&copy; {new Date().getFullYear()} StuyPulse</p>
 
   <script src={bootstrap}></script>
 </footer>
+
+<style>
+  .site-footer {
+    margin: 20px;
+    border-radius: var(--radius-lg);
+    background: var(--red-dark);
+    color: #fff;
+    padding: 48px clamp(28px, 4vw, 56px) 32px;
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 32px;
+  }
+  b {
+    display: block;
+    font-size: 22px;
+    margin-bottom: 8px;
+    letter-spacing: -0.01em;
+  }
+  a {
+    color: #fff;
+    opacity: 0.92;
+  }
+  a:hover {
+    color: #fff;
+    opacity: 1;
+    text-decoration: underline;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .links {
+    display: grid;
+    gap: 6px;
+    align-content: start;
+  }
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .copy {
+    grid-column: 1 / -1;
+    margin: 0;
+    opacity: 0.75;
+    font-size: 15px;
+  }
+  @media (max-width: 860px) {
+    .site-footer {
+      margin: 12px;
+      grid-template-columns: 1fr 1fr;
+    }
+    .who {
+      grid-column: 1 / -1;
+    }
+  }
+</style>

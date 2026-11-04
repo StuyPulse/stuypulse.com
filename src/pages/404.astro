@@ -1,22 +1,39 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
 ---
 
-<PageSite title="404" description={"404: Page not found"}>
+<PageSite title="Page not found" description="This page doesn't exist on stuypulse.com." fullBleed>
+  <PageHead title="We can't find that page." intro="It may have moved when we rebuilt the site. Try one of these instead.">
+    <div class="actions">
+      <a class="pill pill-white" href="/">Home</a>
+      <a class="pill pill-ghost" href="/about/history">Robots</a>
+      <a class="pill pill-ghost" href="/news">Newsletters</a>
+      <a class="pill pill-ghost" href="/join">Join</a>
+    </div>
+  </PageHead>
 
-  <h1>
-    404: Page not found
-  </h1>
-  <p>
-    If you're sure this page has existed before, you can check the <a href="" id="oldurl">old website</a>
+  <p class="band old">
+    Looking for something from before 2023? It may still be on <a id="oldurl" href="https://old.stuypulse.com">our old website</a>.
   </p>
-  <script>
-    // if the url contains blog, replace with news
-    if (window.location.href.includes("blog")) {
-      // https://stuypulse.com/blog/2022/11/16/stuy-splash -> https://stuypulse.com/news/2022-11-16-stuy-splash
-      window.location.href = window.location.href.replace("blog", "news").replace(/\/(\d{4})\/(\d{2})\/(\d{2})\//, "/$1-$2-$3-");
-    }
-    // add href to the link, "https://old.stuypulse.com/" + window.location.pathname
-    document.getElementById("oldurl").href = "https://old.stuypulse.com" + window.location.pathname;
-  </script>
 </PageSite>
+
+<script>
+  // Old blog links (/blog/2022/11/16/stuy-splash) now live at /news/2022-11-16-stuy-splash.
+  if (window.location.pathname.startsWith("/blog")) {
+    window.location.replace(
+      window.location.pathname.replace("/blog", "/news").replace(/\/(\d{4})\/(\d{2})\/(\d{2})\//, "/$1-$2-$3-"),
+    );
+  }
+  (document.getElementById("oldurl") as HTMLAnchorElement).href = "https://old.stuypulse.com" + window.location.pathname;
+</script>
+
+<style>
+  .old {
+    font-size: 19px;
+  }
+  .old a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+</style>

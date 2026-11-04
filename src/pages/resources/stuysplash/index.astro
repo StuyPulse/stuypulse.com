@@ -1,28 +1,111 @@
 ---
+import { getCollection } from "astro:content";
 import PageSite from "@layouts/PageSite.astro";
-import PresentationsAside from "$components/resources/PresentationsAside.astro";
+import PageHead from "@components/redesign/PageHead.astro";
+
+const splash = (await import("@data/stuysplash.yml")).default;
+const years = (await getCollection("stuysplash")).sort((a, b) => Number(b.data.year) - Number(a.data.year));
 ---
 
-<PageSite title="StuySplash 2026" description="StuyPulse's annual lecture series is back for 2026! Sign up to attend or present at StuySplash on December 12th.">
-  <h1 class="mb-4">StuySplash 2026</h1>
-  <div class="row">
-    <nav class="col-12 col-sm-12 col-md-2 col-lg-2 text-nowrap" aria-label="Past StuySplash presentations">
-      <PresentationsAside activeYear="2026" />
-    </nav>
-    <div class="col-12 col-sm-12 col-md-10 col-lg-10 content">
-      <p>
-        StuyPulse's annual lecture series is back for 2026! Share your knowledge
-        with the FRC community at StuySplash on December 12th. All students,
-        mentors, parents, and alumni are welcome, and topics range anywhere from
-        efficient CAD to building lasting outreach initiatives. In 2025, we had
-        25 presentations and 276 attendees from across 3 states. Signups for
-        presenters and attendees are now open!
-      </p>
-      <div class="d-flex flex-wrap gap-3 mb-4">
-        <a class="btn btn-danger" href="https://forms.gle/tnJWybez9SDajAnt7">Attendee Sign Up</a>
-        <a class="btn btn-danger" href="https://docs.google.com/forms/d/e/1FAIpQLSfqC0uEmiOw1NMjHvdJKZxJ6xfuuimvwlfqYuV553WP7APFtA/viewform">Presenter Sign Up</a>
-      </div>
-      <p><a href="/resources/stuysplash/2025/">View past presentations from StuySplash 2025</a></p>
+<PageSite
+  title={`StuySplash ${splash.year}`}
+  description={`StuySplash, StuyPulse's free day of talks for FRC teams, is on ${splash.date}. Sign up to attend or to give a talk.`}
+  image="/home/stuysplash.jpg"
+  fullBleed
+>
+  <PageHead title={`StuySplash ${splash.year}`} intro={splash.summary}>
+    <span slot="before" class="chip chip-white">{splash.date}, {splash.time}</span>
+    <div class="actions">
+      {splash.attendForm && <a class="pill pill-white" href={splash.attendForm}>Sign up to attend</a>}
+      {splash.presentForm && <a class="pill pill-ghost" href={splash.presentForm}>Give a talk</a>}
     </div>
-  </div>
+  </PageHead>
+
+  <section class="band about" aria-labelledby="what">
+    <div>
+      <h2 id="what" class="band-title">What it is</h2>
+      <p>
+        StuySplash is a day of classes for FRC teams, from the basics of a robot to marketing and strategy. Several talks run
+        at once all day, so you can pick what's useful for your team. It grew out of the beta seminar StuyPulse ran for
+        years, and became its own event in 2012, modeled on CSplash and MIT Splash.
+      </p>
+      {splash.lastYear && <p>{splash.lastYear}</p>}
+    </div>
+    <img src="/home/stuysplash.jpg" alt="A StuySplash talk in a Stuyvesant lecture hall" loading="lazy" />
+  </section>
+
+  <section class="band past" aria-labelledby="past">
+    <h2 id="past" class="band-title">Past talks</h2>
+    <p class="lede">Slides and recordings from every StuySplash since 2012.</p>
+    <ul>
+      {years.map((entry) => (
+        <li>
+          <a href={`/resources/stuysplash/${entry.slug}/`}>
+            <b>{entry.data.year}</b>
+            <span>{entry.data.presentations.length} talks</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  </section>
 </PageSite>
+
+<style>
+  .chip {
+    margin-bottom: 18px;
+  }
+  .about {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+    max-width: 1240px;
+  }
+  .about p {
+    margin: 16px 0 0;
+    font-size: 18px;
+  }
+  .about img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+  .past {
+    padding-top: 0;
+  }
+  .past ul {
+    list-style: none;
+    padding: 0;
+    margin: 36px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 14px;
+  }
+  .past a {
+    display: flex;
+    flex-direction: column;
+    padding: 22px 24px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    color: var(--ink);
+  }
+  .past a:hover {
+    background: var(--red);
+    color: #fff;
+  }
+  .past b {
+    font-size: 32px;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+  }
+  .past span {
+    font-size: 15px;
+    opacity: 0.8;
+  }
+  @media (max-width: 860px) {
+    .about {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

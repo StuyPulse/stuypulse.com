@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Option D: Red Pulse</title>
+<link href="https://fonts.googleapis.com/css2?family=Gabarito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#e3121e; --red-dark:#b80d17; --blush:#fff1f1; --ink:#2a1214; --soft:#7a5a5c; --white:#fff }
+  * { box-sizing:border-box; margin:0 }
+  html { -webkit-font-smoothing:antialiased }
+  body { font:400 18px/1.55 Gabarito,system-ui,sans-serif; color:var(--ink); background:var(--white) }
+  a { color:inherit }
+  .pill { display:inline-flex; align-items:center; gap:8px; padding:15px 28px; border-radius:999px; font-weight:700; text-decoration:none; font-size:17px }
+  .pill.white { background:#fff; color:var(--red) }
+  .pill.ghost { box-shadow:inset 0 0 0 2px rgba(255,255,255,.7); color:#fff }
+  .pill.red { background:var(--red); color:#fff }
+
+  /* hero */
+  .hero { background:var(--red); color:#fff; position:relative; overflow:hidden; padding-bottom:90px }
+  nav { display:flex; justify-content:space-between; align-items:center; padding:26px 56px; position:relative; z-index:2 }
+  nav .logo { display:flex; align-items:center; gap:12px; font-weight:800; font-size:24px }
+  nav .logo img { height:38px }
+  nav .links { display:flex; gap:34px; font-weight:500; font-size:17px }
+  nav .links span { opacity:.9 }
+  .hero-grid { display:grid; grid-template-columns:minmax(0,5fr) minmax(0,6fr); gap:56px; align-items:center; padding:48px 56px 0; position:relative; z-index:2 }
+  h1 { font-weight:900; font-size:clamp(3.5rem,7.4vw,7rem); line-height:.92; letter-spacing:-.035em }
+  .hero p { margin-top:26px; font-size:21px; max-width:30ch; opacity:.95 }
+  .hero .actions { display:flex; gap:14px; margin-top:34px }
+  .photo { border-radius:36px; overflow:hidden; aspect-ratio:4/3; box-shadow:0 30px 60px -20px rgba(80,0,5,.45) }
+  .photo img { width:100%; height:100%; object-fit:cover; display:block }
+  .beat { position:absolute; left:0; right:0; top:46%; width:100%; height:220px; z-index:1 }
+  .beat path { fill:none; stroke:rgba(255,255,255,.28); stroke-width:3; stroke-linejoin:round; stroke-linecap:round; stroke-dasharray:3000; stroke-dashoffset:3000; animation:draw 2.4s .3s cubic-bezier(.6,0,.2,1) forwards }
+  @keyframes draw { to { stroke-dashoffset:0 } }
+  @media (prefers-reduced-motion:reduce) { .beat path { animation:none; stroke-dashoffset:0 } }
+
+  section { padding:110px 56px }
+  h2 { font-weight:800; font-size:clamp(2.2rem,4vw,3.5rem); line-height:1; letter-spacing:-.025em }
+  .lede { color:var(--soft); font-size:20px; margin-top:14px; max-width:46ch }
+
+  /* robots */
+  .robots .row { display:flex; gap:22px; margin-top:44px; overflow:hidden }
+  .bot { flex:0 0 220px }
+  .bot .img { aspect-ratio:1; border-radius:28px; overflow:hidden; background:var(--blush) }
+  .bot img { width:100%; height:100%; object-fit:cover; display:block }
+  .bot b { display:block; margin-top:14px; font-size:20px }
+  .bot span { color:var(--soft); font-size:16px }
+  .bot.now .img { box-shadow:0 0 0 5px var(--red) }
+
+  /* splash */
+  .splash { margin:0 56px; padding:64px; border-radius:40px; background:var(--blush); display:grid; grid-template-columns:auto 1fr auto; gap:56px; align-items:center }
+  .date { background:var(--red); color:#fff; border-radius:30px; padding:26px 34px; text-align:center; line-height:1 }
+  .date b { display:block; font-size:84px; font-weight:900; letter-spacing:-.04em }
+  .date span { font-size:22px; font-weight:600 }
+
+  /* join */
+  .join { background:var(--red); color:#fff; margin-top:110px; border-radius:56px 56px 0 0; text-align:center }
+  .join h2 { font-size:clamp(3rem,6.5vw,6rem) }
+  .join .lede { color:#fff; opacity:.9; margin:18px auto 0 }
+  .depts { display:flex; justify-content:center; gap:28px; margin-top:56px; flex-wrap:wrap }
+  .dept { width:180px }
+  .dept i { display:grid; place-items:center; width:110px; height:110px; margin:0 auto; border-radius:50%; background:#fff }
+  .dept img { width:54px; height:54px }
+  .dept b { display:block; margin-top:14px; font-size:20px }
+  .join .pill { margin-top:56px }
+  @media (max-width:800px) {
+    nav .links { display:none } nav,.hero-grid,section { padding-left:20px; padding-right:20px }
+    .hero-grid,.splash { grid-template-columns:1fr } .splash { margin:0 16px; padding:32px }
+  }
+</style>
+</head>
+<body>
+<header class="hero">
+  <nav><div class="logo"><img src="../../../public/icons/694_white.svg" alt="">StuyPulse</div><div class="links"><span>About</span><span>Robots</span><span>StuySplash</span><span>Newsletters</span><span>Sponsors</span></div><a class="pill white" href="#">Donate</a></nav>
+  <svg class="beat" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path d="M0 120 H520 L560 120 L585 40 L615 200 L640 90 L660 120 H1440"/></svg>
+  <div class="hero-grid">
+    <div>
+      <h1>Find your pulse.</h1>
+      <p>We're FIRST Robotics Team 694 from Stuyvesant High School, building robots, code and a business since 2001.</p>
+      <div class="actions"><a class="pill white" href="#">Join the team</a><a class="pill ghost" href="#">Support us</a></div>
+    </div>
+    <div class="photo"><img src="../../../public/home/team-2026.jpg" alt="The 2026 StuyPulse team"></div>
+  </div>
+</header>
+
+<section class="robots">
+  <h2>Twenty-six robots, and every one has a name.</h2>
+  <p class="lede">From Stuyle in 2001 to Tribecbot this season.</p>
+  <div class="row" id="row"></div>
+</section>
+
+<div class="splash">
+  <div class="date"><b>12</b><span>December</span></div>
+  <div><h2>StuySplash 2026</h2><p class="lede">Our free lecture series for FRC teams. Last year: 25 talks and 276 people from three states.</p></div>
+  <a class="pill red" href="#">Sign up</a>
+</div>
+
+<section class="join">
+  <h2>No cuts. No tryouts.</h2>
+  <p class="lede">If you go to Stuy and you're curious, there's a spot for you.</p>
+  <div class="depts">
+    <div class="dept"><i><img src="../../../public/icons/mechanical.svg" alt=""></i><b>Mechanical</b></div>
+    <div class="dept"><i><img src="../../../public/icons/software.svg" alt=""></i><b>Software</b></div>
+    <div class="dept"><i><img src="../../../public/icons/business.svg" alt=""></i><b>Business</b></div>
+    <div class="dept"><i><img src="../../../public/icons/strategy.svg" alt=""></i><b>Strategy</b></div>
+  </div>
+  <a class="pill white" href="#">How to join</a>
+</section>
+<script>
+const C='https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/',O=C+'old-bots/';
+const R=[['Tribecbot',2026,'../../../public/home/tribecbot.jpg'],['Aunt Mary',2025,'../../../public/robots/2025_Aunt_Mary.jpg'],['Izzi',2024,O+'Izzi.jpeg'],['Jim',2023,O+'2023_Jim.jpg'],['Excelsior',2022,C+'Excelsior.JPG'],['Elektra',2021,O+'2021_Elektra.jpg'],['Alfred',2019,'https://stuypulse.nyc3.digitaloceanspaces.com/site/img/Alfred.jpg']];
+document.getElementById('row').innerHTML=R.map((r,i)=>`<div class="bot${i?'':' now'}"><div class="img"><img src="${r[2]}" alt=""></div><b>${r[0]}</b><span>${r[1]}</span></div>`).join('');
+</script>
+</body>
+</html>

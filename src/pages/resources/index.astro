@@ -1,158 +1,135 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import ImageContainer from "@components/ImageContainer.astro";
+import PageHead from "@components/redesign/PageHead.astro";
+
+type Doc = { name: string; text?: string; href: string };
+const groups: { id: string; title: string; intro: string; docs: Doc[] }[] = [
+  {
+    id: "members",
+    title: "For new members",
+    intro: "To join the team, complete these forms, pay the $200 team dues and pass the safety exam.",
+    docs: [
+      { name: "Media consent form", href: "https://drive.google.com/file/d/1vqRcrqGt89DYi_p43XDBxM0iFZI3wF6X/view" },
+      { name: "Medical form", href: "https://drive.google.com/file/d/1X1JhrtUJzZqmVKH_vOXHZXnsaIlKAWZ0/view" },
+      {
+        name: "FIRST registration (STIMS)",
+        text: "Make a FIRST account, then fill out the Student Team Information Management System form.",
+        href: "https://www.firstinspires.org/resource-library/youth-registration-system",
+      },
+      {
+        name: "Stuyvesant Robotics Google group",
+        text: "Ask to join for weekly emails and updates.",
+        href: "https://groups.google.com/g/stuyvesant-robotics",
+      },
+      { name: "Team charter", text: "How the team is structured and governed.", href: "/resources/charter" },
+    ],
+  },
+  {
+    id: "teams",
+    title: "For other teams",
+    intro: "Everything we make is open to other teams.",
+    docs: [
+      { name: "StuySplash talks", text: "Slides and recordings from our yearly day of talks.", href: "/resources/stuysplash" },
+      { name: "Tutorials", text: "Driver Station troubleshooting and more.", href: "/resources/tutorials" },
+      { name: "FLL curriculum", text: "For new FIRST LEGO League teams and mentors.", href: "/resources/tutorials/fll" },
+      { name: "Our code on GitHub", text: "Robot code, this website and more, all open source.", href: "https://github.com/StuyPulse" },
+    ],
+  },
+  {
+    id: "business",
+    title: "Business and outreach",
+    intro: "Reference documents for the Business department.",
+    docs: [
+      { name: "Business handbook", href: "https://docs.google.com/document/d/1Ux0dfLKpGtqXlb2SsOtK4-jNXrZuqW6jahB4BVWtoSk/edit?usp=sharing" },
+      { name: "Business reference systems (Canva)", href: "https://www.canva.com/design/DAHDBpqFE84/HOfOwDbMR6St9QCCCz5kQQ/edit" },
+      { name: "Planning StuySplash", href: "https://docs.google.com/document/d/1_WFPW0PJ5OXG69ChWYiQT_TQuleCBCqmf9grueBakps/edit?usp=sharing" },
+      { name: "Planning Extravaganza (team dinner)", href: "https://docs.google.com/document/d/1MGm3FYnVx2E1P8gT0mwl2mFB2yoDp4eu_fKT-ab7tQo/edit?usp=sharing" },
+      { name: "Branding guide (2016–17)", text: "Our team name, logo and colors.", href: "https://old.stuypulse.com/downloads/teamdocs/BrandingGuide2016-2017.pdf" },
+    ],
+  },
+];
 ---
 
+<PageSite title="Resources" description="Forms for new StuyPulse members, guides for other teams, and Business department documents." fullBleed>
+  <PageHead title="Resources" intro="Forms for new members, guides for other teams and documents for the Business department.">
+    <ul class="jump">
+      {groups.map((group) => <li><a href={`#${group.id}`}>{group.title}</a></li>)}
+    </ul>
+  </PageHead>
+
+  {groups.map((group) => (
+    <section class="band group" id={group.id} aria-labelledby={`${group.id}-title`}>
+      <h2 id={`${group.id}-title`} class="band-title">{group.title}</h2>
+      <p class="lede">{group.intro}</p>
+      <ul class="docs">
+        {group.docs.map((doc) => (
+          <li>
+            <a href={doc.href}>
+              <b>{doc.name}</b>
+              {doc.text && <span>{doc.text}</span>}
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  ))}
+</PageSite>
+
 <style>
-  h4 {
-    color: #6c757d;
+  .jump {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .jump a {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 600;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+  }
+  .jump a:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+  .group {
+    scroll-margin-top: 16px;
+  }
+  .group + .group {
+    padding-top: 0;
+  }
+  .docs {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+  }
+  .docs a {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    height: 100%;
+    padding: 24px 26px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    color: var(--ink);
+  }
+  .docs a:hover {
+    background: var(--red);
+    color: #fff;
+  }
+  .docs b {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .docs span {
+    font-size: 16px;
+    opacity: 0.8;
   }
 </style>
-
-<PageSite title="Resources" description={"Home to our archive of resources and documents for FRC teams."}>
-  <h1 class="mb-4">Resources and Documents</h1>
-  <h3>Resources</h3>
-  <h4>StuySplash</h4>
-  <div class="row">
-    <div class="col-12 col-sm-12 col-lg-7 col-xl-6 col-xxl-7">
-      <p>
-        StuySplash is an intensive camp for FRC, covering everything from the
-        foundation of your robot to the 0's and 1's that make it overweight.
-        StuySplash was originally adapted from the beta seminar that StuyPulse
-        has given as a summary of beta testing for the past several years. We
-        very much enjoy providing the beta seminar, but in 2012 we realized that
-        we had much more information to impart to newer teams and as a result
-        StuySplash was founded.
-      </p>
-      <p>
-        Modeled after the wildly successful CSplash and MIT Splash events, Stuy
-        Splash is designed to aid newer teams in whatever area they are having
-        trouble. A set of classes on a variety of topics from game-piece
-        manipulators to marketing strategies to rationalizing your team's
-        decision-making process are held throughout the day with multiple
-        simultaneous classes and no requirement to sit through an entire lecture
-        ensure that the learners are engaged in precisely what they want to
-        learn about. And, of course, the beta seminar is offered as part of the
-        day's lectures.
-      </p>
-      <p>
-        All previous StuySplash lectures can be found <a
-          href="/resources/stuysplash">here</a
-        >
-      </p>
-    </div>
-    <div class="col-12 col-sm-12 col-lg-5 col-xl-6 col-xxl-5 mb-3 clearfix">
-      <div
-        class="p-0 float-end rounded align-middle"
-        style="box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);"
-      >
-        <ImageContainer
-          img="https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/img/stuysplash_ex.jpg"
-          alt="StuySplash 2023, with Mr. Blay presenting"
-          height={"auto"}
-          width={"auto"}
-          tSize={"40px"}
-        />
-      </div>
-    </div>
-  </div>
-
-  <h4>Open Source Software</h4>
-  <p>
-    From our <a href="https://github.com/StuyPulse/TribecBot" target="_blank"
-      >robot code</a
-    > to <a href="https://github.com/StuyPulse/stuypulse.com" target="_blank"
-      >this very website</a
-    >, everything we develop is open source. Check out our code on GitHub <a
-      href="https://github.com/StuyPulse">here</a
-    >!
-  </p>
-  <h3 class="mt-5">Team Documents</h3>
-  <h4 class="">Team Forms</h4>
-  <p>
-    In order to join and participate on the team, the following must be
-    completed:
-  </p>
-  <ul>
-    <li>
-      <a
-        href="https://drive.google.com/file/d/1vqRcrqGt89DYi_p43XDBxM0iFZI3wF6X/view"
-        >Media Consent Form</a
-      >
-    </li>
-    <li>
-      <a
-        href="https://drive.google.com/file/d/1X1JhrtUJzZqmVKH_vOXHZXnsaIlKAWZ0/view"
-        >Medical Form</a
-      >
-    </li>
-    <li>
-      <a
-        href="https://www.firstinspires.org/resource-library/youth-registration-system"
-        >FIRST Student Team Information Members System Form (STIMS)</a
-      >
-    </li>
-  </ul>
-  <p>
-    New team members will need to request to be added to the <a
-      href="https://groups.google.com/g/stuyvesant-robotics"
-      >Stuyvesant Robotics google group</a
-    > to recieve weekly emails and updates. They will also need to register an account
-    with FIRST to fill out their STIMS.
-  </p>
-  <p>
-    Team dues are $200, and completition of a safety exam is required to join
-    the team.
-  </p>
-  <h4 class="">Team Charter</h4>
-  <p>
-    Find a formal description of our team's structure and government <a
-      href="https://stuypulse.com/resources/charter/"
-      target="_blank">here</a
-    >.
-  </p>
-
-  <h3 class="mt-4">Business and Outreach</h3>
-  <h4 class="">Business Handbook - Reference Documents</h4>
-  <p>
-    Reference documents regarding procedures in the business department can be found <a
-      href="https://docs.google.com/document/d/1Ux0dfLKpGtqXlb2SsOtK4-jNXrZuqW6jahB4BVWtoSk/edit?usp=sharing"
-      >here</a
-    >.
-  </p>
-  <h4 class="">StuySplash Planning Reference Document</h4>
-  <p>
-    Reference documents regarding procedures to plan our annual lecture series can be accessed <a
-      href="https://docs.google.com/document/d/1_WFPW0PJ5OXG69ChWYiQT_TQuleCBCqmf9grueBakps/edit?usp=sharing"
-      >here</a
-    >.
-  </p>
-  <h4 class="">Extravaganza Team Dinner Reference</h4>
-  <p>
-    Planning documents to be used for future reference can be found <a
-      href="https://docs.google.com/document/d/1MGm3FYnVx2E1P8gT0mwl2mFB2yoDp4eu_fKT-ab7tQo/edit?usp=sharing"
-      >here</a
-    >.
-  </p>
-  <h4 class="">Business Reference Systems</h4>
-  <p>
-    A Canva outlining more information for the business department can be found <a
-      href="https://www.canva.com/design/DAHDBpqFE84/HOfOwDbMR6St9QCCCz5kQQ/edit?utm_content=DA[…]m_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
-      >here</a
-    >.
-  </p>
-  <h4 class="">FLL Curriculum</h4>
-  <p>
-    Click <a
-      href="https://stuypulse.com/resources/tutorials/fll"
-      >here</a
-    > for our FLL curriculum guide, designed to help new teams and mentors.
-  <h4 class="">Branding Guide</h4>
-  <p>
-    Information regarding our team name, logo, and color usage can be found in
-    our branding guide <a
-      href="https://stuypulse.com/downloads/teamdocs/BrandingGuide2016-2017.pdf"
-      >here</a
-    >.
-  </p>
-</PageSite>

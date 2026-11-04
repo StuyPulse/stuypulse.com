@@ -1,175 +1,165 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import ImageContainer from "@components/ImageContainer.astro";
+import Hero from "@components/redesign/Hero.astro";
 ---
 
+<PageSite title="Community" description="How StuyPulse gives back: robot demos, FLL mentoring and camps, and helping other FRC teams." image="/community/BPC_Demo.jpg" fullBleed>
+  <Hero
+    title="Giving back."
+    intro="Our mission is to help students find their pulse for lifelong learning, through a team culture that shares knowledge and gives back to the community."
+    photo="/community/BPC_Demo.jpg"
+    photoAlt="A StuyPulse robot demo in Battery Park City for STEAM Day"
+    stickers={["Demos", "FLL camps", "Since 2001"]}
+  >
+    <Fragment slot="actions">
+      <a class="pill pill-white" href="#fll">FLL programs</a>
+      <a class="pill pill-ghost" href="/resources">Resources for teams</a>
+    </Fragment>
+  </Hero>
+
+  <section class="band split" aria-labelledby="school">
+    <div class="prose">
+      <h2 id="school" class="band-title">At Stuyvesant</h2>
+      <p>
+        After our rookie year, Stuyvesant started an Intro to Robotics class, taught by our head coach and mentor, Joseph
+        Blay. It's still open to juniors and seniors, and it got several other schools thinking about a course of their own.
+      </p>
+      <p>
+        We demo robots at alumni reunions, giving tours of the lab and showing what we've built. At the 2025 Open House we
+        showed Aunt Mary, our 2025 robot, to hundreds of incoming freshmen and their parents. We hope robotics becomes one of
+        their reasons for choosing Stuy.
+      </p>
+    </div>
+    <img src="/community/Open_House.jpg" alt="New students and parents at Stuyvesant's Open House looking at Aunt Mary" loading="lazy" />
+  </section>
+
+  <section class="band split reverse" aria-labelledby="demos">
+    <img src="/community/BPC_Demo.jpg" alt="A robot demo at Battery Park City for STEAM Day" loading="lazy" />
+    <div class="prose">
+      <h2 id="demos" class="band-title">Demos and media</h2>
+      <p>
+        In February 2025 we were on the FRC Open Alliance show, explaining our robot's mechanisms, and FUN Robotics named us
+        an FRC Team of the Week for our Open Alliance work. In summer 2025 we alpha-tested SystemCore and presented what we
+        learned at NYC Robo Replay, StuySplash and the NYC FIRST Kickoff.
+      </p>
+      <p>
+        We've demoed robots at the local senior center, where our members also volunteer to help older adults with tech. At
+        the NYC FIRST STEM Center we showed our 2024 offseason robot to students visiting from Japan, and smaller robots to
+        Pre-K through 5th graders.
+      </p>
+    </div>
+  </section>
+
+  <section class="fll" id="fll" aria-labelledby="fll-title">
+    <h2 id="fll-title">FIRST LEGO League</h2>
+    <p class="lead">
+      Since 2001 we've helped younger students take their first steps into engineering through FLL. It's still one of the
+      main ways we share STEM.
+    </p>
+    <ul>
+      <li><b>Williamsburg</b><span>An FLL Challenge program for the past three years</span></li>
+      <li><b>Bensonhurst</b><span>SPIKE Prime summer camps, and four teams mentored</span></li>
+      <li><b>Battery Park City</b><span>An FLL Explore team, three years running</span></li>
+      <li><b>Chinatown</b><span>SPIKE Prime summer camps for two years</span></li>
+      <li><b>MoMath</b><span>A summer program in 2024</span></li>
+      <li><b>Puerto Rico</b><span>Mentoring teams since 2018</span></li>
+    </ul>
+    <p class="lead">We also helped Queens team 4017, the RoboPandas, get ready for competition.</p>
+    <div class="actions"><a class="pill pill-white" href="/resources/tutorials/fll">Our FLL curriculum</a></div>
+  </section>
+
+  <section class="band split" aria-labelledby="teams">
+    <div class="prose">
+      <h2 id="teams" class="band-title">Helping other teams</h2>
+      <p>
+        We're always ready to help other teams, in build season or at competitions. We visit teams and invite them to our lab
+        to share what we know about safety, organization, fundraising, engineering and software. At competitions we send
+        members to help fix robots, and cheer when our friends win awards or reach the finals.
+      </p>
+      <p>Many of those teams have become lasting friends.</p>
+      <div class="actions">
+        <a class="pill pill-red" href="/resources">Resources for teams</a>
+        <a class="pill pill-line" href="/resources/stuysplash">StuySplash</a>
+      </div>
+    </div>
+    <img src="/community/Stuy_Balta.jpg" alt="Team BALTA visiting the Stuyvesant robotics lab" loading="lazy" />
+  </section>
+</PageSite>
+
 <style>
-  .inline-icon {
-    height: 1em;
-    transform: translateY(-0.1em);
-    padding-right: 0.25rem;
+  .split {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
   }
-  .offset::before {
-    display: block;
-    content: " ";
-    margin-top: -62px;
-    height: 62px;
-    visibility: hidden;
-    pointer-events: none;
+  .split + .split {
+    padding-top: 0;
   }
-  .imgcontainer {
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 4px 10px 0 rgba(0, 0, 0, 0.19);
+  .split.reverse {
+    grid-template-columns: 1fr 1.1fr;
+  }
+  .split h2 {
+    margin-top: 0;
+  }
+  .split img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: var(--radius-md);
+  }
+  .fll {
+    margin: 0 20px;
+    padding: clamp(56px, 7vw, 96px) var(--gutter);
+    border-radius: var(--radius-lg);
+    background: var(--red);
+    color: #fff;
+  }
+  .fll h2 {
+    font-size: clamp(2.4rem, 5vw, 4.4rem);
+    margin: 0;
+  }
+  .lead {
+    font-size: 19px;
+    max-width: 56ch;
+    margin: 18px 0 0;
+    opacity: 0.94;
+  }
+  .fll ul {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 28px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+    gap: 14px;
+  }
+  .fll li {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    padding: 22px 26px;
+    border-radius: var(--radius-md);
+    background: #fff;
+    color: var(--ink);
+  }
+  .fll li b {
+    color: var(--red);
+    font-size: 21px;
+  }
+  .fll li span {
+    color: var(--soft);
+    font-size: 16px;
+  }
+  @media (max-width: 860px) {
+    .split,
+    .split.reverse {
+      grid-template-columns: 1fr;
+    }
+    .split.reverse img {
+      order: 1;
+    }
+    .fll {
+      margin: 0 12px;
+    }
   }
 </style>
-
-<PageSite title="Community" description={"Descriptions of how our team helps out our community and school, as well as links to some of our resources."}>
-  <h1 class="mb-4">Community and Outreach</h1>
-
-  <h2 class="mb-0 text-center" style="color: #EE0000;">Team Mission </h2>
-  <p class="text-center" style="color: #EE0000;">"To help students find their 
-    pulse for life-long learning through a team culture that shares knowledge 
-    and gives back to the community"</p>
-
-<div class="row">
-    <h2 >Team 694 Within the School</h2>
-    <div class="col-12 col-sm-12 col-lg-6 col-xl-7 col-xxl-8">
-      <p>
-        Following our successful rookie year, Stuyvesant High School was inspired 
-        to start an “Intro to Robotics” class, taught by our very own head coach 
-        and mentor, Joseph Blay. Today, this course is still available to Juniors 
-        and Seniors, a perfect catalyst for spreading the message of FIRST and 
-        generating interest in the Robotics Team. The class was such a success that 
-        several schools considered the possibility of adding a similar course to their curriculums.
-      </p>
-      <p>
-        We often host robot demonstrations at alumni reunions at our school. 
-        This year, our team members gave our alumni tours of our robotics lab 
-        while updating them on what has been happening within our team. We 
-        were also able to demo our robot, Aunt Mary, allowing the alumni 
-        to see what we have been working on in the past year. We are glad 
-        that our alumni enjoyed our presentations and being back at the school.
-      </p>
-      <p>
-        Yet, 694 does not limit its demonstrations to just alumni to emphasize 
-        the importance of the robotics program. For 2025's Open House session, 
-        we showcased our 2025 robot, Aunt Mary, in front of hundreds of incoming 
-        freshmen and their parents. Through this, we hope that Robotics will become 
-        one of their reasons for choosing Stuyvesant, and that no matter where they 
-        go, they will spread the message of FIRST robotics. 
-      </p>
-    </div>
-    <div
-      class="col-12 col-sm-12 col-lg-6 col-xl-5 col-xxl-4 mb-3 clearfix justify-content-center align-middle"
-    >
-      <div class="p-0 float-end align-middle imgcontainer">
-        <ImageContainer
-          img="/community/Open_House.jpg"
-          alt="New students and parents at Stuyvesant's Open House session, looking at our robot, Aunt Mary"
-          height={"auto"}
-          width={"auto"}
-          tSize={"40px"}
-        />
-      </div>
-    </div>
-  </div>
-<div class="row">
-    <h2 class="mb-3">Public Demonstrations</h2>
-    <div
-      class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-5 col-xxl-4 clearfix justify-content-center align-middle"
-    >
-      <div class="p-0 align-middle imgcontainer">
-        <ImageContainer
-          img="/community/BPC_Demo.jpg"
-          alt="Demonstration at Battery Park for Steam Day"
-          height={"auto"}
-          width={"auto"}
-          tSize={"40px"}
-        />
-      </div>
-    </div>
-    <div class="col-12 col-sm-12 col-md-12 col-lg-6 col-xl-7 col-xxl-8">
-      <p>
-        Over the years, Team 694 has been featured in numerous demonstrations and present through social media. 
-        In February of 2025, we were featured on the FRC Open Alliance show and filmed a video explaining our 
-        robot’s mechanisms and functions. FUN Robotics referred to us as an “FRC Team of the Week,” 
-        for our contributions towards Open Alliance. We participated in the alpha testing of SystemCore, 
-        in the summer of 2025, and presented our SystemCore discoveries at NYC Robo Replay, 
-        an offseason event, Stuysplash, and at NYC FIRST Kickoff. 
-        Our team has also done robot demos at the local senior center, 
-        which our members volunteer to help older adults with tech support. At NYC FIRST STEM Center, 
-        we displayed our 2024 offseason robot to students visiting from Japan as well as demoing smaller 
-        robots for Pre-K to 5 students. Our demos have impacted many students and piqued the interest of many to 
-        contribute in the different fields of robotics.
-        schools.
-      </p>
-    </div>
-  </div>
-<div class="row mt-3">
-    <h2>FLL</h2>
-      <p>
-        For over two decades, StuyPulse has been committed to helping the next 
-        generation of students enter the world of robotics through FLL. Since 
-        the spring of 2001, we have inspired several schools to enter this program, 
-        and have educated kids in a variety of programs across and even outside of 
-        New York City, helping them take their first steps into thinking like an 
-        engineer. FLL remains one of the core ways that we spread STEM to young leaders.
-      </p>
-      <p>
-        In Brooklyn, we have hosted an FLL Challenge based program in Williamsburg 
-        for the past three years. In Bensonhurst, we hosted SPIKE Prime Based Summer 
-        Camps for the past 2 years, and mentored 4 total teams at Bensonhurst for the 
-        past two years. 
-      </p>
-      <p>
-        In Manhattan, we have mentored an FLL Explore team in Battery Park City for 
-        three years.In Chinatown, we have hosted SPIKE Prime Based Summer Camps for 
-        the past two years. Additionally, we have hosted a summer program at MoMath in 2024.
-      </p>
-      <p>
-        Recently, we also briefly mentored Queens-based Team 4017, the RoboPandas, 
-        in preparation for their competition.
-      </p>
-      <p>
-        Our involvement in FLL extends overseas as we have mentored teams 
-        based in Puerto Rico since 2018. 
-      </p>
-      <p>
-        Our FLL mentoring curriculums and program outlines are available in our
-        <a href="/resources/tutorials" target="_blank"
-          >Tutorials Tab</a>
-          .
-      </p> 
-    </div>
-  <div class="row mt-3">
-    <h2 class="mb-2">Helping Out Other Teams</h2>
-    <div class="ccol-12 col-sm-12 col-lg-6 col-xl-7 col-xxl-8">
-      <p>
-        Team 694 is always ready to help out teams, whether it is during the 
-        hectic build season or at the competitions themselves. Throughout the 
-        years, we have visited other teams and invited them to our lab to share 
-        knowledge and experiences about safety, organization, fundraising, 
-        engineering and software engineering. Even during competitions, our team 
-        is ready to send members to help other teams with their robots, and cheer 
-        with them as they win awards or advance to the finals.
-      </p>
-      <p>
-        Bonding with members of other teams is welcoming others into our community 
-        and forming long-lasting friendships.
-      </p>
-
-    <h5 class="">Resources</h5>
-      <p>Check out our <a href="/resources">resources</a> for other teams.</p>
-    </div>
-    <div class="col-12 col-sm-12 col-lg-6 col-xl-5 col-xxl-4 mb-3 clearfix justify-content-center align-middle">
-      <div class="p-0 align-middle imgcontainer">
-        <ImageContainer
-          img="/community/Stuy_Balta.jpg"
-          alt="BALTA at Stuyvesant Robotics Lab"
-          height={"auto"}
-          width={"auto"}
-          tSize={"40px"}
-        />
-      </div>
-    </div>
-  </div>
-</PageSite>

@@ -2,7 +2,7 @@
 layout: $layouts/Post.astro
 title: November 2017 Newsletter
 author: Eugene Seo
-link: https://stuypulse.com/downloads/newsletters/november-2017.pdf
+link: https://old.stuypulse.com/downloads/newsletters/november-2017.pdf
 date: 2017-12-08
 ---
 

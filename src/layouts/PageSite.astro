@@ -7,14 +7,17 @@ export interface Props {
   title: string;
   description: string;
   image?: string;
-  showStuySplashBanner?: boolean;
+  // Shows the announcement bar from src/data/stuysplash.yml (home page only).
+  showBanner?: boolean;
+  // Redesigned pages lay out their own full-width sections, starting with a red hero.
+  fullBleed?: boolean;
 }
-const { title, image, description, showStuySplashBanner = false } = Astro.props;
+const { title, image, description, showBanner = false, fullBleed = false } = Astro.props;
 ---
 
 <!DOCTYPE html>
 <html lang="en">
-  <head style="position: sticky">
+  <head>
     <BaseHead
       title={title + " | " + SITE_TITLE}
       image={image}
@@ -22,24 +25,31 @@ const { title, image, description, showStuySplashBanner = false } = Astro.props;
     />
   </head>
   <body>
-    <Header showStuySplashBanner={showStuySplashBanner} />
-    <div class:list={["container-sm", "page-content", { "with-stuysplash-banner": showStuySplashBanner }]}>
-      <slot />
-    </div>
+    <Header showBanner={showBanner} joined={fullBleed} />
+    {fullBleed ? (
+      <main><slot /></main>
+    ) : (
+      <main class="container-sm page-content">
+        <slot />
+      </main>
+    )}
     <Footer />
   </body>
 </html>
 
 <style>
+  /* Keeps the footer at the bottom of short pages. */
+  body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  main {
+    flex: 1;
+  }
   .page-content {
-    margin-top: 80px;
-  }
-  .page-content.with-stuysplash-banner {
-    margin-top: 132px;
-  }
-  @media screen and (max-width: 575px) {
-    .page-content.with-stuysplash-banner {
-      margin-top: 144px;
-    }
+    max-width: 1120px;
+    padding-top: clamp(40px, 6vw, 72px);
+    padding-bottom: clamp(56px, 8vw, 96px);
   }
 </style>

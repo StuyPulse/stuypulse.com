@@ -1,44 +1,50 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/redesign/PageHead.astro";
 ---
 
-<PageSite title="FLL Curriculum" description={"Home to our FLL Curriculum tutorial."}>
-  <h1 class="mb-1">Tutorials: FLL Curriculum</h1>
-  <a href="/resources/tutorials">&lt;&lt; Back to Tutorials</a>
-  <div class="mb-3"></div>
-  <p>
-    It all began in the spring of 2001 when Team 694 gave a presentation about
-    instituting a robotics curriculum to interested teachers. Since then, we
-    have helped inspire several schools to get involved in this spectacular
-    program. In addition, Team 694 has been there to lend a helping hand by
-    mentoring teams, especially I.S. 89 across the street whom we have mentored
-    each year since 2002.
-  </p>
+<PageSite title="FLL Curriculum" description="StuyPulse's FIRST LEGO League curriculum for new teams and mentors, and our history mentoring FLL." fullBleed>
+  <PageHead title="FLL Curriculum" intro="Our FIRST LEGO League curriculum gives new teams and their mentors a solid start, from robot basics to the research project.">
+    <a slot="before" class="back" href="/resources/tutorials">Tutorials</a>
+    <div class="actions">
+      <a class="pill pill-white" href="https://drive.google.com/drive/folders/1HHpAj9i55wv1z8ngOnp6s4ErxipuHmxV?usp=sharing">Open the curriculum</a>
+    </div>
+  </PageHead>
 
-  <p>
-    Our involvement with FLL increased in December 2005 when the Manhattan
-    Borough FLL Tournament was first held in our school. After last year's
-    successful event, the great amount of experience gained was used to make
-    this year's tournament even better. This year we also worked to upgrade our
-    event to the standards of an official FIRST event. We also continued to send
-    volunteers to help referee and queue teams at the NYC FLL tournament in
-    Riverbank State Park as well as the Queens FLL Qualifier.
-  </p>
-
-  <p>
-    As of 2019, we helped a variety of FLL Teams in Puerto Rico. More
-    specifically, we aided in programming and their project presentations. These
-    four teams were the ASJ Robotigers, Knight Hackers, The LEGO Builders and
-    The Robogens.
-  </p>
-
-  <p>
-    Recently, as of 2024, we've also devised our own FLL curriculum, designed
-    specifically to help new teams and their mentors get a solid foundation in
-    the basics of FLL robotics and its associated activities such as the FLL
-    research project. The folder for these resources can be found <a
-      href=" https://drive.google.com/drive/folders/1HHpAj9i55wv1z8ngOnp6s4ErxipuHmxV?usp=sharing"
-      >here</a
-    >.
-  </p>
+  <div class="band prose">
+    <h2>StuyPulse and FLL</h2>
+    <p>
+      It began in the spring of 2001, when Team 694 gave a presentation to teachers about starting a robotics curriculum.
+      Since then we've helped several schools join FLL, and mentored teams, especially I.S. 89 across the street, which
+      we've mentored every year since 2002.
+    </p>
+    <p>
+      In December 2005 we hosted the first Manhattan Borough FLL Tournament at our school, and later brought it up to the
+      standards of an official FIRST event. We've also sent volunteers to referee and queue teams at the NYC FLL tournament
+      at Riverbank State Park and at the Queens FLL Qualifier.
+    </p>
+    <p>
+      Since 2019 we've helped FLL teams in Puerto Rico with programming and their project presentations: the ASJ
+      Robotigers, Knight Hackers, The LEGO Builders and The Robogens. In 2024 we wrote our own FLL curriculum, which is
+      linked above.
+    </p>
+  </div>
 </PageSite>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 18px;
+    color: #fff;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .prose {
+    max-width: 1120px;
+  }
+  .prose h2 {
+    margin-top: 0;
+    font-size: clamp(2rem, 3.6vw, 3rem);
+  }
+</style>

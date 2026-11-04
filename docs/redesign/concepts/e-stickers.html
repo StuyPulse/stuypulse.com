@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Option E: Stickers</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&display=swap" rel="stylesheet">
+<style>
+  :root { --red:#e1141f; --red-dark:#a90c14; --blush:#fff0ef; --ink:#251516; --soft:#776062 }
+  * { box-sizing:border-box; margin:0 }
+  html { -webkit-font-smoothing:antialiased }
+  body { font:400 18px/1.55 "Bricolage Grotesque",system-ui,sans-serif; color:var(--ink); background:#fff }
+  .pill { display:inline-block; padding:15px 28px; border-radius:999px; font-weight:700; text-decoration:none; font-size:17px }
+  .pill.red { background:var(--red); color:#fff }
+  .pill.white { background:#fff; color:var(--red) }
+  nav { display:flex; justify-content:space-between; align-items:center; padding:22px 40px }
+  nav .logo { display:flex; align-items:center; gap:12px; font-weight:800; font-size:24px; color:var(--red) }
+  nav .logo img { height:38px }
+  nav .links { display:flex; gap:32px; font-weight:500 }
+
+  .hero { position:relative; margin:0 24px; height:720px; border-radius:44px; overflow:hidden }
+  .hero img { width:100%; height:100%; object-fit:cover; object-position:50% 60%; display:block }
+  .hero::after { content:""; position:absolute; inset:0; background:linear-gradient(20deg,rgba(225,20,31,.95) 0%,rgba(225,20,31,.75) 32%,rgba(225,20,31,0) 62%) }
+  .hero .copy { position:absolute; left:56px; bottom:56px; z-index:2; color:#fff; max-width:700px }
+  h1 { font-weight:800; font-size:clamp(3.4rem,7vw,6.6rem); line-height:.92; letter-spacing:-.04em; font-variation-settings:"opsz" 96 }
+  .hero p { font-size:21px; margin:22px 0 30px; max-width:34ch }
+  .sticker { position:absolute; z-index:3; background:#fff; color:var(--red); font-weight:800; font-size:24px; padding:14px 26px; border-radius:999px; box-shadow:0 12px 30px -10px rgba(60,0,0,.4); letter-spacing:-.01em }
+  .sticker.r { background:var(--red); color:#fff }
+  .s1 { right:70px; top:60px; transform:rotate(6deg) }
+  .s2 { right:220px; top:140px; transform:rotate(-5deg) }
+  .s3 { right:90px; top:215px; transform:rotate(3deg) }
+
+  .marquee { overflow:hidden; padding:70px 0 20px; white-space:nowrap }
+  .marquee div { display:inline-flex; gap:34px; align-items:center; font-weight:800; font-size:88px; letter-spacing:-.04em; color:var(--red); animation:slide 60s linear infinite }
+  .marquee svg { width:70px; height:40px; flex:none }
+  .marquee span.o { color:transparent; -webkit-text-stroke:2px var(--red) }
+  @keyframes slide { to { transform:translateX(-50%) } }
+  @media (prefers-reduced-motion:reduce) { .marquee div { animation:none } }
+  .cap { padding:0 40px; color:var(--soft); font-size:18px }
+
+  .two { display:grid; grid-template-columns:1.25fr 1fr; gap:24px; padding:70px 24px 24px }
+  .tile { border-radius:40px; padding:52px; position:relative; overflow:hidden; min-height:440px; display:flex; flex-direction:column; justify-content:flex-end }
+  .tile h2 { font-weight:800; font-size:clamp(2.2rem,3.6vw,3.4rem); line-height:1; letter-spacing:-.03em }
+  .tile p { margin:14px 0 26px; font-size:19px; max-width:38ch }
+  .splash { background:var(--red); color:#fff }
+  .splash .big { position:absolute; right:40px; top:26px; font-weight:800; font-size:220px; line-height:1; letter-spacing:-.06em; opacity:.18 }
+  .splash .when { display:inline-block; background:#fff; color:var(--red); font-weight:700; border-radius:999px; padding:6px 16px; margin-bottom:18px; align-self:flex-start }
+  .join { background:var(--blush) }
+  .join .faces { position:absolute; top:44px; left:52px; display:flex }
+  .join .faces img { width:96px; height:96px; border-radius:50%; object-fit:cover; border:5px solid var(--blush); margin-right:-22px }
+  .join p { color:var(--soft) }
+  footer { margin:24px; border-radius:40px; background:var(--red-dark); color:#fff; padding:44px 52px; display:flex; justify-content:space-between; align-items:center }
+  footer b { font-size:22px }
+  @media (max-width:800px) {
+    nav .links { display:none } .two { grid-template-columns:1fr } .hero { height:560px; margin:0 12px }
+    .hero .copy { left:24px; right:24px; bottom:28px } .sticker { font-size:17px } .s2,.s3 { display:none }
+  }
+</style>
+</head>
+<body>
+<nav><div class="logo"><img src="../../../public/icons/694-logo.svg" alt="">StuyPulse</div><div class="links"><span>About</span><span>Robots</span><span>StuySplash</span><span>Newsletters</span><span>Sponsors</span></div><a class="pill red" href="#">Donate</a></nav>
+
+<header class="hero">
+  <img src="../../../public/home/team-2026.jpg" alt="The 2026 StuyPulse team">
+  <span class="sticker s1">No cuts</span>
+  <span class="sticker r s2">No tryouts</span>
+  <span class="sticker s3">Team 694</span>
+  <div class="copy">
+    <h1>Stuy's robotics team, since 2001.</h1>
+    <p>We design, build and program a new robot every year, and run the business that pays for it.</p>
+    <a class="pill white" href="#">Join the team</a>
+  </div>
+</header>
+
+<div class="marquee" aria-label="Our robots, newest first"><div id="m"></div></div>
+<p class="cap">Every robot we've built, newest first.</p>
+
+<div class="two">
+  <article class="tile splash">
+    <span class="big" aria-hidden="true">12.12</span>
+    <span class="when">Saturday, December 12</span>
+    <h2>StuySplash 2026</h2>
+    <p>A free day of talks for FRC teams, by students. Last year: 25 talks and 276 people from three states.</p>
+    <a class="pill white" href="#" style="align-self:flex-start">Sign up to attend</a>
+  </article>
+  <article class="tile join">
+    <div class="faces"><img src="../../../public/community/Open_House.jpg" alt=""><img src="../../../public/community/BPC_Demo.jpg" alt=""><img src="../../../public/community/Stuy_Balta.jpg" alt=""></div>
+    <h2>Read what we've been up to</h2>
+    <p>Our newsletters cover build updates, competition results and who's new on the team.</p>
+    <a class="pill red" href="#" style="align-self:flex-start">Latest newsletter</a>
+  </article>
+</div>
+<footer><b>StuyPulse, FRC Team 694</b><span>345 Chambers Street, New York</span></footer>
+<script>
+const n=['Tribecbot','Aunt Mary','Izzi','Jim','Excelsior','Elektra','Edwin','Alfred','Wildcard','Rafael','DEStiny','PEGasus1','DESmond','DESiree','JoeBot','DESdroid','Donovan','Michael1','DESbot','Tom','Joshua','Yvette','Larry','Lola','Jack','Stuyle'];
+const beat='<svg viewBox="0 0 70 40" aria-hidden="true"><path d="M0 22H22l5-14 7 28 5-14h31" fill="none" stroke="#e1141f" stroke-width="3" stroke-linejoin="round"/></svg>';
+const s=n.map((x,i)=>`<span class="${i%2?'o':''}">${x}</span>${beat}`).join('');
+document.getElementById('m').innerHTML=s+s;
+</script>
+</body>
+</html>

@@ -9,19 +9,12 @@ export interface LinkType {
   url: string;
 }
 
-export interface CarouselItemType {
-  img: string;
-  caption: string;
-  "img-link": string;
-  "read-more-link": string;
-}
-
 export interface SponsorType {
   name: string;
-  logo: string;
-  site: string;
-  type: string;
-  wide: boolean;
+  logo?: string;
+  site?: string;
+  tier: string;
+  wide?: boolean;
 }
 
 export interface SponsorTierType {
@@ -52,8 +45,8 @@ export interface SocialType {
 
 export interface MentorType {
   name: string;
-  image: string;
-  description: string;
+  image?: string;
+  description?: string;
   woodieFlowers?: string;
 }
 
