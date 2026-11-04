@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Stuy Splash 2022
 author: StuyPulse
 date: 2022-11-16

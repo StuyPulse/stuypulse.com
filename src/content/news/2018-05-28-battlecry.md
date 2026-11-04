@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Battlecry Recap
 author: Leilei Hao
 date: 2018-05-28

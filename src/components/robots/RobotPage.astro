@@ -1,0 +1,269 @@
+---
+// One robot's page: hero with its links, awards by event, the write-up (passed in as the slot)
+// with its links beside it, a video, that season's newsletters and the robots before and after it.
+import Hero from "@components/page/Hero.astro";
+import PrevNext from "@components/page/PrevNext.astro";
+import { plural } from "@utils/format";
+import { isWin } from "@utils/awards";
+import RobotAwards from "./RobotAwards.astro";
+import SeasonNews from "./SeasonNews.astro";
+import { getRobots, type Robot } from "@utils/robots";
+
+export interface Props {
+  entry: Robot;
+}
+const { data: robot } = Astro.props.entry;
+const awards = robot.awards ?? [];
+const robots = await getRobots();
+const index = robots.findIndex((other) => other.data.year === robot.year);
+const before = robots[index - 1];
+const after = robots[index + 1];
+const toItem = (other: Robot | undefined) =>
+  other && {
+    href: `/about/history/${other.slug}`,
+    label: String(other.data.year),
+    title: other.data.title,
+    image: other.data.photo,
+  };
+
+// The first YouTube link that is a single video (not a playlist) is embedded.
+const videoId = (robot.youtube_links ?? [])
+  .map((link) => link.url.match(/(?:embed\/|watch\?v=|youtu\.be\/)([\w-]{11})/)?.[1])
+  .find(Boolean);
+
+const links = [
+  robot.source && { name: "Source code", url: robot.source },
+  robot.cad && { name: "CAD", url: robot.cad },
+  robot.flickr && { name: "Photos on Flickr", url: robot.flickr },
+  ...(robot.youtube_links ?? []).map((link) => ({ name: link.name, url: link.url.replace("/embed/", "/watch?v=") })),
+  { name: "The Blue Alliance", url: `https://www.thebluealliance.com/team/694/${robot.year}` },
+  ...(robot.links ?? []),
+].filter((link): link is { name: string; url: string } => Boolean(link));
+
+// Rendered up front so an empty write-up leaves no blank band behind.
+const story = (await Astro.slots.render("default")).trim();
+
+const wins = awards.filter(isWin).length;
+const stickers = [
+  String(robot.year),
+  awards.length ? plural(awards.length, "award") : "",
+  wins ? plural(wins, "win") : "",
+].filter(Boolean);
+---
+
+<Hero
+  title={robot.title}
+  intro={`Our ${robot.year} robot.`}
+  photo={robot.photo}
+  photoAlt={`${robot.title}, our ${robot.year} robot`}
+  stickers={stickers}
+>
+  <a slot="before" class="back" href="/about/history">All robots</a>
+  <ul slot="after" class:list={["links", { "has-side": story }]}>
+    {
+      links.map((link) => (
+        <li>
+          <a href={link.url} target="_blank" rel="noopener">
+            {link.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</Hero>
+
+{awards.length > 0 && <RobotAwards awards={awards} />}
+
+<div class="after">
+  {
+    story && (
+      <div class="read">
+        <div class="story prose" set:html={story} />
+        <aside class="side" aria-label={`${robot.title} links`}>
+          <h2>{robot.title} online</h2>
+          <ul>
+            {links.map((link) => (
+              <li>
+                <a href={link.url} target="_blank" rel="noopener">
+                  {link.name}
+                  <i aria-hidden="true">↗</i>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p class="keys">
+            <kbd>←</kbd>
+            <kbd>→</kbd> flip through the robots
+          </p>
+        </aside>
+      </div>
+    )
+  }
+
+  {
+    videoId && (
+      <div class="video">
+        <iframe
+          src={`https://www.youtube-nocookie.com/embed/${videoId}`}
+          title={`${robot.title} video`}
+          loading="lazy"
+          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+          allowfullscreen
+        />
+      </div>
+    )
+  }
+
+  <SeasonNews year={robot.year} name={robot.title} />
+
+  <PrevNext ariaLabel="Other robots" previous={toItem(before)} next={toItem(after)} />
+</div>
+
+<script>
+  // Left and right arrow keys go to the robot before and after, unless you're typing or the key is
+  // part of a shortcut.
+  document.addEventListener("keydown", (event) => {
+    if (event.defaultPrevented || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    const target = event.target;
+    if (
+      target instanceof Element &&
+      target.closest("input, textarea, select, [contenteditable]:not([contenteditable='false'])")
+    )
+      return;
+    const link = document.querySelector<HTMLAnchorElement>(
+      `.prev-next a.${event.key === "ArrowLeft" ? "prev" : "next"}`,
+    );
+    if (link) window.location.href = link.href;
+  });
+</script>
+
+<style>
+  .back {
+    display: inline-block;
+    margin-bottom: 18px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .links {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .links a {
+    display: inline-block;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 16px;
+    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+  }
+  .links a:hover {
+    background: #fff;
+    color: var(--red);
+  }
+  /* One gap between the awards band, the write-up, the video, the newsletters and the prev/next links. */
+  .after {
+    --gap: clamp(48px, 6vw, 80px);
+    padding: var(--gap) var(--gutter) 0;
+  }
+  .story {
+    max-width: 72ch;
+    min-width: 0;
+  }
+  /* The write-up with its links in a column that stays in view beside it on wide screens. */
+  .read {
+    display: grid;
+    grid-template-columns: minmax(0, 72ch) minmax(260px, 320px);
+    justify-content: space-between;
+    gap: 48px;
+    align-items: start;
+  }
+  .side {
+    position: sticky;
+    top: calc(var(--header-h) + 16px);
+    padding: 26px;
+    border-radius: var(--radius-md);
+    background: var(--red);
+    color: #fff;
+  }
+  .side h2 {
+    font-size: 24px;
+    margin: 0 0 14px;
+  }
+  .side ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: 8px;
+  }
+  .side a {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    padding: 11px 16px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+  .side a:hover {
+    background: #fff;
+    color: var(--red);
+  }
+  .side i {
+    font-style: normal;
+  }
+  .keys {
+    margin: 18px 0 0;
+    font-size: 15px;
+    opacity: 0.9;
+  }
+  kbd {
+    display: inline-grid;
+    place-items: center;
+    min-width: 30px;
+    height: 30px;
+    margin-right: 2px;
+    border-radius: 10px;
+    background: #fff;
+    color: var(--red);
+    font-family: var(--font);
+    font-weight: 800;
+  }
+  @media (min-width: 1001px) {
+    /* The side column has these links, so the hero doesn't repeat them. */
+    .links.has-side {
+      display: none;
+    }
+  }
+  @media (max-width: 1000px) {
+    .read {
+      grid-template-columns: minmax(0, 1fr);
+    }
+    .side {
+      display: none;
+    }
+  }
+  .video {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--ink);
+  }
+  .video iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .after > :global(:not(:first-child)) {
+    margin-top: var(--gap);
+  }
+</style>

@@ -4,6 +4,8 @@
   License MIT: https://github.com/HermanMartinus/bearnews/blob/master/LICENSE.md
  */
 
+/* Design tokens, a small reset and the shared pieces every page uses. */
+
 :root {
   --red: #e1141f;
   --red-dark: #a80c14;
@@ -13,61 +15,78 @@
   --soft: #765f61;
   --radius-lg: 44px;
   --radius-md: 28px;
-  --gutter: clamp(16px, 4vw, 56px);
+  /* Content never runs wider than --page-max; on wider screens the side padding grows to centre it. */
+  --page-max: 1240px;
+  --gutter: max(clamp(16px, 4vw, 56px), calc((100vw - var(--page-max)) / 2));
+  /* Rounded blocks (page heads, tinted bands, the footer) sit this far in from the screen edge,
+     and pad by --block-pad so their text lines up with everything else. */
+  --inset: 20px;
+  --block-pad: max(20px, calc(var(--gutter) - var(--inset)));
+  /* Height of the sticky header, kept current by Header.astro. */
+  --header-h: 82px;
   --font: "Bricolage Grotesque Variable", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
 
-  /* Bootstrap still lays out the pages that haven't been redesigned. */
-  --bs-body-font-family: var(--font);
-  --bs-body-color: var(--ink);
-  --bs-link-color: var(--red);
-  --bs-link-color-rgb: 225, 20, 31;
-  --bs-link-hover-color: var(--red-dark);
-  --bs-link-hover-color-rgb: 168, 12, 20;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--header-h) + 16px);
 }
 body {
+  margin: 0;
   font-family: var(--font);
+  font-size: 1rem;
   font-variation-settings: "opsz" 14;
-  text-align: left;
   background-color: #fff;
-  word-wrap: break-word;
   overflow-wrap: break-word;
   line-height: 1.55;
   color: var(--ink);
+}
+p,
+ul,
+ol {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+img,
+svg,
+video,
+iframe {
+  vertical-align: middle;
+}
+img {
+  max-width: 100%;
+  height: auto;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
 }
 a {
   text-decoration: none;
   color: var(--red);
 }
 a:hover {
-  text-decoration: none;
   color: var(--red-dark);
 }
 :focus-visible {
   outline: 3px solid var(--ink);
   outline-offset: 3px;
 }
-content {
-  line-height: 1.6;
-}
-table {
-  width: 100%;
-}
-img {
-  max-width: 100%;
-}
-/* calendar fix for mobile */
-@media (max-width: 767px) {
-  .fc-toolbar-title {
-    display: none !important;
-  }
-}
 h1,
 h2,
 h3,
 h4,
 h5,
-h6,
-.large-name {
+h6 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
   font-family: var(--font);
   font-weight: 800;
   letter-spacing: -0.03em;
@@ -82,9 +101,8 @@ h6 {
   line-height: 1.15;
 }
 
-/* Pill buttons. Old pages wrap <button> in links, so style those the same way. */
-.pill,
-.page-content a > button {
+/* Pill buttons. Use pill-red or pill-line on white, pill-white or pill-ghost on red. */
+.pill {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -96,19 +114,18 @@ h6 {
   font-weight: 700;
   font-size: 17px;
   text-decoration: none;
-  transition: transform 0.15s ease, background-color 0.15s ease;
+  transition:
+    transform 0.15s ease,
+    background-color 0.15s ease;
 }
-.pill:active,
-.page-content a > button:active {
+.pill:active {
   transform: scale(0.97);
 }
-.pill-red,
-.page-content a > button {
+.pill-red {
   background: var(--red);
   color: #fff;
 }
-.pill-red:hover,
-.page-content a > button:hover {
+.pill-red:hover {
   background: var(--red-dark);
   color: #fff;
 }
@@ -153,6 +170,91 @@ h6 {
   background: #fff;
   color: var(--red);
 }
+.chip-red {
+  background: var(--red);
+  color: #fff;
+}
+/* A red block. Buttons, chips and links inside it switch to their white versions. */
+.on-red {
+  background: var(--red);
+  color: #fff;
+}
+.on-red a:not(.pill) {
+  color: #fff;
+}
+.on-red .pill-red {
+  background: #fff;
+  color: var(--red);
+}
+.on-red .pill-red:hover {
+  background: var(--blush);
+  color: var(--red);
+}
+.on-red .pill-line {
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.75);
+  color: #fff;
+}
+.on-red .pill-line:hover {
+  background: rgba(255, 255, 255, 0.14);
+  color: #fff;
+}
+.on-red .chip-red {
+  background: #fff;
+  color: var(--red);
+}
+.on-red .lede {
+  color: #fff;
+  opacity: 0.92;
+}
+
+/* Jump links at the top of a long page. */
+.jump {
+  list-style: none;
+  padding: 0;
+  margin: 28px 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.jump a {
+  display: inline-block;
+  padding: 9px 16px;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--red);
+  font-weight: 600;
+  box-shadow: inset 0 0 0 2px var(--rose);
+}
+.jump a:hover {
+  background: var(--red);
+  color: #fff;
+  box-shadow: none;
+}
+.on-red .jump a {
+  background: transparent;
+  color: #fff;
+  box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+}
+.on-red .jump a:hover {
+  background: #fff;
+  color: var(--red);
+}
+
+@media (max-width: 860px) {
+  :root {
+    --inset: 12px;
+  }
+}
+
+/* A tinted section, to break up long white pages. */
+.band.band-tint,
+.band-tint {
+  margin: var(--inset);
+  padding-inline: var(--block-pad);
+  border-radius: var(--radius-lg);
+  background: var(--blush);
+}
+
 .lede {
   font-size: clamp(18px, 1.6vw, 21px);
   color: var(--soft);
@@ -170,99 +272,27 @@ h6 {
   margin: 0;
 }
 
-/* Written text: news posts, robot write-ups, old pages. */
-.prose,
-.page-content {
+/* Written text: news posts and robot write-ups. */
+.prose {
   font-size: 18px;
 }
 .prose p,
-.prose li,
-.page-content p,
-.page-content li {
+.prose li {
   max-width: 72ch;
 }
 .prose h2,
 .prose h3,
-.prose h4,
-.page-content h2,
-.page-content h3,
-.page-content h4 {
+.prose h4 {
   margin-top: 1.6em;
   margin-bottom: 0.5em;
 }
-.prose img,
-.page-content img {
+.prose img {
   border-radius: 24px;
 }
-.prose a,
-.page-content p a,
-.page-content li a {
+.prose a:not(.pill) {
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 3px;
-}
-
-/* Pages not redesigned yet. Soften Bootstrap's boxes into the new look. */
-.page-content > h1:first-child,
-.page-content > div:first-child > h1:first-child {
-  font-size: clamp(2.6rem, 5.4vw, 4.4rem);
-  margin-bottom: 0.6em;
-}
-.page-content .card {
-  border: 0;
-  border-radius: var(--radius-md);
-  background: var(--blush);
-  box-shadow: none;
-  overflow: hidden;
-}
-.page-content .card-header {
-  border: 0;
-  background: transparent;
-  padding: 20px 24px 0;
-}
-.page-content .shadow,
-.page-content .shadow-sm,
-.page-content .shadow-lg {
-  box-shadow: none !important;
-}
-.page-content .table {
-  --bs-table-bg: transparent;
-  --bs-table-striped-bg: var(--blush);
-  --bs-table-hover-bg: var(--blush);
-  border-color: var(--rose);
-}
-.page-content .btn-danger,
-.page-content .btn-primary {
-  border: 0;
-  border-radius: 999px;
-  padding: 12px 24px;
-  background: var(--red);
-  font-weight: 700;
-}
-.page-content .btn-danger:hover,
-.page-content .btn-primary:hover {
-  background: var(--red-dark);
-}
-.page-content .list-group-item {
-  background: transparent;
-  border-color: var(--rose);
-}
-
-/* Bootstrap's blue accordion, kept in the palette. */
-.accordion {
-  --bs-accordion-bg: transparent;
-  --bs-accordion-active-bg: var(--blush);
-  --bs-accordion-active-color: var(--ink);
-  --bs-accordion-btn-focus-box-shadow: none;
-}
-
-.pagination {
-  --bs-pagination-color: var(--red);
-  --bs-pagination-hover-color: var(--red-dark);
-  --bs-pagination-hover-bg: var(--blush);
-  --bs-pagination-active-bg: var(--red);
-  --bs-pagination-active-border-color: var(--red);
-  --bs-pagination-focus-box-shadow: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -272,4 +302,14 @@ h6 {
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* Read by screen readers, not shown. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }

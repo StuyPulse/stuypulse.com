@@ -1,32 +1,321 @@
 ---
-import PageSite from '@layouts/PageSite.astro';
-import PageHead from '@components/redesign/PageHead.astro';
-import { marked } from 'marked';
+import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/page/PageHead.astro";
+import { marked } from "marked";
 
 // The charter lives in its own repo; pull the latest copy when the site builds.
-const SOURCE = 'https://github.com/StuyPulse/charter.stuypulse.com';
-const res = await fetch('https://raw.githubusercontent.com/StuyPulse/charter.stuypulse.com/refs/heads/main/README.md').catch(() => null);
+const SOURCE = "https://github.com/StuyPulse/charter.stuypulse.com";
+const res = await fetch(
+  "https://raw.githubusercontent.com/StuyPulse/charter.stuypulse.com/refs/heads/main/README.md",
+).catch(() => null);
+const markdown = res?.ok ? await res.text() : null;
+
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+
+// Our own contents list replaces the README's banner and its table of contents. Headings lose
+// their trailing colons and keep the README's anchor ids, so old links like #ec still work.
+const sections: { id: string; title: string }[] = [];
+const cleaned = markdown
+  ?.replace(/^# .*$/m, "")
+  .replace(/^## Table of Contents[\s\S]*?(?=^## )/m, "")
+  .replace(/^(#{2,3}) (.+?)[ \t]*$/gm, (_, hashes: string, rest: string) => {
+    const id = rest.match(/<a id="([^"]+)"><\/a>/)?.[1];
+    const title = rest
+      .replace(/<a id="[^"]*"><\/a>/, "")
+      .trim()
+      .replace(/:$/, "");
+    const level = hashes.length;
+    const anchor = id ?? slugify(title);
+    if (level === 2) sections.push({ id: anchor, title });
+    return `<h${level} id="${anchor}">${title}</h${level}>`;
+  });
 // The charter is our own document, so its HTML is trusted.
-const content = res?.ok ? await marked.parse(await res.text()) : null;
+const content = cleaned ? await marked.parse(cleaned) : null;
 ---
 
-<PageSite title="Charter" description="The StuyPulse team charter: how the team is structured and governed." fullBleed>
+<PageSite title="Charter" description="The StuyPulse team charter: how the team is structured and governed.">
   <PageHead title="Team charter" intro="How StuyPulse is structured and governed.">
-    <div class="actions"><a class="pill pill-white" href={SOURCE}>See it on GitHub</a></div>
+    <div class="actions"><a class="pill pill-red" href={SOURCE}>See it on GitHub</a></div>
   </PageHead>
-  <div class="band prose charter">
-    {content ? <Fragment set:html={content} /> : <p>The charter couldn't be loaded. <a href={SOURCE}>Read it on GitHub</a>.</p>}
-  </div>
+  {
+    content ? (
+      <div class="band layout">
+        <button class="pill sheet-open" type="button" aria-haspopup="dialog" hidden>
+          Contents
+        </button>
+        <aside>
+          <details class="toc" open>
+            <summary>Contents</summary>
+            <ol>
+              {sections.map((section) => (
+                <li>
+                  <a href={`#${section.id}`}>{section.title}</a>
+                </li>
+              ))}
+            </ol>
+          </details>
+        </aside>
+        <article class="prose charter">
+          <Fragment set:html={content} />
+          <a class="pill pill-line top" href="#">
+            Back to top ↑
+          </a>
+        </article>
+        <dialog class="sheet" aria-labelledby="sheet-title">
+          <div class="sheet-head">
+            <h2 id="sheet-title">Contents</h2>
+            <form method="dialog">
+              <button class="close" aria-label="Close">
+                ×
+              </button>
+            </form>
+          </div>
+          <ol>
+            {sections.map((section) => (
+              <li>
+                <a href={`#${section.id}`}>{section.title}</a>
+              </li>
+            ))}
+          </ol>
+        </dialog>
+      </div>
+    ) : (
+      <div class="band prose">
+        <p>
+          The charter couldn't be loaded. <a href={SOURCE}>Read it on GitHub</a>.
+        </p>
+      </div>
+    )
+  }
 </PageSite>
 
-<style>
-  .charter {
-    max-width: 1120px;
+<script>
+  const toc = document.querySelector<HTMLDetailsElement>(".toc");
+  const links = [...document.querySelectorAll<HTMLAnchorElement>(".toc a")];
+  const headings = links
+    .map((link) => document.getElementById(decodeURIComponent(link.hash.slice(1))))
+    .filter((heading): heading is HTMLElement => !!heading);
+
+  // On phones the contents sit above the text, so start them closed; wide screens keep them open beside it.
+  const wide = window.matchMedia("(min-width: 961px)");
+  const fit = () => {
+    if (toc) toc.open = wide.matches;
+  };
+  fit();
+  wide.addEventListener("change", fit);
+
+  // Highlight the section being read: the last heading that has scrolled past the top third of the screen.
+  const update = () => {
+    const line = window.innerHeight * 0.3;
+    let current = -1;
+    headings.forEach((heading, i) => {
+      if (heading.getBoundingClientRect().top < line) current = i;
+    });
+    links.forEach((link, i) => {
+      if (i === current) link.setAttribute("aria-current", "true");
+      else link.removeAttribute("aria-current");
+    });
+  };
+  const observer = new IntersectionObserver(update, { rootMargin: "0px 0px -70% 0px" });
+  headings.forEach((heading) => observer.observe(heading));
+
+  // Phones: a sticky "Contents" pill opens the section list as a sheet from the bottom.
+  const opener = document.querySelector<HTMLButtonElement>(".sheet-open");
+  const sheet = document.querySelector<HTMLDialogElement>(".sheet");
+  if (opener && sheet && typeof sheet.showModal === "function") {
+    opener.hidden = false;
+    opener.addEventListener("click", () => sheet.showModal());
+    // Tapping the dimmed page or picking a section closes it; the link then jumps as usual.
+    sheet.addEventListener("click", (e) => {
+      if (e.target === sheet || (e.target as HTMLElement).closest("a")) sheet.close();
+    });
   }
-  .charter :global(h1) {
+</script>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: 280px minmax(0, 1fr);
+    gap: clamp(32px, 5vw, 72px);
+    align-items: start;
+  }
+  aside {
+    position: sticky;
+    top: calc(var(--header-h, 0px) + 24px);
+  }
+  .sheet-open {
     display: none;
+  }
+  .toc {
+    padding: 24px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+  }
+  summary {
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.02em;
+    list-style: none;
+    cursor: pointer;
+  }
+  summary::-webkit-details-marker {
+    display: none;
+  }
+  .toc ol {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    display: grid;
+    gap: 2px;
+  }
+  .toc a {
+    display: block;
+    padding: 8px 14px;
+    margin: 0 -14px;
+    border-radius: 999px;
+    color: var(--ink);
+    font-weight: 600;
+    line-height: 1.3;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .toc a:hover {
+    background: #fff;
+    color: var(--red);
+  }
+  .toc a[aria-current] {
+    background: var(--red);
+    color: #fff;
+  }
+  .charter > :global(:first-child) {
+    margin-top: 0;
   }
   .charter :global(h2) {
     font-size: clamp(1.8rem, 3vw, 2.4rem);
+    scroll-margin-top: calc(var(--header-h, 0px) + 24px);
+  }
+  .charter :global(h3) {
+    scroll-margin-top: calc(var(--header-h, 0px) + 24px);
+  }
+  .top {
+    margin-top: 32px;
+  }
+  @media (min-width: 961px) {
+    /* Always open beside the text, so the toggle does nothing here. */
+    summary {
+      pointer-events: none;
+    }
+  }
+  /* The bottom sheet slides up from the bottom edge. */
+  .sheet {
+    width: 100%;
+    max-width: 100%;
+    max-height: 80vh;
+    margin: auto 0 0;
+    padding: 24px var(--gutter) 32px;
+    border: 0;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    color: var(--ink);
+  }
+  .sheet::backdrop {
+    background: rgba(38, 21, 22, 0.5);
+  }
+  .sheet[open] {
+    animation: sheet-up 0.3s ease-out;
+  }
+  .sheet[open]::backdrop {
+    animation: sheet-fade 0.3s ease-out;
+  }
+  @keyframes sheet-up {
+    from {
+      transform: translateY(100%);
+    }
+  }
+  @keyframes sheet-fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sheet[open],
+    .sheet[open]::backdrop {
+      animation: none;
+    }
+  }
+  .sheet-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+  .sheet h2 {
+    font-size: 28px;
+    margin: 0;
+  }
+  .sheet .close {
+    width: 44px;
+    height: 44px;
+    border: 0;
+    border-radius: 50%;
+    background: var(--blush);
+    color: var(--ink);
+    font-size: 26px;
+    line-height: 1;
+  }
+  .sheet ol {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    display: grid;
+    gap: 4px;
+  }
+  .sheet a {
+    display: block;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: var(--blush);
+    color: var(--ink);
+    font-weight: 600;
+  }
+  .sheet a:hover {
+    background: var(--red);
+    color: #fff;
+  }
+  @media (max-width: 960px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
+    /* The pill and sheet replace the contents box, but only when the script set them up. */
+    .layout:has(.sheet-open:not([hidden])) aside {
+      display: none;
+    }
+    aside {
+      position: static;
+    }
+    /* Stays just under the site header while the charter scrolls past. */
+    .sheet-open:not([hidden]) {
+      display: inline-flex;
+      position: sticky;
+      top: calc(var(--header-h, 0px) + 12px);
+      z-index: 5;
+      justify-self: start;
+      min-height: 46px;
+      padding: 0 22px;
+      background: var(--red);
+      color: #fff;
+      box-shadow: 0 14px 28px -14px rgba(50, 0, 0, 0.5);
+    }
+    summary::after {
+      content: " +";
+      color: var(--red);
+    }
+    .toc[open] summary::after {
+      content: " −";
+    }
   }
 </style>

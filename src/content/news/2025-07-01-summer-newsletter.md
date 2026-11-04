@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Summer Newsletter 2025
 author: StuyPulse
 link: https://www.canva.com/design/DAGyJOX_5pw/wRHa44khnmDXa0PYqeXxUw/edit

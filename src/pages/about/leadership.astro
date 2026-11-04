@@ -1,26 +1,22 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
-import type { LeadershipType } from "@types";
+import PageHead from "@components/page/PageHead.astro";
+import Face from "@components/people/Face.astro";
+import FaceCollage from "@components/people/FaceCollage.astro";
+import { leaders, type Department } from "@data";
 
-const leaders: LeadershipType[] = (await import("@data/leadership.yml")).default;
-
-const departments = [
+const departments: { name: Department; id: string; icon: string }[] = [
   { name: "Mechanical Engineering", id: "mechanical", icon: "/icons/mechanical.svg" },
   { name: "Software Engineering", id: "software", icon: "/icons/software.svg" },
   { name: "Business", id: "business", icon: "/icons/business.svg" },
   { name: "Strategy", id: "strategy", icon: "/icons/strategy.svg" },
 ];
-// Anyone in a department not listed above still shows up, under their own heading.
-for (const leader of leaders) {
-  if (!departments.some((dept) => dept.name === leader.department)) {
-    departments.push({ name: leader.department, id: leader.department.toLowerCase().replace(/\W+/g, "-"), icon: "" });
-  }
-}
+
+type Person = { name: string; image?: string; roles: { title: string; text: string }[] };
 
 // One card per person per department, even when they hold several roles.
 const people = (department: string) => {
-  const byName = new Map<string, { name: string; image?: string; roles: { title: string; text: string }[] }>();
+  const byName = new Map<string, Person>();
   for (const leader of leaders.filter((l) => l.department === department)) {
     const person = byName.get(leader.name) ?? { name: leader.name, image: leader.image, roles: [] };
     person.image ??= leader.image;
@@ -29,74 +25,225 @@ const people = (department: string) => {
   }
   return [...byName.values()];
 };
-const initials = (name: string) => name.split(/\s+/).map((part) => part[0]).join("").slice(0, 3);
+
+// A department's heads get the big cards: its President and Vice President, or, where it has
+// none (Strategy), its own directors.
+const split = (department: string) => {
+  const list = people(department);
+  const hasPresident = list.some((person) => person.roles.some((role) => /President/.test(role.title)));
+  const leads = (title: string) =>
+    hasPresident ? /^(Vice )?President\b/.test(title) : title === `Director of ${department}`;
+  const heads = list.filter((person) => person.roles.some((role) => leads(role.title)));
+  return { heads, rest: list.filter((person) => !heads.includes(person)) };
+};
+
 const count = new Set(leaders.map((leader) => leader.name)).size;
+// Local headshots for the collage, heads first.
+const faces = [
+  ...new Map(
+    leaders
+      .filter((leader) => leader.image?.startsWith("/"))
+      .sort((a, b) => Number(/President/.test(b.position)) - Number(/President/.test(a.position)))
+      .map((leader) => [leader.name, { name: leader.name, image: leader.image! }]),
+  ).values(),
+];
 ---
 
-<PageSite title="Leadership" description="The students who lead StuyPulse's departments this year." fullBleed>
-  <PageHead title="Leadership" intro={`The 2027 Executive and Appointed Council: ${count} students who run the team.`}>
-    <ul class="jump">
-      {departments.map((dept) => <li><a href={`#${dept.id}`}>{dept.name}</a></li>)}
-    </ul>
+<PageSite title="Leadership" description="The students who lead StuyPulse's departments this year.">
+  <PageHead
+    title="Leadership"
+    intro={`The 2026–27 Executive and Appointed Council: ${count} students who run the team.`}
+  >
+    <FaceCollage slot="aside" people={faces} sticker={`${count} student leaders`} />
   </PageHead>
 
-  {departments.map((dept) => {
-    const list = people(dept.name);
-    return list.length > 0 && (
-      <section class="band dept" id={dept.id} aria-labelledby={`${dept.id}-title`}>
-        <h2 id={`${dept.id}-title`} class="band-title">
-          {dept.icon && <span class="ic"><img src={dept.icon} alt="" /></span>}
-          {dept.name}
-        </h2>
-        <ul class="people">
-          {list.map((person) => (
-            <li>
-              {person.image ? (
-                <img class="face" src={person.image} alt="" loading="lazy" />
-              ) : (
-                <span class="face initials" aria-hidden="true">{initials(person.name)}</span>
-              )}
-              <h3>{person.name}</h3>
-              {person.roles.map((role) => (
-                <>
-                  <p class="role">{role.title}</p>
-                  <p class="what">{role.text}</p>
-                </>
-              ))}
-            </li>
-          ))}
-        </ul>
-      </section>
-    );
-  })}
+  <!-- Stays in view while scrolling the long list, and marks the department on screen. -->
+  <nav class="deptbar" aria-label="Departments">
+    <ul class="jump">
+      {
+        departments.map((dept) => (
+          <li>
+            <a href={`#${dept.id}`}>
+              <img src={dept.icon} alt="" />
+              {dept.name}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
+
+  {
+    departments.map((dept, i) => {
+      const { heads, rest } = split(dept.name);
+      return (
+        heads.length + rest.length > 0 && (
+          <section
+            class:list={["band dept", { "band-tint": i % 2 === 1 }]}
+            id={dept.id}
+            aria-labelledby={`${dept.id}-title`}
+          >
+            <h2 id={`${dept.id}-title`} class="band-title">
+              <span class="ic">
+                <img src={dept.icon} alt="" />
+              </span>
+              {dept.name}
+            </h2>
+
+            {heads.length > 0 && (
+              <ul class="heads">
+                {heads.map((person) => (
+                  <li class="head on-red">
+                    <Face name={person.name} image={person.image} tone="soft" class="big" />
+                    <div class="hd">
+                      <h3>{person.name}</h3>
+                      {person.roles.map((role) => (
+                        <p class="chip chip-white">{role.title}</p>
+                      ))}
+                    </div>
+                    <div class="desc">
+                      {person.roles.map((role) => (
+                        <p class="what">{role.text}</p>
+                      ))}
+                    </div>
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {rest.length > 0 && (
+              <ul class="people">
+                {rest.map((person, n) => {
+                  const id = `${dept.id}-${n}`;
+                  return (
+                    <li class="person">
+                      <h3>
+                        <button class="toggle" type="button" aria-expanded="true" aria-controls={id}>
+                          <Face name={person.name} image={person.image} tone={n % 2 ? "soft" : "solid"} />
+                          <span class="who">
+                            <b>{person.name}</b>
+                            {person.roles.map((role) => (
+                              <span class="role">{role.title}</span>
+                            ))}
+                          </span>
+                          <svg class="chev" viewBox="0 0 24 24" aria-hidden="true">
+                            <path d="M6 9l6 6 6-6" />
+                          </svg>
+                        </button>
+                      </h3>
+                      <div class="panel" id={id}>
+                        <div>
+                          {person.roles.map((role) => (
+                            <p>
+                              {person.roles.length > 1 && <b>{role.title}: </b>}
+                              {role.text}
+                            </p>
+                          ))}
+                        </div>
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            )}
+          </section>
+        )
+      );
+    })
+  }
 </PageSite>
 
+<script>
+  // Highlight the department whose section crosses the middle of the screen.
+  const bar = document.querySelector<HTMLElement>(".deptbar .jump");
+  const links = [...document.querySelectorAll<HTMLAnchorElement>(".deptbar a")];
+  const observer = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        for (const link of links) {
+          const active = link.hash === `#${entry.target.id}`;
+          link.toggleAttribute("aria-current", active);
+          // On phones the bar scrolls sideways; keep the active chip visible without moving the page.
+          if (active && bar) bar.scrollLeft = link.offsetLeft - bar.offsetLeft - 6;
+        }
+      }
+    },
+    { rootMargin: "-45% 0px -50% 0px" },
+  );
+  for (const link of links) {
+    const section = document.querySelector(link.hash);
+    if (section) observer.observe(section);
+  }
+
+  // Cards start open in the HTML so the descriptions are there without JS; fold them here.
+  for (const button of document.querySelectorAll<HTMLButtonElement>(".person .toggle")) {
+    const panel = document.getElementById(button.getAttribute("aria-controls") ?? "");
+    if (!panel) continue;
+    const set = (open: boolean) => {
+      button.setAttribute("aria-expanded", String(open));
+      panel.inert = !open;
+    };
+    set(false);
+    button.addEventListener("click", () => set(button.getAttribute("aria-expanded") !== "true"));
+  }
+</script>
+
 <style>
-  .jump {
-    list-style: none;
-    padding: 0;
-    margin: 28px 0 0;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
+  .deptbar {
+    position: sticky;
+    top: calc(var(--header-h) + 12px);
+    z-index: 10;
+    margin-top: 20px;
+    padding-inline: var(--gutter);
+    pointer-events: none;
   }
-  .jump a {
-    display: inline-block;
-    padding: 9px 16px;
+  .deptbar .jump {
+    pointer-events: auto;
+    width: fit-content;
+    max-width: 100%;
+    margin: 0;
+    padding: 6px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    scrollbar-width: none;
+    gap: 4px;
     border-radius: 999px;
-    color: #fff;
-    font-weight: 600;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+    background: #fff;
+    box-shadow:
+      inset 0 0 0 2px var(--rose),
+      0 10px 30px rgba(168, 12, 20, 0.12);
   }
-  .jump a:hover {
-    background: rgba(255, 255, 255, 0.14);
+  .deptbar .jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+    box-shadow: none;
+    transition:
+      background-color 0.2s ease,
+      color 0.2s ease;
+  }
+  .deptbar .jump img {
+    width: 20px;
+  }
+  .deptbar .jump a:hover {
+    background: var(--blush);
+    color: var(--red);
+  }
+  .deptbar .jump a[aria-current] {
+    background: var(--red);
     color: #fff;
+  }
+  /* White icons on the red active chip. */
+  .deptbar .jump a[aria-current] img {
+    filter: brightness(0) invert(1);
   }
   .dept {
-    scroll-margin-top: 16px;
+    scroll-margin-top: 72px;
   }
-  .dept + .dept {
-    padding-top: 0;
+  .band-tint .ic {
+    background: #fff;
   }
   .band-title {
     display: flex;
@@ -115,44 +262,203 @@ const count = new Set(leaders.map((leader) => leader.name)).size;
   .ic img {
     width: 30px;
   }
-  .people {
+
+  /* The department's heads: big red cards. */
+  .heads {
     list-style: none;
     padding: 0;
     margin: 36px 0 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 40px 28px;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr));
+    gap: 20px;
   }
-  .face {
+  .head {
     display: grid;
-    place-items: center;
-    width: 112px;
-    height: 112px;
-    border-radius: 50%;
-    object-fit: cover;
+    grid-template-columns: auto 1fr;
+    grid-template-areas:
+      "face hd"
+      "face desc";
+    align-content: start;
+    column-gap: clamp(20px, 3vw, 32px);
+    padding: clamp(24px, 3vw, 36px);
+    border-radius: var(--radius-lg);
+  }
+  .head :global(.big) {
+    grid-area: face;
+    --face: clamp(112px, 12vw, 152px);
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.9);
+  }
+  .hd {
+    grid-area: hd;
+  }
+  .desc {
+    grid-area: desc;
+  }
+  .head h3 {
+    font-size: clamp(26px, 2.6vw, 34px);
+    margin: 4px 0 12px;
+  }
+  .head .chip {
+    margin: 6px 6px 0 0;
+    font-size: 15px;
+    padding: 5px 14px;
+  }
+  .head .what {
+    margin: 12px 0 0;
+    font-size: 16px;
+    line-height: 1.5;
+    opacity: 0.94;
+  }
+
+  /* Everyone else: compact cards that open to show what they do. */
+  .people {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: 12px;
+    align-items: start;
+  }
+  .person {
+    border-radius: var(--radius-md);
     background: var(--blush);
   }
-  .initials {
-    color: var(--red);
-    font-weight: 800;
-    font-size: 34px;
-    letter-spacing: -0.03em;
-    font-variation-settings: "opsz" 96;
+  .band-tint .person {
+    background: #fff;
   }
-  h3 {
-    font-size: 23px;
-    margin: 18px 0 6px;
+  .person h3 {
+    margin: 0;
+    font-size: inherit;
+    letter-spacing: normal;
+  }
+  .toggle {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    padding: 12px 16px 12px 12px;
+    border: 0;
+    border-radius: var(--radius-md);
+    background: none;
+    color: var(--ink);
+    text-align: left;
+    cursor: pointer;
+    --face: 64px;
+  }
+  .who {
+    flex: 1;
+    min-width: 0;
+  }
+  .who b {
+    display: block;
+    font-size: 19px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
   }
   .role {
-    margin: 10px 0 0;
-    font-weight: 700;
+    display: block;
+    margin-top: 2px;
     color: var(--red);
+    font-weight: 600;
+    font-size: 15px;
     line-height: 1.3;
   }
-  .what {
-    margin: 4px 0 0;
+  .chev {
+    flex: none;
+    width: 32px;
+    height: 32px;
+    padding: 6px;
+    border-radius: 50%;
+    background: #fff;
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.2s ease;
+  }
+  .band-tint .chev {
+    background: var(--blush);
+  }
+  .toggle[aria-expanded="true"] .chev {
+    transform: rotate(180deg);
+  }
+  .toggle:hover .chev {
+    background: var(--red);
+    stroke: #fff;
+  }
+  .panel {
+    display: grid;
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transition:
+      grid-template-rows 0.2s ease,
+      opacity 0.2s ease;
+  }
+  .panel > div {
+    min-height: 0;
+    overflow: hidden;
+  }
+  .toggle[aria-expanded="false"] + .panel,
+  h3:has(.toggle[aria-expanded="false"]) + .panel {
+    grid-template-rows: 0fr;
+    opacity: 0;
+  }
+  .panel p {
+    margin: 0;
+    padding: 0 20px 16px 90px;
     color: var(--soft);
     font-size: 15px;
     line-height: 1.5;
+  }
+  .panel p b {
+    color: var(--ink);
+  }
+
+  @media (max-width: 640px) {
+    .heads {
+      margin-top: 28px;
+      gap: 12px;
+    }
+    .head {
+      grid-template-areas:
+        "face hd"
+        "desc desc";
+      column-gap: 16px;
+      align-items: center;
+    }
+    .head :global(.big) {
+      --face: 84px;
+    }
+    .head h3 {
+      font-size: 24px;
+      margin: 0 0 6px;
+    }
+    .head .chip {
+      font-size: 14px;
+      padding: 4px 12px;
+    }
+    .toggle {
+      --face: 52px;
+      gap: 12px;
+      padding: 10px 12px 10px 10px;
+    }
+    .who b {
+      font-size: 17px;
+    }
+    .role {
+      font-size: 14px;
+    }
+    .panel p {
+      padding: 0 16px 14px;
+    }
+    .ic {
+      width: 48px;
+      height: 48px;
+    }
+    .ic img {
+      width: 26px;
+    }
   }
 </style>

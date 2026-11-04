@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: StuyFission and StuyFusion on the Today Show!
 author: Areyan Kayum
 date: 2018-09-22

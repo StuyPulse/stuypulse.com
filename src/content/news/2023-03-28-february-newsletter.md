@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: February Newsletter
 author: StuyPulse
 link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2FFebruary%20Newsletter%202023.pdf

@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: New York City Regional
 author: Ivy Wong
 date: 2015-03-16

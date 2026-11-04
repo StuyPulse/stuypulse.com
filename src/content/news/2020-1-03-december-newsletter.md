@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: December Newsletter
 author: Bryan Lai
 link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2019_december.pdf

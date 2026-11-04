@@ -1,25 +1,30 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import { getCollection } from "astro:content";
+import SplashYear from "@components/stuysplash/SplashYear.astro";
+import { getStuySplashYears, type StuySplashYear } from "@utils/stuysplash";
 
 export async function getStaticPaths() {
-  const stuySplashEntries = await getCollection("stuysplash");
-
-  return stuySplashEntries.map((entry) => ({
+  const years = await getStuySplashYears();
+  // Years are sorted newest first, so the next item in the list is the earlier year.
+  return years.map((entry, i) => ({
     params: { slug: entry.slug },
-    props: { entry },
+    props: { entry, later: years[i - 1], earlier: years[i + 1] },
   }));
 }
 
-const { entry } = Astro.props;
-// The page itself is laid out by src/layouts/StuySplash.astro.
+const { entry, earlier, later } = Astro.props as {
+  entry: StuySplashYear;
+  earlier?: StuySplashYear;
+  later?: StuySplashYear;
+};
 const { Content } = await entry.render();
 ---
 
 <PageSite
   title={`StuySplash ${entry.data.year} talks`}
   description={`Slides from the ${entry.data.presentations.length} talks at StuySplash ${entry.data.year}, StuyPulse's free day of talks for FRC teams.`}
-  fullBleed
 >
-  <Content />
+  <SplashYear entry={entry} earlier={earlier} later={later}>
+    <Content />
+  </SplashYear>
 </PageSite>

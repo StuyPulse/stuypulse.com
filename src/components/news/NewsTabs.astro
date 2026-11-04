@@ -1,0 +1,86 @@
+---
+// Switches the news archive between newsletters and the written stories from the old site.
+import { getNewsletters, kindOf } from "@utils/news";
+
+export interface Props {
+  current: "newsletters" | "stories";
+}
+const { current } = Astro.props;
+const all = await getNewsletters();
+const stories = all.filter((post) => kindOf(post) === "post");
+const years = stories.map((post) => post.data.date.getUTCFullYear());
+const range = years.length ? `${Math.min(...years)}–${String(Math.max(...years)).slice(-2)}` : "";
+const tabs = [
+  { id: "newsletters", href: "/news/", label: "Newsletters", count: all.length - stories.length },
+  { id: "stories", href: "/news/stories/", label: `Stories ${range}`, count: stories.length },
+];
+---
+
+<nav class="tabs" aria-label="News sections">
+  {
+    tabs.map((tab) => (
+      <a href={tab.href} aria-current={tab.id === current ? "page" : undefined}>
+        {tab.label}
+        <span>{tab.count}</span>
+      </a>
+    ))
+  }
+</nav>
+
+<style>
+  .tabs {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 28px;
+    padding: 6px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.16);
+  }
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    min-height: 48px;
+    padding: 0 22px;
+    border-radius: 999px;
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    transition: background-color 0.15s ease;
+  }
+  a:hover {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+  }
+  a[aria-current] {
+    background: #fff;
+    color: var(--red);
+  }
+  span {
+    font-size: 14px;
+    padding: 1px 9px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.22);
+  }
+  a[aria-current] span {
+    background: var(--blush);
+  }
+  @media (max-width: 480px) {
+    .tabs {
+      display: flex;
+      border-radius: 30px;
+    }
+    a {
+      flex: 1;
+      justify-content: center;
+      padding: 0 12px;
+      font-size: 16px;
+      white-space: nowrap;
+    }
+    /* Counts make the two tabs too wide for a phone. */
+    span {
+      display: none;
+    }
+  }
+</style>

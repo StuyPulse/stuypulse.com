@@ -1,16 +1,11 @@
 {
   "extends": "astro/tsconfigs/strict",
+  "include": [".astro/types.d.ts", "**/*"],
+  "exclude": ["dist", "node_modules", "public"],
   "compilerOptions": {
-    "moduleResolution": "node",
     "baseUrl": ".",
     "paths": {
-      "@*": ["./src/*"],
-      "$*": ["./src/*"]
-    },
-    "typeRoots": [
-      "../../node_modules/@types",
-      "../../node_modules/astro-imagetools",
-      "../../.astro"
-    ]
+      "@*": ["./src/*"]
+    }
   }
 }

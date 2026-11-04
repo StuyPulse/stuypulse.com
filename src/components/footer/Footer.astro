@@ -1,97 +1,150 @@
 ---
-import type { NavType, SocialType } from '@types';
-import SocialIcon from './SocialIcon.astro';
-import bootstrap from '../../../node_modules/bootstrap/dist/js/bootstrap.bundle.js?url';
+import { ADDRESS, CONTACT_EMAIL, DONATE_LINK, NAVIGATION } from "@config";
+import { socials, stuysplash } from "@data";
+import SocialIcon from "./SocialIcon.astro";
 
-const socials = (await import('@data/socials.yml')).default;
-const navs: NavType[] = (await import('@data/navbar.yml')).default;
-const about = navs.find((nav) => nav.name === 'About')?.dropdown ?? [];
-const more = navs.filter((nav) => nav.href);
+// Every section from the header (a menu contributes its first page), plus Donate, so the footer isn't a dead end.
+const links = [
+  ...NAVIGATION.map((item) => ("links" in item ? { name: item.name, href: item.links[0].href } : item)),
+  DONATE_LINK,
+];
 ---
 
 <footer class="site-footer">
-  <div class="who">
+  <div class="contact">
+    {
+      stuysplash.showOnHome && (
+        <a class="next" href="/resources/stuysplash">
+          <span class="dot" aria-hidden="true" />
+          Next up: StuySplash {stuysplash.year}, {stuysplash.date}
+        </a>
+      )
+    }
     <b>StuyPulse, FRC Team 694</b>
-    <p>
-      Stuyvesant High School<br />
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.google.com/maps/place/Stuyvesant+High+School/@40.7178149,-74.0164171,17z/data=!4m6!3m5!1s0x89c25a1db5f8b8c9:0xb5084500683f46f9!8m2!3d40.7178149!4d-74.0138422!16zL20vMDI2MDM2?entry=ttu"
-        >345 Chambers St, New York, NY</a
-      ><br />
-      <a href="mailto:info@stuypulse.com">info@stuypulse.com</a>
-    </p>
-    <ul class="socials">
-      {socials.map((social: SocialType) => <SocialIcon social={social} />)}
-    </ul>
+    <a class="email" href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+    <a class="address" href={ADDRESS.map} target="_blank" rel="noopener noreferrer">
+      {ADDRESS.name}, {ADDRESS.street}
+    </a>
   </div>
-  <ul class="links">
-    {about.map((nav) => <li><a href={nav.href}>{nav.name}</a></li>)}
+  <ul class="socials">
+    {socials.map((social) => <SocialIcon social={social} />)}
   </ul>
-  <ul class="links">
-    {more.map((nav) => <li><a href={nav.href}>{nav.name.replace('!', '')}</a></li>)}
-  </ul>
+  <nav class="links" aria-label="Footer">
+    {links.map((link) => <a href={link.href}>{link.name}</a>)}
+  </nav>
   <p class="copy">&copy; {new Date().getFullYear()} StuyPulse</p>
-
-  <script src={bootstrap}></script>
 </footer>
 
 <style>
   .site-footer {
-    margin: 20px;
+    margin: 48px var(--inset) var(--inset);
     border-radius: var(--radius-lg);
-    background: var(--red-dark);
+    background: var(--red);
     color: #fff;
-    padding: 48px clamp(28px, 4vw, 56px) 32px;
+    padding: 44px var(--block-pad) 28px;
     display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr;
-    gap: 32px;
+    grid-template-columns: 1fr auto;
+    align-items: end;
+    gap: 28px;
+  }
+  .contact {
+    display: grid;
+    gap: 6px;
+    justify-items: start;
   }
   b {
-    display: block;
-    font-size: 22px;
-    margin-bottom: 8px;
+    font-size: 20px;
     letter-spacing: -0.01em;
+    margin-bottom: 4px;
   }
   a {
     color: #fff;
-    opacity: 0.92;
   }
   a:hover {
     color: #fff;
-    opacity: 1;
     text-decoration: underline;
+    text-underline-offset: 4px;
   }
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .email {
+    font-weight: 800;
+    font-size: clamp(1.6rem, 3.4vw, 2.6rem);
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    font-variation-settings: "opsz" 96;
   }
-  .links {
-    display: grid;
-    gap: 6px;
-    align-content: start;
+  .address {
+    opacity: 0.9;
+  }
+  .next {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 14px;
+    padding: 8px 16px 8px 12px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .next:hover {
+    color: var(--red-dark);
+    text-decoration: none;
+  }
+  .dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: beat 1.6s ease-out infinite;
+  }
+  @keyframes beat {
+    0% {
+      box-shadow: 0 0 0 0 rgba(225, 20, 31, 0.5);
+    }
+    70%,
+    100% {
+      box-shadow: 0 0 0 10px rgba(225, 20, 31, 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .dot {
+      animation: none;
+    }
   }
   .socials {
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 18px;
+    gap: clamp(6px, 2vw, 10px);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .links {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 22px;
+    padding-top: 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.3);
+    font-weight: 600;
+  }
+  .links a {
+    padding: 6px 0;
   }
   .copy {
     grid-column: 1 / -1;
     margin: 0;
-    opacity: 0.75;
+    opacity: 0.8;
     font-size: 15px;
   }
   @media (max-width: 860px) {
     .site-footer {
-      margin: 12px;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
+      align-items: start;
     }
-    .who {
-      grid-column: 1 / -1;
+    .email {
+      overflow-wrap: anywhere;
     }
   }
 </style>

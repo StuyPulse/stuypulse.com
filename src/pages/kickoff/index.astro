@@ -1,16 +1,464 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
+import { formatDate } from "@utils/format";
+import { getNewsletters } from "@utils/news";
+import { getRobots } from "@utils/robots";
+import { seasonOf } from "@utils/seasons";
+
+const steps = [
+  {
+    title: "We watch the reveal together",
+    text: "In early January, FIRST reveals the new game to every team in the world at the same moment. The whole team watches it together, then reads through the game manual.",
+  },
+  {
+    title: "Strategy and design begin",
+    text: "We work out how the game is played and scored, decide what our robot should do, and start designing it.",
+  },
+];
+
+// One robot for every kickoff we've had, oldest first.
+const robots = (await getRobots()).filter((robot) => robot.data.photo);
+
+// Kickoff write-ups from the old site, newest first, named by the season they started.
+const kickoffs = (await getNewsletters())
+  .filter((post) => /kickoff/i.test(post.slug) || /kickoff/i.test(post.data.title))
+  .map((post) => ({
+    post,
+    season: seasonOf(post.data.date),
+    photo: post.body.match(/src="(https?:\/\/[^"]+\.(?:jpe?g|png))"/i)?.[1],
+  }));
+
+// How our 2024 kickoff day ran, from the old kickoff page. A new season's plan replaces it here.
+const day = [
+  { time: "11:00", what: "Set up" },
+  { time: "11:50", what: "Welcome from Mr. Blay" },
+  { time: "12:00", what: "Watch the kickoff broadcast" },
+  { time: "1:30", what: "Read the game manual" },
+  { time: "2:20", what: "Lunch, group leader briefing and taping out the field" },
+  { time: "2:50", what: "Small group discussions" },
+  { time: "4:30", what: "Big group: recap and strategy" },
+  { time: "6:00", what: "Human robots: play the game ourselves" },
+];
+// What each small group works out before anyone talks about mechanisms.
+const questions = [
+  "How do you score, and what's each thing worth?",
+  "Draw the field",
+  "Robot size limits",
+  "How rankings and tiebreaks work",
+  "Every task a robot can do",
+  "Autonomous routines",
+  "What will win quals? A regional? Champs?",
+  "Every way a robot can defend",
+  "The perfect cycle and the perfect auto",
+  "What robots will we see the most?",
+  "What shouldn't we do?",
+];
 ---
 
-<PageSite title="Kickoff" description="FRC kickoff at StuyPulse: when the new game is revealed and the build season starts." fullBleed>
+<PageSite
+  title="Kickoff"
+  description="FRC kickoff at StuyPulse: when the new game is revealed and the build season starts."
+>
   <PageHead
     title="Kickoff"
     intro="Every January, FIRST reveals the new game and the whole team starts designing a robot from a blank page. The plan for this season's kickoff will be posted here before the day."
   >
     <div class="actions">
-      <a class="pill pill-white" href="/calendar">See the calendar</a>
-      <a class="pill pill-ghost" href="https://www.firstinspires.org/robotics/frc/game-and-season">FIRST game and season info</a>
+      <a class="pill pill-red" href="/calendar">See the calendar</a>
+      <a class="pill pill-line" href="https://www.firstinspires.org/robotics/frc/game-and-season"
+        >FIRST game and season info</a
+      >
     </div>
   </PageHead>
+
+  <section class="band band-tint" aria-labelledby="what-title">
+    <h2 id="what-title" class="band-title">What kickoff is</h2>
+    <p class="lede">The first day of the season, and the start of build season.</p>
+    <ol class="steps">
+      {
+        steps.map((step, i) => (
+          <li>
+            <span class="num" aria-hidden="true">
+              {i + 1}
+            </span>
+            <h3>{step.title}</h3>
+            <p>{step.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="band day" aria-labelledby="day-title">
+    <div class="day-grid">
+      <div>
+        <h2 id="day-title" class="band-title">How the day runs</h2>
+        <p class="lede">Our 2024 kickoff, start to finish. Small groups talk strategy first: no mechanisms yet.</p>
+        <ol class="schedule">
+          {
+            day.map((slot) => (
+              <li>
+                <time>{slot.time}</time>
+                <span>{slot.what}</span>
+              </li>
+            ))
+          }
+        </ol>
+      </div>
+      <div class="questions">
+        <h3>What small groups work out</h3>
+        <ul>{questions.map((question) => <li>{question}</li>)}</ul>
+        <div class="actions">
+          <a class="pill pill-red" href="https://frc-qa.firstinspires.org/">Game Q&amp;A forum</a>
+          <a class="pill pill-line" href="https://www.firstinspires.org/robotics/frc/playing-field">The playing field</a
+          >
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="games on-red" aria-labelledby="games-title">
+    <div class="games-head">
+      <h2 id="games-title" class="band-title">Every game since {robots[0]?.data.year}</h2>
+      <p class="lede">Each kickoff ended, months later, in one of these.</p>
+    </div>
+    <ul class="strip" tabindex="0" aria-label="Our robots, oldest first">
+      {
+        robots.map((robot) => (
+          <li>
+            <a href={`/about/history/${robot.slug}`}>
+              <img src={robot.data.photo} alt="" loading="lazy" />
+              <span>
+                <b>{robot.data.year}</b> {robot.data.title}
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  {
+    kickoffs.length > 0 && (
+      <section class="band past" aria-labelledby="past-title">
+        <h2 id="past-title" class="band-title">
+          Past kickoffs
+        </h2>
+        <p class="lede">What kickoff day looked like in earlier years, from our old website.</p>
+        <ul class="kickoffs">
+          {kickoffs.map(({ post, season, photo }) => (
+            <li>
+              <a href={`/news/${post.slug}`}>
+                {photo ? (
+                  <img src={photo} alt="" loading="lazy" />
+                ) : (
+                  <span class="year-tile" aria-hidden="true">
+                    {season}
+                  </span>
+                )}
+                <span class="text">
+                  <b>{season} kickoff</b>
+                  <time datetime={post.data.date.toISOString().slice(0, 10)}>{formatDate(post.data.date)}</time>
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <div class="actions">
+          <a class="pill pill-red" href="/calendar">
+            See the calendar
+          </a>
+        </div>
+      </section>
+    )
+  }
 </PageSite>
+
+<script>
+  // The robot strip drifts slowly sideways on its own, back and forth. It stops while someone
+  // points at it, focuses it or touches it, and never moves for people who prefer less motion.
+  const strip = document.querySelector<HTMLElement>(".strip");
+  const still = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (strip && !still.matches) {
+    let paused = false;
+    let direction = 1;
+    let last = 0;
+    let position = strip.scrollLeft;
+    const pause = () => (paused = true);
+    const resume = () => {
+      paused = false;
+      position = strip.scrollLeft;
+    };
+    strip.addEventListener("pointerenter", pause);
+    strip.addEventListener("pointerleave", resume);
+    strip.addEventListener("focusin", pause);
+    strip.addEventListener("focusout", resume);
+    strip.addEventListener("touchstart", pause, { passive: true });
+    still.addEventListener("change", () => still.matches && pause());
+    const step = (time: number) => {
+      const elapsed = last ? Math.min(time - last, 50) : 0;
+      last = time;
+      const end = strip.scrollWidth - strip.clientWidth;
+      if (!paused && !still.matches && end > 0) {
+        // About 24px a second; fractions are kept here because scrollLeft rounds them away.
+        position += direction * elapsed * 0.024;
+        if (position >= end || position <= 0) {
+          direction *= -1;
+          position = Math.min(Math.max(position, 0), end);
+        }
+        strip.scrollLeft = position;
+      }
+      requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }
+</script>
+
+<style>
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr));
+    gap: 16px;
+  }
+  .steps li {
+    padding: 32px;
+    border-radius: var(--radius-md);
+    background: #fff;
+  }
+  .num {
+    display: grid;
+    place-items: center;
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+    font-weight: 800;
+    font-size: 24px;
+    margin-bottom: 18px;
+  }
+  h3 {
+    font-size: 28px;
+    margin: 0;
+  }
+  .steps p {
+    margin: 12px 0 0;
+    color: var(--soft);
+    font-size: 18px;
+  }
+
+  /* The day's schedule as a line of stops, next to the discussion questions. */
+  .day-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: start;
+  }
+  .schedule {
+    list-style: none;
+    margin: 32px 0 0;
+    padding: 0;
+    position: relative;
+  }
+  .schedule::before {
+    content: "";
+    position: absolute;
+    left: 31px;
+    top: 12px;
+    bottom: 12px;
+    width: 3px;
+    border-radius: 2px;
+    background: var(--rose);
+  }
+  .schedule li {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 7px 0;
+    font-size: 18px;
+  }
+  .schedule time {
+    flex: none;
+    width: 64px;
+    padding: 6px 0;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  .questions {
+    padding: clamp(24px, 3vw, 36px);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  .questions h3 {
+    margin: 0;
+    font-size: 24px;
+  }
+  .questions ul {
+    list-style: none;
+    margin: 20px 0 24px;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .questions li {
+    padding: 8px 14px;
+    border-radius: 999px;
+    background: #fff;
+    font-size: 15px;
+    font-weight: 500;
+  }
+  @media (max-width: 860px) {
+    .day-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Every robot in a row on red, scrolling sideways. */
+  .games {
+    margin: var(--inset);
+    padding: clamp(48px, 6vw, 88px) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .games-head {
+    padding-inline: var(--block-pad);
+  }
+  .games .band-title {
+    color: #fff;
+  }
+  .strip {
+    list-style: none;
+    margin: 36px 0 0;
+    padding: 12px var(--block-pad) 20px;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.6) transparent;
+  }
+  .strip:focus-visible {
+    outline: 3px solid #fff;
+    outline-offset: -3px;
+  }
+  .strip li {
+    flex: none;
+    width: clamp(200px, 22vw, 260px);
+  }
+  .strip li:nth-child(odd) a {
+    transform: rotate(-1.5deg);
+  }
+  .strip li:nth-child(even) a {
+    transform: rotate(1.5deg);
+  }
+  .strip a {
+    display: block;
+    padding: 10px 10px 14px;
+    border-radius: 28px;
+    background: #fff;
+    color: var(--ink);
+    box-shadow: 0 22px 40px -22px rgba(70, 0, 4, 0.6);
+    transition: transform 0.2s ease;
+  }
+  .strip a:hover,
+  .strip a:focus-visible {
+    transform: translateY(-6px);
+    color: var(--ink);
+  }
+  .strip img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+    border-radius: 20px;
+    background: var(--blush);
+  }
+  .strip span {
+    display: block;
+    padding: 12px 8px 0;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .strip b {
+    color: var(--red);
+    margin-right: 4px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .strip a:hover,
+    .strip a:focus-visible {
+      transform: none;
+    }
+  }
+
+  .past {
+    padding-bottom: clamp(32px, 4vw, 56px);
+  }
+  .kickoffs {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    gap: 16px;
+  }
+  .kickoffs a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    color: var(--ink);
+    overflow: hidden;
+    transition: transform 0.2s ease;
+  }
+  .kickoffs a:hover {
+    color: var(--red);
+    transform: translateY(-4px);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .kickoffs a:hover {
+      transform: none;
+    }
+  }
+  .kickoffs img,
+  .year-tile {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+  .year-tile {
+    display: grid;
+    place-items: center;
+    background: var(--red);
+    color: #fff;
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    font-weight: 800;
+    letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 96;
+  }
+  .text {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 18px 22px 22px;
+  }
+  .text b {
+    font-size: 22px;
+    letter-spacing: -0.02em;
+  }
+  .text time {
+    color: var(--soft);
+    font-size: 15px;
+  }
+</style>

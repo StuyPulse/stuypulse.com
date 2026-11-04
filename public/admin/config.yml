@@ -91,7 +91,6 @@ collections:
         direction: descending
     preview_path: "about/history/{{slug}}"
     fields:
-      - { name: layout, widget: hidden, default: $layouts/History.astro }
       - { name: title, label: Robot name }
       - { name: year, label: Season, widget: number, value_type: int }
       - name: photo
@@ -146,7 +145,6 @@ collections:
         field: year
         direction: descending
     fields:
-      - { name: layout, widget: hidden, default: $layouts/StuySplash.astro }
       - { name: year, label: Year, widget: number, value_type: int }
       - { name: playlist, label: Recordings playlist link, required: false }
       - name: presentations

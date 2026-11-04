@@ -1,13 +1,16 @@
 ---
-import { getCollection } from "astro:content";
 import PageSite from "@layouts/PageSite.astro";
 import NewsList from "@components/news/NewsList.astro";
-import getSortedPosts from "@utils/getSortedPosts";
-import { POSTS_PER_LIST_PAGE } from "@utils/news";
+import { POSTS_PER_LIST_PAGE, getNewsletters, kindOf } from "@utils/news";
 
-const posts = getSortedPosts(await getCollection("news"));
+// Written stories have their own page (/news/stories/); this archive is the newsletters.
+const posts = (await getNewsletters()).filter((post) => kindOf(post) !== "post");
 ---
 
-<PageSite title="Newsletters" description="Newsletters, build updates and team news from StuyPulse, FRC Team 694." fullBleed>
-  <NewsList posts={posts.slice(0, POSTS_PER_LIST_PAGE)} page={1} pages={Math.ceil(posts.length / POSTS_PER_LIST_PAGE)} />
+<PageSite title="Newsletters" description="Newsletters, build updates and team news from StuyPulse, FRC Team 694.">
+  <NewsList
+    posts={posts.slice(0, POSTS_PER_LIST_PAGE)}
+    page={1}
+    pages={Math.ceil(posts.length / POSTS_PER_LIST_PAGE)}
+  />
 </PageSite>

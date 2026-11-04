@@ -1,0 +1,78 @@
+---
+// Smaller hero for inner pages: title, a line of intro and optional buttons or chips.
+// Anything in the "aside" slot (a photo, a face stack, a big number) fills the right half.
+import Beat from "./Beat.astro";
+
+export interface Props {
+  title: string;
+  intro?: string;
+  // A flat heartbeat instead of a spike (the 404 page).
+  flat?: boolean;
+}
+const { title, intro, flat = false } = Astro.props;
+const hasAside = Astro.slots.has("aside");
+---
+
+<section class:list={["page-head on-red", { split: hasAside }]}>
+  <Beat height={90} flat={flat} />
+  <div class="inner">
+    <slot name="before" />
+    <h1>{title}</h1>
+    {intro && <p class="intro">{intro}</p>}
+    <slot />
+  </div>
+  {
+    hasAside && (
+      <div class="aside">
+        <slot name="aside" />
+      </div>
+    )
+  }
+</section>
+
+<style>
+  .page-head {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(32px, 5vw, 64px) var(--block-pad) 84px;
+    margin: 0 var(--inset);
+    border-radius: var(--radius-lg);
+  }
+  .page-head :global(.beat) {
+    color: #fff;
+  }
+  .inner {
+    position: relative;
+    max-width: 1120px;
+  }
+  .split {
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(28px, 4vw, 56px);
+  }
+  .aside {
+    position: relative;
+    min-width: 0;
+  }
+  h1 {
+    color: #fff;
+    font-size: clamp(2.8rem, 6vw, 5.2rem);
+    line-height: 0.98;
+    letter-spacing: -0.035em;
+    margin: 0;
+  }
+  .intro {
+    font-size: clamp(18px, 1.7vw, 22px);
+    margin: 20px 0 0;
+    max-width: 46ch;
+  }
+  @media (max-width: 860px) {
+    .page-head {
+      padding-bottom: 64px;
+    }
+    .split {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

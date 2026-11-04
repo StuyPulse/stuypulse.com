@@ -1,0 +1,57 @@
+---
+// A round headshot, or the person's initials on a disc when there's no photo.
+// Set the size with --face on the element or a parent.
+import { initials } from "@utils/format";
+
+export interface Props {
+  name: string;
+  image?: string;
+  // Initials discs alternate solid red and soft rose, so a row of them reads as a pattern.
+  tone?: "solid" | "soft";
+  class?: string;
+}
+const { name, image, tone = "solid", class: className } = Astro.props;
+// Team headshots (public/ecac) are shot loose in front of a banner, so crop in on the face.
+const tight = image?.startsWith("/ecac/");
+---
+
+<span class:list={["face", image ? "photo" : tone, className]} aria-hidden="true">
+  {image ? <img class:list={{ tight }} src={image} alt="" loading="lazy" /> : initials(name)}
+</span>
+
+<style>
+  .face {
+    --size: var(--face, 96px);
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: var(--size);
+    height: var(--size);
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--blush);
+    font-weight: 800;
+    font-size: calc(var(--size) * 0.32);
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+    line-height: 1;
+  }
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  .tight {
+    transform: scale(1.3);
+    transform-origin: 50% 36%;
+  }
+  .solid {
+    background: var(--red);
+    color: #fff;
+  }
+  .soft {
+    background: var(--rose);
+    color: var(--red);
+  }
+</style>

@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Interest Meeting - Come see the team
 author: Justin Kim
 date: 2013-09-28

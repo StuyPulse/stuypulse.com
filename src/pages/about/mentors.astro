@@ -1,92 +1,241 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
-import type { MentorType } from "@types";
+import PageHead from "@components/page/PageHead.astro";
+import { mentors } from "@data";
+import AwardIcon from "@components/awards/AwardIcon.astro";
+import Face from "@components/people/Face.astro";
+import FaceCollage from "@components/people/FaceCollage.astro";
+import { getHonors, samePerson } from "@components/people/honors";
 
-const mentors: MentorType[] = (await import("@data/mentors.yml")).default;
-const initials = (name: string) => name.split(/\s+/).map((part) => part[0]).join("").slice(0, 3);
+// Mentors with a write-up get a full card; the rest are listed compactly so they don't leave gaps.
+const withBio = mentors.filter((mentor) => mentor.description);
+const withoutBio = mentors.filter((mentor) => !mentor.description);
+
+// Honors FIRST gave to a mentor by name (Woodie Flowers, Dean's List...), from the robots' award lists.
+const honors = await getHonors();
+const honorsFor = (name: string) => honors.filter((honor) => samePerson(honor.name, name));
+const faces = [...withBio, ...withoutBio]
+  .filter((mentor) => mentor.image)
+  .map((mentor) => ({ name: mentor.name, image: mentor.image! }));
 ---
 
-<PageSite title="Mentors" description="The mentors who volunteer their time to teach and guide StuyPulse." fullBleed>
+<PageSite title="Mentors" description="The mentors who volunteer their time to teach and guide StuyPulse.">
   <PageHead
     title="Mentors"
-    intro="Engineers, teachers, parents and alumni who give their time to the team. Thank you to everyone who has mentored us, including:"
-  />
+    intro="Engineers, teachers, parents and alumni who give their time to the team. Thank you to everyone who has mentored us."
+  >
+    <FaceCollage slot="aside" people={faces} sticker={`${mentors.length} mentors`} />
+  </PageHead>
 
-  <ul class="band mentors">
-    {mentors.map((mentor) => (
-      <li>
-        {mentor.image ? (
-          <img class="face" src={mentor.image} alt="" loading="lazy" />
-        ) : (
-          <span class="face initials" aria-hidden="true">{initials(mentor.name)}</span>
-        )}
-        <div>
-          <h2>{mentor.name}</h2>
-          {mentor.description && <p>{mentor.description}</p>}
-          {mentor.woodieFlowers && (
-            <a class="pill pill-line" href={mentor.woodieFlowers}>Read their Woodie Flowers nomination</a>
-          )}
-        </div>
-      </li>
-    ))}
-  </ul>
+  <section class="band band-tint" aria-label="Our mentors">
+    <ul class="cards">
+      {
+        withBio.map((mentor) => (
+          <li class="card">
+            <div class="who">
+              <Face name={mentor.name} image={mentor.image} />
+              <h2>{mentor.name}</h2>
+            </div>
+            {honorsFor(mentor.name).length > 0 && (
+              <ul class="honors">
+                {honorsFor(mentor.name).map((honor) => (
+                  <li>
+                    <a class="badge" href={honor.href}>
+                      <AwardIcon kind="person" size={18} />
+                      {honor.award}, {honor.year}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+            <p class="bio">{mentor.description}</p>
+            {mentor.woodieFlowers && (
+              <a class="pill pill-line woodie" href={mentor.woodieFlowers}>
+                <AwardIcon kind="person" size={18} />
+                Read their Woodie Flowers nomination
+              </a>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+
+    {
+      withoutBio.length > 0 && (
+        <>
+          <h2 class="more-title">Also mentoring us</h2>
+          <ul class="compact">
+            {withoutBio.map((mentor) => (
+              <li class="card">
+                <Face name={mentor.name} image={mentor.image} />
+                <div>
+                  <b>{mentor.name}</b>
+                  {mentor.woodieFlowers && (
+                    <a class="woodie-link" href={mentor.woodieFlowers}>
+                      Woodie Flowers nomination
+                    </a>
+                  )}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </>
+      )
+    }
+  </section>
 </PageSite>
 
+<script>
+  // Long bios are cut to a few lines with a button to read the rest. The cut is only made here,
+  // so without JS every bio shows in full.
+  for (const bio of document.querySelectorAll<HTMLElement>(".bio")) {
+    bio.classList.add("clamped");
+    if (bio.scrollHeight <= bio.clientHeight + 2) {
+      bio.classList.remove("clamped");
+      continue;
+    }
+    bio.id ||= `bio-${Math.random().toString(36).slice(2, 8)}`;
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "more";
+    button.setAttribute("aria-controls", bio.id);
+    button.setAttribute("aria-expanded", "false");
+    button.textContent = "Read more";
+    button.addEventListener("click", () => {
+      const open = bio.classList.toggle("clamped") === false;
+      button.setAttribute("aria-expanded", String(open));
+      button.textContent = open ? "Show less" : "Read more";
+    });
+    bio.after(button);
+  }
+</script>
+
 <style>
-  .mentors {
+  .cards,
+  .compact {
     list-style: none;
+    padding: 0;
     margin: 0;
-    max-width: 1120px;
     display: grid;
-    gap: 56px;
+    gap: 20px;
   }
-  li {
-    display: grid;
-    grid-template-columns: 180px 1fr;
-    gap: clamp(20px, 4vw, 48px);
-    align-items: start;
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
   }
-  .face {
-    display: grid;
-    place-items: center;
-    width: 180px;
-    height: 180px;
-    border-radius: 50%;
-    object-fit: cover;
-    background: var(--blush);
+  .card {
+    border-radius: var(--radius-md);
+    background: #fff;
   }
-  .initials {
-    color: var(--red);
-    font-weight: 800;
-    font-size: 52px;
-    letter-spacing: -0.03em;
-    font-variation-settings: "opsz" 96;
+  .cards .card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(24px, 3vw, 36px);
+  }
+  .who {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  .card :global(.face) {
+    --face: 96px;
   }
   h2 {
-    font-size: clamp(1.8rem, 3vw, 2.4rem);
-    margin: 12px 0 0;
+    font-size: clamp(1.6rem, 2.4vw, 2.1rem);
+    margin: 0;
   }
-  p {
-    margin: 12px 0 0;
+  .cards .bio {
+    margin: 20px 0 0;
     color: var(--soft);
-    max-width: 68ch;
   }
-  .pill {
-    margin-top: 18px;
+  .bio.clamped {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+  }
+  .card :global(.more) {
+    margin-top: 10px;
+    padding: 6px 0;
+    border: 0;
+    background: none;
+    color: var(--red);
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+  .honors {
+    list-style: none;
+    padding: 0;
+    margin: 18px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px 8px 12px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.2;
+    transform: rotate(-1.5deg);
+    transition: transform 0.15s ease;
+  }
+  .honors li:nth-child(even) .badge {
+    transform: rotate(1.5deg);
+  }
+  .badge:hover {
+    color: #fff;
+    background: var(--red-dark);
+    transform: rotate(0deg);
+  }
+  .woodie {
+    gap: 8px;
+    margin-top: 20px;
     min-height: 44px;
     font-size: 16px;
   }
-  @media (max-width: 640px) {
-    li {
+  .more-title {
+    margin: clamp(48px, 6vw, 72px) 0 20px;
+  }
+  .compact {
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  }
+  .compact .card {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 24px 14px 14px;
+    border-radius: 999px;
+  }
+  .compact .card :global(.face) {
+    --face: 64px;
+  }
+  .compact b {
+    display: block;
+    font-size: 19px;
+    line-height: 1.2;
+  }
+  .woodie-link {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  @media (max-width: 860px) {
+    .cards {
       grid-template-columns: 1fr;
     }
-    .face {
-      width: 120px;
-      height: 120px;
-    }
-    .initials {
-      font-size: 36px;
+  }
+  @media (max-width: 640px) {
+    .cards .card :global(.face) {
+      --face: 72px;
     }
   }
 </style>

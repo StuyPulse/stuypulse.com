@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Rebuilt Week 1 Newsletter 2026
 author: StuyPulse
 link: /newsletters/2026-01-17-week-1-newsletter.pdf

@@ -1,52 +1,108 @@
 ---
-import type { NavType } from '@types.js';
-import Nav from './Nav.astro';
-import Dropdown from './Dropdown.astro';
-const navs = (await import('@data/navbar.yml')).default;
-const splash = (await import('@data/stuysplash.yml')).default;
+import { DONATE_LINK, NAVIGATION, activeNavHref } from "@config";
+import { stuysplash } from "@data";
+import NavMenu from "./NavMenu.astro";
+
 export interface Props {
+  // Shows the StuySplash announcement bar when it's switched on in src/data/stuysplash.yml.
   showBanner?: boolean;
-  // The page starts with its own red hero, so the header runs straight into it.
-  joined?: boolean;
 }
-const { showBanner = false, joined = false } = Astro.props;
-const donate = navs.find((nav: NavType) => nav.href === '/donate');
-const links = navs.filter((nav: NavType) => nav !== donate);
+const { showBanner = false } = Astro.props;
+const activeHref = activeNavHref(Astro.url.pathname.replace(/(.)\/$/, "$1"));
 ---
 
-{showBanner && splash.showBanner && (
-  <div class="stuysplash-banner">
-    <strong>StuySplash {splash.year}</strong>
-    <span>{splash.date}</span>
-    <a href="/resources/stuysplash">Sign up</a>
-  </div>
-)}
-<header class:list={["site-header", { joined }]}>
-  <nav class="navbar navbar-expand-lg" aria-label="Main">
+{
+  showBanner && stuysplash.showBanner && (
+    <div class="stuysplash-banner">
+      <strong>StuySplash {stuysplash.year}</strong>
+      <span>{stuysplash.date}</span>
+      <a href="/resources/stuysplash">Sign up</a>
+    </div>
+  )
+}
+<header class="site-header">
+  <nav class="bar" aria-label="Main">
     <a class="brand" href="/">
-      <img src="/icons/694_white.svg" width="38" height="38" alt="" />
+      <img src="/icons/694-logo.svg" width="38" height="38" alt="" />
       StuyPulse
     </a>
 
-    <button
-      class="menu-button navbar-toggler"
-      type="button"
-      data-bs-toggle="collapse"
-      data-bs-target="#navbarNavDropdown"
-      aria-controls="navbarNavDropdown"
-      aria-expanded="false"
-    >
-      Menu
+    <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-menu" data-menu-toggle>
+      <span class="when-closed">Menu</span><span class="when-open">Close</span>
+      <svg viewBox="0 0 20 20" width="18" height="18" aria-hidden="true"><path d="M3 6h14M3 14h14"></path></svg>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav">
-        {links.map((nav: NavType) => (nav.dropdown ? <Dropdown nav={nav} /> : <Nav nav={nav} />))}
+    <div class="menu" id="site-menu">
+      <ul class="links">
+        {
+          NAVIGATION.map((item) =>
+            "links" in item ? (
+              <NavMenu menu={item} activeHref={activeHref} />
+            ) : (
+              <li>
+                <a class="nav-link" href={item.href} aria-current={item.href === activeHref ? "page" : undefined}>
+                  {item.name}
+                </a>
+              </li>
+            ),
+          )
+        }
       </ul>
-      {donate && <a class="pill pill-white donate" href={donate.href}>Donate</a>}
+      <a class="pill pill-red donate" href={DONATE_LINK.href}>{DONATE_LINK.name}</a>
     </div>
   </nav>
 </header>
+
+<script>
+  // Opens the phone menu and the About/Resources lists. Only one list is open at a time.
+  // Escape, a click elsewhere or following a link closes everything.
+  const header = document.querySelector<HTMLElement>(".site-header");
+  const menuToggle = header?.querySelector<HTMLButtonElement>("[data-menu-toggle]");
+  const submenuToggles = [...(header?.querySelectorAll<HTMLButtonElement>("[data-submenu-toggle]") ?? [])];
+
+  const setOpen = (button: HTMLButtonElement, open: boolean) => {
+    button.setAttribute("aria-expanded", String(open));
+    const target = document.getElementById(button.getAttribute("aria-controls") ?? "");
+    if (target && button.hasAttribute("data-submenu-toggle")) target.hidden = !open;
+    if (button === menuToggle) header?.classList.toggle("open", open);
+  };
+  const isOpen = (button: HTMLButtonElement) => button.getAttribute("aria-expanded") === "true";
+  const closeSubmenus = (except?: HTMLButtonElement) =>
+    submenuToggles.filter((button) => button !== except).forEach((button) => setOpen(button, false));
+
+  menuToggle?.addEventListener("click", () => setOpen(menuToggle, !isOpen(menuToggle)));
+  submenuToggles.forEach((button) =>
+    button.addEventListener("click", () => {
+      closeSubmenus(button);
+      setOpen(button, !isOpen(button));
+    }),
+  );
+  const closeAll = () => {
+    closeSubmenus();
+    if (menuToggle) setOpen(menuToggle, false);
+  };
+  document.addEventListener("click", (event) => {
+    if (!(event.target instanceof Node) || !header?.contains(event.target)) closeAll();
+  });
+  header?.querySelectorAll(".menu a").forEach((link) => link.addEventListener("click", closeAll));
+
+  // The header stays at the top and slims down once the page has scrolled.
+  const markScrolled = () => header?.classList.toggle("scrolled", window.scrollY > 120);
+  markScrolled();
+  window.addEventListener("scroll", markScrolled, { passive: true });
+  // Sticky bars and #anchor jumps elsewhere on the page sit below the header: see --header-h in global.css.
+  if (header) {
+    new ResizeObserver(() =>
+      document.documentElement.style.setProperty("--header-h", `${header.offsetHeight}px`),
+    ).observe(header);
+  }
+  document.addEventListener("keydown", (event) => {
+    if (event.key !== "Escape") return;
+    const open = submenuToggles.find(isOpen) ?? (menuToggle && isOpen(menuToggle) ? menuToggle : undefined);
+    closeAll();
+    open?.focus();
+  });
+</script>
 
 <style>
   .stuysplash-banner {
@@ -56,7 +112,7 @@ const links = navs.filter((nav: NavType) => nav !== donate);
     gap: 14px;
     flex-wrap: wrap;
     padding: 10px var(--gutter);
-    background: var(--red-dark);
+    background: var(--red);
     color: #fff;
     font-size: 16px;
   }
@@ -70,72 +126,178 @@ const links = navs.filter((nav: NavType) => nav !== donate);
     text-underline-offset: 4px;
   }
   .site-header {
-    position: relative;
+    position: sticky;
+    top: 0;
     z-index: 20;
-    background: var(--red);
-    color: #fff;
-    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
+    background: rgba(255, 255, 255, 0.92);
+    backdrop-filter: saturate(1.4) blur(12px);
+    transition: box-shadow 0.2s ease;
   }
-  .site-header.joined {
-    border-radius: 0;
+  .site-header.scrolled {
+    box-shadow: 0 1px 0 var(--rose);
   }
-  .navbar {
-    padding: 22px var(--gutter);
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 16px;
+    padding: 22px var(--gutter);
+    transition: padding 0.2s ease;
+  }
+  .scrolled .bar {
+    padding-block: 10px;
   }
   .brand {
     display: flex;
+    flex: none;
     align-items: center;
     gap: 12px;
-    color: #fff;
+    color: var(--red);
     font-weight: 800;
     font-size: 24px;
     letter-spacing: -0.02em;
   }
+  .brand img {
+    transition:
+      width 0.2s ease,
+      height 0.2s ease;
+  }
+  .scrolled .brand img {
+    width: 32px;
+    height: 32px;
+  }
   .brand:hover {
-    color: #fff;
+    color: var(--red-dark);
+  }
+  /* The logo gives one heartbeat on hover. */
+  .brand:hover img {
+    animation: thump 0.5s ease;
+  }
+  @keyframes thump {
+    30% {
+      transform: scale(1.12);
+    }
+    55% {
+      transform: scale(0.96);
+    }
   }
   .menu-button {
+    display: none;
+    align-items: center;
+    gap: 8px;
     height: 48px;
     padding: 0 20px;
     border: 0;
     border-radius: 999px;
-    background: #fff;
+    background: var(--blush);
     color: var(--red);
-    font-family: var(--font);
-    font-weight: 700;
-    font-size: 16px;
+    font: 700 16px var(--font);
+    cursor: pointer;
   }
-  .menu-button:focus {
-    box-shadow: none;
-  }
-  .navbar-collapse {
-    justify-content: flex-end;
+  .menu {
+    display: flex;
+    align-items: center;
     gap: 22px;
   }
-  .navbar-nav {
-    gap: 6px;
+  .links {
+    display: flex;
     align-items: center;
+    gap: 6px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .site-header :global(.nav-link) {
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    border: 0;
+    border-radius: 999px;
+    background: none;
+    color: var(--ink);
+    font: 500 17px var(--font);
+    cursor: pointer;
+  }
+  .site-header :global(.nav-link:hover),
+  .site-header :global(.nav-link:focus-visible),
+  .site-header :global(.nav-link[aria-expanded="true"]) {
+    background: var(--blush);
+    color: var(--red);
+  }
+  .site-header :global(.nav-link[aria-current]),
+  .site-header :global(.nav-link.current) {
+    color: var(--red);
+    font-weight: 700;
   }
   .donate {
     min-height: 48px;
   }
-  @media (max-width: 991px) {
-    .navbar-collapse {
-      margin-top: 12px;
-      padding: 16px;
-      border-radius: var(--radius-md);
-      background: #fff;
+
+  @media (max-width: 1199px) {
+    .bar {
+      flex-wrap: wrap;
     }
-    .navbar-nav {
+    .menu-button {
+      display: inline-flex;
+    }
+    .menu-button svg {
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+    }
+    .menu-button path {
+      transition: d 0.2s ease;
+    }
+    .site-header.open .menu-button path {
+      d: path("M5 5l10 10M5 15L15 5");
+    }
+    .when-open,
+    .site-header.open .when-closed {
+      display: none;
+    }
+    .site-header.open .when-open {
+      display: inline;
+    }
+    /* The phone menu drops open. */
+    .site-header.open .menu {
+      animation: drop 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+      transform-origin: top;
+    }
+    @keyframes drop {
+      from {
+        opacity: 0;
+        transform: translateY(-8px) scale(0.98);
+      }
+    }
+    .menu {
+      display: none;
+      flex-basis: 100%;
+      flex-direction: column;
+      align-items: stretch;
+      padding: 12px;
+      border-radius: var(--radius-md);
+      background: var(--blush);
+      /* The header is sticky, so a long menu scrolls inside itself instead of off the screen. */
+      max-height: calc(100dvh - 100px);
+      overflow-y: auto;
+      overscroll-behavior: contain;
+    }
+    .site-header.open .menu {
+      display: flex;
+    }
+    .links {
+      flex-direction: column;
       align-items: stretch;
       gap: 2px;
     }
-    .donate {
-      margin-top: 12px;
+    .site-header :global(.nav-link) {
       width: 100%;
-      background: var(--red);
-      color: #fff;
+      border-radius: 16px;
+    }
+    .site-header :global(.nav-link:hover),
+    .site-header :global(.nav-link[aria-expanded="true"]) {
+      background: #fff;
     }
   }
 </style>

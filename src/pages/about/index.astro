@@ -1,6 +1,11 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import Hero from "@components/redesign/Hero.astro";
+import Hero from "@components/page/Hero.astro";
+import AwardIcon from "@components/awards/AwardIcon.astro";
+import Milestones from "@components/about/Milestones.astro";
+import { board, leaders, mentors } from "@data";
+import { getRobots } from "@utils/robots";
+import { findPhoto } from "@components/people/honors";
 
 const facts = [
   { big: "20+", text: "languages spoken at home" },
@@ -8,17 +13,56 @@ const facts = [
   { big: "50%+", text: "qualify for free or reduced lunch" },
   { big: "100%", text: "graduation rate" },
 ];
+// Faces for the people cards: whoever on each list has a photo.
+const facesOf = (names: string[]) =>
+  [...new Set(names)]
+    .map((name) => ({ name, image: findPhoto(name) }))
+    .filter((person) => person.image?.startsWith("/"))
+    .slice(0, 3);
 const more = [
-  { name: "Robots", href: "/about/history" },
-  { name: "Departments", href: "/about/departments" },
-  { name: "Leadership", href: "/about/leadership" },
-  { name: "Mentors", href: "/about/mentors" },
-  { name: "FTC teams", href: "/about/ftc" },
-  { name: "Board", href: "/about/board" },
+  { name: "Robots", href: "/about/history", photo: "/robots/2026_TribecBot.jpg" },
+  { name: "Departments", href: "/about/departments", photo: "/home/stuysplash.jpg" },
+  { name: "Leadership", href: "/about/leadership", faces: facesOf(leaders.map((leader) => leader.name)) },
+  { name: "Mentors", href: "/about/mentors", faces: facesOf(mentors.map((mentor) => mentor.name)) },
+  { name: "FTC teams", href: "/about/ftc", photo: "/ftc/479_team.jpg" },
+  { name: "Board", href: "/about/board", faces: facesOf(board.map((member) => member.name)) },
+];
+
+// Milestones: only facts this page already states, plus firsts read from the robots' pages.
+const robots = await getRobots();
+const firstWith = (test: RegExp) => robots.find((robot) => (robot.data.awards ?? []).some((award) => test.test(award)));
+const rookie = robots[0];
+const chairmans = firstWith(/chairman's award/i);
+const impact = firstWith(/impact award/i);
+const robotLink = (robot: (typeof robots)[number]) => `/about/history/${robot.slug}`;
+const milestones = [
+  { year: 2000, text: "Founded in the fall by students and parents" },
+  {
+    year: rookie.data.year,
+    text: `${rookie.data.title}, our first robot, scores highest in its division at the Championship`,
+    href: robotLink(rookie),
+  },
+  ...(chairmans ? [{ year: chairmans.data.year, text: "Our first Chairman's Award", href: robotLink(chairmans) }] : []),
+  { year: 2022, text: "Our new lab opens in December" },
+  ...(impact ? [{ year: impact.data.year, text: "FIRST Impact Award", href: robotLink(impact) }] : []),
+  { year: 2025, text: "We win all three of our regionals" },
+  { year: 2026, text: "Tribecbot wins the New York City Regional" },
+];
+
+// Named as plain labels, not links: we don't keep links to the individual stories.
+const outlets = [
+  "The TriBeCa Tribune",
+  "Tribeca Citizen",
+  "China Daily",
+  "The Spectator, our school paper",
+  "FUN Robotics Network on YouTube",
 ];
 ---
 
-<PageSite title="About" description="StuyPulse is FIRST Robotics Team 694 from Stuyvesant High School in New York City: about 150 students, no cuts and no tryouts." fullBleed>
+<PageSite
+  title="About"
+  description="StuyPulse is FIRST Robotics Team 694 from Stuyvesant High School in New York City, with about 150 students across four departments."
+>
   <Hero
     title="We are StuyPulse."
     intro="FIRST Robotics Team 694 from Stuyvesant High School. Our name comes from being the heart of our school and our community."
@@ -27,8 +71,8 @@ const more = [
     stickers={["Team 694", "About 150 students"]}
   >
     <Fragment slot="actions">
-      <a class="pill pill-white" href="#video">Watch our video</a>
-      <a class="pill pill-ghost" href="/join">Join the team</a>
+      <a class="pill pill-red" href="#video">Watch our video</a>
+      <a class="pill pill-line" href="/about/departments">Our departments</a>
     </Fragment>
   </Hero>
 
@@ -36,17 +80,18 @@ const more = [
     <h2 id="mission" class="band-title">Find your pulse.</h2>
     <div class="cols">
       <p class="lede">
-        Our mission is to help students find their pulse for lifelong learning, through a team culture that shares knowledge
-        and gives back to the community.
+        Our mission is to help students find their pulse for lifelong learning, through a team culture that shares
+        knowledge and gives back to the community.
       </p>
       <div class="prose">
         <p>
-          Through FIRST Robotics Competitions we build skills in engineering, programming, business, teamwork and leadership.
-          We want anyone even slightly interested in STEM to get the chance to explore it, so we're a no-cut, no-tryout team
-          where everyone has a place.
+          Through FIRST Robotics Competitions we build skills in engineering, programming, business, teamwork and
+          leadership. We want anyone even slightly interested in STEM to get the chance to explore it, and everyone on
+          the team has a place.
         </p>
         <p>
-          We also want to inspire people around us, and teach them about science and engineering through outreach events.
+          We also want to inspire people around us, and teach them about science and engineering through outreach
+          events.
         </p>
       </div>
     </div>
@@ -55,16 +100,26 @@ const more = [
   <section class="facts" aria-labelledby="who">
     <h2 id="who">Who we are</h2>
     <ul>
-      {facts.map((fact) => <li><b>{fact.big}</b><span>{fact.text}</span></li>)}
+      {
+        facts.map((fact) => (
+          <li>
+            <>
+              <b>{fact.big}</b>
+              <span>{fact.text}</span>
+            </>
+          </li>
+        ))
+      }
     </ul>
     <p>
-      We stay close despite our size. Team dinners, extravaganzas and birthday shout-outs help, and so do the long trips to
-      regionals across the country. Most of us go on to some of the best universities in the world, and we push each other to
-      do well in school.
+      We stay close despite our size. Team dinners, extravaganzas and birthday shout-outs help, and so do the long trips
+      to regionals across the country. Most of us go on to some of the best universities in the world, and we push each
+      other to do well in school.
     </p>
   </section>
 
   <section class="band" id="video" aria-labelledby="video-title">
+    <span class="chip chip-red impact"><AwardIcon kind="award" size={18} /> FIRST Impact Award</span>
     <h2 id="video-title" class="band-title">Our 2024 Impact Award video</h2>
     <div class="video">
       <iframe
@@ -80,22 +135,23 @@ const more = [
     <div class="prose">
       <h2 id="today" class="band-title">Team 694 today</h2>
       <p>
-        About 150 students compete in the FIRST Robotics Competition each year. During build season we work almost every day
-        in our lab at Stuyvesant, designing, building and programming the robot with help from parents and volunteer
+        About 150 students compete in the FIRST Robotics Competition each year. During build season we work almost every
+        day in our lab at Stuyvesant, designing, building and programming the robot with help from parents and volunteer
         mentors.
       </p>
       <p>
-        We share what we know with teams who need it. We mentor FRC, FTC and FLL teams and schools across the city, and run
-        demos in and around our school. At competitions, PulseCrew, a group of experienced students, helps other FRC teams
-        fix software and mechanical problems.
+        We share what we know with teams who need it. We mentor FRC, FTC and FLL teams and schools across the city, and
+        run demos in and around our school. At competitions, PulseCrew, a group of experienced students, helps other FRC
+        teams fix software and mechanical problems.
       </p>
       <p>
         When we opened our new lab in December 2022, we demoed our robot for school staff, City Council members and
         senators, and in November 2025 an Assembly member toured the lab.
       </p>
       <p>
-        We've been champions many times. In 2025 we won all three of our regionals and reached the semifinals, and in 2026
-        Tribecbot won the New York City Regional. We've qualified for the Championship in Houston for the last several years.
+        We've been champions many times. In 2025 we won all three of our regionals and reached the semifinals, and in
+        2026 Tribecbot won the New York City Regional. We've qualified for the Championship in Houston for the last
+        several years.
       </p>
     </div>
     <figure>
@@ -108,39 +164,82 @@ const more = [
     <div class="prose">
       <h2 id="start" class="band-title">How we started</h2>
       <p>
-        StuyPulse was founded in the fall of 2000 by students and parents ready to build their first robot. Few of them knew
-        each other before, but they quickly learned to work together, and gathered the members, sponsors and mentors the
-        team still has today. After raising the money for the FIRST entry fees, they scored highest in their division at
-        the Championship in their rookie year.
+        StuyPulse was founded in the fall of 2000 by students and parents ready to build their first robot. Few of them
+        knew each other before, but they quickly learned to work together, and gathered the members, sponsors and
+        mentors the team still has today. After raising the money for the FIRST entry fees, they scored highest in their
+        division at the Championship in their rookie year.
       </p>
-      <h2 class="band-title media">In the news</h2>
-      <p>
-        Spreading the message of FIRST is a big part of what we do. The TriBeCa Tribune, Tribeca Citizen and China Daily
-        have covered our build seasons, and we're often in our school paper, The Spectator. We've been interviewed on radio
-        and TV in Arabic, Russian and English, and appear often on the FUN Robotics Network YouTube channel.
-      </p>
+      <div class="news">
+        <h2 class="band-title">In the news</h2>
+        <p>
+          Spreading the message of FIRST is a big part of what we do. We've been interviewed on radio and TV in Arabic,
+          Russian and English, and we've been featured in:
+        </p>
+        <ul class="outlets">
+          {outlets.map((outlet) => <li>{outlet}</li>)}
+        </ul>
+      </div>
     </div>
     <div class="first" id="first">
       <img src="/icons/first-logo.svg" alt="FIRST" />
       <h2 class="band-title">About FIRST</h2>
       <p>
-        FIRST (For Inspiration and Recognition of Science and Technology) is a nonprofit founded by Dean Kamen in 1989. Its
-        programs inspire young people to pursue science, technology and engineering, and to build teamwork, outreach and
-        leadership skills along the way, with help from businesses, volunteers, teachers and parents.
+        FIRST (For Inspiration and Recognition of Science and Technology) is a nonprofit founded by Dean Kamen in 1989.
+        Its programs inspire young people to pursue science, technology and engineering, and to build teamwork, outreach
+        and leadership skills along the way, with help from businesses, volunteers, teachers and parents.
       </p>
       <a class="pill pill-red" href="https://www.firstinspires.org/">Visit FIRST</a>
     </div>
   </section>
 
+  <section class="band band-tint since" aria-labelledby="since">
+    <h2 id="since" class="band-title">Since 2000</h2>
+    <Milestones items={milestones} />
+  </section>
+
   <nav class="band more" aria-labelledby="more-title">
     <h2 id="more-title" class="band-title">More about us</h2>
     <ul>
-      {more.map((link) => <li><a class="pill pill-line" href={link.href}>{link.name}</a></li>)}
+      {
+        more.map((card, i) => (
+          <li>
+            <a
+              class:list={["card", { faces: card.faces }]}
+              href={card.href}
+              style={`--tilt:${[-1.5, 1, -1, 1.5, -1, 1][i]}deg`}
+            >
+              {card.photo ? (
+                <img src={card.photo} alt="" loading="lazy" />
+              ) : (
+                <span class="pile" aria-hidden="true">
+                  {card.faces?.map((person) => (
+                    <span class="pic">
+                      <img
+                        class:list={{ tight: person.image?.startsWith("/ecac/") }}
+                        src={person.image}
+                        alt=""
+                        loading="lazy"
+                      />
+                    </span>
+                  ))}
+                </span>
+              )}
+              <span class="name">{card.name}</span>
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </nav>
 </PageSite>
 
 <style>
+  .impact {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
   .cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -157,7 +256,7 @@ const more = [
     margin-top: 0;
   }
   .facts {
-    margin: 0 20px;
+    margin: 0 var(--inset);
     padding: clamp(56px, 7vw, 96px) var(--gutter);
     border-radius: var(--radius-lg);
     background: var(--red);
@@ -229,8 +328,31 @@ const more = [
   .split h2 {
     margin-top: 0;
   }
-  .split .media {
+  .news {
     margin-top: 48px;
+    padding: clamp(24px, 3vw, 36px);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  .news p {
+    margin-top: 14px;
+  }
+  .outlets {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .outlets li {
+    max-width: none;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    font-size: 16px;
+    font-weight: 700;
   }
   figure {
     margin: 0;
@@ -257,29 +379,129 @@ const more = [
     margin: 14px 0 24px;
     color: var(--soft);
   }
-  .more {
-    padding-top: 0;
+  .since {
+    overflow: hidden;
   }
   .more ul {
     list-style: none;
     padding: 0;
-    margin: 24px 0 0;
+    margin: 32px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .card {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--blush);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .card:hover {
+    transform: rotate(var(--tilt)) scale(1.02);
+  }
+  .card > img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .card:hover > img {
+    transform: scale(1.05);
+  }
+  /* People cards: a few real faces on red instead of a photo. */
+  .card.faces {
+    background: var(--red);
+  }
+  .pile {
+    position: absolute;
+    inset: 0 0 56px;
     display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    justify-content: center;
+  }
+  .pic {
+    width: 36%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    box-shadow: 0 0 0 6px var(--red);
+    background: var(--blush);
+  }
+  .pic img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  /* Team headshots are shot loose in front of a banner; crop in on the face. */
+  .pic .tight {
+    transform: scale(1.3);
+    transform-origin: 50% 36%;
+  }
+  .pic + .pic {
+    margin-left: -9%;
+  }
+  .pic:nth-child(2) {
+    transform: translateY(-10%) scale(1.12);
+    z-index: 1;
+  }
+  .name {
+    position: absolute;
+    left: 18px;
+    bottom: 18px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 800;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+    box-shadow: 0 12px 24px -12px rgba(50, 0, 0, 0.45);
+  }
+  .name::after {
+    content: "→";
+    transition: transform 0.2s ease;
+  }
+  .card:hover .name::after {
+    transform: translateX(4px);
+  }
+  @media (max-width: 1000px) {
+    .more ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .more ul {
+      gap: 12px;
+    }
+    .name {
+      left: 10px;
+      bottom: 10px;
+      padding: 7px 14px;
+      font-size: 16px;
+    }
+    .pile {
+      inset: 0 0 40px;
+    }
   }
   @media (max-width: 860px) {
     .cols,
     .split {
       grid-template-columns: 1fr;
     }
-    .facts {
-      margin: 0 12px;
+    .facts ul {
+      gap: 12px;
     }
     .facts li {
-      width: 150px;
-      height: 150px;
-      padding: 16px;
+      width: 140px;
+      height: 140px;
+      padding: 14px;
     }
     .facts b {
       font-size: 36px;

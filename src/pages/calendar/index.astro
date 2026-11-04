@@ -1,19 +1,30 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
 
 // Subscribe link for the team's public Google Calendar (info@stuypulse.com).
 const SUBSCRIBE = "https://calendar.google.com/calendar/u/0?cid=aW5mb0BzdHV5cHVsc2UuY29t";
 ---
 
-<PageSite title="Calendar" description="Meetings, competitions and events for StuyPulse, FRC Team 694." fullBleed>
+<PageSite title="Calendar" description="Meetings, competitions and events for StuyPulse, FRC Team 694.">
   <PageHead title="Calendar" intro="Meetings, competitions and events. Click an event for its details.">
     <div class="actions">
-      <a class="pill pill-white" href={SUBSCRIBE} target="_blank" rel="noopener">Add to Google Calendar</a>
+      <a class="pill pill-red" href={SUBSCRIBE} target="_blank" rel="noopener">Add to Google Calendar</a>
+    </div>
+    <div slot="aside" class="next" hidden>
+      <span class="tag">Next up</span>
+      <b class="next-title"></b>
+      <span class="next-day"></span>
+      <span class="next-time"></span>
+      <button type="button" class="pill next-open">See details</button>
     </div>
   </PageHead>
 
   <div class="band">
+    <ul class="legend" aria-label="Event colours">
+      <li><span class="swatch meeting"></span> Team meetings</li>
+      <li><span class="swatch other"></span> Outreach, parents and competitions</li>
+    </ul>
     <div id="calendar"></div>
   </div>
 
@@ -75,30 +86,202 @@ const SUBSCRIBE = "https://calendar.google.com/calendar/u/0?cid=aW5mb0BzdHV5cHVs
     if (e.target === dialog) dialog.close();
   });
 
-  new Calendar(document.getElementById("calendar")!, {
+  // Regular meetings are solid red; everything else (outreach, parent nights, competitions)
+  // gets a red outline, so the special days stand out among the weekly ones.
+  const REGULAR = /meeting|build session|work session|practice/i;
+  const SPECIAL = /parent|outreach|competition|regional|district|championship|splash|kickoff/i;
+  const classFor = (title: string) => (REGULAR.test(title) && !SPECIAL.test(title) ? "ev-meeting" : "ev-other");
+
+  // The first event still to come, from whatever FullCalendar has loaded, shown in the head.
+  const next = document.querySelector<HTMLElement>(".next");
+  let nextEvent: EventApi | undefined;
+  const showNext = (events: EventApi[]) => {
+    if (!next) return;
+    const now = Date.now();
+    nextEvent = events
+      .filter((event) => event.start && (event.end ?? event.start).getTime() > now)
+      .sort((a, b) => a.start!.getTime() - b.start!.getTime())[0];
+    if (!nextEvent) {
+      next.hidden = true;
+      return;
+    }
+    const start = nextEvent.start!;
+    (next.querySelector(".next-title") as HTMLElement).textContent = nextEvent.title;
+    (next.querySelector(".next-day") as HTMLElement).textContent = start.toLocaleDateString("en-US", {
+      weekday: "long",
+      month: "long",
+      day: "numeric",
+    });
+    const time = { hour: "numeric", minute: "2-digit" } as const;
+    (next.querySelector(".next-time") as HTMLElement).textContent = nextEvent.allDay
+      ? "All day"
+      : `${start.toLocaleTimeString("en-US", time)}${nextEvent.end ? ` to ${nextEvent.end.toLocaleTimeString("en-US", time)}` : ""}`;
+    next.hidden = false;
+  };
+  next?.querySelector(".next-open")?.addEventListener("click", () => {
+    if (nextEvent) show(nextEvent);
+  });
+
+  // A month grid is too cramped on phones, so narrow screens get a list instead.
+  const isNarrow = () => window.innerWidth < 768;
+  const calendar = new Calendar(document.getElementById("calendar")!, {
     googleCalendarApiKey: "AIzaSyC8aX6KJLfEyiuSJ76hErHB8voNcoAi4yA",
     eventSources: [{ googleCalendarId: "info@stuypulse.com" }],
     plugins: [listPlugin, googleCalendarPlugin, dayGridPlugin, timeGridPlugin],
-    initialView: window.innerWidth < 768 ? "listMonth" : "dayGridMonth",
+    initialView: isNarrow() ? "listMonth" : "dayGridMonth",
     headerToolbar: {
       left: "prev,next today",
       center: "title",
-      right: window.innerWidth < 768 ? "" : "dayGridMonth,listMonth",
+      right: "dayGridMonth,listMonth",
+    },
+    windowResize: ({ view }) => {
+      if (isNarrow() && view.type !== "listMonth") calendar.changeView("listMonth");
     },
     buttonText: { today: "Today", month: "Month", list: "List" },
     contentHeight: "auto",
     fixedWeekCount: false,
     nowIndicator: true,
+    eventClassNames: ({ event }) => [classFor(event.title)],
+    eventsSet: showNext,
     eventClick: ({ event, jsEvent }) => {
       jsEvent.preventDefault();
       show(event);
     },
-  }).render();
+  });
+  calendar.render();
 </script>
 
 <style>
+  /* The next event, as a white card pinned to the red head. Filled in once events load. */
+  .next {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+    width: min(100%, 420px);
+    margin-left: auto;
+    padding: clamp(26px, 3vw, 36px);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--ink);
+    transform: rotate(2deg);
+    box-shadow: 0 30px 60px -24px rgba(70, 0, 4, 0.55);
+    animation: land 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .next[hidden] {
+    display: none;
+  }
+  @keyframes land {
+    from {
+      opacity: 0;
+      transform: rotate(6deg) scale(0.92);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .next {
+      animation: none;
+    }
+  }
+  .tag {
+    margin-bottom: 8px;
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .next-title {
+    font-size: clamp(1.6rem, 2.6vw, 2.2rem);
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+  }
+  .next-day {
+    color: var(--red);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .next-time {
+    color: var(--soft);
+  }
+  .next-open {
+    margin-top: 14px;
+    min-height: 44px;
+    padding: 0 20px;
+    font-size: 15px;
+    background: var(--red);
+    color: #fff;
+    cursor: pointer;
+  }
+  .next-open:hover {
+    background: var(--red-dark);
+  }
+  @media (max-width: 860px) {
+    .next {
+      margin-inline: 0;
+      transform: none;
+    }
+  }
+  .legend {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 24px;
+    color: var(--soft);
+    font-weight: 600;
+  }
+  .legend li {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .swatch {
+    width: 28px;
+    height: 16px;
+    border-radius: 999px;
+  }
+  .swatch.meeting {
+    background: var(--red);
+  }
+  .swatch.other {
+    background: #fff;
+    box-shadow: inset 0 0 0 2px var(--red);
+  }
+  /* Event colours, in the month grid and the list. */
+  #calendar :global(.fc-daygrid-event.ev-meeting) {
+    background: var(--red);
+    color: #fff;
+  }
+  #calendar :global(.fc-daygrid-event.ev-meeting .fc-daygrid-event-dot) {
+    border-color: #fff;
+  }
+  #calendar :global(.fc-daygrid-event.ev-other) {
+    background: #fff;
+    color: var(--red);
+    box-shadow: inset 0 0 0 2px var(--red);
+  }
+  #calendar :global(.fc-daygrid-event.ev-meeting:hover) {
+    background: var(--red-dark);
+  }
+  #calendar :global(.fc-daygrid-event.ev-other:hover) {
+    background: var(--blush);
+  }
+  #calendar :global(.fc-daygrid-event) {
+    padding: 2px 6px;
+    margin-top: 3px;
+  }
+  #calendar :global(.ev-other .fc-list-event-dot) {
+    border-color: var(--red);
+    background: #fff;
+    box-shadow: inset 0 0 0 0 #fff;
+    border-width: 2px;
+    width: 14px;
+    height: 14px;
+  }
   #calendar {
-    max-width: 1240px;
     --fc-border-color: var(--rose);
     --fc-today-bg-color: var(--blush);
     --fc-event-bg-color: var(--red);
@@ -137,6 +320,57 @@ const SUBSCRIBE = "https://calendar.google.com/calendar/u/0?cid=aW5mb0BzdHV5cHVs
   #calendar :global(a) {
     color: inherit;
   }
+  /* Show whole event names in the month grid instead of cutting them off. */
+  #calendar :global(.fc-daygrid-dot-event) {
+    align-items: flex-start;
+    flex-wrap: wrap;
+    white-space: normal;
+    border-radius: 10px;
+  }
+  #calendar :global(.fc-daygrid-dot-event .fc-daygrid-event-dot) {
+    margin-top: 0.45em;
+  }
+  /* In narrow day cells the name drops under the time instead of breaking mid-word. */
+  #calendar :global(.fc-daygrid-dot-event .fc-event-title) {
+    overflow: visible;
+    overflow-wrap: normal;
+    font-weight: 600;
+  }
+  /* Wrapped event names read better left-aligned than centred. */
+  #calendar :global(.fc-event),
+  #calendar :global(.fc-event-title),
+  #calendar :global(.fc-list-event-title) {
+    text-align: left;
+  }
+  #calendar :global(.fc-list) {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+  /* FullCalendar fades a disabled Today button to grey; keep it readable as an outline pill instead. */
+  #calendar :global(.fc-today-button) {
+    background: #fff;
+    color: var(--red);
+    box-shadow: inset 0 0 0 2px var(--red) !important;
+  }
+  #calendar :global(.fc-today-button:hover) {
+    background: var(--blush);
+    color: var(--red);
+  }
+  #calendar :global(.fc-today-button:disabled) {
+    opacity: 1;
+    background: var(--rose);
+    color: var(--ink);
+    box-shadow: none !important;
+  }
+  #calendar :global(.fc-toolbar) {
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 767px) {
+    #calendar :global(.fc-toolbar-chunk:last-child) {
+      display: none;
+    }
+  }
   dialog {
     width: min(520px, calc(100% - 32px));
     border: 0;
@@ -146,6 +380,30 @@ const SUBSCRIBE = "https://calendar.google.com/calendar/u/0?cid=aW5mb0BzdHV5cHVs
   }
   dialog::backdrop {
     background: rgba(38, 21, 22, 0.5);
+  }
+  /* The event card grows in slightly as it fades in, so it reads as coming from the calendar. */
+  dialog[open] {
+    animation: pop 0.18s ease-out;
+  }
+  dialog[open]::backdrop {
+    animation: fade 0.18s ease-out;
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.96);
+    }
+  }
+  @keyframes fade {
+    from {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    dialog[open],
+    dialog[open]::backdrop {
+      animation: none;
+    }
   }
   .close {
     position: absolute;

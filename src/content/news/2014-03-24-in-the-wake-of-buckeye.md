@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: In the Wake of Buckeye
 author: Justin Kim
 date: 2014-03-24

@@ -1,0 +1,177 @@
+---
+// The four departments as big cards: icon, a line about the work, and the faces of its leads.
+import { leaders, type Department } from "@data";
+import { initials, plural } from "@utils/format";
+
+const departments: { id: string; name: string; department: Department; icon: string; line: string }[] = [
+  {
+    id: "mechanical",
+    name: "Mechanical",
+    department: "Mechanical Engineering",
+    icon: "/icons/mechanical.svg",
+    line: "Designs and builds the robot, in small groups that each take one part of it.",
+  },
+  {
+    id: "software",
+    name: "Software",
+    department: "Software Engineering",
+    icon: "/icons/software.svg",
+    line: "Writes the code that drives the robot, and teaches everyone Java from the start.",
+  },
+  {
+    id: "business",
+    name: "Business",
+    department: "Business",
+    icon: "/icons/business.svg",
+    line: "Fundraising, sponsors, travel, outreach and award submissions.",
+  },
+  {
+    id: "strategy",
+    name: "Strategy",
+    department: "Strategy",
+    icon: "/icons/strategy.svg",
+    line: "Decides how the robot plays each match and which teams we pick as partners.",
+  },
+];
+
+// A person can hold two roles in one department, so count names, and put faces with a photo first.
+const cards = departments.map((dept) => {
+  const people = [
+    ...new Map(
+      leaders
+        .filter((leader) => leader.department === dept.department)
+        .map((leader) => [leader.name.trim(), leader.image] as const),
+    ),
+  ].map(([name, image]) => ({ name, image }));
+  people.sort((a, b) => Number(!!b.image) - Number(!!a.image));
+  return { ...dept, count: people.length, faces: people.slice(0, 4) };
+});
+---
+
+<div class="depts">
+  {
+    cards.map((dept) => (
+      <a class="dept" href={`/about/departments#${dept.id}`}>
+        <i>
+          <img src={dept.icon} alt="" />
+        </i>
+        <b>{dept.name}</b>
+        <p>{dept.line}</p>
+        {dept.count > 0 && (
+          <div class="leads">
+            <span class="faces" aria-hidden="true">
+              {dept.faces.map((face) =>
+                face.image ? <img src={face.image} alt="" loading="lazy" /> : <span>{initials(face.name)}</span>,
+              )}
+            </span>
+            <span class="count">{plural(dept.count, "lead")}</span>
+          </div>
+        )}
+      </a>
+    ))
+  }
+</div>
+
+<style>
+  .depts {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 48px;
+    text-align: left;
+  }
+  .dept {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px 26px 26px;
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+    color: var(--ink);
+    transition:
+      transform 0.2s ease-out,
+      background-color 0.2s ease;
+  }
+  .dept:hover {
+    color: var(--ink);
+    background: var(--rose);
+    transform: translateY(-6px);
+  }
+  .dept:nth-child(even):hover {
+    transform: translateY(-6px) rotate(1deg);
+  }
+  .dept:nth-child(odd):hover {
+    transform: translateY(-6px) rotate(-1deg);
+  }
+  i {
+    display: grid;
+    place-items: center;
+    width: 76px;
+    height: 76px;
+    border-radius: 50%;
+    background: #fff;
+  }
+  i img {
+    width: 40px;
+    height: 40px;
+  }
+  b {
+    margin-top: 22px;
+    font-size: 30px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--red);
+    font-variation-settings: "opsz" 96;
+  }
+  p {
+    margin: 10px 0 0;
+    color: var(--soft);
+    font-size: 17px;
+    line-height: 1.45;
+  }
+  .leads {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: auto;
+    padding-top: 26px;
+  }
+  .faces {
+    display: flex;
+  }
+  .faces > * {
+    width: 46px;
+    height: 46px;
+    margin-right: -12px;
+    border-radius: 50%;
+    border: 3px solid var(--blush);
+    object-fit: cover;
+    transition: border-color 0.2s ease;
+  }
+  .dept:hover .faces > * {
+    border-color: var(--rose);
+  }
+  .faces span {
+    display: grid;
+    place-items: center;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+  }
+  .count {
+    margin-left: 12px;
+    font-weight: 700;
+    color: var(--red);
+  }
+  @media (max-width: 1100px) {
+    .depts {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 560px) {
+    .depts {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

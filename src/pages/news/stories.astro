@@ -1,0 +1,236 @@
+---
+// Written stories from the old site, grouped by FRC season, each season headed by its robot.
+import PageSite from "@layouts/PageSite.astro";
+import PageHead from "@components/page/PageHead.astro";
+import NewsTabs from "@components/news/NewsTabs.astro";
+import { formatDate } from "@utils/format";
+import { getNewsletters, kindOf } from "@utils/news";
+import { getRobots } from "@utils/robots";
+import { seasonOf } from "@utils/seasons";
+
+const stories = (await getNewsletters()).filter((post) => kindOf(post) === "post");
+const robots = await getRobots();
+const seasons = [...new Set(stories.map((post) => seasonOf(post.data.date)))].map((season) => ({
+  season,
+  robot: robots.find((robot) => robot.data.year === season),
+  posts: stories.filter((post) => seasonOf(post.data.date) === season),
+}));
+// Three robots from these years for the head, oldest on top of the pile.
+const pile = seasons
+  .map((group) => group.robot)
+  .filter((robot) => robot?.data.photo)
+  .slice(-3);
+---
+
+<PageSite
+  title="Stories"
+  description="Written posts from StuyPulse's old website: competitions, kickoffs, StuySplash and team life."
+>
+  <PageHead
+    title="Stories"
+    intro="Competition recaps, kickoffs, trips to China and team dinners, written by students on our old website."
+  >
+    <NewsTabs current="stories" />
+    {
+      pile.length > 0 && (
+        <div slot="aside" class="pile" aria-hidden="true">
+          {pile.map((robot) => (
+            <span class="snap">
+              <img src={robot!.data.photo} alt="" loading="lazy" />
+              <b>
+                {robot!.data.title} · {robot!.data.year}
+              </b>
+            </span>
+          ))}
+        </div>
+      )
+    }
+  </PageHead>
+
+  <div class="band jump-band">
+    <ul class="jump" aria-label="Seasons">
+      {
+        seasons.map(({ season }) => (
+          <li>
+            <a href={`#s${season}`}>{season}</a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  {
+    seasons.map(({ season, robot, posts }, i) => (
+      <section
+        class:list={["band season", { "band-tint": i % 2 === 0 }]}
+        id={`s${season}`}
+        aria-labelledby={`s${season}-title`}
+      >
+        <header>
+          <h2 id={`s${season}-title`}>{season} season</h2>
+          {robot && (
+            <a class="bot" href={`/about/history/${robot.slug}`}>
+              {robot.data.photo && <img src={robot.data.photo} alt="" loading="lazy" />}
+              <span>
+                The robot: <b>{robot.data.title}</b>
+              </span>
+            </a>
+          )}
+        </header>
+        <ul>
+          {posts.map((post) => (
+            <li>
+              <a href={`/news/${post.slug}`}>
+                <time datetime={post.data.date.toISOString().slice(0, 10)}>
+                  {formatDate(post.data.date, { month: "short", day: "numeric", year: "numeric" })}
+                </time>
+                <span class="title">{post.data.title}</span>
+                {post.data.author !== "StuyPulse" && <span class="by">by {post.data.author}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
+</PageSite>
+
+<style>
+  /* A pile of robot snapshots in the red head, like prints on a desk. */
+  .pile {
+    position: relative;
+    height: clamp(300px, 34vw, 420px);
+  }
+  .snap {
+    position: absolute;
+    width: 54%;
+    padding: 10px 10px 0;
+    border-radius: 26px;
+    background: #fff;
+    box-shadow: 0 26px 44px -22px rgba(70, 0, 4, 0.55);
+  }
+  .snap img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 18px;
+  }
+  .snap b {
+    display: block;
+    padding: 10px 6px 12px;
+    color: var(--red);
+    font-size: 16px;
+  }
+  /* A staircase, so every card's label stays visible under the one above it. */
+  .snap:nth-child(1) {
+    left: 0;
+    top: 44%;
+    transform: rotate(-5deg);
+  }
+  .snap:nth-child(2) {
+    left: 22%;
+    top: 20%;
+    transform: rotate(3deg);
+  }
+  .snap:nth-child(3) {
+    left: 44%;
+    top: 0;
+    transform: rotate(-2deg);
+  }
+  .jump-band {
+    padding-block: 32px 24px;
+  }
+  .jump-band .jump {
+    margin: 0;
+  }
+  .season {
+    padding-block: clamp(40px, 5vw, 64px);
+    scroll-margin-top: calc(var(--header-h, 0px) + 16px);
+  }
+  .season:not(.band-tint) + .season:not(.band-tint) {
+    padding-top: 0;
+  }
+  header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px 24px;
+    margin-bottom: 20px;
+  }
+  h2 {
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    color: var(--red);
+    margin: 0;
+  }
+  .bot {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    padding: 6px 20px 6px 6px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-size: 16px;
+  }
+  .bot:hover {
+    background: var(--red-dark);
+    color: #fff;
+  }
+  .bot img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #fff;
+  }
+  .season ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    gap: 12px;
+  }
+  .season li a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    height: 100%;
+    padding: 20px 24px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    color: var(--ink);
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .season.band-tint li a {
+    background: #fff;
+  }
+  .season li a:hover,
+  .season li a:focus-visible {
+    background: var(--red);
+    color: #fff;
+  }
+  time,
+  .by {
+    font-size: 15px;
+    opacity: 0.75;
+  }
+  .title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 1.25;
+  }
+  @media (max-width: 860px) {
+    .pile {
+      height: 300px;
+      max-width: 460px;
+    }
+    .snap b {
+      font-size: 14px;
+    }
+  }
+</style>

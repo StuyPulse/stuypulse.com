@@ -1,0 +1,131 @@
+---
+// A loose pile of real headshots for the right half of a red page head: overlapping circles with
+// white rings, each tipped a little, and an optional sticker. Takes 4 to 6 people.
+export interface Props {
+  people: { name: string; image: string }[];
+  sticker?: string;
+}
+const { people, sticker } = Astro.props;
+
+// Left, top and size as a percentage of the collage's width, and a tilt in degrees.
+// The biggest circle sits in the middle; the rest crowd round it.
+const layouts: Record<number, [number, number, number, number][]> = {
+  4: [
+    [6, 4, 40, -5],
+    [52, 0, 38, 6],
+    [14, 37, 36, 4],
+    [54, 35, 35, -4],
+  ],
+  5: [
+    [28, 12, 44, -3],
+    [2, 2, 30, -8],
+    [70, 0, 28, 7],
+    [4, 44, 32, 5],
+    [64, 36, 34, -5],
+  ],
+  6: [
+    [29, 10, 42, -3],
+    [2, 2, 28, -8],
+    [71, 0, 27, 7],
+    [3, 40, 31, 5],
+    [67, 34, 32, -5],
+    [37, 52, 25, 4],
+  ],
+};
+const shown = people.slice(0, 6);
+const slots = layouts[Math.max(4, shown.length)];
+---
+
+<div class="collage" aria-hidden="true">
+  <div class="pile">
+    {
+      shown.map((person, i) => {
+        const [left, top, size, tilt] = slots[i];
+        return (
+          <span class="spot" style={`--l:${left};--t:${top};--s:${size};--tilt:${tilt}deg;--i:${i}`}>
+            <img class:list={{ tight: person.image.startsWith("/ecac/") }} src={person.image} alt="" />
+          </span>
+        );
+      })
+    }
+  </div>
+  {sticker && <span class="sticker">{sticker}</span>}
+</div>
+
+<style>
+  .collage {
+    position: relative;
+    max-width: 520px;
+    margin-inline: auto;
+  }
+  .pile {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 1 / 0.8;
+  }
+  .spot {
+    position: absolute;
+    left: calc(var(--l) * 1cqi);
+    top: calc(var(--t) * 1cqi);
+    width: calc(var(--s) * 1cqi);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--blush);
+    box-shadow:
+      0 0 0 clamp(4px, 1.4cqi, 8px) #fff,
+      0 24px 40px -22px rgba(60, 0, 4, 0.55);
+    transform: rotate(var(--tilt));
+    animation: pop 0.5s calc(0.25s + var(--i) * 0.07s) cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  .spot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 30%;
+  }
+  /* Team headshots (public/ecac) are shot loose in front of a banner, so crop in on the face. */
+  .tight {
+    transform: scale(1.3);
+    transform-origin: 50% 36%;
+  }
+  /* Faces land one after another with a slight overshoot, like photos tossed on a table. */
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: rotate(calc(var(--tilt) * 3)) scale(0.6);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(var(--tilt)) scale(1);
+    }
+  }
+  .sticker {
+    position: absolute;
+    right: 4%;
+    bottom: 2%;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 800;
+    font-size: clamp(16px, 1.7vw, 21px);
+    white-space: nowrap;
+    box-shadow: 0 14px 28px -14px rgba(50, 0, 0, 0.5);
+    transform: rotate(-4deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .spot {
+      animation: none;
+    }
+  }
+  @media (max-width: 860px) {
+    .collage {
+      max-width: 400px;
+      margin: 8px auto 0;
+    }
+    .sticker {
+      bottom: -4%;
+    }
+  }
+</style>

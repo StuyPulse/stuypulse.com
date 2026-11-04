@@ -1,0 +1,71 @@
+---
+// Awards as rounded chips, each with an icon. Wins are filled red.
+import { awardKind } from "@utils/awards";
+import AwardIcon from "./AwardIcon.astro";
+
+export interface Props {
+  awards: string[];
+  size?: "md" | "sm";
+  // Text to show for an award, when it differs from the award itself (grouped by event, the
+  // event name is left off each chip).
+  label?: (award: string) => string;
+}
+const { awards, size = "md", label = (award: string) => award } = Astro.props;
+---
+
+<ul class:list={["award-list", size]}>
+  {
+    awards.map((award) => {
+      const kind = awardKind(award);
+      return (
+        <li class:list={[kind]}>
+          <AwardIcon kind={kind} size={size === "sm" ? 16 : 20} />
+          <span>{label(award)}</span>
+        </li>
+      );
+    })
+  }
+</ul>
+
+<style>
+  .award-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px 10px 14px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    font-weight: 600;
+    font-size: 17px;
+    line-height: 1.25;
+    box-shadow: inset 0 0 0 2px var(--rose);
+  }
+  li :global(.award-icon) {
+    color: var(--red);
+  }
+  li.win {
+    background: var(--red);
+    color: #fff;
+    box-shadow: none;
+  }
+  li.win :global(.award-icon) {
+    color: #fff;
+  }
+  .sm {
+    gap: 8px;
+  }
+  .sm li {
+    padding: 7px 14px 7px 11px;
+    font-size: 15px;
+    gap: 6px;
+  }
+</style>

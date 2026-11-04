@@ -1,9 +1,13 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import Hero from "@components/redesign/Hero.astro";
+import Hero from "@components/page/Hero.astro";
+import { socials, stuysplash as splash } from "@data";
 ---
 
-<PageSite title="Donate" description="Donate to StuyPulse, FRC Team 694. Donations pay for robot parts, tools and competition fees." fullBleed>
+<PageSite
+  title="Donate"
+  description="Donate to StuyPulse, FRC Team 694. Donations pay for robot parts, tools and competition fees."
+>
   <Hero
     title="Donate to the team."
     intro="Every robot, competition and StuySplash is paid for by people like you. Donations buy parts, tools and competition fees, and replace equipment that's worn out."
@@ -12,8 +16,8 @@ import Hero from "@components/redesign/Hero.astro";
     stickers={["Thank you!"]}
   >
     <Fragment slot="actions">
-      <a class="pill pill-white" href="#ways">Ways to give</a>
-      <a class="pill pill-ghost" href="/sponsors">Sponsor as a company</a>
+      <a class="pill pill-red" href="#ways">Ways to give</a>
+      <a class="pill pill-line" href="/sponsors">Sponsor as a company</a>
     </Fragment>
   </Hero>
 
@@ -23,7 +27,16 @@ import Hero from "@components/redesign/Hero.astro";
       <div class="way way-red">
         <h3>Zelle</h3>
         <p>No fees, so all of it reaches the team. Send it to:</p>
-        <p class="addr">frcfinance@stuypulse.com</p>
+        <p class="addr">frcfinance@<wbr />stuypulse.com</p>
+        <button
+          class="pill pill-white copy"
+          type="button"
+          data-copy="frcfinance@stuypulse.com"
+          aria-live="polite"
+          hidden
+        >
+          Copy address
+        </button>
       </div>
       <div class="way">
         <h3>PayPal or card</h3>
@@ -44,7 +57,94 @@ import Hero from "@components/redesign/Hero.astro";
       </div>
     </div>
   </section>
+
+  <section class="band band-tint help" aria-labelledby="help-title">
+    <h2 id="help-title" class="band-title">Other ways to help</h2>
+    <p class="lede">Not every kind of help is money.</p>
+    <ul class="helps">
+      <li>
+        <a class="help-card" href="/sponsors">
+          <span class="icon light" aria-hidden="true">
+            <img src="/icons/gold-medal.svg" alt="" width="40" height="40" />
+          </span>
+          <b>Become a sponsor</b>
+          <span>Put your company's name on our robot, shirts and website.</span>
+          <span class="go">See sponsor levels →</span>
+        </a>
+      </li>
+      <li>
+        <a class="help-card" href="/resources/stuysplash">
+          <span class="icon" aria-hidden="true">
+            <svg viewBox="0 0 48 48" width="40" height="40">
+              <path
+                d="M8 34V14a4 4 0 0 1 4-4h24a4 4 0 0 1 4 4v14a4 4 0 0 1-4 4H18l-10 6Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3.5"
+                stroke-linejoin="round"></path>
+            </svg>
+          </span>
+          <b>Give a talk at StuySplash</b>
+          <span>
+            Share what your team knows at our free day of talks{splash.date ? `, ${splash.date}` : ""}.
+          </span>
+          <span class="go">About StuySplash →</span>
+        </a>
+      </li>
+      <li class="help-card follow">
+        <span class="icon" aria-hidden="true">
+          <svg viewBox="0 0 48 48" width="40" height="40">
+            <path
+              d="M24 40s-14-8.5-14-19a8 8 0 0 1 14-5.3A8 8 0 0 1 38 21c0 10.5-14 19-14 19Z"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="3.5"
+              stroke-linejoin="round"></path>
+          </svg>
+        </span>
+        <b>Follow us</b>
+        <span>Cheer us on through build season and competitions, and share our posts.</span>
+        <ul class="socials">
+          {
+            socials.map((social) => (
+              <li>
+                <a href={social.url} target="_blank" rel="noopener" aria-label={social.name} title={social.name}>
+                  <img src={social.icon} alt="" width="24" height="24" />
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </li>
+    </ul>
+  </section>
 </PageSite>
+
+<script>
+  // Copy the Zelle address. Without the Clipboard API the button stays hidden and people copy by hand.
+  const button = document.querySelector<HTMLButtonElement>(".copy");
+  if (button && navigator.clipboard) {
+    const label = button.textContent?.trim() ?? "";
+    let timer: number | undefined;
+    button.hidden = false;
+    button.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(button.dataset.copy ?? "");
+      } catch {
+        return;
+      }
+      button.textContent = "Copied ✓";
+      button.classList.remove("pop");
+      void button.offsetWidth; // restart the pop if clicked again
+      button.classList.add("pop");
+      clearTimeout(timer);
+      timer = window.setTimeout(() => {
+        button.textContent = label;
+        button.classList.remove("pop");
+      }, 2000);
+    });
+  }
+</script>
 
 <style>
   .ways {
@@ -78,14 +178,121 @@ import Hero from "@components/redesign/Hero.astro";
     color: #fff;
     opacity: 0.92;
   }
+  .way-red {
+    container-type: inline-size;
+  }
+  /* Sized to the card so the address fits on one line; if it can't, it breaks only after the @. */
   .way-red .addr {
     opacity: 1;
     font-weight: 800;
-    font-size: clamp(20px, 2vw, 26px);
+    font-size: clamp(17px, 7cqi, 28px);
     letter-spacing: -0.02em;
-    overflow-wrap: anywhere;
+    line-height: 1.2;
+    overflow-wrap: normal;
+  }
+  .copy {
+    margin-top: 20px;
+    min-height: 44px;
+    padding: 0 20px;
+    font-size: 15px;
+  }
+  .copy.pop {
+    animation: pop 0.25s ease-out;
+  }
+  @keyframes pop {
+    50% {
+      transform: scale(1.08);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .copy.pop {
+      animation: none;
+    }
+  }
+  .help {
+    margin-top: clamp(16px, 3vw, 32px);
+  }
+  .helps {
+    list-style: none;
+    padding: 0;
+    margin: 36px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .help-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    height: 100%;
+    padding: clamp(26px, 3vw, 36px);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--ink);
+    transition: transform 0.2s ease;
+  }
+  a.help-card:hover {
+    color: var(--ink);
+    transform: translateY(-6px) rotate(-1deg);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    a.help-card:hover {
+      transform: none;
+    }
+  }
+  .icon {
+    display: grid;
+    place-items: center;
+    width: 72px;
+    height: 72px;
+    margin-bottom: 6px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+  }
+  .icon.light {
+    background: var(--blush);
+  }
+  .help-card b {
+    font-size: 26px;
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+  }
+  .help-card > span:not(.icon, .go) {
+    color: var(--soft);
+  }
+  .go {
+    margin-top: auto;
+    padding-top: 8px;
+    color: var(--red);
+    font-weight: 700;
+  }
+  .socials {
+    list-style: none;
+    padding: 0;
+    margin: auto 0 0;
+    padding-top: 8px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .socials a {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--blush);
+    transition: background-color 0.15s ease;
+  }
+  .socials a:hover {
+    background: var(--rose);
   }
   @media (max-width: 960px) {
+    .helps {
+      grid-template-columns: 1fr;
+    }
     .ways {
       grid-template-columns: 1fr;
     }

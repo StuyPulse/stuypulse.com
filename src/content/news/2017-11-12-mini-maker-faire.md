@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Barnes & Noble Mini Maker Faire
 author: Eugene Seo
 date: 2017-11-12

@@ -1,25 +1,25 @@
 ---
-import PageSite from '@layouts/PageSite.astro';
-import { getCollection } from 'astro:content';
+import PageSite from "@layouts/PageSite.astro";
+import RobotPage from "@components/robots/RobotPage.astro";
+import { plural } from "@utils/format";
+import { getRobots, type Robot } from "@utils/robots";
 
 export async function getStaticPaths() {
-  const historyEntries = await getCollection('history');
-  return historyEntries.map((entry) => ({
-    params: { slug: entry.slug },
-    props: { entry }
-  }));
+  const robots = await getRobots();
+  return robots.map((entry) => ({ params: { slug: entry.slug }, props: { entry } }));
 }
 
-const { entry } = Astro.props;
-// The robot page itself is laid out by src/layouts/History.astro.
+const { entry } = Astro.props as { entry: Robot };
+const { title, year, awards, photo } = entry.data;
 const { Content } = await entry.render();
 ---
 
 <PageSite
-  title={`${entry.data.title}, our ${entry.data.year} robot`}
-  description={`${entry.data.title} was StuyPulse's ${entry.data.year} robot${entry.data.awards?.length ? `, with ${entry.data.awards.length} awards` : ''}.`}
-  image={entry.data.photo}
-  fullBleed
+  title={`${title}, our ${year} robot`}
+  description={`${title} was StuyPulse's ${year} robot${awards?.length ? `, with ${plural(awards.length, "award")}` : ""}.`}
+  image={photo}
 >
-  <Content />
+  <RobotPage entry={entry}>
+    <Content />
+  </RobotPage>
 </PageSite>

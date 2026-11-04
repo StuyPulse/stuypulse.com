@@ -1,0 +1,185 @@
+---
+// Page-opening hero: big red headline on the left, rounded photo with stickers on the right.
+import Beat from "./Beat.astro";
+
+export interface Props {
+  title: string;
+  intro?: string;
+  photo?: string;
+  photoAlt?: string;
+  // Up to three short labels pinned to the photo.
+  stickers?: string[];
+  // Red for most pages; the home page uses the softer blush.
+  tone?: "red" | "blush";
+}
+const { title, intro, photo, photoAlt = "", stickers = [], tone = "red" } = Astro.props;
+---
+
+<section class:list={["hero", tone === "red" ? "on-red" : "blush"]}>
+  <Beat height={150} at={0.42} />
+  <div class="grid">
+    <div class="copy">
+      <slot name="before" />
+      <h1>{title}</h1>
+      {intro && <p class="intro">{intro}</p>}
+      {
+        Astro.slots.has("actions") && (
+          <div class="actions">
+            <slot name="actions" />
+          </div>
+        )
+      }
+      <slot name="after" />
+    </div>
+    {
+      photo ? (
+        <div class="photo">
+          <div class="frame">
+            <img src={photo} alt={photoAlt} fetchpriority="high" />
+          </div>
+          {stickers.map((text, i) => (
+            <span class:list={["sticker", `s${i + 1}`]}>{text}</span>
+          ))}
+        </div>
+      ) : (
+        <slot name="side" />
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    overflow: hidden;
+    padding: clamp(16px, 3vw, 40px) 0 96px;
+    margin: 0 var(--inset);
+    border-radius: var(--radius-lg);
+  }
+  .blush {
+    background: var(--blush);
+  }
+  .hero :global(.beat) {
+    color: var(--red);
+  }
+  .on-red :global(.beat) {
+    color: #fff;
+  }
+  .grid {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    gap: clamp(28px, 5vw, 64px);
+    align-items: center;
+    padding: 24px var(--block-pad) 0;
+  }
+  h1 {
+    color: var(--red);
+    font-size: clamp(3.2rem, 7.2vw, 6.8rem);
+    line-height: 0.95;
+    letter-spacing: -0.035em;
+    margin: 0;
+  }
+  .intro {
+    font-size: clamp(18px, 1.7vw, 22px);
+    margin: 24px 0 0;
+    max-width: 32ch;
+  }
+  .photo {
+    position: relative;
+  }
+  .frame {
+    border-radius: 36px;
+    overflow: hidden;
+    aspect-ratio: 4 / 3;
+    background: var(--blush);
+    box-shadow: 0 30px 60px -30px rgba(70, 0, 4, 0.35);
+  }
+  .frame img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .sticker {
+    position: absolute;
+    background: var(--red);
+    color: #fff;
+    font-weight: 800;
+    font-size: clamp(16px, 1.7vw, 22px);
+    padding: 12px 22px;
+    border-radius: 999px;
+    box-shadow: 0 14px 28px -14px rgba(50, 0, 0, 0.45);
+    white-space: nowrap;
+    letter-spacing: -0.01em;
+    transform: rotate(var(--tilt, 0deg));
+    animation: slap 0.42s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+  /* Stickers land on the photo one after another, overshooting slightly. */
+  @keyframes slap {
+    from {
+      opacity: 0;
+      transform: rotate(calc(var(--tilt, 0deg) * 3)) scale(1.35);
+    }
+    to {
+      opacity: 1;
+      transform: rotate(var(--tilt, 0deg)) scale(1);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .sticker {
+      animation: none;
+    }
+  }
+  .s1 {
+    right: -14px;
+    top: -22px;
+    --tilt: 6deg;
+    animation-delay: 0.5s;
+  }
+  .s2 {
+    left: -26px;
+    bottom: 54px;
+    --tilt: -6deg;
+    animation-delay: 0.6s;
+    background: #fff;
+    color: var(--red);
+  }
+  .on-red h1 {
+    color: #fff;
+  }
+  .on-red .sticker {
+    background: #fff;
+    color: var(--red);
+  }
+  .on-red .s2 {
+    background: var(--red);
+    color: #fff;
+    box-shadow:
+      0 14px 28px -12px rgba(50, 0, 0, 0.5),
+      inset 0 0 0 3px #fff;
+  }
+  .on-red .frame {
+    box-shadow: 0 30px 60px -24px rgba(70, 0, 4, 0.55);
+  }
+  .s3 {
+    right: 40px;
+    bottom: -22px;
+    --tilt: 3deg;
+    animation-delay: 0.7s;
+  }
+  @media (max-width: 860px) {
+    .hero {
+      padding-bottom: 64px;
+    }
+    .grid {
+      grid-template-columns: 1fr;
+    }
+    .s1 {
+      right: 8px;
+    }
+    .s2 {
+      left: 8px;
+    }
+  }
+</style>

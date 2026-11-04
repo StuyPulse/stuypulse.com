@@ -1,0 +1,7 @@
+dist
+node_modules
+.astro
+public
+package-lock.json
+src/content
+src/data/*.yml

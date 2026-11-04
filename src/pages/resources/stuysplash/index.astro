@@ -1,56 +1,292 @@
 ---
-import { getCollection } from "astro:content";
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
+import { stuysplash as splash } from "@data";
+import { getStuySplashYears } from "@utils/stuysplash";
 
-const splash = (await import("@data/stuysplash.yml")).default;
-const years = (await getCollection("stuysplash")).sort((a, b) => Number(b.data.year) - Number(a.data.year));
+const years = await getStuySplashYears();
+// Oldest first for the chart; bar height is the number of talks that year.
+const chart = [...years].reverse();
+const most = Math.max(1, ...chart.map((entry) => entry.data.presentations.length));
+
+// The event's start as an ISO time in New York, for the countdown. The file holds free text
+// ("Saturday, December 12" and "9:30 to 4"), so anything that doesn't parse leaves it out.
+const MONTHS = ["jan", "feb", "mar", "apr", "may", "jun", "jul", "aug", "sep", "oct", "nov", "dec"];
+const startsAt = (() => {
+  const match = splash.date.match(/([a-z]{3})[a-z]*\.?\s+(\d{1,2})/i);
+  const month = match ? MONTHS.indexOf(match[1].toLowerCase()) : -1;
+  if (!match || month < 0) return undefined;
+  const time = splash.time.match(/(\d{1,2})(?::(\d{2}))?/);
+  const hour = time ? Number(time[1]) + (Number(time[1]) < 7 ? 12 : 0) : 9;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  // Daylight saving runs roughly March to early November; the hour either way is close enough.
+  const offset = month >= 3 && month <= 9 ? "-04:00" : "-05:00";
+  return `${splash.year}-${pad(month + 1)}-${pad(Number(match[2]))}T${pad(hour)}:${time?.[2] ?? "00"}:00${offset}`;
+})();
 ---
 
 <PageSite
   title={`StuySplash ${splash.year}`}
   description={`StuySplash, StuyPulse's free day of talks for FRC teams, is on ${splash.date}. Sign up to attend or to give a talk.`}
   image="/home/stuysplash.jpg"
-  fullBleed
 >
   <PageHead title={`StuySplash ${splash.year}`} intro={splash.summary}>
-    <span slot="before" class="chip chip-white">{splash.date}, {splash.time}</span>
+    <span slot="before" class="chip chip-red">{splash.date}, {splash.time}</span>
     <div class="actions">
-      {splash.attendForm && <a class="pill pill-white" href={splash.attendForm}>Sign up to attend</a>}
-      {splash.presentForm && <a class="pill pill-ghost" href={splash.presentForm}>Give a talk</a>}
+      {
+        splash.attendForm && (
+          <a class="pill pill-red" href={splash.attendForm}>
+            Sign up to attend
+          </a>
+        )
+      }
+      {
+        splash.presentForm && (
+          <a class="pill pill-line" href={splash.presentForm}>
+            Give a talk
+          </a>
+        )
+      }
     </div>
+    {
+      startsAt && (
+        <div slot="aside" class="countdown" data-start={startsAt} hidden>
+          <span class="soon">Doors open in</span>
+          <div class="units">
+            <span>
+              <b data-unit="days">0</b> days
+            </span>
+            <span>
+              <b data-unit="hours">0</b> hrs
+            </span>
+            <span>
+              <b data-unit="minutes">0</b> min
+            </span>
+          </div>
+          <span class="where">Free for every FRC team · {splash.date}</span>
+        </div>
+      )
+    }
   </PageHead>
 
   <section class="band about" aria-labelledby="what">
     <div>
       <h2 id="what" class="band-title">What it is</h2>
       <p>
-        StuySplash is a day of classes for FRC teams, from the basics of a robot to marketing and strategy. Several talks run
-        at once all day, so you can pick what's useful for your team. It grew out of the beta seminar StuyPulse ran for
-        years, and became its own event in 2012, modeled on CSplash and MIT Splash.
+        StuySplash is a day of classes for FRC teams, from the basics of a robot to marketing and strategy. Several
+        talks run at once all day, so you can pick what's useful for your team. It grew out of the beta seminar
+        StuyPulse ran for years, and became its own event in 2012, modeled on CSplash and MIT Splash.
       </p>
       {splash.lastYear && <p>{splash.lastYear}</p>}
     </div>
     <img src="/home/stuysplash.jpg" alt="A StuySplash talk in a Stuyvesant lecture hall" loading="lazy" />
   </section>
 
-  <section class="band past" aria-labelledby="past">
+  <section class="band band-tint past" aria-labelledby="past">
     <h2 id="past" class="band-title">Past talks</h2>
-    <p class="lede">Slides and recordings from every StuySplash since 2012.</p>
-    <ul>
-      {years.map((entry) => (
-        <li>
-          <a href={`/resources/stuysplash/${entry.slug}/`}>
-            <b>{entry.data.year}</b>
-            <span>{entry.data.presentations.length} talks</span>
-          </a>
-        </li>
-      ))}
-    </ul>
+    <p class="lede">
+      Slides and recordings from every StuySplash since {chart[0]?.data.year}. Each bar is a year; the taller it is, the
+      more talks.
+    </p>
+    <ol class="chart" style={`--most: ${most}`}>
+      {
+        chart.map((entry) => (
+          <li style={`--n: ${entry.data.presentations.length}`}>
+            <a href={`/resources/stuysplash/${entry.slug}/`}>
+              <span class="count">
+                {entry.data.presentations.length}
+                <span class="visually-hidden"> talks</span>
+              </span>
+              <span class="bar">
+                {entry.data.playlist && (
+                  <span class="play" title="Has recordings">
+                    ▶<span class="visually-hidden"> with recordings</span>
+                  </span>
+                )}
+              </span>
+              <b>{entry.data.year}</b>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="key"><span aria-hidden="true">▶</span> Recordings on YouTube</p>
   </section>
 </PageSite>
 
+<script>
+  // Count down to the start. Hidden until it runs, and stays hidden once the day has passed.
+  const box = document.querySelector<HTMLElement>(".countdown");
+  const start = box ? Date.parse(box.dataset.start ?? "") : NaN;
+  if (box && !Number.isNaN(start)) {
+    const set = (unit: string, value: number) => {
+      const el = box.querySelector(`[data-unit="${unit}"]`);
+      if (el) el.textContent = String(value);
+    };
+    const tick = () => {
+      const left = start - Date.now();
+      if (left <= 0) {
+        box.hidden = true;
+        return false;
+      }
+      const minutes = Math.floor(left / 60000);
+      set("days", Math.floor(minutes / 1440));
+      set("hours", Math.floor(minutes / 60) % 24);
+      set("minutes", minutes % 60);
+      box.hidden = false;
+      return true;
+    };
+    if (tick()) {
+      const timer = window.setInterval(() => {
+        if (!tick()) clearInterval(timer);
+      }, 30000);
+    }
+  }
+</script>
+
 <style>
+  .countdown {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: min(100%, 460px);
+    margin-left: auto;
+    padding: clamp(24px, 3vw, 36px);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--ink);
+    transform: rotate(2deg);
+    box-shadow: 0 30px 60px -24px rgba(70, 0, 4, 0.55);
+  }
+  .countdown[hidden] {
+    display: none;
+  }
+  .soon {
+    color: var(--red);
+    font-weight: 800;
+    font-size: 20px;
+  }
+  .units {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .units span {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 14px 6px;
+    border-radius: 24px;
+    background: var(--blush);
+    color: var(--soft);
+    font-weight: 600;
+  }
+  .units span:first-child {
+    background: var(--red);
+    color: #fff;
+  }
+  .units b {
+    font-size: clamp(2.4rem, 4.4vw, 3.6rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 96;
+    font-variant-numeric: tabular-nums;
+    color: inherit;
+  }
+  .units span:not(:first-child) b {
+    color: var(--red);
+  }
+  .where {
+    color: var(--soft);
+    font-size: 15px;
+  }
+  /* Past years as a bar chart. Bars grow from the baseline; phones scroll it sideways. */
+  .chart {
+    list-style: none;
+    padding: 0 0 8px;
+    margin: 40px 0 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(56px, 1fr);
+    gap: 10px;
+    align-items: end;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    /* Keeps the visually hidden labels inside the scroller instead of stretching the page. */
+    position: relative;
+  }
+  .chart li {
+    scroll-snap-align: start;
+  }
+  .chart a {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 8px;
+    color: var(--ink);
+    text-align: center;
+  }
+  .count {
+    font-weight: 800;
+    font-size: 18px;
+    color: var(--red);
+  }
+  .bar {
+    position: relative;
+    display: block;
+    height: calc(var(--n) / var(--most) * clamp(180px, 22vw, 280px));
+    min-height: 40px;
+    border-radius: 20px 20px 10px 10px;
+    background: var(--red);
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+    transform-origin: bottom;
+  }
+  .chart a:hover .bar,
+  .chart a:focus-visible .bar {
+    background: var(--red-dark);
+    transform: scaleY(1.04);
+  }
+  .play {
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    translate: -50% 0;
+    display: grid;
+    place-items: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: #fff;
+    color: var(--red);
+    font-size: 12px;
+    padding-left: 2px;
+  }
+  .chart b {
+    font-size: 18px;
+    letter-spacing: -0.02em;
+  }
+  .key {
+    margin: 20px 0 0;
+    color: var(--soft);
+    font-size: 15px;
+  }
+  .key span {
+    color: var(--red);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chart a:hover .bar,
+    .chart a:focus-visible .bar {
+      transform: none;
+    }
+  }
+  @media (max-width: 860px) {
+    .countdown {
+      margin-inline: auto;
+      transform: none;
+    }
+  }
   .chip {
     margin-bottom: 18px;
   }
@@ -59,7 +295,6 @@ const years = (await getCollection("stuysplash")).sort((a, b) => Number(b.data.y
     grid-template-columns: 1fr 1fr;
     gap: clamp(28px, 5vw, 64px);
     align-items: center;
-    max-width: 1240px;
   }
   .about p {
     margin: 16px 0 0;
@@ -70,38 +305,6 @@ const years = (await getCollection("stuysplash")).sort((a, b) => Number(b.data.y
     aspect-ratio: 4 / 3;
     object-fit: cover;
     border-radius: var(--radius-md);
-  }
-  .past {
-    padding-top: 0;
-  }
-  .past ul {
-    list-style: none;
-    padding: 0;
-    margin: 36px 0 0;
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 14px;
-  }
-  .past a {
-    display: flex;
-    flex-direction: column;
-    padding: 22px 24px;
-    border-radius: var(--radius-md);
-    background: var(--blush);
-    color: var(--ink);
-  }
-  .past a:hover {
-    background: var(--red);
-    color: #fff;
-  }
-  .past b {
-    font-size: 32px;
-    letter-spacing: -0.03em;
-    font-variation-settings: "opsz" 96;
-  }
-  .past span {
-    font-size: 15px;
-    opacity: 0.8;
   }
   @media (max-width: 860px) {
     .about {

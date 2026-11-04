@@ -1,0 +1,275 @@
+---
+// One year of StuySplash talks. The year's intro text, if any, is passed in as the slot.
+import PageHead from "@components/page/PageHead.astro";
+import PrevNext from "@components/page/PrevNext.astro";
+import type { StuySplashYear } from "@utils/stuysplash";
+
+export interface Props {
+  entry: StuySplashYear;
+  earlier?: StuySplashYear;
+  later?: StuySplashYear;
+}
+const { entry, earlier, later } = Astro.props;
+const splash = entry.data;
+const talks = splash.presentations;
+// Rough topics from words in the talk titles, for the filter chips. A talk can be in several.
+const TOPICS: { id: string; name: string; words: RegExp }[] = [
+  {
+    id: "code",
+    name: "Programming",
+    words:
+      /java|kotlin|program|cod(e|ing)|software|git|gradle|vision|autonom|auton\b|control|pid|trajector|logging|odometry|state machine|simulat|sensor|microcontroller|road ?runner|pathfind/i,
+  },
+  {
+    id: "build",
+    name: "Design and build",
+    words:
+      /cad|design|pneumatic|motor|drive ?train|gearbox|linkage|manipulator|3d print|machin|material|mechanis|linear motion|swerve|cnc|prototyp|climber|electronic|fusion|render|engineer/i,
+  },
+  {
+    id: "strategy",
+    name: "Strategy and scouting",
+    words: /strateg|scout|alliance|picky|pick list|match|win\b|einstein/i,
+  },
+  {
+    id: "team",
+    name: "Team and outreach",
+    words:
+      /market|fundrais|sponsor|outreach|impact|chairman|organi[sz]|management|leader|mentor|financ|business|media|volunteer|award|essay|engagement|newbies|join|member|sustainab|community|conference|operations/i,
+  },
+];
+const topicsOf = (title: string) => TOPICS.filter((topic) => topic.words.test(title)).map((topic) => topic.id);
+// Only offer filters when they split the year usefully: at least two topics with two or more talks.
+const usable = TOPICS.filter((topic) => talks.filter((talk) => topic.words.test(talk.title)).length >= 2);
+const filters = talks.length >= 8 && usable.length >= 2 ? usable : [];
+// Long descriptions are cut to a few lines with a "More" button, so the cards stay even.
+const LONG = 160;
+const toItem = (year: StuySplashYear | undefined, label: string) =>
+  year && { href: `/resources/stuysplash/${year.slug}/`, label, title: `StuySplash ${year.data.year}` };
+---
+
+<PageHead title={`StuySplash ${splash.year}`} intro={`${talks.length} talks from StuySplash ${splash.year}.`}>
+  <a slot="before" class="pill pill-ghost back" href="/resources/stuysplash">← StuySplash</a>
+  {
+    splash.playlist && (
+      <div class="actions">
+        <a class="pill pill-red" href={splash.playlist}>
+          Watch the recordings
+        </a>
+      </div>
+    )
+  }
+</PageHead>
+
+<div class="band talks">
+  <div class="prose"><slot /></div>
+  {
+    filters.length > 0 && (
+      <div class="filters" role="group" aria-label="Show talks about" hidden>
+        <button type="button" data-topic="" aria-pressed="true">
+          All <span>{talks.length}</span>
+        </button>
+        {filters.map((topic) => (
+          <button type="button" data-topic={topic.id} aria-pressed="false">
+            {topic.name} <span>{talks.filter((talk) => topic.words.test(talk.title)).length}</span>
+          </button>
+        ))}
+      </div>
+    )
+  }
+  <ul class="grid">
+    {
+      talks.map((talk) => (
+        <li data-topics={topicsOf(talk.title).join(" ")}>
+          <h2>{talk.title}</h2>
+          <p class="who">{talk.presenter}</p>
+          {talk.description && (
+            <p class="what" data-long={talk.description.length > LONG ? "" : undefined}>
+              {talk.description}
+            </p>
+          )}
+          {talk.description && talk.description.length > LONG && (
+            <button type="button" class="more" aria-expanded="false" hidden>
+              More
+            </button>
+          )}
+          {talk.url && (
+            <a class="pill pill-line" href={talk.url}>
+              Slides
+            </a>
+          )}
+        </li>
+      ))
+    }
+  </ul>
+  {
+    (earlier || later) && (
+      <div class="years">
+        <PrevNext ariaLabel="Other years" previous={toItem(earlier, "Earlier")} next={toItem(later, "Later")} />
+      </div>
+    )
+  }
+</div>
+
+<script>
+  // Clamp long descriptions only when this script runs, so without it every word still shows.
+  document.querySelectorAll<HTMLElement>(".what[data-long]").forEach((text) => {
+    const button = text.nextElementSibling as HTMLButtonElement | null;
+    if (!button?.classList.contains("more")) return;
+    text.classList.add("clamped");
+    // Some long texts still fit in four lines on a wide card; those need no button.
+    if (text.scrollHeight <= text.clientHeight + 1) {
+      text.classList.remove("clamped");
+      return;
+    }
+    button.hidden = false;
+    button.addEventListener("click", () => {
+      const open = text.classList.toggle("clamped") === false;
+      button.setAttribute("aria-expanded", String(open));
+      button.textContent = open ? "Less" : "More";
+    });
+  });
+
+  // Topic chips hide the talks that aren't about that topic.
+  const filters = document.querySelector<HTMLElement>(".filters");
+  if (filters) {
+    const buttons = [...filters.querySelectorAll<HTMLButtonElement>("button")];
+    const cards = [...document.querySelectorAll<HTMLElement>(".grid > li")];
+    filters.hidden = false;
+    buttons.forEach((button) =>
+      button.addEventListener("click", () => {
+        const topic = button.dataset.topic ?? "";
+        buttons.forEach((other) => other.setAttribute("aria-pressed", String(other === button)));
+        cards.forEach((card) => {
+          card.hidden = !!topic && !(card.dataset.topics ?? "").split(" ").includes(topic);
+        });
+      }),
+    );
+  }
+</script>
+
+<style>
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 28px;
+  }
+  .filters[hidden] {
+    display: none;
+  }
+  .filters button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    min-height: 46px;
+    padding: 0 18px;
+    border: 0;
+    border-radius: 999px;
+    background: #fff;
+    box-shadow: inset 0 0 0 2px var(--rose);
+    color: var(--red);
+    font-weight: 700;
+    font-size: 16px;
+    cursor: pointer;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
+  }
+  .filters button:hover {
+    background: var(--blush);
+  }
+  .filters button[aria-pressed="true"] {
+    background: var(--red);
+    color: #fff;
+    box-shadow: none;
+  }
+  .filters span {
+    font-size: 13px;
+    padding: 1px 8px;
+    border-radius: 999px;
+    background: var(--blush);
+    color: var(--red);
+  }
+  .grid > li[hidden] {
+    display: none;
+  }
+  .clamped {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    overflow: hidden;
+  }
+  .more {
+    align-self: flex-start;
+    margin: -12px 0 20px;
+    padding: 4px 0;
+    border: 0;
+    background: none;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 15px;
+    cursor: pointer;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  .back {
+    min-height: 40px;
+    padding: 0 18px;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  .prose {
+    margin-bottom: 32px;
+  }
+  .prose:empty {
+    display: none;
+  }
+  .years {
+    margin-top: 48px;
+  }
+  .grid {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+  }
+  li {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 28px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+  }
+  h2 {
+    font-size: 23px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+  .who {
+    margin: 8px 0 0;
+    color: var(--red);
+    font-weight: 600;
+  }
+  .what {
+    margin: 10px 0 0;
+    color: var(--soft);
+    font-size: 16px;
+  }
+  /* The last line of text keeps a gap above the button; margin-top: auto pins every button to its card's bottom. */
+  li p:last-of-type {
+    margin-bottom: 20px;
+  }
+  li .pill {
+    margin-top: auto;
+    min-height: 42px;
+    padding: 0 20px;
+    font-size: 15px;
+    transform-origin: left;
+  }
+</style>

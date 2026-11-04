@@ -1,65 +1,321 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
-import type { LeadershipType } from "@types";
+import PageHead from "@components/page/PageHead.astro";
+import BigStat from "@components/about/BigStat.astro";
+import { leaders, mentors, sponsors, type Department } from "@data";
+import { initials } from "@utils/format";
+import { getNewsletters } from "@utils/news";
+import { getRobots } from "@utils/robots";
+
+// Section ids on /about/leadership.
+const sectionId: Record<Department, string> = {
+  "Mechanical Engineering": "mechanical",
+  "Software Engineering": "software",
+  Business: "business",
+  Strategy: "strategy",
+};
 
 // I/T directors come straight from the leadership list, so this stays current.
-const leaders: LeadershipType[] = (await import("@data/leadership.yml")).default;
 const it = leaders.filter((leader) => /I\/T/.test(leader.position));
+const tools = ["Astro", "Markdown + YAML", "GitHub Pages", "GitHub Actions"];
+
+// Counted from the content files every time the site is built.
+const posts = await getNewsletters();
+const firstYear = posts.at(-1)?.data.date.getUTCFullYear();
+const counts = [
+  { value: (await getRobots()).length, label: "robots, each with its own page", href: "/about/history" },
+  { value: new Set(leaders.map((leader) => leader.name)).size, label: "student leaders", href: "/about/leadership" },
+  { value: mentors.length, label: "mentors", href: "/about/mentors" },
+  { value: sponsors.length, label: "sponsors", href: "/sponsors" },
+];
 ---
 
-<PageSite title="About this website" description="How stuypulse.com is built, and who maintains it." fullBleed>
+<PageSite title="About this website" description="How stuypulse.com is built, and who maintains it.">
   <PageHead title="About this website" intro="stuypulse.com is built and run by students in our I/T department.">
     <div class="actions">
-      <a class="pill pill-white" href="https://github.com/StuyPulse/stuypulse.com">See the source code</a>
-      <a class="pill pill-ghost" href="mailto:info@stuypulse.com?subject=Website">Email I/T</a>
+      <a class="pill pill-red" href="https://github.com/StuyPulse/stuypulse.com">See the source code</a>
+      <a class="pill pill-line" href="mailto:info@stuypulse.com?subject=Website">Email I/T</a>
     </div>
+    <BigStat
+      slot="aside"
+      value={posts.length}
+      label={`newsletters and posts${firstYear ? ` since ${firstYear}` : ""}`}
+      sticker="All in Markdown"
+      href="/news"
+    />
   </PageHead>
 
-  <div class="band prose">
-    {it.length > 0 && (
-      <>
-        <h2>Who runs it</h2>
-        <ul class="people">
-          {it.map((leader) => <li><b>{leader.name}</b>, {leader.position.replace(/\s*\([^)]*\)$/, "")}</li>)}
+  <div class="band layout">
+    <div class="prose">
+      <h2>History</h2>
+      <p>
+        This version of stuypulse.com launched on August 1, 2023, replacing the Jekyll site we'd used since 2013. It was
+        built in 2022 and 2023 by our then-new I/T department: Gus Watkins, Ivy Lin, Kelvin Zhao and Anthony Chen. In
+        2026 it was redesigned in red and white.
+      </p>
+
+      <h2>How it's built</h2>
+      <p>
+        The site is built with <a href="https://astro.build">Astro</a>, a static site generator, so pages are made ahead
+        of time and no server is needed. It's hosted on GitHub Pages and rebuilt by GitHub Actions every time something
+        changes.
+      </p>
+      <p>
+        Newsletters, robots, StuySplash talks, leadership, mentors and sponsors are kept as Markdown and YAML files.
+        Team members can edit them without writing code, using the editor at <a href="/admin/">stuypulse.com/admin</a>.
+      </p>
+      <p>
+        The whole site is open source. Take a look at the
+        <a href="https://github.com/StuyPulse/stuypulse.com">source code on GitHub</a> to see how it works.
+      </p>
+    </div>
+
+    <aside class="side">
+      {
+        it.length > 0 && (
+          <section class="card" aria-labelledby="who">
+            <h2 id="who">Who runs it</h2>
+            <ul class="people">
+              {it.map((leader, i) => (
+                <li>
+                  <a href={`/about/leadership#${sectionId[leader.department]}`}>
+                    {leader.image ? (
+                      <img class="face" src={leader.image} alt="" loading="lazy" />
+                    ) : (
+                      <span class:list={["face", i % 2 ? "soft" : "solid"]} aria-hidden="true">
+                        {initials(leader.name)}
+                      </span>
+                    )}
+                    <span>
+                      <b>{leader.name}</b>
+                      <small>{leader.position.replace(/\s*\([^)]*\)$/, "")}</small>
+                    </span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+      <section class="card on-red" aria-labelledby="stack">
+        <h2 id="stack">Built with</h2>
+        <ul class="tools">
+          {tools.map((tool) => <li class="chip chip-red">{tool}</li>)}
         </ul>
-      </>
-    )}
-
-    <h2>History</h2>
-    <p>
-      This version of stuypulse.com launched on August 1, 2023, replacing the Jekyll site we'd used since 2013. It was
-      built in 2022 and 2023 by our then-new I/T department: Gus Watkins, Ivy Lin, Kelvin Zhao and Anthony Chen. In 2026
-      it was redesigned in red and white.
-    </p>
-
-    <h2>How it's built</h2>
-    <p>
-      The site is built with <a href="https://astro.build">Astro</a>, a static site generator, so pages are made ahead of
-      time and no server is needed. It's hosted on GitHub Pages and rebuilt by GitHub Actions every time something changes.
-    </p>
-    <p>
-      Newsletters, robots, StuySplash talks, leadership, mentors and sponsors are kept as Markdown and YAML files. Team
-      members can edit them without writing code, using the editor at <a href="/admin/">stuypulse.com/admin</a>.
-    </p>
-    <p>
-      The whole site is open source. Take a look at the
-      <a href="https://github.com/StuyPulse/stuypulse.com">source code on GitHub</a> to see how it works.
-    </p>
+        <a class="pill pill-red" href="/admin/">Open the editor</a>
+      </section>
+    </aside>
   </div>
+
+  <section class="band band-tint counts" aria-labelledby="counts-title">
+    <h2 id="counts-title" class="band-title">What the site keeps track of</h2>
+    <p class="lede">Every number here is counted from the site's own files each time it's built.</p>
+    <ul>
+      {
+        counts.map((count) => (
+          <li>
+            <a href={count.href}>
+              <b data-count={count.value}>{count.value}</b>
+              <span>{count.label}</span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </PageSite>
 
-<style>
-  .prose {
-    max-width: 1120px;
+<script>
+  // Numbers tick up from zero the first time the row scrolls into view. They're already in the
+  // HTML, so nothing changes without JS or with reduced motion.
+  const numbers = [...document.querySelectorAll<HTMLElement>("[data-count]")];
+  if (numbers.length && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const run = (el: HTMLElement) => {
+      const target = Number(el.dataset.count);
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min(1, (now - start) / 900);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          observer.unobserve(entry.target);
+          run(entry.target as HTMLElement);
+        }
+      },
+      { threshold: 0.6 },
+    );
+    for (const el of numbers) observer.observe(el);
   }
-  .prose h2:first-child {
-    margin-top: 0;
+</script>
+
+<style>
+  .layout {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: clamp(28px, 5vw, 72px);
+    align-items: start;
   }
   .prose h2 {
     font-size: clamp(1.8rem, 3vw, 2.4rem);
   }
+  .prose h2:first-child {
+    margin-top: 0;
+  }
+  .side {
+    display: grid;
+    gap: 20px;
+  }
+  .card {
+    padding: clamp(24px, 3vw, 36px);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  .card.on-red {
+    background: var(--red);
+  }
+  .card h2 {
+    font-size: clamp(1.6rem, 2.4vw, 2rem);
+    margin: 0;
+  }
   .people {
-    padding-left: 1.2em;
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+    display: grid;
+    gap: 10px;
+  }
+  .people a {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 20px 10px 10px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    transition: background-color 0.15s ease;
+  }
+  .people a:hover {
+    background: var(--rose);
+  }
+  .face {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    object-fit: cover;
+    font-weight: 800;
+    font-size: 20px;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+  }
+  .solid {
+    background: var(--red);
+    color: #fff;
+  }
+  .soft {
+    background: var(--blush);
+    color: var(--red);
+    box-shadow: inset 0 0 0 3px var(--rose);
+  }
+  .people b {
+    display: block;
+    font-size: 18px;
+    line-height: 1.2;
+  }
+  .people small {
+    color: var(--red);
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .tools {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 24px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .counts .lede {
+    margin-top: 12px;
+  }
+  .counts ul {
+    list-style: none;
+    padding: 0;
+    margin: 36px 0 0;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+  .counts li:nth-child(odd) a {
+    background: var(--red);
+    color: #fff;
+  }
+  .counts li:nth-child(odd) b {
+    color: #fff;
+  }
+  .counts a {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 220px;
+    padding: 28px;
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--ink);
+    transition: transform 0.2s ease;
+  }
+  .counts li:nth-child(1) a {
+    transform: rotate(-2deg);
+  }
+  .counts li:nth-child(3) a {
+    transform: rotate(1.5deg);
+  }
+  .counts li a:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+  .counts b {
+    color: var(--red);
+    font-size: clamp(64px, 7vw, 104px);
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    font-variation-settings: "opsz" 96;
+    font-variant-numeric: tabular-nums;
+  }
+  .counts span {
+    margin-top: 10px;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.25;
+  }
+  @media (max-width: 1000px) {
+    .counts ul {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .counts ul {
+      gap: 10px;
+    }
+    .counts a {
+      min-height: 160px;
+      padding: 20px;
+      border-radius: var(--radius-md);
+    }
+    .counts span {
+      font-size: 15px;
+    }
+  }
+  @media (max-width: 860px) {
+    .layout {
+      grid-template-columns: 1fr;
+    }
   }
 </style>

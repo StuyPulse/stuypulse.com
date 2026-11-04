@@ -1,14 +1,15 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
 
+// The troubleshooting guide is the one tutorial that's ours alone, so it leads.
+const main = {
+  title: "Driver Station troubleshooting",
+  text: "Fixes for common Driver Station problems, from our Software Engineering department.",
+  href: "https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/694TroubleshootingGuide.pdf",
+  action: "Open the guide (PDF)",
+};
 const guides = [
-  {
-    title: "Driver Station troubleshooting",
-    text: "Fixes for common Driver Station problems, from our Software Engineering department.",
-    href: "https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/694TroubleshootingGuide.pdf",
-    action: "Open the guide (PDF)",
-  },
   {
     title: "FLL curriculum",
     text: "Our FIRST LEGO League curriculum, made to give new teams and their mentors a solid start.",
@@ -20,39 +21,147 @@ const guides = [
     text: "Slides and recordings from every StuySplash since 2012, on everything from drive trains to marketing.",
     href: "/resources/stuysplash",
     action: "Browse the talks",
+    photo: "/home/stuysplash.jpg",
   },
 ];
 ---
 
-<PageSite title="Tutorials" description="Guides from StuyPulse for FRC and FLL teams." fullBleed>
-  <PageHead title="Tutorials" intro="Guides we've written for other FRC and FLL teams." />
+<PageSite title="Tutorials" description="Guides from StuyPulse for FRC and FLL teams.">
+  <PageHead title="Tutorials" intro="Guides we've written for other FRC and FLL teams.">
+    <a slot="aside" class="main" href={main.href}>
+      <span class="tag">Start here</span>
+      <svg class="icon" viewBox="0 0 48 48" width="56" height="56" aria-hidden="true">
+        <rect x="6" y="9" width="36" height="24" rx="6" fill="none" stroke="currentColor" stroke-width="3.5"></rect>
+        <path
+          d="M17 41h14M24 33v8M13 21l5-5 4 7 5-9 4 7h4"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="3.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+      <b>{main.title}</b>
+      <span>{main.text}</span>
+      <span class="pill go">{main.action}</span>
+    </a>
+  </PageHead>
 
   <ul class="band guides">
-    {guides.map((guide) => (
-      <li>
-        <h2>{guide.title}</h2>
-        <p>{guide.text}</p>
-        <a class="pill pill-red" href={guide.href}>{guide.action}</a>
-      </li>
-    ))}
+    {
+      guides.map((guide) => (
+        <li class:list={{ photo: guide.photo }}>
+          {guide.photo && <img src={guide.photo} alt="" loading="lazy" />}
+          <div>
+            <h2>{guide.title}</h2>
+            <p>{guide.text}</p>
+            <a class="pill pill-red" href={guide.href}>
+              {guide.action}
+            </a>
+          </div>
+        </li>
+      ))
+    }
   </ul>
 </PageSite>
 
 <style>
+  /* The main guide as a white card in the red head, tilted like a sheet handed over. */
+  .main {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    width: min(100%, 480px);
+    margin-left: auto;
+    padding: clamp(28px, 3vw, 40px);
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--ink);
+    transform: rotate(-2deg);
+    box-shadow: 0 30px 60px -24px rgba(70, 0, 4, 0.55);
+    transition: transform 0.2s ease;
+  }
+  /* Doubled class: beats the head's "links on red are white" rule. */
+  .main.main {
+    color: var(--ink);
+  }
+  .go {
+    background: var(--red);
+    color: #fff;
+  }
+  .main:hover,
+  .main:focus-visible {
+    transform: rotate(0deg) translateY(-6px);
+  }
+  .main:hover .go {
+    background: var(--red-dark);
+  }
+  .tag {
+    position: absolute;
+    right: 24px;
+    top: -16px;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: var(--red-dark);
+    color: #fff;
+    font-weight: 800;
+    transform: rotate(5deg);
+  }
+  .icon {
+    color: var(--red);
+  }
+  .main b {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+  }
+  .main > span:not(.tag, .pill) {
+    color: var(--soft);
+  }
+  .main .pill {
+    margin-top: 8px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .main:hover,
+    .main:focus-visible {
+      transform: rotate(-2deg);
+    }
+  }
+  @media (max-width: 860px) {
+    .main {
+      margin-inline: auto;
+    }
+  }
   .guides {
     list-style: none;
     margin: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
     gap: 20px;
   }
   li {
     display: flex;
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+    overflow: hidden;
+  }
+  li > div {
+    display: flex;
     flex-direction: column;
     align-items: flex-start;
     padding: clamp(28px, 3vw, 40px);
-    border-radius: var(--radius-lg);
-    background: var(--blush);
+  }
+  .photo {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+  .photo img {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    object-fit: cover;
   }
   h2 {
     font-size: 30px;
@@ -62,7 +171,17 @@ const guides = [
     margin: 12px 0 24px;
     color: var(--soft);
   }
-  .pill {
+  li .pill {
     margin-top: auto;
+  }
+  @media (max-width: 860px) {
+    .guides,
+    .photo {
+      grid-template-columns: 1fr;
+    }
+    .photo img {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
   }
 </style>

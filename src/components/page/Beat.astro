@@ -1,0 +1,56 @@
+---
+// The heartbeat line along the bottom of a hero or page head. It draws itself once on load.
+// `flat` gives a flatline (used on the 404 page).
+export interface Props {
+  // Where the spike sits, as a fraction of the width.
+  at?: number;
+  height?: number;
+  flat?: boolean;
+}
+const { at = 0.78, height = 110, flat = false } = Astro.props;
+const x = at * 1000;
+const d = flat
+  ? "M0 70 H1000"
+  : `M0 70 H${x - 40} L${x - 22} 70 L${x - 8} 12 L${x + 10} 100 L${x + 24} 44 L${x + 36} 70 H1000`;
+---
+
+<svg class="beat" viewBox="0 0 1000 110" preserveAspectRatio="none" style={`height:${height}px`} aria-hidden="true">
+  <path d={d}></path>
+</svg>
+
+<style>
+  .beat {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    pointer-events: none;
+  }
+  path {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 3;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+    opacity: 0.3;
+  }
+  /* Uncovered left to right like a monitor trace. (A dash animation draws the wrong length
+     with non-scaling-stroke in Chrome.) */
+  .beat {
+    animation: draw 1.2s 0.15s cubic-bezier(0.6, 0, 0.2, 1) both;
+  }
+  @keyframes draw {
+    from {
+      clip-path: inset(0 100% 0 0);
+    }
+    to {
+      clip-path: inset(0 0 0 0);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .beat {
+      animation: none;
+    }
+  }
+</style>

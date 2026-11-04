@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Summer Newsletter
 author: StuyPulse
 link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/StuyPost%20September%202023.pdf

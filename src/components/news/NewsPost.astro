@@ -1,0 +1,282 @@
+---
+// One newsletter or story: title and date, the PDF (with its cover in the head when we have one),
+// a note for Canva links, any written text (passed in as the slot) and links to the next ones.
+import PageHead from "@components/page/PageHead.astro";
+import PrevNext from "@components/page/PrevNext.astro";
+import { coverOf, isBoilerplate } from "@components/news/covers";
+import { formatDate } from "@utils/format";
+import { kindOf, type Newsletter } from "@utils/news";
+import { getSeasonRobot } from "@utils/seasons";
+
+export interface Props {
+  entry: Newsletter;
+  newer?: Newsletter;
+  older?: Newsletter;
+}
+const { entry, newer, older } = Astro.props;
+const { title, date, author, link } = entry.data;
+const kind = kindOf(entry);
+const cover = coverOf(entry);
+const written = kind === "post";
+const robot = written ? await getSeasonRobot(date) : undefined;
+const showBody = !isBoilerplate(entry);
+const toItem = (post: Newsletter | undefined, label: string) =>
+  post && { href: `/news/${post.slug}`, label, title: post.data.title };
+const back = written ? { href: "/news/stories/", label: "All stories" } : { href: "/news/", label: "All newsletters" };
+---
+
+<PageHead title={title}>
+  {
+    written && (
+      <span slot="before" class="sticker">
+        From the archive · {date.getUTCFullYear()}
+      </span>
+    )
+  }
+  <p class="meta">
+    <time datetime={date.toISOString().slice(0, 10)}>{formatDate(date)}</time>
+    {author !== "StuyPulse" && <span>by {author}</span>}
+  </p>
+  {
+    link && (
+      <div class="actions">
+        <a class="pill pill-red" href={link} target="_blank" rel="noopener">
+          {kind === "pdf" ? "Open the PDF" : "Open the newsletter"}
+        </a>
+        {kind === "pdf" && (
+          <a class="pill pill-line" href={link} download>
+            Download
+          </a>
+        )}
+      </div>
+    )
+  }
+  {
+    cover && (
+      <a slot="aside" class="cover" href={link} target="_blank" rel="noopener">
+        <img src={cover} alt={`Cover of the ${title}`} width="582" height="900" fetchpriority="high" />
+        <span class="tap">Open the PDF ↗</span>
+      </a>
+    )
+  }
+  {
+    robot && (
+      <a slot="aside" class="robot" href={`/about/history/${robot.slug}`}>
+        {robot.data.photo && <img src={robot.data.photo} alt="" loading="lazy" />}
+        <span>
+          The {robot.data.year} robot
+          <b>{robot.data.title} →</b>
+        </span>
+      </a>
+    )
+  }
+</PageHead>
+
+<div class:list={["band post", { "has-cover": cover }]}>
+  {
+    kind === "pdf" && (
+      <object class="pdf" data={link} type="application/pdf" title={title}>
+        <p>
+          Your browser can't show the PDF here. <a href={link}>Open it instead</a>.
+        </p>
+      </object>
+    )
+  }
+  {
+    kind === "pdf" && !cover && (
+      <p class="lede phone-note">On a phone, open or download the PDF with the buttons above to read every page.</p>
+    )
+  }
+  {kind === "canva" && <p class="lede">This newsletter was made in Canva and opens on their site.</p>}
+  {
+    showBody && (
+      <div class:list={["prose", { written }]}>
+        <slot />
+      </div>
+    )
+  }
+
+  <PrevNext ariaLabel="More news" previous={toItem(newer, "Newer")} next={toItem(older, "Older")} />
+  <a class="pill pill-line all" href={back.href}>{back.label}</a>
+</div>
+
+<style>
+  .sticker {
+    display: inline-block;
+    margin-bottom: 20px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 800;
+    transform: rotate(-3deg);
+    box-shadow: 0 14px 28px -14px rgba(50, 0, 0, 0.45);
+  }
+  .meta {
+    display: flex;
+    gap: 14px;
+    margin: 18px 0 0;
+    font-size: 19px;
+    opacity: 0.9;
+  }
+  .actions {
+    margin-top: 24px;
+  }
+  /* The cover sits in the head, a little askew; it straightens when pointed at. */
+  .cover {
+    position: relative;
+    display: block;
+    width: min(100%, 380px);
+    margin-inline: auto;
+    border-radius: 24px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow:
+      0 0 0 6px #fff,
+      0 30px 60px -24px rgba(70, 0, 4, 0.55);
+    transform: rotate(2deg);
+    transition: transform 0.2s ease;
+  }
+  .cover:hover,
+  .cover:focus-visible {
+    transform: rotate(0deg) translateY(-6px);
+  }
+  .cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+  .tap {
+    position: absolute;
+    right: 14px;
+    bottom: 14px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .robot {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    width: min(100%, 420px);
+    margin-left: auto;
+    padding: 12px 12px 20px;
+    border-radius: 32px;
+    background: #fff;
+    color: var(--ink);
+    transform: rotate(-2deg);
+    box-shadow: 0 30px 60px -24px rgba(70, 0, 4, 0.55);
+    transition: transform 0.2s ease;
+  }
+  .robot:hover,
+  .robot:focus-visible {
+    transform: rotate(0deg) translateY(-6px);
+    color: var(--ink);
+  }
+  .robot img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    border-radius: 22px;
+  }
+  .robot span {
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px;
+    color: var(--soft);
+    font-size: 15px;
+  }
+  .robot b {
+    color: var(--red);
+    font-size: 26px;
+    letter-spacing: -0.02em;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .cover:hover,
+    .cover:focus-visible {
+      transform: rotate(2deg);
+    }
+    .robot:hover,
+    .robot:focus-visible {
+      transform: rotate(-2deg);
+    }
+  }
+  .pdf {
+    display: block;
+    width: 100%;
+    height: min(1100px, 85vh);
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    margin-bottom: 40px;
+  }
+  .prose {
+    margin-bottom: 40px;
+  }
+  .prose:empty {
+    display: none;
+  }
+  /* Old written posts read like a magazine page: bigger, darker text in a narrower column. */
+  .written {
+    max-width: 68ch;
+    margin-inline: auto;
+    font-size: 19px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .written :global(p),
+  .written :global(li) {
+    max-width: 68ch;
+  }
+  /* Photos alternate between the full column and a smaller one pushed to either side. */
+  .written :global(figure) {
+    margin: 40px 0;
+  }
+  .written :global(figure img) {
+    width: 100%;
+    border-radius: 28px;
+  }
+  .written :global(figure:nth-of-type(3n + 2)) {
+    width: 72%;
+    margin-left: auto;
+    transform: rotate(1deg);
+  }
+  .written :global(figure:nth-of-type(3n + 3)) {
+    width: 72%;
+    transform: rotate(-1deg);
+  }
+  .written :global(figure:nth-of-type(3n + 2) figcaption) {
+    text-align: right;
+  }
+  .written :global(figure:nth-of-type(3n + 3) figcaption) {
+    text-align: left;
+  }
+  .phone-note {
+    display: none;
+    margin: 0 0 40px;
+  }
+  .all {
+    margin-top: 32px;
+  }
+  /* An embedded PDF is unusable on phones (iOS only renders page 1), so the cover in the head
+     (or a note pointing at the buttons) stands in for it there. */
+  @media (max-width: 640px) {
+    .pdf {
+      display: none;
+    }
+    .phone-note {
+      display: block;
+    }
+    .cover {
+      width: min(100%, 300px);
+    }
+    .robot {
+      margin-inline: auto;
+    }
+    .written :global(figure:nth-of-type(n)) {
+      width: 100%;
+    }
+  }
+</style>

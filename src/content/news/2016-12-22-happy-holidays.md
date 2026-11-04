@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Happy Holidays!
 author: Courtney Chiu
 date: 2016-12-22

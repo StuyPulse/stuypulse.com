@@ -1,0 +1,118 @@
+---
+// The newsletters and posts from a robot's season, as a row of cards you can scroll sideways.
+// Renders nothing for seasons before the newsletters started.
+import { formatDate, plural } from "@utils/format";
+import { kindOf } from "@utils/news";
+import { getSeasonNewsletters } from "@utils/seasons";
+
+export interface Props {
+  year: number;
+  name: string;
+}
+const { year, name } = Astro.props;
+const posts = await getSeasonNewsletters(year);
+const KIND = { pdf: "PDF", canva: "Canva", post: "Post" } as const;
+---
+
+{
+  posts.length > 0 && (
+    <section class="season-news" aria-labelledby="season-news-title">
+      <div class="top">
+        <div>
+          <h2 id="season-news-title">That season</h2>
+          <p>
+            {plural(posts.length, "newsletter")} from the year we built {name}.
+          </p>
+        </div>
+        <a class="pill pill-line" href="/news">
+          All newsletters
+        </a>
+      </div>
+      <ol class="rail">
+        {posts.map((post) => (
+          <li>
+            <a href={`/news/${post.slug}`}>
+              <span class="chip chip-red">{KIND[kindOf(post)]}</span>
+              <b>{post.data.title}</b>
+              <time datetime={post.data.date.toISOString()}>
+                {formatDate(post.data.date, { month: "short", day: "numeric", year: "numeric" })}
+              </time>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </section>
+  )
+}
+
+<style>
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  h2 {
+    font-size: clamp(2rem, 3.6vw, 3.2rem);
+    margin: 0;
+  }
+  .top p {
+    margin: 10px 0 0;
+    color: var(--soft);
+    font-size: 19px;
+  }
+  /* Runs to the screen edge on both sides so the cards visibly continue off-screen. */
+  .rail {
+    list-style: none;
+    margin: 28px calc(-1 * var(--gutter)) 0;
+    padding: 4px var(--gutter) 18px;
+    display: flex;
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scroll-padding-inline: var(--gutter);
+    scrollbar-width: thin;
+    scrollbar-color: var(--rose) transparent;
+  }
+  li {
+    flex: none;
+    width: clamp(240px, 26vw, 300px);
+    scroll-snap-align: start;
+  }
+  li a {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    height: 100%;
+    min-height: 200px;
+    padding: 24px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    color: var(--ink);
+    transition:
+      transform 0.18s ease-out,
+      background-color 0.18s ease;
+  }
+  li a:hover {
+    background: var(--rose);
+    color: var(--ink);
+    transform: translateY(-4px) rotate(-1deg);
+  }
+  li .chip {
+    font-size: 14px;
+    padding: 4px 12px;
+  }
+  b {
+    font-size: 21px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+  }
+  time {
+    margin-top: auto;
+    color: var(--soft);
+    font-size: 15px;
+    font-weight: 600;
+  }
+</style>

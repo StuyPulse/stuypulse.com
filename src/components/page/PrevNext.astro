@@ -1,0 +1,112 @@
+---
+// Two big links at the end of a page to the item before and after it. A lone link fills the row.
+export interface Item {
+  href: string;
+  label: string;
+  title: string;
+  // Optional photo, shown as a small round thumbnail.
+  image?: string;
+}
+export interface Props {
+  previous?: Item;
+  next?: Item;
+  ariaLabel: string;
+}
+const { previous, next, ariaLabel } = Astro.props;
+---
+
+<nav class="prev-next" aria-label={ariaLabel}>
+  {
+    previous && (
+      <a class="prev" href={previous.href}>
+        {previous.image && <img src={previous.image} alt="" loading="lazy" />}
+        <div>
+          <span>
+            <i aria-hidden="true">←</i> {previous.label}
+          </span>
+          <b>{previous.title}</b>
+        </div>
+      </a>
+    )
+  }
+  {
+    next && (
+      <a class="next" href={next.href}>
+        {next.image && <img src={next.image} alt="" loading="lazy" />}
+        <div>
+          <span>
+            {next.label} <i aria-hidden="true">→</i>
+          </span>
+          <b>{next.title}</b>
+        </div>
+      </a>
+    )
+  }
+</nav>
+
+<style>
+  .prev-next {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 16px;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 22px 26px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+    color: var(--ink);
+  }
+  a:hover {
+    color: var(--red);
+  }
+  a > div {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+  }
+  .next {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+  img {
+    flex: none;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 0 0 4px #fff;
+  }
+  span {
+    color: var(--soft);
+    font-size: 15px;
+  }
+  i {
+    display: inline-block;
+    font-style: normal;
+    transition: transform 0.15s ease;
+  }
+  .prev:hover i {
+    transform: translateX(-4px);
+  }
+  .next:hover i {
+    transform: translateX(4px);
+  }
+  b {
+    font-size: 20px;
+    line-height: 1.25;
+  }
+  @media (max-width: 640px) {
+    .prev-next {
+      grid-auto-flow: row;
+    }
+    .next {
+      flex-direction: row;
+      text-align: left;
+    }
+  }
+</style>

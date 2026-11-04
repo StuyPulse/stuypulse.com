@@ -1,80 +1,309 @@
 ---
-import { getCollection } from "astro:content";
 import PageSite from "@layouts/PageSite.astro";
-import Hero from "@components/redesign/Hero.astro";
+import Hero from "@components/page/Hero.astro";
+import { ordinal, plural } from "@utils/format";
+import { getRobots } from "@utils/robots";
+import AwardIcon from "@components/awards/AwardIcon.astro";
+import { wonEvents } from "@components/robots/events";
 
-const robots = (await getCollection("history")).sort((a, b) => b.data.year - a.data.year);
-const latest = robots[0];
-const awards = latest.data.awards ?? [];
-const plural = (n: number) => `${n} award${n === 1 ? "" : "s"}`;
-const ordinal = (n: number) => n + (["th", "st", "nd", "rd"][(n % 100 > 10 && n % 100 < 14) || n % 10 > 3 ? 0 : n % 10]);
-const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10) * 10))];
+const robots = await getRobots("newest");
+const origin = robots[robots.length - 1];
+const decadeOf = (year: number) => Math.floor(year / 10) * 10;
+const decades = [...new Set(robots.map((robot) => decadeOf(robot.data.year)))];
+
+const awardCount = (robot: (typeof robots)[number]) => robot.data.awards?.length ?? 0;
+// "Won New York City", or "Won New York City +2" when a robot won more than one event.
+const wonLabel = (awards: string[]) => {
+  const events = wonEvents(awards);
+  return events.length ? `Won ${events[0]}${events.length > 1 ? ` +${events.length - 1}` : ""}` : "";
+};
+
+// Everything the spotlight needs to swap in another robot without a page load.
+const spotlight = robots.map((robot, i) => ({
+  name: robot.data.title,
+  year: robot.data.year,
+  href: `/about/history/${robot.slug}`,
+  photo: robot.data.photo,
+  intro: `${robot.data.year}, our ${ordinal(robots.length - i)} robot`,
+  awards: awardCount(robot) ? plural(awardCount(robot), "award") : "",
+  won: wonLabel(robot.data.awards ?? []),
+}));
+const now = spotlight[0];
+
+const groups = decades.map((decade) => {
+  const members = robots.filter((robot) => decadeOf(robot.data.year) === decade);
+  return {
+    decade,
+    robots: members.filter((robot) => robot !== origin),
+    awards: members.reduce((sum, robot) => sum + awardCount(robot), 0),
+    count: members.length,
+  };
+});
+
+// The first robot closes the grid as its own card, with the opening line of its story.
+const firstSentence =
+  origin.body
+    .trim()
+    .split(/\n\s*\n/)[0]
+    .replace(/[*_`#>\[\]]/g, "")
+    .match(/^.+?[.!?](?=\s|$)/)?.[0] ?? "";
 ---
 
 <PageSite
   title="Robots"
   description={`Every StuyPulse robot since ${robots[robots.length - 1].data.year}, with the awards each one won.`}
-  fullBleed
 >
   <div class="marquee" aria-hidden="true">
     <div>
-      {[0, 1].map(() =>
-        robots.map((robot, i) => (
-          <>
-            <span class:list={{ outline: i % 2 }}>{robot.data.title}</span>
-            <svg viewBox="0 0 64 36"><path d="M0 20H20l5-13 6 26 5-13h28" /></svg>
-          </>
-        ))
-      )}
+      {
+        [0, 1].map(() =>
+          robots.map((robot, i) => (
+            <>
+              <span class:list={{ outline: i % 2 }}>{robot.data.title}</span>
+              <svg viewBox="0 0 64 36">
+                <path d="M0 20H20l5-13 6 26 5-13h28" />
+              </svg>
+            </>
+          )),
+        )
+      }
     </div>
   </div>
-  <Hero title={latest.data.title} intro={`${latest.data.year}, our ${ordinal(robots.length)} robot`}>
-    <span slot="before" class="chip chip-white">This season</span>
-    <Fragment slot="after">
-      <ul class="awards">
-        {awards.map((award) => <li class:list={{ win: /winner/i.test(award) }}>{award}</li>)}
-      </ul>
-      <div class="actions"><a class="pill pill-white" href={`/about/history/${latest.slug}`}>See {latest.data.title}</a></div>
-    </Fragment>
-    <div slot="side" class="orb">
-      <span class="ring"></span><span class="ring"></span><span class="ring"></span>
-      <div class="pic"><img src={latest.data.photo} alt={`${latest.data.title} on the field`} /></div>
-    </div>
-  </Hero>
+  <div data-spotlight>
+    <Hero tone="blush" title={now.name} intro={now.intro}>
+      <span slot="before" class="chip chip-red">Meet a robot</span>
+      <Fragment slot="after">
+        <div class="orb orb-inline">
+          <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+          <div class="pic"><img data-photo src={now.photo} alt={`${now.name} on the field`} /></div>
+        </div>
+        <p class="tally">
+          <a data-awards href={`${now.href}#awards`} hidden={!now.awards}>{now.awards}</a>
+          <span class="won" data-won hidden={!now.won}>
+            <AwardIcon kind="win" size={16} />
+            <span>{now.won}</span>
+          </span>
+        </p>
+        <div class="actions">
+          <a class="pill pill-red" data-link href={now.href}>See {now.name}</a>
+          <button class="pill pill-line shuffle" type="button" data-shuffle hidden>
+            <svg viewBox="0 0 24 24" width="20" height="20" aria-hidden="true">
+              <path
+                d="M3 7h3.5c3 0 4.5 10 7.5 10H20M3 17h3.5c1.4 0 2.4-2 3.3-4.3M14 7h6m0 0-3-3m3 3-3 3m3 7-3-3m3 3-3 3"
+              ></path>
+            </svg>
+            Shuffle
+          </button>
+        </div>
+      </Fragment>
+      <div slot="side" class="orb orb-side">
+        <span class="ring"></span><span class="ring"></span><span class="ring"></span>
+        <div class="pic"><img data-photo src={now.photo} alt={`${now.name} on the field`} /></div>
+      </div>
+    </Hero>
+    <script type="application/json" data-robots set:html={JSON.stringify(spotlight)} />
+  </div>
 
   <section class="section" aria-labelledby="all">
     <h2 id="all">Every robot since {robots[robots.length - 1].data.year}</h2>
-    <p class="lede">{robots.length} of them, each named by the team that built it. The number is how many awards it won.</p>
+    <p class="lede">
+      {robots.length} of them, each named by the team that built it. The number is how many awards it won.
+    </p>
     <div class="filters" role="group" aria-label="Show robots from">
       <button type="button" aria-pressed="true" data-decade="">All</button>
-      {decades.map((decade) => <button type="button" aria-pressed="false" data-decade={decade}>{decade}s</button>)}
+      {
+        decades.map((decade) => (
+          <button type="button" aria-pressed="false" data-decade={decade}>
+            {decade}s
+          </button>
+        ))
+      }
     </div>
     <ul class="grid-bots">
-      {robots.map((robot) => (
-        <li data-decade={Math.floor(robot.data.year / 10) * 10}>
-          <a class="bot" href={`/about/history/${robot.slug}`}>
-            <div class="img">
-              {robot.data.photo && <img src={robot.data.photo} alt="" loading="lazy" />}
-              <span class="n">{plural(robot.data.awards?.length ?? 0)}</span>
-            </div>
-            <b>{robot.data.title}</b>
-            <span>{robot.data.year}</span>
-          </a>
-        </li>
-      ))}
+      {
+        groups.map((group) => (
+          <>
+            <li class="decade" data-decade={group.decade}>
+              <h3>{group.decade}s</h3>
+              <p>
+                {plural(group.count, "robot")}, {plural(group.awards, "award")}
+              </p>
+            </li>
+            {group.robots.map((robot) => {
+              const won = wonLabel(robot.data.awards ?? []);
+              return (
+                <li class="card" data-decade={group.decade}>
+                  <a class="bot" href={`/about/history/${robot.slug}`}>
+                    <div class="img">
+                      {robot.data.photo && <img src={robot.data.photo} alt="" loading="lazy" />}
+                      <span class="n">{plural(awardCount(robot), "award")}</span>
+                      {won && (
+                        <span class="trophy">
+                          <AwardIcon kind="win" size={15} />
+                          <span>{won}</span>
+                        </span>
+                      )}
+                    </div>
+                    <b>{robot.data.title}</b>
+                    <span>{robot.data.year}</span>
+                  </a>
+                </li>
+              );
+            })}
+            {decadeOf(origin.data.year) === group.decade && (
+              <li class="origin" data-decade={group.decade}>
+                <a href={`/about/history/${origin.slug}`}>
+                  <div class="origin-img">
+                    {origin.data.photo && <img src={origin.data.photo} alt="" loading="lazy" />}
+                  </div>
+                  <div class="origin-text">
+                    <span class="chip chip-white">Where it started</span>
+                    <b>{origin.data.title}</b>
+                    <span class="origin-year">
+                      {[
+                        `${origin.data.year}, our first robot`,
+                        awardCount(origin) && plural(awardCount(origin), "award"),
+                      ]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </span>
+                    {firstSentence && <p>{firstSentence}</p>}
+                    <span class="more">
+                      Read its story <i aria-hidden="true">→</i>
+                    </span>
+                  </div>
+                </a>
+              </li>
+            )}
+          </>
+        ))
+      }
     </ul>
   </section>
 </PageSite>
 
 <script>
+  interface Spot {
+    name: string;
+    year: number;
+    href: string;
+    photo?: string;
+    intro: string;
+    awards: string;
+    won: string;
+  }
+
+  // Spotlight: Shuffle swaps in a random robot with a short crossfade. The page loads with the
+  // newest robot, so without JS it is simply that robot and the button stays hidden.
+  const spot = document.querySelector<HTMLElement>("[data-spotlight]");
+  const data = spot?.querySelector("[data-robots]");
+  if (spot && data) {
+    const robots: Spot[] = JSON.parse(data.textContent ?? "[]");
+    const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const button = spot.querySelector<HTMLButtonElement>("[data-shuffle]")!;
+    const title = spot.querySelector("h1")!;
+    const intro = spot.querySelector(".intro");
+    const link = spot.querySelector<HTMLAnchorElement>("[data-link]")!;
+    const awards = spot.querySelector<HTMLAnchorElement>("[data-awards]")!;
+    const won = spot.querySelector<HTMLElement>("[data-won]")!;
+    const photos = spot.querySelectorAll<HTMLImageElement>("[data-photo]");
+    const fading = [title, intro, spot.querySelector(".tally"), ...spot.querySelectorAll(".pic")].filter(Boolean);
+    let current = 0;
+    let busy = false;
+
+    const show = (robot: Spot) => {
+      title.textContent = robot.name;
+      if (intro) intro.textContent = robot.intro;
+      link.href = robot.href;
+      link.textContent = `See ${robot.name}`;
+      awards.href = `${robot.href}#awards`;
+      awards.textContent = robot.awards;
+      awards.hidden = !robot.awards;
+      won.querySelector("span")!.textContent = robot.won;
+      won.hidden = !robot.won;
+      photos.forEach((img) => {
+        img.src = robot.photo ?? "";
+        img.alt = `${robot.name} on the field`;
+      });
+    };
+
+    button.hidden = false;
+    button.addEventListener("click", async () => {
+      if (busy) return;
+      busy = true;
+      let next = Math.floor(Math.random() * (robots.length - 1));
+      if (next >= current) next += 1;
+      current = next;
+      const robot = robots[next];
+      // Load the new photo first so the fade never lands on an empty circle.
+      if (robot.photo) {
+        const img = new Image();
+        img.src = robot.photo;
+        await img.decode().catch(() => {});
+      }
+      if (reduce) {
+        show(robot);
+        busy = false;
+        return;
+      }
+      fading.forEach((el) => el!.classList.add("fade"));
+      setTimeout(() => {
+        show(robot);
+        fading.forEach((el) => el!.classList.remove("fade"));
+        // One more heartbeat from the rings for each new robot.
+        spot.querySelectorAll<HTMLElement>(".ring:first-child").forEach((ring) => {
+          ring.style.animation = "none";
+          void ring.offsetWidth;
+          ring.style.animation = "pulse 1.3s ease-out 1";
+        });
+        busy = false;
+      }, 150);
+    });
+  }
+
+  const grid = document.querySelector<HTMLElement>(".grid-bots")!;
+  const items = [...grid.querySelectorAll<HTMLElement>(":scope > li")];
+  const cards = items.filter((li) => li.classList.contains("card"));
   const buttons = document.querySelectorAll<HTMLButtonElement>(".filters button");
+
+  // If the last card of a decade would sit alone in its row, it stretches into a wide closing card.
+  const fixOrphan = () => {
+    const cols = getComputedStyle(grid).gridTemplateColumns.split(" ").length;
+    grid.style.setProperty("--cols", String(cols));
+    cards.forEach((li) => li.classList.remove("wide"));
+    if (cols < 2) return;
+    let run: HTMLElement[] = [];
+    const close = () => {
+      if (run.length > 1 && run.length % cols === 1) run[run.length - 1].classList.add("wide");
+      run = [];
+    };
+    items.forEach((li) => {
+      if (li.hidden) return;
+      if (li.classList.contains("card")) run.push(li);
+      else close();
+    });
+    close();
+  };
+  fixOrphan();
+  new ResizeObserver(fixOrphan).observe(grid);
+
   buttons.forEach((button) =>
     button.addEventListener("click", () => {
       buttons.forEach((b) => b.setAttribute("aria-pressed", String(b === button)));
-      document.querySelectorAll<HTMLElement>(".grid-bots li").forEach((li) => {
+      items.forEach((li) => {
         li.hidden = !!button.dataset.decade && li.dataset.decade !== button.dataset.decade;
+        // Restart the entrance so the new set of cards visibly settles in.
+        li.classList.remove("enter");
       });
-    })
+      fixOrphan();
+      void grid.offsetWidth;
+      items
+        .filter((li) => !li.hidden)
+        .forEach((li, i) => {
+          li.style.animationDelay = `${Math.min(i, 12) * 25}ms`;
+          li.classList.add("enter");
+        });
+    }),
   );
 </script>
 
@@ -84,7 +313,9 @@ const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10
     white-space: nowrap;
     background: var(--red);
     color: #fff;
-    padding-top: 8px;
+    margin: 0 var(--inset) var(--inset);
+    padding: 8px 0 4px;
+    border-radius: var(--radius-lg);
   }
   .marquee > div {
     display: inline-flex;
@@ -119,28 +350,75 @@ const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10
   .chip {
     margin-bottom: 18px;
   }
-  .awards {
-    list-style: none;
-    padding: 0;
-    margin: 22px 0 0;
+  .tally {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    align-items: center;
+    gap: 10px;
+    margin: 22px 0 0;
   }
-  .awards li {
-    background: rgba(255, 255, 255, 0.16);
+  .tally a,
+  .tally .won {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 8px 16px;
     border-radius: 999px;
-    padding: 7px 15px;
-    font-size: 15px;
-    font-weight: 500;
+    font-weight: 700;
+    font-size: 16px;
   }
-  .awards li.win {
+  .tally a {
     background: #fff;
     color: var(--red);
-    font-weight: 700;
+    box-shadow: inset 0 0 0 2px var(--rose);
+  }
+  .tally a:hover {
+    background: var(--rose);
+  }
+  .tally .won {
+    background: var(--red);
+    color: #fff;
+  }
+  .tally [hidden] {
+    display: none;
+  }
+  .shuffle {
+    gap: 10px;
+    background: #fff;
+    cursor: pointer;
+  }
+  .shuffle svg {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2.2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.3s ease;
+  }
+  .shuffle:hover svg {
+    transform: rotate(180deg);
+  }
+  .shuffle[hidden] {
+    display: none;
+  }
+  /* Shuffle crossfade: out in 150ms, swap, back in. */
+  [data-spotlight] :global(h1),
+  [data-spotlight] :global(.intro),
+  .tally,
+  .pic {
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+  }
+  [data-spotlight] :global(.fade) {
+    opacity: 0;
+  }
+  .pic.fade {
+    transform: scale(0.96);
   }
   .orb {
     position: relative;
+    display: block;
     aspect-ratio: 1;
     max-width: 540px;
     width: 100%;
@@ -150,7 +428,7 @@ const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    border: 2px solid #fff;
+    border: 2px solid var(--red);
     opacity: 0.25;
   }
   .ring:nth-child(2) {
@@ -179,13 +457,30 @@ const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10
     inset: 21%;
     border-radius: 50%;
     overflow: hidden;
-    box-shadow: 0 0 0 6px #fff, 0 30px 60px -20px rgba(60, 0, 4, 0.6);
+    box-shadow:
+      0 0 0 6px #fff,
+      0 30px 60px -20px rgba(60, 0, 4, 0.6);
   }
   .pic img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     object-position: 50% 65%;
+  }
+
+  .orb-inline {
+    display: none;
+  }
+  @media (max-width: 860px) {
+    /* On phones the photo comes before the award chips instead of after the button. */
+    .orb-side {
+      display: none;
+    }
+    .orb-inline {
+      display: block;
+      max-width: 340px;
+      margin: 28px auto 0;
+    }
   }
 
   .section {
@@ -236,25 +531,189 @@ const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10
     overflow: hidden;
     background: var(--blush);
   }
+  .img {
+    transition: transform 0.2s ease-out;
+  }
   .img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
   }
-  .bot:hover .img img {
-    transform: scale(1.04);
+  .bot:hover .img {
+    transform: rotate(-2deg) scale(1.03);
+  }
+  .bot:hover .n {
+    transform: translateY(-4px);
+  }
+  .enter {
+    animation: settle 0.32s cubic-bezier(0.2, 0.9, 0.3, 1.2) backwards;
+  }
+  @keyframes settle {
+    from {
+      opacity: 0;
+      transform: scale(0.94);
+    }
+  }
+  /* The oldest card when it would be alone in the last row: photo at normal size, name beside it. */
+  .wide {
+    grid-column: 1 / -1;
+  }
+  .wide .bot {
+    display: grid;
+    grid-template-columns: calc((100% - (var(--cols) - 1) * 20px) / var(--cols)) 1fr;
+    column-gap: 20px;
+    align-items: center;
+    padding-right: 20px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+  }
+  .wide .img {
+    grid-row: span 2;
+  }
+  .wide .bot b {
+    align-self: end;
+    margin: 0;
+    font-size: clamp(28px, 3vw, 40px);
+  }
+  .wide .bot > span:last-child {
+    align-self: start;
+  }
+  .trophy {
+    position: absolute;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    width: fit-content;
+    max-width: calc(100% - 20px);
+    padding: 6px 13px 6px 10px;
+    border-radius: 999px;
+    background: var(--red);
+    color: #fff;
+    font-weight: 700;
+    font-size: 14px;
+    box-shadow: 0 8px 18px -8px rgba(60, 0, 4, 0.6);
+  }
+  .trophy span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  /* A decade starts a new row with its name in big red letters. */
+  .decade {
+    grid-column: 1 / -1;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 6px 18px;
+    padding-top: 28px;
+  }
+  .decade:first-child {
+    padding-top: 0;
+  }
+  .decade h3 {
+    margin: 0;
+    color: var(--red);
+    font-size: clamp(3.4rem, 8vw, 6.4rem);
+    letter-spacing: -0.05em;
+    line-height: 0.9;
+  }
+  .decade p {
+    margin: 0;
+    padding: 8px 16px;
+    border-radius: 999px;
+    background: var(--blush);
+    color: var(--red);
+    font-weight: 700;
+    font-size: 17px;
+  }
+  /* The first robot, closing the grid in red. */
+  .origin {
+    grid-column: 1 / -1;
+  }
+  .origin a {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+    align-items: center;
+    gap: clamp(24px, 4vw, 56px);
+    padding: clamp(16px, 2vw, 22px);
+    border-radius: var(--radius-lg);
+    background: var(--red);
+    color: #fff;
+  }
+  .origin-img {
+    aspect-ratio: 4 / 3;
+    border-radius: calc(var(--radius-lg) - 14px);
+    overflow: hidden;
+    transform: rotate(-2deg);
+    box-shadow: 0 0 0 6px #fff;
+    background: var(--blush);
+    transition: transform 0.2s ease-out;
+  }
+  .origin a:hover .origin-img {
+    transform: rotate(0deg) scale(1.02);
+  }
+  .origin-img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .origin-text {
+    padding-right: clamp(0px, 3vw, 40px);
+  }
+  .origin .chip {
+    margin: 0 0 14px;
+  }
+  .origin b {
+    display: block;
+    font-size: clamp(2.6rem, 5vw, 4.4rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 96;
+  }
+  .origin-year {
+    display: block;
+    margin-top: 8px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .origin p {
+    margin: 18px 0 0;
+    font-size: clamp(18px, 1.6vw, 21px);
+    max-width: 40ch;
+    opacity: 0.95;
+  }
+  .more {
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: 700;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .more i {
+    display: inline-block;
+    font-style: normal;
+    transition: transform 0.15s ease;
+  }
+  .origin a:hover .more i {
+    transform: translateX(4px);
   }
   .n {
     position: absolute;
     left: 12px;
     top: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
     background: #fff;
     color: var(--red);
     border-radius: 999px;
     padding: 4px 12px;
     font-weight: 700;
     font-size: 15px;
+    transition: transform 0.15s ease-out;
   }
   .bot b {
     display: block;
@@ -262,7 +721,7 @@ const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10
     font-size: 21px;
     letter-spacing: -0.01em;
   }
-  .bot span:last-child {
+  .bot > span:last-child {
     color: var(--soft);
     font-size: 16px;
   }
@@ -270,6 +729,28 @@ const decades =[...new Set(robots.map((robot) => Math.floor(robot.data.year / 10
     .grid-bots {
       grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 22px 12px;
+    }
+    .origin a {
+      grid-template-columns: 1fr;
+    }
+    .origin-img {
+      transform: rotate(-1.5deg);
+    }
+    .origin-text {
+      padding: 0 8px 12px;
+    }
+    /* Narrow cards: the badge wraps onto two lines rather than cutting the event name off. */
+    .trophy {
+      left: 8px;
+      bottom: 8px;
+      max-width: calc(100% - 16px);
+      padding: 5px 10px 5px 8px;
+      border-radius: 14px;
+      font-size: 12.5px;
+      line-height: 1.15;
+    }
+    .trophy span {
+      white-space: normal;
     }
   }
 </style>

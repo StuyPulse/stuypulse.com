@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Stuy Splash 2015
 author: Nicole Shin
 date: 2015-12-10

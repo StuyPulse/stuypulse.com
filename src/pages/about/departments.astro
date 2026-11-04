@@ -1,123 +1,431 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
+import FaceStack from "@components/people/FaceStack.astro";
+import { leaders, sponsorsByTier, type Department } from "@data";
+import { isWin } from "@utils/awards";
+import { getRobots } from "@utils/robots";
+
+const departments: { name: Department; id: string; icon: string }[] = [
+  { name: "Mechanical Engineering", id: "mechanical", icon: "/icons/mechanical.svg" },
+  { name: "Software Engineering", id: "software", icon: "/icons/software.svg" },
+  { name: "Business", id: "business", icon: "/icons/business.svg" },
+  { name: "Strategy", id: "strategy", icon: "/icons/strategy.svg" },
+];
+
+// Each department's leads, once per person, from the leadership list.
+const leadsOf = (department: Department) => [
+  ...new Map(
+    leaders
+      .filter((leader) => leader.department === department)
+      .map((leader) => [leader.name, { name: leader.name, image: leader.image }]),
+  ).values(),
+];
+
+const robots = await getRobots("newest");
+// Robots whose code is linked from their page (the "source" field in src/content/history).
+const withCode = robots.filter((robot) => robot.data.source).length;
+const recent = robots.filter((robot) => robot.data.photo).slice(0, 4);
+const wins = robots.flatMap((robot) => robot.data.awards ?? []).filter(isWin).length;
+const logos = sponsorsByTier.filter((sponsor) => sponsor.logo).slice(0, 6);
 ---
 
-<PageSite title="Departments" description="What each of StuyPulse's four departments does: Mechanical Engineering, Software Engineering, Business and Strategy." fullBleed>
-  <PageHead title="Departments" intro="Everyone on StuyPulse joins one of four departments. Here's what each one does.">
-    <div class="actions"><a class="pill pill-white" href="/join">How to join</a></div>
+<PageSite
+  title="Departments"
+  description="What each of StuyPulse's four departments does: Mechanical Engineering, Software Engineering, Business and Strategy."
+>
+  <PageHead
+    title="Departments"
+    intro="Everyone on StuyPulse is part of one of four departments. Here's what each one does."
+  >
+    <nav slot="aside" class="dots" aria-label="Departments">
+      <ul>
+        {
+          departments.map((dept) => (
+            <li>
+              <a href={`#${dept.id}`}>
+                <span class="dot">
+                  <img src={dept.icon} alt="" />
+                </span>
+                <span class="dot-name">{dept.name}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
   </PageHead>
 
-  <div class="band depts">
-    <section id="mechanical" aria-labelledby="mech">
+  <section class="band dept on-red" id="mechanical" aria-labelledby="mechanical-title">
+    <div class="text">
       <span class="ic"><img src="/icons/mechanical.svg" alt="" /></span>
-      <div>
-        <h2 id="mech">Mechanical Engineering</h2>
-        <p>
-          Mechanical Engineering designs and builds the robot. Every build season the department splits into groups of 4 to 6
-          students, each with at least one veteran member. Each group focuses on one part of the robot, such as the drive train,
-          electronics or a mechanism. Sometimes two mechanism groups compete for the better design.
-        </p>
-        <p>
-          The President and Vice President of Mechanical Engineering keep the groups running smoothly, with directors for
-          machining, lab safety, procurement, electronics, design, field construction and more. See who they are on the
-          <a href="/about/leadership#mechanical">leadership page</a>.
-        </p>
-      </div>
-    </section>
+      <h2 id="mechanical-title">Mechanical Engineering</h2>
+      <p>
+        Mechanical Engineering designs and builds the robot. Every build season the department splits into groups of 4
+        to 6 students, each with at least one veteran member. Each group focuses on one part of the robot, such as the
+        drive train, electronics or a mechanism. Sometimes two mechanism groups compete for the better design.
+      </p>
+      <p>
+        The President and Vice President of Mechanical Engineering keep the groups running smoothly, with directors for
+        machining, lab safety, procurement, electronics, design, field construction and more.
+      </p>
+    </div>
+    <div class="side">
+      <ul class="robots">
+        {
+          recent.map((robot, i) => (
+            <li style={`--tilt:${[-3, 2, 2.5, -2][i]}deg`}>
+              <a href={`/about/history/${robot.slug}`}>
+                <img src={robot.data.photo} alt={`${robot.data.title}, our ${robot.data.year} robot`} loading="lazy" />
+                <span class="tag">
+                  {robot.data.title} <small>{robot.data.year}</small>
+                </span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+      <FaceStack
+        people={leadsOf("Mechanical Engineering")}
+        label={`Meet the ${leadsOf("Mechanical Engineering").length} Mechanical leads`}
+        href="/about/leadership#mechanical"
+      />
+    </div>
+  </section>
 
-    <section id="software" aria-labelledby="soft">
+  <section class="band band-tint dept" id="software" aria-labelledby="software-title">
+    <div class="text">
       <span class="ic"><img src="/icons/software.svg" alt="" /></span>
-      <div>
-        <h2 id="soft">Software Engineering</h2>
-        <p>
-          Software writes the code that controls the robot on the field and keeps its electronics running. They also keep every
-          old robot's code working, so the robots are ready for demos.
-        </p>
-        <p>
-          Most new members have little or no programming experience, so we teach everyone Java from the start. It's no easy
-          task in a short season, but it pays off when our code drives a 120 lb robot across the field. All of our code, past
-          and present, is open source on <a href="https://github.com/StuyPulse">GitHub</a>. Some files may carry a different
-          license, so check each file's comments.
-        </p>
-      </div>
-    </section>
+      <h2 id="software-title">Software Engineering</h2>
+      <p>
+        Software writes the code that controls the robot on the field and keeps its electronics running. They also keep
+        every old robot's code working, so the robots are ready for demos.
+      </p>
+      <p>
+        Most new members have little or no programming experience, so we teach everyone Java from the start. It's no
+        easy task in a short season, but it pays off when our code drives a 120 lb robot across the field. All of our
+        code, past and present, is open source on <a href="https://github.com/StuyPulse">GitHub</a>. Some files may
+        carry a different license, so check each file's comments.
+      </p>
+    </div>
+    <div class="side">
+      <a class="big" href="/about/history">
+        <b>{withCode}</b>
+        <span>robots with their code open on GitHub</span>
+      </a>
+      <FaceStack
+        people={leadsOf("Software Engineering")}
+        label={`Meet the ${leadsOf("Software Engineering").length} Software leads`}
+        href="/about/leadership#software"
+      />
+    </div>
+  </section>
 
-    <section id="business" aria-labelledby="biz">
+  <section class="band dept on-red" id="business" aria-labelledby="business-title">
+    <div class="text">
       <span class="ic"><img src="/icons/business.svg" alt="" /></span>
-      <div>
-        <h2 id="biz">Business</h2>
-        <p>
-          Business handles everything that keeps the team running: fundraising, sponsors, branding, meals during build season,
-          travel, award submissions and outreach. The President and Vice President of Business are the main contact for our
-          sponsors.
-        </p>
-        <p>
-          The Director of Public Relations coordinates outreach, including mentoring FLL, FTC and FRC teams and running our
-          social media. The Director of Finance keeps the budget stable and works with sponsors.
-        </p>
-      </div>
-    </section>
+      <h2 id="business-title">Business</h2>
+      <p>
+        Business handles everything that keeps the team running: fundraising, sponsors, branding, meals during build
+        season, travel, award submissions and outreach. The President and Vice President of Business are the main
+        contact for our sponsors.
+      </p>
+      <p>
+        The Director of Public Relations coordinates outreach, including mentoring FLL, FTC and FRC teams and running
+        our social media. The Director of Finance keeps the budget stable and works with sponsors.
+      </p>
+    </div>
+    <div class="side">
+      <a class="logos" href="/sponsors">
+        <span class="logos-title">Some of the sponsors Business works with</span>
+        <ul>
+          {
+            logos.map((sponsor) => (
+              <li>
+                <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+              </li>
+            ))
+          }
+        </ul>
+      </a>
+      <FaceStack
+        people={leadsOf("Business")}
+        label={`Meet the ${leadsOf("Business").length} Business leads`}
+        href="/about/leadership#business"
+      />
+    </div>
+  </section>
 
-    <section id="strategy" aria-labelledby="strat">
+  <section class="band band-tint dept" id="strategy" aria-labelledby="strategy-title">
+    <div class="text">
       <span class="ic"><img src="/icons/strategy.svg" alt="" /></span>
-      <div>
-        <h2 id="strat">Strategy</h2>
-        <p>
-          Strategy helps decide how the robot should be designed, how it plays each match, and which teams we pick as
-          alliance partners.
-        </p>
-      </div>
-    </section>
-  </div>
+      <h2 id="strategy-title">Strategy</h2>
+      <p>
+        Strategy helps decide how the robot should be designed, how it plays each match, and which teams we pick as
+        alliance partners.
+      </p>
+    </div>
+    <div class="side">
+      <a class="big" href="/about/history">
+        <b>{wins}</b>
+        <span>event wins across our {robots.length} robots</span>
+      </a>
+      <FaceStack
+        people={leadsOf("Strategy")}
+        label={`Meet the ${leadsOf("Strategy").length} Strategy leads`}
+        href="/about/leadership#strategy"
+      />
+    </div>
+  </section>
 </PageSite>
 
 <style>
-  .depts {
-    max-width: 1120px;
+  /* Head: the four departments as big white dots that jump to their section. */
+  .dots ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    max-width: 440px;
     display: grid;
-    gap: 64px;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px 16px;
   }
-  section {
+  .dots li:nth-child(odd) {
+    transform: translateY(18px);
+  }
+  .dots a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+  }
+  .dot {
     display: grid;
-    grid-template-columns: 96px 1fr;
-    gap: clamp(20px, 4vw, 44px);
-    scroll-margin-top: 16px;
+    place-items: center;
+    width: min(100%, 168px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 24px 40px -24px rgba(60, 0, 4, 0.6);
+    transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .dot img {
+    width: 46%;
+  }
+  .dots a:hover .dot {
+    transform: scale(1.06) rotate(-6deg);
+  }
+  .dot-name {
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+
+  /* Text on the left, real numbers and faces on the right. */
+  .dept {
+    display: grid;
+    grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr);
+    gap: clamp(28px, 5vw, 72px);
+    align-items: center;
+  }
+  /* Red sections are rounded and inset like the tinted ones. */
+  .band.dept.on-red {
+    margin: var(--inset);
+    padding-inline: var(--block-pad);
+    border-radius: var(--radius-lg);
+    background: var(--red);
+    --ring: var(--red);
+  }
+  .band-tint {
+    --ring: var(--blush);
   }
   .ic {
     display: grid;
     place-items: center;
-    width: 96px;
-    height: 96px;
+    width: 88px;
+    height: 88px;
     border-radius: 50%;
-    background: var(--blush);
+    background: #fff;
   }
   .ic img {
-    width: 48px;
+    width: 44px;
   }
   h2 {
-    font-size: clamp(2rem, 3.6vw, 3rem);
-    margin: 18px 0 0;
+    margin: 20px 0 0;
+    font-size: clamp(2.2rem, 4.2vw, 3.6rem);
   }
-  p {
+  .text p {
     margin: 16px 0 0;
-    max-width: 68ch;
+    max-width: 62ch;
     font-size: 18px;
   }
-  p a {
+  .text p a {
     text-decoration: underline;
     text-underline-offset: 3px;
   }
-  @media (max-width: 640px) {
-    section {
-      grid-template-columns: 1fr;
+  .side {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 28px;
+    justify-items: start;
+  }
+
+  /* Mechanical: the latest robots, pinned up slightly crooked. */
+  .robots {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px;
+  }
+  .robots li {
+    transform: rotate(var(--tilt));
+    transition: transform 0.2s ease;
+  }
+  .robots li:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+  .robots a {
+    position: relative;
+    display: block;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    aspect-ratio: 1;
+    background: #fff;
+    box-shadow:
+      0 0 0 5px #fff,
+      0 24px 40px -24px rgba(60, 0, 4, 0.6);
+  }
+  .robots img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .tag {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    padding: 5px 12px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 800;
+    font-size: 15px;
+  }
+  .tag small {
+    font-weight: 600;
+    color: var(--soft);
+  }
+
+  /* Software and Strategy: one big number from the robots' pages. */
+  .big {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    width: 100%;
+    padding: 24px 32px 24px 24px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    transition: transform 0.2s ease;
+  }
+  .big:hover {
+    color: var(--ink);
+    transform: rotate(-1.5deg);
+  }
+  .big b {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: clamp(112px, 11vw, 148px);
+    aspect-ratio: 1;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+    font-size: clamp(52px, 5vw, 72px);
+    letter-spacing: -0.05em;
+    font-variation-settings: "opsz" 96;
+  }
+  .big span {
+    font-weight: 700;
+    font-size: clamp(19px, 1.8vw, 24px);
+    line-height: 1.2;
+    text-wrap: balance;
+  }
+
+  /* Business: sponsor logos on a white card. */
+  .logos {
+    display: block;
+    width: 100%;
+    padding: 24px;
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--ink);
+  }
+  .on-red .logos {
+    color: var(--ink);
+  }
+  .logos-title {
+    display: block;
+    color: var(--ink);
+    font-weight: 700;
+    font-size: 18px;
+  }
+  .logos ul {
+    list-style: none;
+    padding: 0;
+    margin: 16px 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .logos li {
+    display: grid;
+    place-items: center;
+    aspect-ratio: 3 / 2;
+    padding: 12px;
+    border-radius: 20px;
+    background: var(--blush);
+  }
+  .logos img {
+    max-height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  @media (max-width: 860px) {
+    .dept {
+      grid-template-columns: minmax(0, 1fr);
     }
+    .dots ul {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      max-width: none;
+    }
+    .dots li:nth-child(odd) {
+      transform: none;
+    }
+    .dot-name {
+      font-size: 14px;
+    }
+  }
+  @media (max-width: 640px) {
     .ic {
-      width: 72px;
-      height: 72px;
+      width: 64px;
+      height: 64px;
     }
     .ic img {
-      width: 36px;
+      width: 34px;
+    }
+    .big {
+      padding: 16px 20px 16px 16px;
+      gap: 16px;
+    }
+    .logos ul {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
 </style>

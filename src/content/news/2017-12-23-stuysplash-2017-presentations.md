@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Stuy Splash 2017 Presentations
 author: Yedoh Kang
 date: 2017-12-23

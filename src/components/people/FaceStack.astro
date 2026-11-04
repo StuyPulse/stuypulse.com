@@ -1,0 +1,73 @@
+---
+// A row of overlapping faces with a count beside it, linking to where those people are listed.
+// The ring matches the background through --ring (white by default).
+import Face from "./Face.astro";
+
+export interface Props {
+  people: { name: string; image?: string }[];
+  label: string;
+  href: string;
+  // How many faces to show before the rest are summed up as "+N".
+  max?: number;
+}
+const { people, label, href, max = 6 } = Astro.props;
+// People with photos go first so the stack leads with faces.
+const sorted = [...people].sort((a, b) => Number(Boolean(b.image)) - Number(Boolean(a.image)));
+const shown = sorted.slice(0, max);
+const extra = people.length - shown.length;
+---
+
+<a class="stack" href={href}>
+  <span class="faces">
+    {shown.map((person, i) => <Face name={person.name} image={person.image} tone={i % 2 ? "soft" : "solid"} />)}
+    {extra > 0 && <span class="extra">+{extra}</span>}
+  </span>
+  <span class="label">{label}</span>
+</a>
+
+<style>
+  .stack {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+    color: inherit;
+  }
+  .faces {
+    display: flex;
+    /* Smaller faces on narrow phones so seven of them still fit across. */
+    --face: clamp(40px, 12vw, 56px);
+  }
+  .faces > :global(*) {
+    box-shadow: 0 0 0 4px var(--ring, #fff);
+    transition: transform 0.2s ease;
+  }
+  .faces > :global(* + *) {
+    margin-left: -14px;
+  }
+  .stack:hover .faces > :global(*) {
+    transform: translateY(-3px);
+  }
+  .stack:hover .faces > :global(*:nth-child(even)) {
+    transform: translateY(3px);
+  }
+  .extra {
+    display: grid;
+    place-items: center;
+    width: var(--face);
+    height: var(--face);
+    border-radius: 50%;
+    background: var(--red-dark);
+    color: #fff;
+    font-weight: 800;
+    font-size: 17px;
+  }
+  .label {
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 1.25;
+    text-decoration: underline;
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+  }
+</style>

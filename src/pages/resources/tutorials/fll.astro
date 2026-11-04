@@ -1,50 +1,199 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
+
+const CURRICULUM = "https://drive.google.com/drive/folders/1HHpAj9i55wv1z8ngOnp6s4ErxipuHmxV?usp=sharing";
+// Our FLL history, oldest first. Volunteering has no date, so it's a callout of its own.
+const VOLUNTEERING =
+  "We've sent volunteers to referee and queue teams at the NYC FLL tournament at Riverbank State Park and at the Queens FLL Qualifier.";
+const history = [
+  {
+    when: "2001",
+    text: "Team 694 gave a presentation to teachers about starting a robotics curriculum. Since then we've helped several schools join FLL.",
+  },
+  {
+    when: "Since 2002",
+    text: "We've mentored FLL teams every year, especially I.S. 89 across the street.",
+  },
+  {
+    when: "2005",
+    text: "In December we hosted the first Manhattan Borough FLL Tournament at our school, and later brought it up to the standards of an official FIRST event.",
+  },
+  {
+    when: "Since 2019",
+    text: "We've helped FLL teams in Puerto Rico with programming and their project presentations: the ASJ Robotigers, Knight Hackers, The LEGO Builders and The Robogens.",
+  },
+  {
+    when: "2024",
+    text: "We wrote our own FLL curriculum for new teams and their mentors.",
+  },
+];
 ---
 
-<PageSite title="FLL Curriculum" description="StuyPulse's FIRST LEGO League curriculum for new teams and mentors, and our history mentoring FLL." fullBleed>
-  <PageHead title="FLL Curriculum" intro="Our FIRST LEGO League curriculum gives new teams and their mentors a solid start, from robot basics to the research project.">
-    <a slot="before" class="back" href="/resources/tutorials">Tutorials</a>
+<PageSite
+  title="FLL Curriculum"
+  description="StuyPulse's FIRST LEGO League curriculum for new teams and mentors, and our history mentoring FLL."
+>
+  <PageHead
+    title="FLL Curriculum"
+    intro="Our FIRST LEGO League curriculum gives new teams and their mentors a solid start, from robot basics to the research project."
+  >
+    <a slot="before" class="pill pill-ghost back" href="/resources/tutorials">← Tutorials</a>
     <div class="actions">
-      <a class="pill pill-white" href="https://drive.google.com/drive/folders/1HHpAj9i55wv1z8ngOnp6s4ErxipuHmxV?usp=sharing">Open the curriculum</a>
+      <a class="pill pill-red" href={CURRICULUM}>Open the curriculum</a>
     </div>
   </PageHead>
 
-  <div class="band prose">
-    <h2>StuyPulse and FLL</h2>
-    <p>
-      It began in the spring of 2001, when Team 694 gave a presentation to teachers about starting a robotics curriculum.
-      Since then we've helped several schools join FLL, and mentored teams, especially I.S. 89 across the street, which
-      we've mentored every year since 2002.
+  <section class="history on-red" aria-labelledby="fll-title">
+    <h2 id="fll-title" class="band-title">StuyPulse and FLL</h2>
+    <p class="lede">
+      We've helped schools start FIRST LEGO League teams since 2001, and mentored, hosted and refereed ever since.
     </p>
-    <p>
-      In December 2005 we hosted the first Manhattan Borough FLL Tournament at our school, and later brought it up to the
-      standards of an official FIRST event. We've also sent volunteers to referee and queue teams at the NYC FLL tournament
-      at Riverbank State Park and at the Queens FLL Qualifier.
-    </p>
-    <p>
-      Since 2019 we've helped FLL teams in Puerto Rico with programming and their project presentations: the ASJ
-      Robotigers, Knight Hackers, The LEGO Builders and The Robogens. In 2024 we wrote our own FLL curriculum, which is
-      linked above.
-    </p>
-  </div>
+    <ol class="timeline">
+      {
+        history.map((item) => (
+          <li>
+            <span class="dot" aria-hidden="true" />
+            <b>{item.when}</b>
+            <p>{item.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="band volunteer" aria-labelledby="vol-title">
+    <div class="callout">
+      <span class="badge" aria-hidden="true">
+        <svg viewBox="0 0 48 48" width="48" height="48">
+          <path
+            d="M24 40s-14-8.5-14-19a8 8 0 0 1 14-5.3A8 8 0 0 1 38 21c0 10.5-14 19-14 19Z"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="3.5"
+            stroke-linejoin="round"></path>
+        </svg>
+      </span>
+      <div>
+        <h2 id="vol-title">Volunteering</h2>
+        <p>{VOLUNTEERING}</p>
+      </div>
+    </div>
+    <div class="actions">
+      <a class="pill pill-red" href={CURRICULUM}>Open the curriculum</a>
+      <a class="pill pill-line" href="/resources/tutorials">More tutorials</a>
+    </div>
+  </section>
 </PageSite>
 
 <style>
   .back {
-    display: inline-block;
-    margin-bottom: 18px;
+    min-height: 40px;
+    padding: 0 18px;
+    font-size: 15px;
+    margin-bottom: 20px;
+  }
+  /* The history on a red band, read left to right along a line like a timeline. */
+  .history {
+    margin: clamp(32px, 4vw, 56px) var(--inset) 0;
+    padding: clamp(48px, 6vw, 88px) var(--block-pad);
+    border-radius: var(--radius-lg);
+  }
+  .history .band-title {
     color: #fff;
-    font-weight: 700;
-    text-decoration: underline;
-    text-underline-offset: 4px;
   }
-  .prose {
-    max-width: 1120px;
+  .timeline {
+    position: relative;
+    list-style: none;
+    padding: 0 0 12px;
+    margin: 48px 0 0;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(200px, 1fr);
+    gap: 16px;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
   }
-  .prose h2 {
-    margin-top: 0;
+  .timeline li {
+    position: relative;
+    padding-top: 40px;
+    scroll-snap-align: start;
+  }
+  /* The line runs through every dot; each item draws its own piece so it scrolls with them. */
+  .timeline li::before {
+    content: "";
+    position: absolute;
+    top: 11px;
+    left: 0;
+    right: -16px;
+    height: 3px;
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.45);
+  }
+  .timeline li:last-child::before {
+    right: 0;
+  }
+  .dot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 0 0 6px var(--red);
+  }
+  .timeline b {
+    display: block;
+    font-size: clamp(28px, 3vw, 40px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1;
+    font-variation-settings: "opsz" 96;
+  }
+  .timeline p {
+    margin: 12px 0 0;
+    padding: 18px 20px;
+    border-radius: var(--radius-md);
+    background: #fff;
+    color: var(--ink);
+    font-size: 17px;
+  }
+  .callout {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 24px;
+    align-items: start;
+    padding: clamp(28px, 4vw, 48px);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  .badge {
+    display: grid;
+    place-items: center;
+    width: 84px;
+    height: 84px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+    transform: rotate(-8deg);
+  }
+  .callout h2 {
     font-size: clamp(2rem, 3.6vw, 3rem);
+    margin: 0;
+  }
+  .callout p {
+    margin: 12px 0 0;
+    font-size: 19px;
+    max-width: 60ch;
+  }
+  @media (max-width: 640px) {
+    .callout {
+      grid-template-columns: 1fr;
+    }
+    .badge {
+      width: 64px;
+      height: 64px;
+    }
   }
 </style>

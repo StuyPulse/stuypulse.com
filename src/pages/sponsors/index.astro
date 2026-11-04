@@ -1,82 +1,99 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import Hero from "@components/redesign/Hero.astro";
-import type { SponsorType, SponsorTierType } from "@types";
+import Hero from "@components/page/Hero.astro";
+import { sponsors, sponsorTiers } from "@data";
 
-const sponsors: (SponsorType & { tier: string })[] = (await import("@data/sponsors.yml")).default;
-const tiers: SponsorTierType[] = (await import("@data/sponsorTiers.yml")).default;
-const groups = tiers
+const groups = sponsorTiers
   .map((tier) => ({ tier, sponsors: sponsors.filter((sponsor) => sponsor.tier === tier.name.toLowerCase()) }))
   .filter((group) => group.sponsors.length);
+// Lowest level first, so the levels climb left to right like stairs.
+const climb = [...sponsorTiers].reverse();
 const PACKET = "https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE-/view?usp=drivesdk";
 ---
 
 <PageSite
   title="Sponsors"
   description="StuyPulse Robotics can function and participate in FIRST due to the generous support of our many sponsors. All donations support the team and help to keep it running."
-  fullBleed
 >
   <Hero
     title="Help us build the next one."
     intro="Our robots, competitions and StuySplash are made possible by parents, alumni and companies who support what Stuy students build."
-    photo="/home/tribecbot.jpg"
-    photoAlt="Tribecbot, our 2026 robot"
+    photo="/team/2026.jpg"
+    photoAlt="The 2026 StuyPulse team"
     stickers={["Your logo here"]}
   >
     <Fragment slot="actions">
-      <a class="pill pill-white" href="/donate">Donate</a>
-      <a class="pill pill-ghost" href={PACKET} target="_blank" rel="noopener noreferrer">Get our sponsor packet</a>
+      <a class="pill pill-red" href="/donate">Donate</a>
+      <a class="pill pill-line" href={PACKET} target="_blank" rel="noopener noreferrer">Get our sponsor packet</a>
     </Fragment>
   </Hero>
 
-  <section class="section" id="info" aria-labelledby="t-title">
-    <h2 id="t-title">Sponsor levels</h2>
-    <p class="lede">What each level of support gets.</p>
-    <div class="tiers">
-      {tiers.map((tier, i) => (
-        <div class:list={["tier", { top: i === 0 }]}>
-          <img src={tier.icon} alt="" />
-          <b>{tier.name}</b>
-          <span class="amt">{tier.range}</span>
-          <p>{tier.desc}</p>
-        </div>
-      ))}
+  <section class="ladder on-red" id="info" aria-labelledby="t-title">
+    <div class="ladder-head">
+      <h2 id="t-title">Sponsor levels</h2>
+      <p class="lede">What each level of support gets, from the first rung to the top.</p>
     </div>
+    <ol class="rungs">
+      {
+        climb.map((tier, i) => (
+          <li style={`--step: ${i}`} class:list={{ top: i === climb.length - 1 }}>
+            <div class="tier">
+              <span class="medal">
+                <img src={tier.icon} alt="" />
+              </span>
+              <b>{tier.name}</b>
+              <span class="amt">{tier.range}</span>
+              <p>{tier.desc}</p>
+            </div>
+            <span class="riser" aria-hidden="true" />
+          </li>
+        ))
+      }
+    </ol>
   </section>
 
   <section class="section thanks" aria-labelledby="s-title">
     <h2 id="s-title">Thank you to our sponsors</h2>
-    {groups.map(({ tier, sponsors }) => (
-      <div class="group">
-        <h3><img src={tier.icon} alt="" />{tier.name}</h3>
-        <ul class="logos">
-          {sponsors.map((sponsor) => (
-            <li>
-              <a
-                href={sponsor.site || undefined}
-                target={sponsor.site ? "_blank" : undefined}
-                rel="noopener noreferrer"
-              >
-                {sponsor.logo ? <img src={sponsor.logo} alt={sponsor.name} loading="lazy" /> : sponsor.name}
-              </a>
-            </li>
-          ))}
-        </ul>
-      </div>
-    ))}
+    {
+      groups.map(({ tier, sponsors }) => (
+        <div class="group">
+          <h3>
+            <span class="medal small">
+              <img src={tier.icon} alt="" />
+            </span>
+            {tier.name}
+          </h3>
+          <ul class="logos">
+            {sponsors.map((sponsor) => (
+              <li>
+                <a
+                  href={sponsor.site || undefined}
+                  target={sponsor.site ? "_blank" : undefined}
+                  rel="noopener noreferrer"
+                >
+                  {sponsor.logo ? <img src={sponsor.logo} alt={sponsor.name} loading="lazy" /> : sponsor.name}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
   </section>
 
   <section class="ask section" aria-labelledby="g-title">
     <div>
       <h2 id="g-title">Any amount helps.</h2>
-      <p class="lede">Donations pay for robot parts, tools and competition fees. To sponsor as a company, start with our packet.</p>
+      <p class="lede">
+        Donations pay for robot parts, tools and competition fees. To sponsor as a company, start with our packet.
+      </p>
       <div class="actions">
-        <a class="pill pill-white" href="/donate">Donate</a>
-        <a class="pill pill-ghost" href={PACKET} target="_blank" rel="noopener noreferrer">Sponsor packet</a>
-        <a class="pill pill-ghost" href="mailto:info@stuypulse.com">Email us</a>
+        <a class="pill pill-red" href="/donate">Donate</a>
+        <a class="pill pill-line" href={PACKET} target="_blank" rel="noopener noreferrer">Sponsor packet</a>
+        <a class="pill pill-line" href="mailto:info@stuypulse.com">Email us</a>
       </div>
     </div>
-    <img src="/home/team-2026.jpg" alt="The 2026 StuyPulse team" loading="lazy" />
+    <img src="/home/tribecbot.jpg" alt="Tribecbot, our 2026 robot" loading="lazy" />
   </section>
 </PageSite>
 
@@ -88,23 +105,81 @@ const PACKET = "https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE
     font-size: clamp(2.3rem, 4.4vw, 4rem);
     margin: 0;
   }
-  .tiers {
+  /* The levels as a staircase on red: each rung stands on a taller riser than the one before. */
+  .ladder {
+    margin: clamp(32px, 4vw, 56px) var(--inset) 0;
+    padding: clamp(56px, 7vw, 96px) var(--block-pad) 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+  }
+  .ladder h2 {
+    color: #fff;
+  }
+  .rungs {
+    list-style: none;
+    padding: 0;
+    margin: 48px 0 0;
     display: grid;
     grid-template-columns: repeat(5, minmax(0, 1fr));
-    gap: 16px;
-    margin-top: 44px;
+    align-items: end;
+    gap: 14px;
+  }
+  .rungs li {
+    display: flex;
+    flex-direction: column;
+  }
+  .riser {
+    display: block;
+    height: calc(28px + var(--step) * clamp(36px, 5vw, 64px));
+    margin-top: 14px;
+    border-radius: 24px 24px 0 0;
+    background: rgba(120, 0, 8, 0.32);
   }
   .tier {
     border-radius: 32px;
-    background: var(--blush);
-    padding: 28px 24px;
+    background: #fff;
+    color: var(--ink);
+    padding: 26px 22px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    transition: transform 0.2s ease;
   }
-  .tier img {
-    width: 52px;
-    height: 52px;
+  .tier:hover {
+    transform: translateY(-6px);
+  }
+  /* Medals sit on a disc so the lighter ones (silver, aluminum) stay visible. */
+  .medal {
+    display: grid;
+    place-items: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    background: var(--blush);
+    flex-shrink: 0;
+  }
+  .medal img {
+    width: 40px;
+    height: 40px;
+  }
+  .tier:hover .medal {
+    animation: wobble 0.3s ease-in-out;
+  }
+  @keyframes wobble {
+    25% {
+      transform: rotate(-8deg);
+    }
+    75% {
+      transform: rotate(8deg);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .tier:hover {
+      transform: none;
+    }
+    .tier:hover .medal {
+      animation: none;
+    }
   }
   .tier b {
     font-size: 24px;
@@ -121,16 +196,16 @@ const PACKET = "https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE
     line-height: 1.45;
     margin: 0;
   }
-  .tier.top {
-    background: var(--red);
-    color: #fff;
+  .top .tier {
+    box-shadow:
+      0 0 0 4px var(--red),
+      0 0 0 8px #fff;
   }
-  .tier.top .amt,
-  .tier.top p {
-    color: #fff;
+  .top .riser {
+    background: rgba(120, 0, 8, 0.45);
   }
   .thanks {
-    padding-top: 0;
+    padding-bottom: clamp(48px, 6vw, 80px);
   }
   .group {
     margin-top: 48px;
@@ -142,8 +217,13 @@ const PACKET = "https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE
     font-size: 28px;
     margin: 0;
   }
-  .group h3 img {
-    width: 36px;
+  .medal.small {
+    width: 44px;
+    height: 44px;
+  }
+  .medal.small img {
+    width: 28px;
+    height: 28px;
   }
   .logos {
     list-style: none;
@@ -170,19 +250,16 @@ const PACKET = "https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE
     mix-blend-mode: multiply;
   }
   .ask {
-    margin: 0 20px;
+    margin: 0 var(--inset);
+    padding: clamp(56px, 7vw, 96px) var(--block-pad);
     border-radius: var(--radius-lg);
-    background: var(--red);
-    color: #fff;
+    background: var(--blush);
     display: grid;
     grid-template-columns: 1.2fr 1fr;
     gap: 40px;
     align-items: center;
   }
-  .ask .lede {
-    color: #fff;
-    opacity: 0.92;
-  }
+
   .ask img {
     width: 100%;
     aspect-ratio: 16 / 10;
@@ -190,18 +267,52 @@ const PACKET = "https://drive.google.com/file/d/1TUDwRB274pog-uMfWDgk21ChS-UlShE
     border-radius: 32px;
     box-shadow: 0 30px 60px -24px rgba(70, 0, 4, 0.55);
   }
-  @media (max-width: 1100px) {
-    .tiers {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+  /* Move the hero's "Your logo here" sticker in from the corner of the red block. */
+  :global(.hero .photo .s1) {
+    right: 28px;
+    top: -18px;
+  }
+  /* Too narrow for five steps side by side: the ladder stands upright, top level first,
+     each step up sitting a little further right. */
+  @media (max-width: 1000px) {
+    .ladder {
+      padding-bottom: clamp(40px, 6vw, 64px);
+    }
+    .rungs {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .rungs li {
+      order: calc(10 - var(--step));
+      margin-left: calc(var(--step) * 12px);
+    }
+    .riser {
+      display: none;
     }
   }
   @media (max-width: 860px) {
-    .tiers,
     .ask {
       grid-template-columns: 1fr;
     }
-    .ask {
-      margin: 0 12px;
+  }
+  @media (max-width: 640px) {
+    .logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+    .logos a {
+      height: 100%;
+      min-height: 76px;
+      padding: 10px 14px;
+      border-radius: 24px;
+      text-align: center;
+      font-size: 15px;
+      line-height: 1.25;
+    }
+    .logos img {
+      max-width: 100%;
+      max-height: 40px;
     }
   }
 </style>

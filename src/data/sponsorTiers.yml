@@ -1,20 +1,20 @@
 - name: Platinum
   icon: /icons/platinum-medal.svg
-  range: Highest Overall Sponsor
-  desc: Sponsor shall receive the honor of naming the robot.
+  range: Top sponsor of the year
+  desc: Our biggest sponsor of the year gets to name the robot.
 - name: Gold
   icon: /icons/gold-medal.svg
   range: $10,000+
-  desc: Contributors shall receive a thank you package and have their name mentioned during every competition and in the Impact Award video.
+  desc: A thank-you package, and we'll mention you at every competition and in our Impact Award video.
 - name: Silver
   icon: /icons/silver-medal.svg
-  range: $5000-$9999
-  desc: Sponsors shall have their company logo placed on the competing robot.
+  range: $5,000–$9,999
+  desc: Your company logo goes on the robot we compete with.
 - name: Bronze
   icon: /icons/bronze-medal.svg
-  range: $1000-$4999
-  desc: Sponsors shall have their company name/logo on the back of the year's T-shirt, along with an invitation to visit the robotics lab during build season.
+  range: $1,000–$4,999
+  desc: Your name or logo on the back of the season's team T-shirt, plus an invitation to visit our lab during build season.
 - name: Aluminum
   icon: /icons/aluminum-medal.svg
-  range: $500-$999
-  desc: Sponsors shall have their company name/logo placed on our website for a year.
+  range: $500–$999
+  desc: Your name or logo on our website for a year.

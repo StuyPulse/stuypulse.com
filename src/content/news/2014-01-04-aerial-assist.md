@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Aerial Assist!
 author: Chesley Tan
 date: 2014-01-04

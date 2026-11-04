@@ -1,18 +1,28 @@
 ---
-import { Picture } from "astro-imagetools/components";
-
+// A captioned photo inside an older written post (used from .mdx files in src/content/news).
 export interface Props {
   src: string;
   alt: string;
   desc: string;
 }
-
 const { src, alt, desc } = Astro.props;
+// Old captions were written as markdown italics ("*Yum.*"); props aren't parsed, so do it here.
+const italic = desc.trim().match(/^\*(.+)\*$/s);
 ---
 
-<div class="text-center">
-  <img src={src} alt={alt} />
-</div>
-<div class="text-center">
-  <small>{desc}</small>
-</div>
+<figure>
+  <img src={src} alt={alt} loading="lazy" />
+  <figcaption>{italic ? <em>{italic[1]}</em> : desc}</figcaption>
+</figure>
+
+<style>
+  figure {
+    margin: 32px 0;
+    text-align: center;
+  }
+  figcaption {
+    margin-top: 10px;
+    color: var(--soft);
+    font-size: 16px;
+  }
+</style>

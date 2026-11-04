@@ -1,0 +1,105 @@
+---
+// A robot's awards, one row per event, with what it won there as chips (wins first).
+import AwardIcon from "@components/awards/AwardIcon.astro";
+import AwardList from "@components/awards/AwardList.astro";
+import { plural } from "@utils/format";
+import { groupAwards, OTHER } from "./events";
+
+export interface Props {
+  awards: string[];
+}
+const { awards } = Astro.props;
+const groups = groupAwards(awards);
+const labels = new Map(groups.flatMap((group) => group.awards.map((item) => [item.award, item.label])));
+const events = groups.filter((group) => group.event !== OTHER).length;
+---
+
+<section class="band band-tint robot-awards" id="awards" aria-labelledby="awards-title">
+  <div class="top">
+    <h2 id="awards-title" class="band-title">{plural(awards.length, "award")}</h2>
+    {events > 1 && <p>from {plural(events, "event")}</p>}
+  </div>
+  <ul class="events">
+    {
+      groups.map((group) => (
+        <li class:list={{ won: group.wins > 0 }}>
+          <h3>
+            {group.wins > 0 && (
+              <i>
+                <AwardIcon kind="win" size={18} />
+              </i>
+            )}
+            {group.event}
+          </h3>
+          <AwardList
+            awards={group.awards.map((item) => item.award)}
+            size="sm"
+            label={(award) => labels.get(award) ?? award}
+          />
+        </li>
+      ))
+    }
+  </ul>
+</section>
+
+<style>
+  .band.robot-awards {
+    margin-top: 24px;
+    margin-bottom: 0;
+  }
+  .top {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .top p {
+    margin: 0;
+    color: var(--soft);
+    font-size: 19px;
+    font-weight: 600;
+  }
+  .events {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: grid;
+    gap: 12px;
+  }
+  .events li {
+    display: grid;
+    grid-template-columns: minmax(200px, 0.8fr) minmax(0, 2fr);
+    align-items: center;
+    gap: 14px 28px;
+    padding: 18px 22px 18px 26px;
+    border-radius: var(--radius-md);
+    background: #fff;
+  }
+  h3 {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 0;
+    font-size: 21px;
+    letter-spacing: -0.01em;
+  }
+  h3 i {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+  }
+  .won h3 {
+    color: var(--red);
+  }
+  @media (max-width: 760px) {
+    .events li {
+      grid-template-columns: 1fr;
+      padding: 18px;
+    }
+  }
+</style>

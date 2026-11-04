@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: StuyPulse 2013 Teaser Trailer
 author: Kevin Wang
 date: 2013-03-04

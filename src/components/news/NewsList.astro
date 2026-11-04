@@ -1,123 +1,331 @@
 ---
-// One page of the news archive: the newest post as a red card on page 1, the rest grouped by year.
-import type { CollectionEntry } from "astro:content";
-import PageHead from "@components/redesign/PageHead.astro";
+// One page of the newsletter archive. Page 1 opens on the newest issue's cover in the red head,
+// then a wall of the other issues that have covers; everything else is a row grouped by year.
+import PageHead from "@components/page/PageHead.astro";
 import Paginator from "@components/news/Paginator.astro";
-import { formatDate, kindOf } from "@utils/news";
+import NewsTabs from "@components/news/NewsTabs.astro";
+import { coverOf } from "@components/news/covers";
+import { formatDate } from "@utils/format";
+import { kindOf, type Newsletter } from "@utils/news";
 
 export interface Props {
-  posts: CollectionEntry<"news">[];
+  posts: Newsletter[];
   page: number;
   pages: number;
 }
 const { posts, page, pages } = Astro.props;
-const [featured, ...rest] = page === 1 ? posts : [undefined, ...posts];
-const years = [...new Set(rest.map((post) => post!.data.date.getUTCFullYear()))];
+const withCovers = posts.map((post) => ({ post, cover: coverOf(post) }));
+const featured = page === 1 && withCovers[0]?.cover ? withCovers[0] : undefined;
+const wall = withCovers.filter((item) => item.cover && item !== featured);
+const rest = withCovers.filter((item) => !item.cover).map((item) => item.post);
+const years = [...new Set(rest.map((post) => post.data.date.getUTCFullYear()))];
 const label = { pdf: "PDF", canva: "Canva", post: "Post" };
+const iso = (post: Newsletter) => post.data.date.toISOString().slice(0, 10);
 ---
 
 <PageHead
-  title="Newsletters"
+  title={page === 1 ? "Newsletters" : `Newsletters, page ${page}`}
   intro="Build updates, competition results and team news, written by our Business department."
-/>
+>
+  <NewsTabs current="newsletters" />
+  {
+    featured && (
+      <a slot="aside" class="featured" href={`/news/${featured.post.slug}`}>
+        <span class="cover">
+          <img src={featured.cover} alt="" width="582" height="900" fetchpriority="high" />
+        </span>
+        <span class="tag">Newest issue</span>
+        <span class="caption">
+          <b>{featured.post.data.title}</b>
+          <time datetime={iso(featured.post)}>{formatDate(featured.post.data.date)}</time>
+          <span class="read">
+            Read it <i aria-hidden="true">→</i>
+          </span>
+        </span>
+      </a>
+    )
+  }
+</PageHead>
 
-<div class="band">
-  {featured && (
-    <a class="featured" href={`/news/${featured.slug}`}>
-      <span class="chip">Newest</span>
-      <b>{featured.data.title}</b>
-      <time datetime={featured.data.date.toISOString().slice(0, 10)}>{formatDate(featured.data.date)}</time>
-      <span class="pill pill-white">Read it</span>
-    </a>
-  )}
+{
+  wall.length > 0 && (
+    <section class="band wall-band" aria-labelledby="wall-title">
+      <h2 id="wall-title" class="band-title">
+        This season's issues
+      </h2>
+      <ul class="wall">
+        {wall.map(({ post, cover }) => (
+          <li>
+            <a href={`/news/${post.slug}`}>
+              <span class="cover">
+                <img src={cover} alt="" width="582" height="900" loading="lazy" />
+              </span>
+              <b>{post.data.title}</b>
+              <time datetime={iso(post)}>{formatDate(post.data.date)}</time>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
 
-  {years.map((year) => (
-    <section class="year" aria-labelledby={`y${year}`}>
-      <h2 id={`y${year}`}>{year}</h2>
+{
+  years.length > 1 && (
+    <div class="band years-jump">
+      <ul class="jump" aria-label="Years on this page">
+        {years.map((year) => (
+          <li>
+            <a href={`#y${year}`}>{year}</a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+{
+  years.map((year, i) => (
+    // Every other year sits on blush so a long page doesn't read as one white sheet.
+    <section
+      class:list={["band year", { "band-tint": i % 2 === 0 }]}
+      id={`y${year}`}
+      aria-labelledby={`y${year}-title`}
+    >
+      <h2 id={`y${year}-title`}>{year}</h2>
       <ul>
         {rest
-          .filter((post) => post!.data.date.getUTCFullYear() === year)
+          .filter((post) => post.data.date.getUTCFullYear() === year)
           .map((post) => (
             <li>
-              <a href={`/news/${post!.slug}`}>
-                <time datetime={post!.data.date.toISOString().slice(0, 10)}>
-                  {formatDate(post!.data.date, { month: "short", day: "numeric" })}
+              <a href={`/news/${post.slug}`} class={kindOf(post)}>
+                <time class="tile" datetime={iso(post)}>
+                  <b>{post.data.date.getUTCDate()}</b>
+                  {formatDate(post.data.date, { month: "short" })}
                 </time>
-                <span class="title">{post!.data.title}</span>
-                <span class="kind">{label[kindOf(post!)]}</span>
+                <span class="title">{post.data.title}</span>
+                <span class="kind">{label[kindOf(post)]}</span>
+                <span class="arrow" aria-hidden="true">
+                  →
+                </span>
               </a>
             </li>
           ))}
       </ul>
     </section>
-  ))}
+  ))
+}
 
+<div class="band pages">
   <Paginator pages={pages} current={page} />
 </div>
 
 <style>
-  .band {
-    max-width: 1120px;
-  }
+  /* The newest issue sits in the red head like a magazine on a table, with its caption card. */
   .featured {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 18px;
-    padding: clamp(28px, 4vw, 48px);
-    border-radius: var(--radius-lg);
-    background: var(--blush);
-    color: var(--ink);
-    margin-bottom: 24px;
-  }
-  .featured .chip {
-    background: var(--red);
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1fr);
+    align-items: end;
+    gap: 20px;
     color: #fff;
   }
-  .featured b {
-    font-size: clamp(2rem, 4vw, 3.4rem);
-    line-height: 1;
+  .featured .cover {
+    transform: rotate(-3deg);
+  }
+  .featured:hover .cover {
+    transform: rotate(-1deg) translateY(-6px);
+  }
+  .featured .tag {
+    position: absolute;
+    left: -10px;
+    top: -14px;
+    padding: 9px 18px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 800;
+    transform: rotate(-6deg);
+    box-shadow: 0 14px 28px -14px rgba(50, 0, 0, 0.45);
+  }
+  .caption {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-bottom: 12px;
+  }
+  .caption b {
+    font-size: clamp(1.6rem, 2.6vw, 2.4rem);
+    line-height: 1.02;
     letter-spacing: -0.03em;
     font-variation-settings: "opsz" 96;
     text-wrap: balance;
   }
-  .featured .pill {
-    background: var(--red);
-    color: #fff;
+  .caption time {
+    opacity: 0.9;
   }
-  .featured:hover .pill {
-    background: var(--red-dark);
+  .read {
+    align-self: flex-start;
+    margin-top: 10px;
+    padding: 12px 22px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 700;
+  }
+  .read i {
+    display: inline-block;
+    font-style: normal;
+    transition: transform 0.2s ease;
+  }
+  .featured:hover .read i {
+    transform: translateX(4px);
+  }
+
+  /* Covers: rounded, slightly askew; they straighten and lift when pointed at. */
+  .cover {
+    display: block;
+    border-radius: 22px;
+    overflow: hidden;
+    background: #fff;
+    box-shadow:
+      0 0 0 5px #fff,
+      0 26px 44px -22px rgba(70, 0, 4, 0.5);
+    transition: transform 0.2s ease;
+  }
+  .cover img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 582 / 900;
+    object-fit: cover;
+  }
+  .wall-band {
+    padding-bottom: clamp(40px, 5vw, 64px);
+  }
+  .wall {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+    gap: 40px 28px;
+  }
+  .wall a {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    color: var(--ink);
+  }
+  .wall .cover {
+    margin-bottom: 14px;
+    transform: rotate(var(--tilt));
+    box-shadow:
+      0 0 0 1px var(--rose),
+      0 22px 40px -24px rgba(70, 0, 4, 0.45);
+  }
+  .wall li:nth-child(odd) {
+    --tilt: -1.5deg;
+  }
+  .wall li:nth-child(even) {
+    --tilt: 1.5deg;
+  }
+  .wall a:hover .cover,
+  .wall a:focus-visible .cover {
+    transform: translateY(-6px);
+  }
+  .wall a:hover b {
+    color: var(--red);
+  }
+  .wall b {
+    font-size: 19px;
+    line-height: 1.2;
+  }
+  .wall time {
+    color: var(--soft);
+    font-size: 15px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .wall a:hover .cover,
+    .wall a:focus-visible .cover {
+      transform: rotate(var(--tilt));
+    }
+    .featured:hover .cover {
+      transform: rotate(-3deg);
+    }
+  }
+
+  .years-jump {
+    padding-block: 0 24px;
+  }
+  .years-jump .jump {
+    margin: 0;
   }
   .year {
-    margin-top: 48px;
+    padding-block: clamp(40px, 5vw, 64px);
+    scroll-margin-top: calc(var(--header-h, 0px) + 16px);
+  }
+  .year:not(.band-tint) + .year:not(.band-tint) {
+    padding-top: 0;
   }
   .year h2 {
     font-size: clamp(2rem, 3.6vw, 3rem);
     color: var(--red);
-    margin: 0 0 12px;
+    margin: 0 0 16px;
   }
   .year ul {
     list-style: none;
     padding: 0;
     margin: 0;
+    display: grid;
+    gap: 6px;
   }
   .year a {
     display: grid;
-    grid-template-columns: 84px 1fr auto;
+    grid-template-columns: 64px 1fr auto 20px;
     align-items: center;
-    gap: 16px;
-    padding: 14px 18px;
-    margin: 0 -18px;
-    border-radius: 22px;
+    gap: 18px;
+    padding: 8px 18px 8px 8px;
+    margin: 0 -8px;
+    border-radius: 24px;
     color: var(--ink);
   }
-  .year a:hover {
+  .year a:hover,
+  .year a:focus-visible {
     background: var(--blush);
     color: var(--red);
   }
-  time {
-    color: var(--soft);
-    font-size: 16px;
+  .band-tint a:hover,
+  .band-tint a:focus-visible {
+    background: #fff;
+  }
+  /* A little calendar page for each issue: red for Canva issues, outlined for PDFs. */
+  .tile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 64px;
+    height: 64px;
+    border-radius: 20px;
+    background: #fff;
+    box-shadow: inset 0 0 0 2px var(--rose);
+    color: var(--red);
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  .tile b {
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+    margin-bottom: 2px;
+  }
+  .canva .tile {
+    background: var(--red);
+    color: #fff;
+    box-shadow: none;
   }
   .title {
     font-weight: 700;
@@ -131,19 +339,68 @@ const label = { pdf: "PDF", canva: "Canva", post: "Post" };
     background: var(--blush);
     border-radius: 999px;
     padding: 3px 11px;
+    transition:
+      background-color 0.15s ease,
+      color 0.15s ease;
   }
-  .year a:hover .kind {
+  .band-tint .kind {
     background: #fff;
   }
-  @media (max-width: 640px) {
-    .year a {
-      grid-template-columns: 1fr auto;
-      gap: 4px 12px;
-      padding: 12px;
-      margin: 0 -12px;
+  .year a:hover .kind,
+  .year a:focus-visible .kind {
+    background: var(--red);
+    color: #fff;
+  }
+  /* The arrow slides in on hover to show the row is a link. */
+  .arrow {
+    color: var(--red);
+    font-weight: 700;
+    opacity: 0;
+    transform: translateX(8px);
+    transition:
+      opacity 0.15s ease,
+      transform 0.15s ease;
+  }
+  .year a:hover .arrow,
+  .year a:focus-visible .arrow {
+    opacity: 1;
+    transform: none;
+  }
+  .pages {
+    padding-top: clamp(40px, 5vw, 64px);
+  }
+  @media (max-width: 860px) {
+    .featured {
+      max-width: 520px;
     }
-    time {
-      grid-column: 1 / -1;
+  }
+  @media (max-width: 640px) {
+    .featured {
+      grid-template-columns: 0.8fr 1fr;
+      gap: 18px;
+    }
+    .wall {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 32px 18px;
+    }
+    .wall b {
+      font-size: 17px;
+    }
+    .year a {
+      grid-template-columns: 56px 1fr;
+      gap: 4px 14px;
+      padding-right: 12px;
+    }
+    .tile {
+      width: 56px;
+      height: 56px;
+      grid-row: span 2;
+    }
+    .kind {
+      justify-self: start;
+    }
+    .arrow {
+      display: none;
     }
   }
 </style>

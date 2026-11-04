@@ -5,35 +5,78 @@ export interface Props {
 }
 const { pages, current } = Astro.props;
 const href = (page: number) => (page === 1 ? "/news/" : `/news/${page}/`);
+
+// Phones only have room for the first, last and nearby pages; the rest are hidden there and
+// an ellipsis marks each gap. Wider screens show every page.
+const close = (page: number) => page === 1 || page === pages || Math.abs(page - current) <= 1;
+// An ellipsis standing in for a single page saves nothing, so show that page instead.
+const near = (page: number) => close(page) || (close(page - 1) && close(page + 1) && page > 1 && page < pages);
+const items: ({ page: number; near: boolean } | "gap")[] = [];
+for (let page = 1; page <= pages; page++) {
+  const previous = items.at(-1);
+  if (near(page) && previous && previous !== "gap" && !previous.near) items.push("gap");
+  items.push({ page, near: near(page) });
+}
 ---
 
-{pages > 1 && (
-  <nav class="pager" aria-label="Older and newer newsletters">
-    {current > 1 ? <a class="pill pill-line" href={href(current - 1)}>Newer</a> : <span />}
-    <ol>
-      {Array.from({ length: pages }, (_, i) => i + 1).map((page) => (
-        <li>
-          <a href={href(page)} aria-current={page === current ? "page" : undefined}>{page}</a>
-        </li>
-      ))}
-    </ol>
-    {current < pages ? <a class="pill pill-line" href={href(current + 1)}>Older</a> : <span />}
-  </nav>
-)}
+{
+  pages > 1 && (
+    <nav class="pager" aria-label="Older and newer newsletters">
+      {current > 1 ? (
+        <a class="pill pill-line newer" href={href(current - 1)}>
+          Newer
+        </a>
+      ) : (
+        <span class="newer" />
+      )}
+      <ol>
+        {items.map((item) =>
+          item === "gap" ? (
+            <li class="gap" aria-hidden="true">
+              …
+            </li>
+          ) : (
+            <li class:list={{ far: !item.near }}>
+              <a href={href(item.page)} aria-current={item.page === current ? "page" : undefined}>
+                {item.page}
+              </a>
+            </li>
+          ),
+        )}
+      </ol>
+      {current < pages ? (
+        <a class="pill pill-line older" href={href(current + 1)}>
+          Older
+        </a>
+      ) : (
+        <span class="older" />
+      )}
+    </nav>
+  )
+}
 
 <style>
+  /* Equal side columns keep the page numbers centred whether or not both buttons show. */
   .pager {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    grid-template-areas: "newer pages older";
     align-items: center;
     gap: 16px;
-    margin-top: 56px;
-    flex-wrap: wrap;
+  }
+  .newer {
+    grid-area: newer;
+    justify-self: start;
+  }
+  .older {
+    grid-area: older;
+    justify-self: end;
   }
   ol {
+    grid-area: pages;
     list-style: none;
     display: flex;
-    flex-wrap: wrap;
+    justify-content: center;
     gap: 6px;
     padding: 0;
     margin: 0;
@@ -53,5 +96,34 @@ const href = (page: number) => (page === 1 ? "/news/" : `/news/${page}/`);
   ol a[aria-current] {
     background: var(--red);
     color: #fff;
+  }
+  .gap {
+    display: none;
+    width: 20px;
+    align-self: center;
+    text-align: center;
+    color: var(--soft);
+    font-weight: 700;
+  }
+  @media (max-width: 640px) {
+    .pager {
+      grid-template-columns: 1fr 1fr;
+      grid-template-areas:
+        "pages pages"
+        "newer older";
+    }
+    ol {
+      gap: 4px;
+    }
+    ol a {
+      width: 40px;
+      height: 40px;
+    }
+    .far {
+      display: none;
+    }
+    .gap {
+      display: block;
+    }
   }
 </style>

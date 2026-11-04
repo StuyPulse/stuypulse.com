@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Reefscape Week 1 Newsletter 2025
 author: StuyPulse
 link: https://www.canva.com/design/DAGbpaq_xIg/tAR0Vq7xz2wxdeQslW3D7A/edit

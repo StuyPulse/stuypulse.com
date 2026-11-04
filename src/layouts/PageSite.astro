@@ -1,55 +1,55 @@
 ---
-import Footer from "@components/footer/Footer.astro";
+// The frame around every page: head tags, header, footer. Pages lay out their own sections,
+// usually starting with <Hero> or <PageHead>.
 import BaseHead from "@components/BaseHead.astro";
+import Footer from "@components/footer/Footer.astro";
 import Header from "@components/header/Header.astro";
 import { SITE_TITLE } from "@config";
+
 export interface Props {
   title: string;
   description: string;
   image?: string;
-  // Shows the announcement bar from src/data/stuysplash.yml (home page only).
+  // Shows the StuySplash announcement bar (home page only).
   showBanner?: boolean;
-  // Redesigned pages lay out their own full-width sections, starting with a red hero.
-  fullBleed?: boolean;
 }
-const { title, image, description, showBanner = false, fullBleed = false } = Astro.props;
+const { title, image, description, showBanner = false } = Astro.props;
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
-    <BaseHead
-      title={title + " | " + SITE_TITLE}
-      image={image}
-      description={description}
-    />
+    <BaseHead title={`${title} | ${SITE_TITLE}`} image={image} description={description} />
   </head>
   <body>
-    <Header showBanner={showBanner} joined={fullBleed} />
-    {fullBleed ? (
-      <main><slot /></main>
-    ) : (
-      <main class="container-sm page-content">
-        <slot />
-      </main>
-    )}
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header showBanner={showBanner} />
+    <main id="main"><slot /></main>
     <Footer />
+    <style>
+      /* Keeps the footer at the bottom of short pages. */
+      body {
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      main {
+        flex: 1;
+      }
+      .skip-link {
+        position: absolute;
+        left: 16px;
+        top: -100px;
+        z-index: 50;
+        padding: 12px 20px;
+        border-radius: 999px;
+        background: var(--red);
+        color: #fff;
+        font-weight: 700;
+      }
+      .skip-link:focus {
+        top: 16px;
+      }
+    </style>
   </body>
 </html>
-
-<style>
-  /* Keeps the footer at the bottom of short pages. */
-  body {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-  }
-  main {
-    flex: 1;
-  }
-  .page-content {
-    max-width: 1120px;
-    padding-top: clamp(40px, 6vw, 72px);
-    padding-bottom: clamp(56px, 8vw, 96px);
-  }
-</style>

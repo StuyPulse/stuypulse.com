@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: World Maker Faire 2016
 author: Lamia Bushra
 date: 2016-10-04

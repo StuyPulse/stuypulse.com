@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: NYS FIRST Bill
 author: Yedoh Kang
 date: 2017-07-22

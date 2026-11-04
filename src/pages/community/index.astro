@@ -1,19 +1,33 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import Hero from "@components/redesign/Hero.astro";
+import Hero from "@components/page/Hero.astro";
+
+// FLL places we've worked with, from the copy that used to sit in plain cards.
+const places = [
+  { name: "Williamsburg", text: "An FLL Challenge program for the past three years" },
+  { name: "Bensonhurst", text: "SPIKE Prime summer camps, and four teams mentored" },
+  { name: "Battery Park City", text: "An FLL Explore team, three years running" },
+  { name: "Chinatown", text: "SPIKE Prime summer camps for two years" },
+  { name: "MoMath", text: "A summer program in 2024" },
+  { name: "Puerto Rico", text: "Mentoring teams since 2018" },
+];
 ---
 
-<PageSite title="Community" description="How StuyPulse gives back: robot demos, FLL mentoring and camps, and helping other FRC teams." image="/community/BPC_Demo.jpg" fullBleed>
+<PageSite
+  title="Community"
+  description="How StuyPulse gives back: robot demos, FLL mentoring and camps, and helping other FRC teams."
+  image="/community/BPC_Demo.jpg"
+>
   <Hero
     title="Giving back."
-    intro="Our mission is to help students find their pulse for lifelong learning, through a team culture that shares knowledge and gives back to the community."
+    intro="We demo robots, run FLL camps and help other teams, sharing what we know with schools and students across New York City and beyond."
     photo="/community/BPC_Demo.jpg"
     photoAlt="A StuyPulse robot demo in Battery Park City for STEAM Day"
     stickers={["Demos", "FLL camps", "Since 2001"]}
   >
     <Fragment slot="actions">
-      <a class="pill pill-white" href="#fll">FLL programs</a>
-      <a class="pill pill-ghost" href="/resources">Resources for teams</a>
+      <a class="pill pill-red" href="#fll">FLL programs</a>
+      <a class="pill pill-line" href="/resources">Resources for teams</a>
     </Fragment>
   </Hero>
 
@@ -21,31 +35,36 @@ import Hero from "@components/redesign/Hero.astro";
     <div class="prose">
       <h2 id="school" class="band-title">At Stuyvesant</h2>
       <p>
-        After our rookie year, Stuyvesant started an Intro to Robotics class, taught by our head coach and mentor, Joseph
-        Blay. It's still open to juniors and seniors, and it got several other schools thinking about a course of their own.
+        After our rookie year, Stuyvesant started an Intro to Robotics class, taught by our head coach and mentor,
+        Joseph Blay. It's still open to juniors and seniors, and it got several other schools thinking about a course of
+        their own.
       </p>
       <p>
-        We demo robots at alumni reunions, giving tours of the lab and showing what we've built. At the 2025 Open House we
-        showed Aunt Mary, our 2025 robot, to hundreds of incoming freshmen and their parents. We hope robotics becomes one of
-        their reasons for choosing Stuy.
+        We demo robots at alumni reunions, giving tours of the lab and showing what we've built. At the 2025 Open House
+        we showed Aunt Mary, our 2025 robot, to hundreds of incoming freshmen and their parents. We hope robotics
+        becomes one of their reasons for choosing Stuy.
       </p>
     </div>
-    <img src="/community/Open_House.jpg" alt="New students and parents at Stuyvesant's Open House looking at Aunt Mary" loading="lazy" />
+    <img
+      src="/community/Open_House.jpg"
+      alt="New students and parents at Stuyvesant's Open House looking at Aunt Mary"
+      loading="lazy"
+    />
   </section>
 
-  <section class="band split reverse" aria-labelledby="demos">
-    <img src="/community/BPC_Demo.jpg" alt="A robot demo at Battery Park City for STEAM Day" loading="lazy" />
+  <section class="band band-tint split reverse" aria-labelledby="demos">
+    <img src="/home/stuysplash.jpg" alt="Students listening to a talk in the Stuyvesant robotics lab" loading="lazy" />
     <div class="prose">
       <h2 id="demos" class="band-title">Demos and media</h2>
       <p>
-        In February 2025 we were on the FRC Open Alliance show, explaining our robot's mechanisms, and FUN Robotics named us
-        an FRC Team of the Week for our Open Alliance work. In summer 2025 we alpha-tested SystemCore and presented what we
-        learned at NYC Robo Replay, StuySplash and the NYC FIRST Kickoff.
+        In February 2025 we were on the FRC Open Alliance show, explaining our robot's mechanisms, and FUN Robotics
+        named us an FRC Team of the Week for our Open Alliance work. In summer 2025 we alpha-tested SystemCore and
+        presented what we learned at NYC Robo Replay, StuySplash and the NYC FIRST Kickoff.
       </p>
       <p>
-        We've demoed robots at the local senior center, where our members also volunteer to help older adults with tech. At
-        the NYC FIRST STEM Center we showed our 2024 offseason robot to students visiting from Japan, and smaller robots to
-        Pre-K through 5th graders.
+        We've demoed robots at the local senior center, where our members also volunteer to help older adults with tech.
+        At the NYC FIRST STEM Center we showed our 2024 offseason robot to students visiting from Japan, and smaller
+        robots to Pre-K through 5th graders.
       </p>
     </div>
   </section>
@@ -53,16 +72,19 @@ import Hero from "@components/redesign/Hero.astro";
   <section class="fll" id="fll" aria-labelledby="fll-title">
     <h2 id="fll-title">FIRST LEGO League</h2>
     <p class="lead">
-      Since 2001 we've helped younger students take their first steps into engineering through FLL. It's still one of the
-      main ways we share STEM.
+      Since 2001 we've helped younger students take their first steps into engineering through FLL. It's still one of
+      the main ways we share STEM.
     </p>
-    <ul>
-      <li><b>Williamsburg</b><span>An FLL Challenge program for the past three years</span></li>
-      <li><b>Bensonhurst</b><span>SPIKE Prime summer camps, and four teams mentored</span></li>
-      <li><b>Battery Park City</b><span>An FLL Explore team, three years running</span></li>
-      <li><b>Chinatown</b><span>SPIKE Prime summer camps for two years</span></li>
-      <li><b>MoMath</b><span>A summer program in 2024</span></li>
-      <li><b>Puerto Rico</b><span>Mentoring teams since 2018</span></li>
+    <ul class="board">
+      {
+        places.map((place, i) => (
+          <li style={`--i:${i};--tilt:${[-2, 1.5, -1, 2, -1.5, 1][i % 6]}deg`}>
+            <span class="pin" aria-hidden="true" />
+            <b>{place.name}</b>
+            <span>{place.text}</span>
+          </li>
+        ))
+      }
     </ul>
     <p class="lead">We also helped Queens team 4017, the RoboPandas, get ready for competition.</p>
     <div class="actions"><a class="pill pill-white" href="/resources/tutorials/fll">Our FLL curriculum</a></div>
@@ -72,9 +94,9 @@ import Hero from "@components/redesign/Hero.astro";
     <div class="prose">
       <h2 id="teams" class="band-title">Helping other teams</h2>
       <p>
-        We're always ready to help other teams, in build season or at competitions. We visit teams and invite them to our lab
-        to share what we know about safety, organization, fundraising, engineering and software. At competitions we send
-        members to help fix robots, and cheer when our friends win awards or reach the finals.
+        We're always ready to help other teams, in build season or at competitions. We visit teams and invite them to
+        our lab to share what we know about safety, organization, fundraising, engineering and software. At competitions
+        we send members to help fix robots, and cheer when our friends win awards or reach the finals.
       </p>
       <p>Many of those teams have become lasting friends.</p>
       <div class="actions">
@@ -93,7 +115,8 @@ import Hero from "@components/redesign/Hero.astro";
     gap: clamp(28px, 5vw, 72px);
     align-items: center;
   }
-  .split + .split {
+  /* Two white sections in a row share one gap; tinted bands always keep their full padding. */
+  .split:not(.band-tint) + .split:not(.band-tint) {
     padding-top: 0;
   }
   .split.reverse {
@@ -108,9 +131,10 @@ import Hero from "@components/redesign/Hero.astro";
     object-fit: cover;
     border-radius: var(--radius-md);
   }
+  /* Same inset as the tinted bands, so stacked rounded blocks sit 20px apart. */
   .fll {
-    margin: 0 20px;
-    padding: clamp(56px, 7vw, 96px) var(--gutter);
+    margin: var(--inset);
+    padding: clamp(56px, 7vw, 96px) var(--block-pad);
     border-radius: var(--radius-lg);
     background: var(--red);
     color: #fff;
@@ -125,30 +149,91 @@ import Hero from "@components/redesign/Hero.astro";
     margin: 18px 0 0;
     opacity: 0.94;
   }
-  .fll ul {
+  /* FLL places as cards pinned to a board, each pin pulsing in turn. */
+  .board {
     list-style: none;
     padding: 0;
-    margin: 40px 0 28px;
+    margin: 48px 0 32px;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 14px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 36px 20px;
   }
-  .fll li {
+  .board li {
+    position: relative;
     display: flex;
     flex-direction: column;
-    gap: 4px;
-    padding: 22px 26px;
+    gap: 6px;
+    padding: 26px 56px 26px 28px;
     border-radius: var(--radius-md);
     background: #fff;
     color: var(--ink);
+    transform: rotate(var(--tilt));
+    box-shadow: 0 24px 40px -26px rgba(60, 0, 4, 0.7);
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .fll li b {
+  .board li:nth-child(even) {
+    background: var(--blush);
+  }
+  .board li:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+  .pin {
+    position: absolute;
+    top: 18px;
+    right: 22px;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--red);
+    box-shadow: 0 3px 6px rgba(60, 0, 4, 0.35);
+  }
+  .pin::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: var(--red);
+    opacity: 0;
+    animation: ping 2s calc(var(--i) * 0.33s) ease-out infinite;
+  }
+  @keyframes ping {
+    0% {
+      transform: scale(1);
+      opacity: 0.7;
+    }
+    70%,
+    100% {
+      transform: scale(2.6);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .pin::after {
+      animation: none;
+    }
+  }
+  .board b {
     color: var(--red);
-    font-size: 21px;
+    font-size: clamp(24px, 2.4vw, 30px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 96;
   }
-  .fll li span {
+  .board li span:last-child {
     color: var(--soft);
-    font-size: 16px;
+    font-size: 17px;
+    line-height: 1.4;
+  }
+  @media (max-width: 1000px) {
+    .board {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .board {
+      grid-template-columns: 1fr;
+      gap: 28px;
+    }
   }
   @media (max-width: 860px) {
     .split,
@@ -157,9 +242,6 @@ import Hero from "@components/redesign/Hero.astro";
     }
     .split.reverse img {
       order: 1;
-    }
-    .fll {
-      margin: 0 12px;
     }
   }
 </style>

@@ -1,14 +1,15 @@
-import type { CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
+
+export type Newsletter = CollectionEntry<"news">;
 
 export const POSTS_PER_LIST_PAGE = 20;
 
-export const formatDate = (
-  date: Date,
-  options: Intl.DateTimeFormatOptions = { year: "numeric", month: "long", day: "numeric" },
-) => date.toLocaleDateString("en-US", { ...options, timeZone: "UTC" });
+// Every newsletter and post, newest first.
+export const getNewsletters = async () =>
+  (await getCollection("news")).sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
 
 // A newsletter is either a PDF we host, a Canva link, or a written post.
-export const kindOf = (post: CollectionEntry<"news">) => {
+export const kindOf = (post: Newsletter) => {
   const link = post.data.link;
   if (!link) return "post";
   return /\.pdf($|\?)/i.test(link) ? "pdf" : "canva";

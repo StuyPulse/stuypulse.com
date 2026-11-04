@@ -1,74 +1,87 @@
 ---
-import { getCollection } from "astro:content";
 import PageSite from "@layouts/PageSite.astro";
-import Hero from "@components/redesign/Hero.astro";
-import Heartbeat from "@components/redesign/Heartbeat.astro";
-import getSortedPosts from "@utils/getSortedPosts";
-import type { SponsorType } from "@types";
+import Hero from "@components/page/Hero.astro";
+import Heartbeat from "@components/home/Heartbeat.astro";
+import AwardStats from "@components/awards/AwardStats.astro";
+import ThisSeason from "@components/home/ThisSeason.astro";
+import Departments from "@components/home/Departments.astro";
+import { sponsorsByTier, stuysplash as splash } from "@data";
+import { getNewsletters } from "@utils/news";
+import { getRobots } from "@utils/robots";
 
-const latestPost = getSortedPosts(await getCollection("news"))[0];
-const splash = (await import("@data/stuysplash.yml")).default;
-const robots = await getCollection("history");
-
-const sponsors: (SponsorType & { tier: string })[] = (await import("@data/sponsors.yml")).default;
-const tierOrder = ["platinum", "gold", "silver", "bronze", "aluminum"];
-const sponsorLogos = sponsors
-  .filter((sponsor) => sponsor.logo)
-  .sort((a, b) => tierOrder.indexOf(a.tier) - tierOrder.indexOf(b.tier))
-  .slice(0, 8);
-
-const departments = [
-  { name: "Mechanical", icon: "/icons/mechanical.svg" },
-  { name: "Software", icon: "/icons/software.svg" },
-  { name: "Business", icon: "/icons/business.svg" },
-  { name: "Strategy", icon: "/icons/strategy.svg" },
-];
+const [latestPost] = await getNewsletters();
+const robots = await getRobots();
+const sponsorLogos = sponsorsByTier.filter((sponsor) => sponsor.logo).slice(0, 8);
 ---
 
 <PageSite
   title="Home"
   description="Team 694 is an award-winning FIRST robotics team from New York City. Find out about our team, its history, and view pictures and videos."
   showBanner
-  fullBleed
 >
   <Hero
+    tone="blush"
     title="Find your pulse."
     intro="We're FIRST Robotics Team 694 from Stuyvesant High School. Students design, build, program and fund a new robot every year."
     photo="/home/team-2026.jpg"
     photoAlt="The 2026 StuyPulse team"
-    stickers={["No cuts", "No tryouts", "Since 2001"]}
+    stickers={["Team 694", "Since 2001"]}
   >
     <Fragment slot="actions">
-      <a class="pill pill-white" href="/join">Join the team</a>
-      <a class="pill pill-ghost" href="/sponsors">Support us</a>
+      <a class="pill pill-red" href="/about">Meet the team</a>
+      <a class="pill pill-line" href="/sponsors">Support us</a>
     </Fragment>
   </Hero>
+
+  <ThisSeason />
 
   <section class="section" aria-labelledby="beat-title">
     <div class="head">
       <div>
         <h2 id="beat-title">{robots.length} seasons, one heartbeat.</h2>
-        <p class="lede">Each spike is a season. The taller it is, the more awards that robot brought home. Point at one to see it.</p>
+        <p class="lede">
+          Each spike is a season. The taller it is, the more awards that robot brought home. Tap or point at one to see
+          it.
+        </p>
       </div>
       <a class="pill pill-line" href="/about/history">See every robot</a>
     </div>
     <Heartbeat photoYears={[2001, 2005, 2010, 2016, 2019, 2022, 2026]} />
+    <div class="stats"><AwardStats /></div>
   </section>
 
   <div class:list={["tiles", { solo: !splash.showOnHome }]}>
-    {splash.showOnHome && (
-      <article class="tile tile-red" id="stuysplash">
-        <span class="big" aria-hidden="true">{splash.shortDate}</span>
-        <span class="chip chip-white">{splash.date}, {splash.time}</span>
-        <h2>StuySplash {splash.year}</h2>
-        <p>{splash.summary} {splash.lastYear}</p>
-        <div class="actions">
-          {splash.attendForm && <a class="pill pill-white" href={splash.attendForm}>Sign up to attend</a>}
-          {splash.presentForm && <a class="pill pill-ghost" href={splash.presentForm}>Give a talk</a>}
-          <a class="pill pill-ghost" href="/resources/stuysplash">Past talks</a>
-        </div>
-      </article>
-    )}
+    {
+      splash.showOnHome && (
+        <article class="tile tile-red" id="stuysplash">
+          <span class="big" aria-hidden="true">
+            {splash.shortDate}
+          </span>
+          <span class="chip chip-white">
+            {splash.date}, {splash.time}
+          </span>
+          <h2>StuySplash {splash.year}</h2>
+          <p>
+            {splash.summary} {splash.lastYear}
+          </p>
+          <div class="actions">
+            {splash.attendForm && (
+              <a class="pill pill-white" href={splash.attendForm}>
+                Sign up to attend
+              </a>
+            )}
+            {splash.presentForm && (
+              <a class="pill pill-ghost" href={splash.presentForm}>
+                Give a talk
+              </a>
+            )}
+            <a class="pill pill-ghost" href="/resources/stuysplash">
+              Past talks
+            </a>
+          </div>
+        </article>
+      )
+    }
     <article class="tile tile-blush" id="news">
       <div class="faces">
         <img src="/community/Open_House.jpg" alt="" />
@@ -76,26 +89,51 @@ const departments = [
         <img src="/community/Stuy_Balta.jpg" alt="" />
       </div>
       <h2>What we've been up to</h2>
-      <p>Our newsletters cover build updates, competition results and who's new on the team.{latestPost && <> The latest is <strong>{latestPost.data.title}</strong>.</>}</p>
+      <p>
+        Our newsletters cover build updates, competition results and who's new on the team.{
+          latestPost && (
+            <>
+              {" "}
+              The latest is <strong>{latestPost.data.title}</strong>.
+            </>
+          )
+        }
+      </p>
       <div class="actions">
-        {latestPost && <a class="pill pill-red" href={latestPost.data.link || `/news/${latestPost.slug}`}>Read the latest</a>}
+        {
+          latestPost && (
+            <a class="pill pill-red" href={latestPost.data.link || `/news/${latestPost.slug}`}>
+              Read the latest
+            </a>
+          )
+        }
         <a class="pill pill-line" href="/news">All newsletters</a>
       </div>
     </article>
   </div>
 
-  <section class="join section" aria-labelledby="join-title">
-    <h2 id="join-title">No cuts. No tryouts.</h2>
-    <p class="lede">If you go to Stuy and you're curious, there's a spot for you. Pick a department, or try them all.</p>
-    <div class="depts">
-      {departments.map((dept) => (
-        <a class="dept" href={`/join#${dept.name.toLowerCase()}`}>
-          <i><img src={dept.icon} alt="" /></i>
-          <b>{dept.name}</b>
-        </a>
-      ))}
+  <section class="depts-band section" aria-labelledby="dept-title">
+    <h2 id="dept-title">Four departments, one robot.</h2>
+    <p class="lede">
+      Every student is part of a department. Together they design, build, program and pay for the robot.
+    </p>
+    <Departments />
+  </section>
+
+  <section class="video on-red" aria-labelledby="video-title">
+    <div class="video-text">
+      <h2 id="video-title">Our latest video</h2>
+      <p class="lede">Matches, reveals and behind-the-scenes from the lab, straight from our YouTube channel.</p>
+      <a class="pill pill-white" href="https://www.youtube.com/@StuyPulse">More on YouTube</a>
     </div>
-    <div class="actions center"><a class="pill pill-white" href="/join">How to join</a></div>
+    <div class="video-frame">
+      <iframe
+        src="https://www.youtube-nocookie.com/embed?listType=playlist&list=UUDJr7RUmFfHAXjDg7jaCP5g"
+        title="StuyPulse's latest YouTube video"
+        loading="lazy"
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        allowfullscreen></iframe>
+    </div>
   </section>
 
   <section class="section" aria-labelledby="sp-title">
@@ -107,24 +145,81 @@ const departments = [
       <a class="pill pill-red" href="/sponsors">Become a sponsor</a>
     </div>
     <ul class="logos">
-      {sponsorLogos.map((sponsor) => (
-        <li>
-          <a href={sponsor.site || "/sponsors"} target={sponsor.site ? "_blank" : undefined} rel="noopener noreferrer">
-            <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
-          </a>
-        </li>
-      ))}
+      {
+        sponsorLogos.map((sponsor) => (
+          <li>
+            <a
+              href={sponsor.site || "/sponsors"}
+              target={sponsor.site ? "_blank" : undefined}
+              rel="noopener noreferrer"
+            >
+              <img src={sponsor.logo} alt={sponsor.name} loading="lazy" />
+            </a>
+          </li>
+        ))
+      }
     </ul>
   </section>
 </PageSite>
 
 <style>
+  /* The newest upload from the channel (YouTube's uploads playlist), on red. */
+  .video {
+    margin: 0 var(--inset);
+    padding: clamp(40px, 6vw, 80px) var(--block-pad);
+    border-radius: var(--radius-lg);
+    display: grid;
+    grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+    gap: clamp(28px, 4vw, 56px);
+    align-items: center;
+  }
+  .video h2 {
+    margin: 0;
+    color: #fff;
+    font-size: clamp(2.2rem, 4.4vw, 3.6rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .video .lede {
+    margin: 16px 0 24px;
+  }
+  .video-frame {
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--red-dark);
+    box-shadow:
+      0 0 0 6px #fff,
+      0 30px 60px -24px rgba(70, 0, 4, 0.55);
+    transform: rotate(1.2deg);
+  }
+  .video-frame iframe {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  @media (max-width: 860px) {
+    .video {
+      grid-template-columns: 1fr;
+    }
+    .video-frame {
+      transform: none;
+    }
+  }
   .section {
     padding: clamp(72px, 9vw, 120px) var(--gutter);
+  }
+  /* Back-to-back sections would stack both paddings into one big white gap. */
+  .section + .section {
+    padding-top: 0;
   }
   h2 {
     font-size: clamp(2.3rem, 4.4vw, 4rem);
     margin: 0;
+  }
+  .stats {
+    margin-top: 48px;
   }
   .head {
     display: flex;
@@ -138,7 +233,7 @@ const departments = [
     display: grid;
     grid-template-columns: 1.25fr 1fr;
     gap: 20px;
-    padding: 0 20px;
+    padding: 0 max(20px, calc(var(--gutter) - 36px));
   }
   .tiles.solo {
     grid-template-columns: 1fr;
@@ -200,62 +295,12 @@ const departments = [
     margin-right: -22px;
   }
 
-  .join {
-    margin: 20px;
-    border-radius: var(--radius-lg);
-    background: var(--red);
-    color: #fff;
+  .depts-band {
     text-align: center;
   }
-  .join h2 {
-    font-size: clamp(3rem, 7vw, 6.4rem);
-  }
-  .join .lede {
+  .depts-band .lede {
     margin: 18px auto 0;
-    color: #fff;
-    opacity: 0.92;
   }
-  .depts {
-    display: flex;
-    justify-content: center;
-    gap: clamp(16px, 3vw, 32px);
-    margin-top: 56px;
-    flex-wrap: wrap;
-  }
-  .dept {
-    width: 170px;
-    color: #fff;
-  }
-  .dept:hover {
-    color: #fff;
-  }
-  .dept i {
-    display: grid;
-    place-items: center;
-    width: 112px;
-    height: 112px;
-    margin: 0 auto;
-    border-radius: 50%;
-    background: #fff;
-    transition: transform 0.2s ease;
-  }
-  .dept:hover i {
-    transform: translateY(-4px);
-  }
-  .dept img {
-    width: 54px;
-    height: 54px;
-  }
-  .dept b {
-    display: block;
-    margin-top: 14px;
-    font-size: 20px;
-  }
-  .actions.center {
-    justify-content: center;
-    margin-top: 52px;
-  }
-
   .logos {
     list-style: none;
     padding: 0;
@@ -279,6 +324,23 @@ const departments = [
     mix-blend-mode: multiply;
   }
 
+  /* On phones the logos sit two to a row in equal pills instead of a ragged stack. */
+  @media (max-width: 640px) {
+    .logos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .logos a {
+      height: 84px;
+      padding: 0 18px;
+    }
+    .logos img {
+      max-height: 46px;
+      max-width: 100%;
+    }
+  }
+
   @media (max-width: 860px) {
     .tiles {
       grid-template-columns: 1fr;
@@ -286,23 +348,6 @@ const departments = [
     }
     .tile {
       min-height: 0;
-    }
-    .join {
-      margin: 12px;
-    }
-    .depts {
-      gap: 24px 12px;
-    }
-    .dept {
-      width: calc(50% - 6px);
-    }
-    .dept i {
-      width: 88px;
-      height: 88px;
-    }
-    .dept img {
-      width: 42px;
-      height: 42px;
     }
   }
 </style>

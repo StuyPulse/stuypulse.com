@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: End of the Competition Season
 author: Justin Kim
 date: 2014-04-06

@@ -1,0 +1,138 @@
+---
+// The newest robot in a big red band: photo, name, its award count and any event wins.
+import AwardIcon from "@components/awards/AwardIcon.astro";
+import { isWin } from "@utils/awards";
+import { ordinal, plural } from "@utils/format";
+import { getRobots } from "@utils/robots";
+
+const robots = await getRobots("newest");
+const robot = robots[0];
+const { title, year, photo } = robot.data;
+const awards = robot.data.awards ?? [];
+const wins = awards.filter(isWin);
+const href = `/about/history/${robot.slug}`;
+---
+
+<section class="season on-red" aria-labelledby="season-title">
+  <span class="year" aria-hidden="true">{year}</span>
+  <a class="photo" href={href} tabindex="-1" aria-hidden="true">
+    {photo && <img src={photo} alt="" loading="lazy" />}
+  </a>
+  <div class="text">
+    <span class="chip chip-white">This season</span>
+    <h2 id="season-title">{title}</h2>
+    <p>
+      Our {ordinal(robots.length)} robot, built for {year}.
+      {awards.length > 0 && <>It brought home {plural(awards.length, "award")}.</>}
+    </p>
+    {
+      wins.length > 0 && (
+        <ul class="wins">
+          {wins.map((award) => (
+            <li>
+              <AwardIcon kind="win" size={18} />
+              {award}
+            </li>
+          ))}
+        </ul>
+      )
+    }
+    <div class="actions">
+      <a class="pill pill-white" href={href}>Meet {title}</a>
+      <a class="pill pill-ghost" href="/about/history">Every robot</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .season {
+    position: relative;
+    overflow: hidden;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: center;
+    gap: clamp(32px, 5vw, 72px);
+    margin: var(--inset);
+    padding: clamp(40px, 6vw, 88px) var(--block-pad);
+    border-radius: var(--radius-lg);
+  }
+  /* The year, huge and faint, behind the text. */
+  .year {
+    position: absolute;
+    right: -0.04em;
+    bottom: -0.2em;
+    font-weight: 800;
+    font-size: clamp(160px, 22vw, 340px);
+    line-height: 1;
+    letter-spacing: -0.06em;
+    opacity: 0.13;
+    font-variation-settings: "opsz" 96;
+    pointer-events: none;
+  }
+  .photo {
+    position: relative;
+    display: block;
+    aspect-ratio: 4 / 3;
+    border-radius: 36px;
+    overflow: hidden;
+    background: var(--blush);
+    box-shadow:
+      0 0 0 8px #fff,
+      0 36px 60px -28px rgba(60, 0, 4, 0.7);
+    transform: rotate(-2deg);
+    transition: transform 0.25s ease-out;
+  }
+  .photo:hover {
+    transform: rotate(0deg) scale(1.01);
+  }
+  .photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .text {
+    position: relative;
+  }
+  h2 {
+    margin: 18px 0 0;
+    font-size: clamp(3.2rem, 7vw, 6.4rem);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+  }
+  p {
+    margin: 18px 0 0;
+    font-size: clamp(18px, 1.7vw, 22px);
+    max-width: 30ch;
+  }
+  .wins {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .wins li {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 18px 10px 14px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 17px;
+    line-height: 1.2;
+  }
+  .actions {
+    margin-top: 28px;
+  }
+  @media (max-width: 860px) {
+    .season {
+      grid-template-columns: 1fr;
+    }
+    .photo {
+      margin: 8px 6px 0;
+    }
+  }
+</style>

@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Monty Madness and Upcoming Events
 author: Ivy Wong
 date: 2014-05-17

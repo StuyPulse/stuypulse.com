@@ -1,21 +1,76 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
+import { getRobots } from "@utils/robots";
+
+const robots = (await getRobots("newest")).map((robot) => ({
+  name: robot.data.title,
+  year: robot.data.year,
+  href: `/about/history/${robot.slug}`,
+  photo: robot.data.photo,
+}));
+const newest = robots[0];
+
+const pages = [
+  { name: "Home", href: "/" },
+  { name: "Robots", href: "/about/history" },
+  { name: "Newsletters", href: "/news" },
+  { name: "About us", href: "/about" },
+  { name: "Resources", href: "/resources" },
+  { name: "Sponsors", href: "/sponsors" },
+];
 ---
 
-<PageSite title="Page not found" description="This page doesn't exist on stuypulse.com." fullBleed>
-  <PageHead title="We can't find that page." intro="It may have moved when we rebuilt the site. Try one of these instead.">
-    <div class="actions">
-      <a class="pill pill-white" href="/">Home</a>
-      <a class="pill pill-ghost" href="/about/history">Robots</a>
-      <a class="pill pill-ghost" href="/news">Newsletters</a>
-      <a class="pill pill-ghost" href="/join">Join</a>
+<PageSite title="Page not found" description="This page doesn't exist on stuypulse.com.">
+  <!-- A flat line along the bottom: no pulse here. The monitor beside the title revives itself. -->
+  <PageHead title="We can't find that page." intro="It may have moved when we rebuilt the site." flat>
+    <div slot="aside" class="monitor" aria-hidden="true">
+      <p class="bpm"><span class="dot"></span><b>694</b> bpm</p>
+      <div class="trace">
+        <svg class="flatline" viewBox="0 0 400 140" preserveAspectRatio="none">
+          <path d="M0 90 H400"></path>
+        </svg>
+        <svg class="alive" viewBox="0 0 400 140" preserveAspectRatio="none">
+          <path
+            d="M0 90 H60 L72 90 L82 20 L94 124 L104 66 L114 90 H190 L202 90 L212 20 L224 124 L234 66 L244 90 H320 L332 90 L342 20 L354 124 L364 66 L374 90 H400"
+          ></path>
+        </svg>
+      </div>
+      <p class="note">Flatline? Not for long.</p>
     </div>
   </PageHead>
 
-  <p class="band old">
-    Looking for something from before 2023? It may still be on <a id="oldurl" href="https://old.stuypulse.com">our old website</a>.
-  </p>
+  <div class="band cards">
+    <section class="card" aria-labelledby="try">
+      <h2 id="try">Try one of these</h2>
+      <ul>
+        {
+          pages.map((page, i) => (
+            <li>
+              <a class:list={["pill", i === 0 ? "pill-red" : "pill-line"]} href={page.href}>
+                {page.name}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+    <section class="card bot on-red" aria-labelledby="bot" data-random-robot>
+      <h2 id="bot">Meet a random robot</h2>
+      <a href={newest.href} data-link>
+        <div class="pic"><img src={newest.photo} alt="" data-photo /></div>
+        <b data-name>{newest.name}</b>
+        <span data-year>{newest.year}</span>
+      </a>
+      <button class="pill pill-line" type="button" data-again hidden>Another one</button>
+      <script type="application/json" set:html={JSON.stringify(robots)} />
+    </section>
+    <section class="card old" aria-labelledby="old">
+      <h2 id="old">Looking for something older?</h2>
+      <p>Pages from before 2023 may still be on our old website.</p>
+      <a class="pill pill-red" id="oldurl" href="https://old.stuypulse.com">Check the old website</a>
+    </section>
+  </div>
 </PageSite>
 
 <script>
@@ -25,15 +80,232 @@ import PageHead from "@components/redesign/PageHead.astro";
       window.location.pathname.replace("/blog", "/news").replace(/\/(\d{4})\/(\d{2})\/(\d{2})\//, "/$1-$2-$3-"),
     );
   }
-  (document.getElementById("oldurl") as HTMLAnchorElement).href = "https://old.stuypulse.com" + window.location.pathname;
+  (document.getElementById("oldurl") as HTMLAnchorElement).href =
+    "https://old.stuypulse.com" + window.location.pathname;
+
+  // A random robot on every visit. The HTML has the newest one, which stays without JS.
+  const card = document.querySelector<HTMLElement>("[data-random-robot]");
+  if (card) {
+    const robots: { name: string; year: number; href: string; photo?: string }[] = JSON.parse(
+      card.querySelector("script")?.textContent ?? "[]",
+    );
+    const again = card.querySelector<HTMLButtonElement>("[data-again]")!;
+    let current = 0;
+    const pick = () => {
+      let next = Math.floor(Math.random() * (robots.length - 1));
+      if (next >= current) next += 1;
+      current = next;
+      const robot = robots[next];
+      card.querySelector<HTMLAnchorElement>("[data-link]")!.href = robot.href;
+      card.querySelector<HTMLImageElement>("[data-photo]")!.src = robot.photo ?? "";
+      card.querySelector("[data-name]")!.textContent = robot.name;
+      card.querySelector("[data-year]")!.textContent = String(robot.year);
+    };
+    if (robots.length > 1) {
+      pick();
+      again.hidden = false;
+      again.addEventListener("click", pick);
+    }
+  }
 </script>
 
 <style>
-  .old {
-    font-size: 19px;
+  /* The monitor: a flat trace that comes back to life after a beat. */
+  .monitor {
+    padding: 24px 26px 22px;
+    border-radius: var(--radius-lg);
+    background: #fff;
+    color: var(--red);
+    box-shadow: 0 30px 60px -30px rgba(60, 0, 4, 0.55);
   }
-  .old a {
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  .bpm {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin: 0;
+    font-weight: 700;
+    font-size: 20px;
+  }
+  .bpm b {
+    font-size: clamp(44px, 5vw, 64px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-variation-settings: "opsz" 96;
+  }
+  .dot {
+    align-self: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--red);
+    animation: thump 1.1s 1.6s ease-out infinite;
+  }
+  .trace {
+    position: relative;
+    height: 140px;
+    margin-top: 10px;
+  }
+  .trace svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    overflow: visible;
+  }
+  .trace path {
+    fill: none;
+    stroke: var(--red);
+    stroke-width: 4;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    vector-effect: non-scaling-stroke;
+  }
+  /* The final state (alive, no flat line) is the default, so reduced motion just shows it. */
+  .flatline {
+    opacity: 0;
+    animation: eaten 0.7s 0.8s linear backwards;
+  }
+  .flatline path {
+    opacity: 0.45;
+  }
+  .alive {
+    animation: revive 0.7s 0.8s linear backwards;
+  }
+  .bpm b {
+    animation: appear 0.3s 1.3s ease-out backwards;
+  }
+  @keyframes eaten {
+    from {
+      opacity: 1;
+      clip-path: inset(-20px 0 -20px 0);
+    }
+    to {
+      opacity: 1;
+      clip-path: inset(-20px 0 -20px 100%);
+    }
+  }
+  @keyframes revive {
+    from {
+      clip-path: inset(-20px 100% -20px 0);
+    }
+    to {
+      clip-path: inset(-20px 0 -20px 0);
+    }
+  }
+  @keyframes appear {
+    from {
+      opacity: 0;
+      transform: scale(0.7);
+    }
+  }
+  @keyframes thump {
+    0%,
+    40%,
+    100% {
+      transform: scale(1);
+    }
+    15% {
+      transform: scale(1.45);
+    }
+  }
+  .note {
+    margin: 8px 0 0;
+    color: var(--soft);
+    font-weight: 600;
+  }
+
+  .cards {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr;
+    gap: 20px;
+  }
+  /* The robot card takes the right column beside both other cards. */
+  .card.bot {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    background: var(--red);
+    color: #fff;
+  }
+  .bot a {
+    display: block;
+    width: 100%;
+    margin-top: 24px;
+    color: #fff;
+  }
+  .bot .pic {
+    aspect-ratio: 4 / 3;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--blush);
+    box-shadow: 0 0 0 6px #fff;
+    transform: rotate(-1.5deg);
+    transition: transform 0.2s ease-out;
+  }
+  .bot a:hover .pic {
+    transform: rotate(0deg) scale(1.02);
+  }
+  .bot img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  .bot b {
+    display: block;
+    margin-top: 22px;
+    font-size: clamp(2rem, 3.4vw, 2.8rem);
+    line-height: 1;
+    letter-spacing: -0.035em;
+  }
+  .bot a span {
+    font-weight: 600;
+    font-size: 18px;
+  }
+  .bot .pill {
+    margin-top: 22px;
+    background: transparent;
+    cursor: pointer;
+  }
+  .bot .pill[hidden] {
+    display: none;
+  }
+  .card {
+    padding: clamp(28px, 3.4vw, 44px);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  /* A deeper pink, so the old-site card reads as a side note. */
+  .old {
+    background: var(--rose);
+  }
+  h2 {
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    margin: 0;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 24px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .pill-line {
+    background: #fff;
+  }
+  p {
+    margin: 14px 0 24px;
+    font-size: 18px;
+  }
+  @media (max-width: 860px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+    .card.bot {
+      grid-column: auto;
+      grid-row: auto;
+    }
   }
 </style>

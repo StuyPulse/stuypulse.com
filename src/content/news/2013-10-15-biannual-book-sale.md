@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Biannual Book Sale
 author: Justin Kim
 date: 2013-10-15

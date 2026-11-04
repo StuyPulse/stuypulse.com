@@ -1,0 +1,90 @@
+---
+// A top-bar item that opens a list of links. Header.astro's script opens and closes it.
+import type { NavMenu } from "@config";
+
+export interface Props {
+  menu: NavMenu;
+  activeHref?: string;
+}
+const { menu, activeHref } = Astro.props;
+const id = `menu-${menu.name.toLowerCase()}`;
+const holdsCurrent = menu.links.some((link) => link.href === activeHref);
+---
+
+<li class="nav-menu">
+  <button
+    class:list={["nav-link", { current: holdsCurrent }]}
+    type="button"
+    aria-expanded="false"
+    aria-controls={id}
+    data-submenu-toggle
+  >
+    {menu.name}
+    <svg viewBox="0 0 12 8" width="12" height="8" aria-hidden="true"><path d="M1 1.5 6 6.5l5-5"></path></svg>
+  </button>
+  <ul class="submenu" id={id} hidden>
+    {
+      menu.links.map((link) => (
+        <li>
+          <a href={link.href} aria-current={link.href === activeHref ? "page" : undefined}>
+            {link.name}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</li>
+
+<style>
+  .nav-menu {
+    position: relative;
+  }
+  svg {
+    margin-left: 6px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    transition: transform 0.15s ease;
+  }
+  [aria-expanded="true"] svg {
+    transform: rotate(180deg);
+  }
+  .submenu {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    min-width: 220px;
+    list-style: none;
+    margin: 0;
+    padding: 8px;
+    border-radius: 24px;
+    background: #fff;
+    box-shadow:
+      0 0 0 1px var(--rose),
+      0 20px 40px -16px rgba(60, 0, 4, 0.3);
+  }
+  .submenu a {
+    display: block;
+    padding: 10px 16px;
+    border-radius: 16px;
+    color: var(--ink);
+    font-weight: 500;
+  }
+  .submenu a:hover,
+  .submenu a:focus-visible,
+  .submenu a[aria-current] {
+    background: var(--blush);
+    color: var(--red);
+  }
+  @media (max-width: 1199px) {
+    .submenu {
+      position: static;
+      min-width: 0;
+      padding: 0 0 6px 12px;
+      background: none;
+      box-shadow: none;
+    }
+  }
+</style>

@@ -1,0 +1,134 @@
+---
+// Award totals across every robot, each with its icon. Counted from src/content/history.
+import { awardKind } from "@utils/awards";
+import { getRobots } from "@utils/robots";
+import AwardIcon from "./AwardIcon.astro";
+
+const awards = (await getRobots()).flatMap((robot) => robot.data.awards ?? []);
+const count = (test: (award: string) => boolean) => awards.filter(test).length;
+
+const stats = [
+  { kind: "award", value: awards.length, label: "awards since 2001" },
+  { kind: "win", value: count((award) => awardKind(award) === "win"), label: "event wins" },
+  {
+    kind: "award",
+    value: count((award) => /chairman|impact award/i.test(award)),
+    label: "Chairman's and Impact Awards",
+  },
+  {
+    kind: "person",
+    value: count((award) => awardKind(award) === "person"),
+    label: "Woodie Flowers and Dean's List honors",
+  },
+] as const;
+---
+
+<ul class="award-stats" data-award-stats>
+  {
+    stats.map((stat) => (
+      <li>
+        <i>
+          <AwardIcon kind={stat.kind} size={26} />
+        </i>
+        <b>
+          <span aria-hidden="true" data-count={stat.value}>
+            {stat.value}
+          </span>
+          <span class="visually-hidden">{stat.value}</span>
+        </b>
+        <span>{stat.label}</span>
+      </li>
+    ))
+  }
+</ul>
+
+<script>
+  // Count each total up from 0 the first time the row scrolls into view. The real number stays in
+  // the HTML (and in a hidden copy for screen readers), so this is decoration only and skipped
+  // under reduced motion.
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  if (!reduce && "IntersectionObserver" in window) {
+    const count = (el: HTMLElement) => {
+      const target = Number(el.dataset.count);
+      const start = performance.now();
+      const tick = (now: number) => {
+        const t = Math.min((now - start) / 900, 1);
+        el.textContent = String(Math.round(target * (1 - Math.pow(1 - t, 3))));
+        if (t < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+    const observer = new IntersectionObserver(
+      (entries) =>
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          observer.unobserve(entry.target);
+          entry.target.querySelectorAll<HTMLElement>("[data-count]").forEach(count);
+        }),
+      { threshold: 0.4 },
+    );
+    document.querySelectorAll("[data-award-stats]").forEach((list) => {
+      list.querySelectorAll("[data-count]").forEach((el) => (el.textContent = "0"));
+      observer.observe(list);
+    });
+  }
+</script>
+
+<style>
+  .award-stats {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+  }
+  li {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: auto auto;
+    column-gap: 14px;
+    align-items: start;
+    padding: 20px 22px;
+    border-radius: var(--radius-md);
+    background: var(--blush);
+  }
+  i {
+    grid-row: span 2;
+    display: grid;
+    place-items: center;
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+  }
+  b {
+    font-size: 34px;
+    line-height: 1;
+    letter-spacing: -0.03em;
+    color: var(--red);
+    font-variation-settings: "opsz" 96;
+    font-variant-numeric: tabular-nums;
+    margin-top: 2px;
+  }
+  b > span {
+    color: inherit;
+    font-size: inherit;
+  }
+  span {
+    color: var(--soft);
+    font-size: 15px;
+    line-height: 1.3;
+  }
+  @media (max-width: 960px) {
+    .award-stats {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+  @media (max-width: 520px) {
+    .award-stats {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

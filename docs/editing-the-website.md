@@ -35,6 +35,7 @@ The token stays in that browser. Treat it like a password: don't share it, and d
 - Saving publishes to the live site, so check titles and dates first. To fix a mistake, open the entry, change it and save again.
 - Keep PDFs under 25 MB. Leadership photos go best as square JPGs.
 - Saving a settings file rewrites it, which removes the `#` comments at the top. That's fine.
+- If a save leaves something the site can't use, such as a missing name, the update fails to build and the live site stays as it was. The error on the repository's Actions tab names the file and field to fix.
 
 ## Set-up (one time, for I/T)
 

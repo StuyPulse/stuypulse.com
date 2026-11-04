@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: May Newsletter 2024
 author: StuyPulse
 link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/May%20Newslatter.pdf

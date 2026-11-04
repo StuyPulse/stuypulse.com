@@ -1,38 +1,64 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
+import { stuysplash as splash } from "@data";
+import { getRobots } from "@utils/robots";
+
+// The newest robot whose code is public.
+const latestCode = (await getRobots("newest")).find((robot) => robot.data.source);
 
 type Doc = { name: string; text?: string; href: string };
-const groups: { id: string; title: string; intro: string; docs: Doc[] }[] = [
+
+// Joining the team, in the order to do it. Steps without a link happen in person.
+const steps: { name: string; text?: string; href?: string }[] = [
+  { name: "Media consent form", href: "https://drive.google.com/file/d/1vqRcrqGt89DYi_p43XDBxM0iFZI3wF6X/view" },
+  { name: "Medical form", href: "https://drive.google.com/file/d/1X1JhrtUJzZqmVKH_vOXHZXnsaIlKAWZ0/view" },
   {
-    id: "members",
-    title: "For new members",
-    intro: "To join the team, complete these forms, pay the $200 team dues and pass the safety exam.",
-    docs: [
-      { name: "Media consent form", href: "https://drive.google.com/file/d/1vqRcrqGt89DYi_p43XDBxM0iFZI3wF6X/view" },
-      { name: "Medical form", href: "https://drive.google.com/file/d/1X1JhrtUJzZqmVKH_vOXHZXnsaIlKAWZ0/view" },
-      {
-        name: "FIRST registration (STIMS)",
-        text: "Make a FIRST account, then fill out the Student Team Information Management System form.",
-        href: "https://www.firstinspires.org/resource-library/youth-registration-system",
-      },
-      {
-        name: "Stuyvesant Robotics Google group",
-        text: "Ask to join for weekly emails and updates.",
-        href: "https://groups.google.com/g/stuyvesant-robotics",
-      },
-      { name: "Team charter", text: "How the team is structured and governed.", href: "/resources/charter" },
-    ],
+    name: "FIRST registration (STIMS)",
+    text: "Make a FIRST account, then fill out the Student Team Information Management System form.",
+    href: "https://www.firstinspires.org/resource-library/youth-registration-system",
   },
+  {
+    name: "Stuyvesant Robotics Google group",
+    text: "Ask to join for weekly emails and updates.",
+    href: "https://groups.google.com/g/stuyvesant-robotics",
+  },
+  { name: "Read the team charter", text: "How the team is structured and governed.", href: "/resources/charter" },
+  { name: "Pay the $200 team dues" },
+  { name: "Pass the safety exam" },
+];
+
+const groups: { id: string; title: string; intro: string; docs: Doc[] }[] = [
   {
     id: "teams",
     title: "For other teams",
     intro: "Everything we make is open to other teams.",
     docs: [
-      { name: "StuySplash talks", text: "Slides and recordings from our yearly day of talks.", href: "/resources/stuysplash" },
       { name: "Tutorials", text: "Driver Station troubleshooting and more.", href: "/resources/tutorials" },
-      { name: "FLL curriculum", text: "For new FIRST LEGO League teams and mentors.", href: "/resources/tutorials/fll" },
-      { name: "Our code on GitHub", text: "Robot code, this website and more, all open source.", href: "https://github.com/StuyPulse" },
+      {
+        name: "FLL curriculum",
+        text: "For new FIRST LEGO League teams and mentors.",
+        href: "/resources/tutorials/fll",
+      },
+      ...(latestCode?.data.source
+        ? [
+            {
+              name: `${latestCode.data.title}'s code`,
+              text: `The code for our ${latestCode.data.year} robot.`,
+              href: latestCode.data.source,
+            },
+          ]
+        : []),
+      {
+        name: "This website's code",
+        text: "Built with Astro. Anyone on the team can edit it.",
+        href: "https://github.com/StuyPulse/stuypulse.com",
+      },
+      {
+        name: "Our code on GitHub",
+        text: "Robot code back to 2004, tools and more, all open source.",
+        href: "https://github.com/StuyPulse",
+      },
     ],
   },
   {
@@ -40,75 +66,393 @@ const groups: { id: string; title: string; intro: string; docs: Doc[] }[] = [
     title: "Business and outreach",
     intro: "Reference documents for the Business department.",
     docs: [
-      { name: "Business handbook", href: "https://docs.google.com/document/d/1Ux0dfLKpGtqXlb2SsOtK4-jNXrZuqW6jahB4BVWtoSk/edit?usp=sharing" },
-      { name: "Business reference systems (Canva)", href: "https://www.canva.com/design/DAHDBpqFE84/HOfOwDbMR6St9QCCCz5kQQ/edit" },
-      { name: "Planning StuySplash", href: "https://docs.google.com/document/d/1_WFPW0PJ5OXG69ChWYiQT_TQuleCBCqmf9grueBakps/edit?usp=sharing" },
-      { name: "Planning Extravaganza (team dinner)", href: "https://docs.google.com/document/d/1MGm3FYnVx2E1P8gT0mwl2mFB2yoDp4eu_fKT-ab7tQo/edit?usp=sharing" },
-      { name: "Branding guide (2016–17)", text: "Our team name, logo and colors.", href: "https://old.stuypulse.com/downloads/teamdocs/BrandingGuide2016-2017.pdf" },
+      {
+        name: "Business handbook",
+        href: "https://docs.google.com/document/d/1Ux0dfLKpGtqXlb2SsOtK4-jNXrZuqW6jahB4BVWtoSk/edit?usp=sharing",
+      },
+      {
+        name: "Business reference systems (Canva)",
+        href: "https://www.canva.com/design/DAHDBpqFE84/HOfOwDbMR6St9QCCCz5kQQ/edit",
+      },
+      {
+        name: "Planning StuySplash",
+        href: "https://docs.google.com/document/d/1_WFPW0PJ5OXG69ChWYiQT_TQuleCBCqmf9grueBakps/edit?usp=sharing",
+      },
+      {
+        name: "Planning Extravaganza (team dinner)",
+        href: "https://docs.google.com/document/d/1MGm3FYnVx2E1P8gT0mwl2mFB2yoDp4eu_fKT-ab7tQo/edit?usp=sharing",
+      },
+      {
+        name: "Branding guide (2016–17)",
+        text: "Our team name, logo and colors.",
+        href: "https://old.stuypulse.com/downloads/teamdocs/BrandingGuide2016-2017.pdf",
+      },
     ],
   },
 ];
+const external = (href: string) => /^https?:/.test(href);
 ---
 
-<PageSite title="Resources" description="Forms for new StuyPulse members, guides for other teams, and Business department documents." fullBleed>
-  <PageHead title="Resources" intro="Forms for new members, guides for other teams and documents for the Business department.">
+<PageSite
+  title="Resources"
+  description="Forms for new StuyPulse members, guides for other teams, and Business department documents."
+>
+  <PageHead
+    title="Resources"
+    intro="Forms for new members, guides for other teams and documents for the Business department."
+  >
     <ul class="jump">
-      {groups.map((group) => <li><a href={`#${group.id}`}>{group.title}</a></li>)}
+      <li><a href="#members">For new members</a></li>
+      {
+        groups.map((group) => (
+          <li>
+            <a href={`#${group.id}`}>{group.title}</a>
+          </li>
+        ))
+      }
     </ul>
   </PageHead>
 
-  {groups.map((group) => (
-    <section class="band group" id={group.id} aria-labelledby={`${group.id}-title`}>
-      <h2 id={`${group.id}-title`} class="band-title">{group.title}</h2>
-      <p class="lede">{group.intro}</p>
-      <ul class="docs">
-        {group.docs.map((doc) => (
+  <section class="members on-red" id="members" aria-labelledby="members-title">
+    <div class="members-head">
+      <div>
+        <h2 id="members-title" class="band-title">Joining the team</h2>
+        <p class="lede">Do these in order. Tick each one off as you go; this page remembers.</p>
+      </div>
+      <p class="progress" aria-live="polite" hidden>
+        <b data-done>0</b> of {steps.length} done
+      </p>
+    </div>
+    <ol class="steps">
+      {
+        steps.map((step, i) => (
           <li>
-            <a href={doc.href}>
-              <b>{doc.name}</b>
-              {doc.text && <span>{doc.text}</span>}
-            </a>
+            <label class="tick">
+              <input type="checkbox" data-step={i} />
+              <span class="box" aria-hidden="true">
+                <svg viewBox="0 0 24 24" width="22" height="22">
+                  <path
+                    d="M5 12.5 10 17 19 7"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="3"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </span>
+              <span class="visually-hidden">Done: {step.name}</span>
+            </label>
+            <span class="num" aria-hidden="true">
+              {i + 1}
+            </span>
+            <div class="what">
+              <b>{step.name}</b>
+              {step.text && <span>{step.text}</span>}
+            </div>
+            {step.href && (
+              <a class="pill pill-white open" href={step.href}>
+                Open{external(step.href) && <span aria-label=" (another site)"> ↗</span>}
+              </a>
+            )}
           </li>
-        ))}
-      </ul>
-    </section>
-  ))}
+        ))
+      }
+    </ol>
+  </section>
+
+  {
+    groups.map((group, i) => (
+      <section
+        class:list={["band group", { "band-tint": i % 2 === 1 }]}
+        id={group.id}
+        aria-labelledby={`${group.id}-title`}
+      >
+        <h2 id={`${group.id}-title`} class="band-title">
+          {group.title}
+        </h2>
+        <p class="lede">{group.intro}</p>
+        {group.id === "teams" && (
+          <a class="splash" href="/resources/stuysplash">
+            <img src="/home/stuysplash.jpg" alt="" loading="lazy" />
+            <div>
+              <span class="when">
+                StuySplash {splash.year} · {splash.date}
+              </span>
+              <b>StuySplash talks</b>
+              <span>Slides and recordings from our yearly day of talks, and sign-ups for the next one.</span>
+              <span class="pill pill-white">See StuySplash</span>
+            </div>
+          </a>
+        )}
+        <ul class="docs" style={`--cols: ${group.docs.length === 4 ? 2 : 3}`}>
+          {group.docs.map((doc) => (
+            <li>
+              <a href={doc.href}>
+                {external(doc.href) ? (
+                  // Keep the last word and the arrow together so the arrow never wraps onto a line alone.
+                  <b>
+                    {doc.name.replace(/\S+$/, "")}
+                    <span class="last">
+                      {doc.name.match(/\S+$/)![0]}
+                      <svg
+                        class="ext"
+                        viewBox="0 0 16 16"
+                        width="15"
+                        height="15"
+                        aria-label="(another site)"
+                        role="img"
+                      >
+                        <path
+                          d="M4 12 12 4M5.5 4H12v6.5"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2.2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </b>
+                ) : (
+                  <b>{doc.name}</b>
+                )}
+                {doc.text && <span>{doc.text}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    ))
+  }
 </PageSite>
 
+<script>
+  // Remember which joining steps are ticked off. Storage can be blocked (private mode), so every
+  // read and write is guarded and the boxes simply forget in that case.
+  const KEY = "stuypulse:join-steps";
+  const boxes = [...document.querySelectorAll<HTMLInputElement>("input[data-step]")];
+  const progress = document.querySelector<HTMLElement>(".progress");
+  const count = document.querySelector<HTMLElement>("[data-done]");
+
+  let saved: number[] = [];
+  try {
+    saved = JSON.parse(localStorage.getItem(KEY) ?? "[]");
+  } catch {
+    saved = [];
+  }
+  boxes.forEach((box) => {
+    box.checked = Array.isArray(saved) && saved.includes(Number(box.dataset.step));
+  });
+
+  const update = () => {
+    const done = boxes.filter((box) => box.checked);
+    if (count) count.textContent = String(done.length);
+    try {
+      localStorage.setItem(KEY, JSON.stringify(done.map((box) => Number(box.dataset.step))));
+    } catch {
+      // Not saved; the ticks still work for this visit.
+    }
+  };
+  if (progress) progress.hidden = false;
+  boxes.forEach((box) => box.addEventListener("change", update));
+  update();
+</script>
+
 <style>
-  .jump {
-    list-style: none;
-    padding: 0;
-    margin: 28px 0 0;
+  /* Joining: a full red block with a checklist. */
+  .members {
+    margin: clamp(32px, 4vw, 56px) var(--inset) 0;
+    padding: clamp(48px, 6vw, 88px) var(--block-pad);
+    border-radius: var(--radius-lg);
+    scroll-margin-top: calc(var(--header-h, 0px) + 16px);
+  }
+  .members-head {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 16px 40px;
   }
-  .jump a {
-    display: inline-block;
-    padding: 9px 16px;
+  .members .band-title {
+    color: #fff;
+  }
+  .progress {
+    margin: 0;
+    padding: 12px 22px;
     border-radius: 999px;
-    color: #fff;
-    font-weight: 600;
-    box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.7);
+    background: #fff;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 18px;
   }
-  .jump a:hover {
-    background: rgba(255, 255, 255, 0.14);
+  .progress b {
+    font-size: 24px;
+  }
+  .steps {
+    list-style: none;
+    padding: 0;
+    margin: 36px 0 0;
+    display: grid;
+    gap: 10px;
+  }
+  .steps li {
+    display: grid;
+    grid-template-columns: auto auto minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 18px;
+    padding: 14px 16px 14px 14px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.12);
+    transition: background-color 0.2s ease;
+  }
+  .steps li:has(input:checked) {
+    background: rgba(120, 0, 8, 0.28);
+  }
+  .tick {
+    position: relative;
+    display: grid;
+    cursor: pointer;
+  }
+  .tick input {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    margin: 0;
+    cursor: pointer;
+  }
+  .box {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    box-shadow: inset 0 0 0 3px rgba(255, 255, 255, 0.8);
+    color: transparent;
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .tick input:checked + .box {
+    background: #fff;
+    color: var(--red);
+    transform: scale(1.06);
+  }
+  .tick input:focus-visible + .box {
+    outline: 3px solid #fff;
+    outline-offset: 3px;
+  }
+  .num {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+    width: 1.2em;
+    text-align: center;
+    opacity: 0.6;
+  }
+  .what {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+  .what b {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+  .what span {
+    font-size: 16px;
+    opacity: 0.88;
+  }
+  li:has(input:checked) .what b {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+  .open {
+    min-height: 44px;
+    padding: 0 22px;
+    font-size: 16px;
+  }
+
+  /* StuySplash gets a big photo card of its own. */
+  .splash {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    margin-top: 28px;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--red);
     color: #fff;
+  }
+  .splash:hover {
+    color: #fff;
+  }
+  .splash img {
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+  }
+  .splash:hover img {
+    transform: scale(1.03);
+  }
+  .splash div {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+    padding: clamp(28px, 4vw, 48px);
+  }
+  .splash .when {
+    padding: 6px 14px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--red);
+    font-weight: 700;
+    font-size: 15px;
+  }
+  .splash b {
+    font-size: clamp(2rem, 3.6vw, 3rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+    font-variation-settings: "opsz" 96;
+  }
+  .splash .pill {
+    margin-top: 10px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .splash:hover img {
+      transform: none;
+    }
+    .tick input:checked + .box {
+      transform: none;
+    }
+  }
+
+  .band-tint .docs a {
+    background: #fff;
+  }
+  .band-tint .docs a:hover {
+    background: var(--red);
   }
   .group {
-    scroll-margin-top: 16px;
-  }
-  .group + .group {
-    padding-top: 0;
+    scroll-margin-top: calc(var(--header-h, 0px) + 16px);
   }
   .docs {
     list-style: none;
     padding: 0;
-    margin: 28px 0 0;
+    margin: 14px 0 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    /* At most --cols columns (2 for four cards, else 3), so no card is left alone on a row. */
+    grid-template-columns: repeat(
+      auto-fill,
+      minmax(max(260px, calc((100% - 14px * (var(--cols) - 1)) / var(--cols))), 1fr)
+    );
     gap: 14px;
+  }
+  #business .docs {
+    margin-top: 28px;
   }
   .docs a {
     display: flex;
@@ -131,5 +475,39 @@ const groups: { id: string; title: string; intro: string; docs: Doc[] }[] = [
   .docs span {
     font-size: 16px;
     opacity: 0.8;
+  }
+  .docs .last {
+    white-space: nowrap;
+    font-size: inherit;
+    opacity: 1;
+  }
+  .docs .ext {
+    margin-left: 6px;
+    vertical-align: -1px;
+    color: var(--red);
+  }
+  .docs a:hover .ext {
+    color: #fff;
+  }
+  @media (max-width: 760px) {
+    .splash {
+      grid-template-columns: 1fr;
+    }
+    .splash img {
+      min-height: 0;
+      aspect-ratio: 16 / 9;
+    }
+    .steps li {
+      grid-template-columns: auto minmax(0, 1fr);
+      border-radius: var(--radius-md);
+      gap: 10px 14px;
+    }
+    .num {
+      display: none;
+    }
+    .open {
+      grid-column: 2;
+      justify-self: start;
+    }
   }
 </style>

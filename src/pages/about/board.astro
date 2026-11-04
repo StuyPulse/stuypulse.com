@@ -1,58 +1,178 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
 
-const board: { name: string; role: string }[] = (await import("@data/board.yml")).default;
-const initials = (name: string) => name.split(/\s+/).map((part) => part[0]).join("").slice(0, 3);
+import AwardIcon from "@components/awards/AwardIcon.astro";
+import Face from "@components/people/Face.astro";
+import FaceCollage from "@components/people/FaceCollage.astro";
+import { findPhoto, getHonors, samePerson } from "@components/people/honors";
+import { board } from "@data";
+
+const honors = await getHonors();
+const members = board.map((member) => ({
+  ...member,
+  image: findPhoto(member.name),
+  honors: honors.filter((honor) => samePerson(honor.name, member.name)),
+}));
+const faces = members.flatMap((member) => (member.image ? [{ name: member.name, image: member.image }] : []));
 ---
 
-<PageSite title="Board of Directors" description="Meet the board of the StuyPulse nonprofit organization." fullBleed>
-  <PageHead title="Board of Directors" intro="The volunteers who run StuyPulse's nonprofit, which holds the team's funds and sponsorships." />
+<PageSite title="Board of Directors" description="Meet the board of the StuyPulse nonprofit organization.">
+  <PageHead
+    title="Board of Directors"
+    intro="The volunteers who run StuyPulse's nonprofit, which holds the team's funds and sponsorships."
+  >
+    {faces.length >= 4 && <FaceCollage slot="aside" people={faces} sticker={`${board.length} board members`} />}
+  </PageHead>
 
-  <ul class="band board">
-    {board.map((member) => (
-      <li>
-        <span class="face" aria-hidden="true">{initials(member.name)}</span>
-        <b>{member.name}</b>
-        <span>{member.role}</span>
-      </li>
-    ))}
-  </ul>
+  <section class="band" aria-labelledby="members">
+    <h2 id="members" class="band-title">The board</h2>
+    <ul class="board">
+      {
+        members.map((member, i) => (
+          <li class:list={{ "on-red": i === 0 }}>
+            <Face name={member.name} image={member.image} tone={i % 2 ? "solid" : "soft"} />
+            <div>
+              <b>{member.name}</b>
+              <ul class="roles">
+                {member.role.split(/,\s*/).map((role) => (
+                  <li class:list={["chip", i === 0 ? "chip-white" : "chip-red"]}>{role}</li>
+                ))}
+              </ul>
+              {member.honors.length > 0 && (
+                <ul class="honors">
+                  {member.honors.map((honor) => (
+                    <li>
+                      <a href={honor.href}>
+                        <AwardIcon kind="person" size={16} />
+                        {honor.award}, {honor.year}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="cta" aria-labelledby="support">
+    <div>
+      <h2 id="support">Support the nonprofit</h2>
+      <p>
+        The nonprofit holds the team's funds. Donations pay for parts, tools and competition fees, and help students
+        build the next robot.
+      </p>
+    </div>
+    <div class="cta-actions">
+      <a class="pill pill-red" href="/donate">Donate to the team</a>
+      <a class="pill pill-line" href="/sponsors">Become a sponsor</a>
+    </div>
+  </section>
 </PageSite>
 
 <style>
   .board {
     list-style: none;
-    margin: 0;
-    max-width: 1120px;
+    padding: 0;
+    margin: 36px 0 0;
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 40px 24px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
   }
-  li {
+  .board > li {
     display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .face {
-    display: grid;
-    place-items: center;
-    width: 112px;
-    height: 112px;
-    margin-bottom: 14px;
-    border-radius: 50%;
+    align-items: flex-start;
+    gap: 20px;
+    padding: 24px;
+    border-radius: var(--radius-lg);
     background: var(--blush);
-    color: var(--red);
-    font-weight: 800;
-    font-size: 34px;
-    letter-spacing: -0.03em;
-    font-variation-settings: "opsz" 96;
+    --face: 104px;
+  }
+  .board > li.on-red {
+    background: var(--red);
   }
   b {
+    display: block;
     font-size: 23px;
+    line-height: 1.15;
     letter-spacing: -0.01em;
   }
-  li > span:last-child {
+  .roles {
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .roles .chip {
+    font-size: 14px;
+    padding: 4px 12px;
+  }
+  .honors {
+    list-style: none;
+    padding: 0;
+    margin: 12px 0 0;
+    display: grid;
+    gap: 6px;
+  }
+  .honors a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 700;
+    font-size: 15px;
+    line-height: 1.25;
+  }
+  .honors a:hover {
+    text-decoration: underline;
+  }
+  .cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 28px;
+    margin: 0 var(--inset) var(--inset);
+    padding: clamp(36px, 5vw, 64px) var(--block-pad);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  .cta h2 {
+    font-size: clamp(2rem, 3.6vw, 3.2rem);
+    margin: 0;
+  }
+  .cta p {
+    margin: 14px 0 0;
+    max-width: 52ch;
+    font-size: 18px;
     color: var(--soft);
+  }
+  .cta-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  @media (max-width: 1000px) {
+    .board {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 640px) {
+    .board {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+    .board > li {
+      padding: 18px;
+      gap: 16px;
+      --face: 72px;
+    }
+    b {
+      font-size: 20px;
+    }
   }
 </style>

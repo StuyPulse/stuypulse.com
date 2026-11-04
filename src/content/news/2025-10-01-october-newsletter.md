@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: October Newsletter 2025
 author: StuyPulse
 link: https://www.canva.com/design/DAG5pqFZfDw/T8LgIgNBh9J5HXuYl4GadA/edit

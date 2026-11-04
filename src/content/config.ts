@@ -7,7 +7,6 @@ const link = z.object({ name: z.string(), url: z.string() });
 
 const newsCollection = defineCollection({
   schema: z.object({
-    layout: z.string().optional(),
     title: z.string(),
     author: z
       .string()
@@ -20,7 +19,6 @@ const newsCollection = defineCollection({
 
 const historyCollection = defineCollection({
   schema: z.object({
-    layout: z.string().optional(),
     title: z.string(),
     year: z.coerce.number(),
     photo: z.string().optional(),
@@ -35,7 +33,6 @@ const historyCollection = defineCollection({
 
 const stuysplashCollection = defineCollection({
   schema: z.object({
-    layout: z.string().optional(),
     year: z.coerce.number(),
     playlist: z.string().nullish(),
     presentations: z

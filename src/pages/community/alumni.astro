@@ -1,30 +1,325 @@
 ---
 import PageSite from "@layouts/PageSite.astro";
-import PageHead from "@components/redesign/PageHead.astro";
+import PageHead from "@components/page/PageHead.astro";
+import AwardIcon from "@components/awards/AwardIcon.astro";
+import BigStat from "@components/about/BigStat.astro";
+import Face from "@components/people/Face.astro";
+import { getHonors } from "@components/people/honors";
+import { mentors, stuysplash } from "@data";
+
+// Every award FIRST gave to one named person, from the robots' award lists.
+const honors = await getHonors();
+
+// Mentors whose own bio says they were on the team. Only explicit wording counts; nothing is
+// guessed (a bio that mentions "the parent of an alumna" is not about an alum).
+const cameBack = mentors.flatMap((mentor) => {
+  const bio = mentor.description ?? "";
+  if (!/(is a stuypulse alumn|former stuypulse student|graduated from stuypulse)/i.test(bio)) return [];
+  const year = bio.match(/(?:alumn\w+ \(['‘’](\d{2})\)|graduat\w*(?: from StuyPulse)? in (\d{4}))/i);
+  const short = year?.[1] ?? year?.[2]?.slice(2);
+  return [{ ...mentor, classOf: short ? `’${short}` : undefined }];
+});
 ---
 
-<PageSite title="Alumni" description="StuyPulse alumni: stay in touch with the team, mentor current members and keep up with each other." fullBleed>
-  <PageHead title="Alumni" intro="Once you're on StuyPulse, you're on it for good. Stay in touch, and help the students who came after you.">
+<PageSite
+  title="Alumni"
+  description="StuyPulse alumni: stay in touch with the team, mentor current members and keep up with each other."
+>
+  <PageHead
+    title="Alumni"
+    intro="Once you're on StuyPulse, you're on it for good. Stay in touch, and help the students who came after you."
+  >
     <div class="actions">
-      <a class="pill pill-white" href="mailto:info@stuypulse.com?subject=StuyPulse%20alumni">Get in touch</a>
+      <a class="pill pill-red" href="mailto:info@stuypulse.com?subject=StuyPulse%20alumni">Get in touch</a>
     </div>
+    {
+      honors.length > 0 && (
+        <BigStat
+          slot="aside"
+          value={honors.length}
+          label="FIRST honors with a StuyPulse name on them"
+          sticker="Hall of honors"
+          href="#honors"
+        />
+      )
+    }
   </PageHead>
 
-  <div class="band prose">
-    <p>
-      StuyPulse alumni span the team's whole history, back to 2001. We want to make it easier for alumni to keep up with
-      each other and with the team, and for current members to learn from them.
-    </p>
-    <p>
-      There's an alumni group for job openings and advice, meetups, and memories. With fewer marketing and engineering
-      mentors than we used to have, the team needs alumni help more than ever. Email
-      <a href="mailto:info@stuypulse.com">info@stuypulse.com</a> to join the group, or to mentor.
-    </p>
-  </div>
+  <section class="band" aria-labelledby="ways">
+    <div class="top">
+      <h2 id="ways" class="band-title">Ways to stay involved</h2>
+      <p class="lede">
+        StuyPulse alumni span the team's whole history, back to 2001. We want to make it easier for alumni to keep up
+        with each other and with the team, and for current members to learn from them.
+      </p>
+    </div>
+
+    <ul class="cards">
+      <li class="card on-red">
+        <h3>Get in touch</h3>
+        <p>
+          There's an alumni group for job openings and advice, meetups, and memories. With fewer marketing and
+          engineering mentors than we used to have, the team needs alumni help more than ever.
+        </p>
+        <p class="note">Email us to join the group, or to mentor.</p>
+        <a class="pill pill-red" href="mailto:info@stuypulse.com?subject=StuyPulse%20alumni">info@stuypulse.com</a>
+      </li>
+      <li class="card">
+        <h3>Come to StuySplash</h3>
+        <p>A free day of talks for FRC teams, run by our students. Alumni are always welcome.</p>
+        {
+          stuysplash.showOnHome && (
+            <p class="note">
+              StuySplash {stuysplash.year} is {stuysplash.date}, {stuysplash.time}.
+            </p>
+          )
+        }
+        <a class="pill pill-red" href="/resources/stuysplash">About StuySplash</a>
+      </li>
+      <li class="card">
+        <h3>Read the newsletters</h3>
+        <p>See what the team has been building, where it has competed and who it has been helping this season.</p>
+        <a class="pill pill-red" href="/news">See the newsletters</a>
+      </li>
+    </ul>
+  </section>
+
+  {
+    honors.length > 0 && (
+      <section class="band hall on-red" id="honors" aria-labelledby="honors-title">
+        <h2 id="honors-title" class="band-title">
+          Hall of honors
+        </h2>
+        <p class="lede">
+          Dean's List, Woodie Flowers and the other awards FIRST gives to one person, as listed on our robots' pages.
+        </p>
+        <ul class="wall">
+          {honors.map((honor, i) => (
+            <li style={`--tilt:${[-1.5, 1, -0.5, 1.5, -1][i % 5]}deg`}>
+              <a href={honor.href}>
+                <span class="medal">
+                  <AwardIcon kind="person" size={24} />
+                </span>
+                <b>{honor.name}</b>
+                <span class="what">{honor.award}</span>
+                <span class="when">
+                  {honor.year} · {honor.robot}
+                </span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
+
+  {
+    cameBack.length > 0 && (
+      <section class="band band-tint back" aria-labelledby="back-title">
+        <h2 id="back-title" class="band-title">
+          Alumni who came back
+        </h2>
+        <p class="lede">Some of our mentors were on the team themselves.</p>
+        <ul>
+          {cameBack.map((mentor) => (
+            <li>
+              <a href="/about/mentors">
+                <Face name={mentor.name} image={mentor.image} />
+                <b>{mentor.name}</b>
+                {mentor.classOf && <span class="chip chip-red">Class of {mentor.classOf}</span>}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )
+  }
 </PageSite>
 
 <style>
-  .prose {
-    max-width: 1120px;
+  .top {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: clamp(20px, 5vw, 64px);
+    align-items: center;
+  }
+  .top .lede {
+    margin: 0;
+    max-width: 52ch;
+  }
+  .cards {
+    list-style: none;
+    padding: 0;
+    margin: clamp(32px, 4vw, 48px) 0 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: clamp(28px, 3vw, 40px);
+    border-radius: var(--radius-lg);
+    background: var(--blush);
+  }
+  .card.on-red {
+    background: var(--red);
+  }
+  h3 {
+    font-size: clamp(1.7rem, 2.4vw, 2.2rem);
+    margin: 0;
+  }
+  .card p {
+    margin: 14px 0 0;
+    color: var(--soft);
+  }
+  .card.on-red p {
+    color: #fff;
+    opacity: 0.94;
+  }
+  .card .note {
+    color: var(--ink);
+    font-weight: 600;
+  }
+  /* Keeps the buttons on one line across the row of cards. */
+  .card .pill {
+    margin-top: auto;
+  }
+  .card p:last-of-type {
+    margin-bottom: 28px;
+  }
+  /* Hall of honors: big rounded tiles, each linking to that season's robot. */
+  .hall {
+    margin: var(--inset);
+    padding-inline: var(--block-pad);
+    border-radius: var(--radius-lg);
+  }
+  .wall {
+    list-style: none;
+    padding: 0;
+    margin: 40px 0 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
+    gap: 18px;
+  }
+  .wall a {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    padding: 24px 24px 22px;
+    border-radius: var(--radius-md);
+    background: #fff;
+    color: var(--ink);
+    transform: rotate(var(--tilt));
+    transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .wall li:nth-child(3n + 2) a {
+    background: var(--rose);
+  }
+  .wall a:hover {
+    transform: rotate(0deg) scale(1.03);
+  }
+  .medal {
+    display: grid;
+    place-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: var(--red);
+    color: #fff;
+  }
+  .wall b {
+    margin-top: 16px;
+    font-size: clamp(24px, 2.2vw, 30px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    font-variation-settings: "opsz" 96;
+  }
+  .wall .what {
+    margin-top: 8px;
+    color: var(--red);
+    font-weight: 700;
+    line-height: 1.3;
+  }
+  .wall .when {
+    margin-top: auto;
+    padding-top: 14px;
+    color: var(--soft);
+    font-size: 15px;
+    font-weight: 600;
+  }
+
+  /* Mentors who were once on the team. */
+  .back ul {
+    list-style: none;
+    padding: 0;
+    margin: 32px 0 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .back a {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px 24px 12px 12px;
+    border-radius: 999px;
+    background: #fff;
+    color: var(--ink);
+    --face: 72px;
+  }
+  .back a:hover {
+    background: var(--rose);
+    color: var(--ink);
+  }
+  .back b {
+    font-size: 21px;
+    letter-spacing: -0.01em;
+  }
+  .back .chip {
+    font-size: 14px;
+    padding: 4px 12px;
+  }
+  @media (max-width: 1000px) {
+    .cards {
+      grid-template-columns: 1fr;
+    }
+    .top {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 640px) {
+    .wall {
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+    .wall a {
+      padding: 16px;
+    }
+    .medal {
+      width: 36px;
+      height: 36px;
+    }
+    .medal :global(svg) {
+      width: 18px;
+      height: 18px;
+    }
+    .wall b {
+      margin-top: 10px;
+      font-size: 19px;
+    }
+    .wall .what {
+      font-size: 14px;
+    }
+    .wall .when {
+      font-size: 13px;
+    }
+    .back a {
+      --face: 56px;
+    }
+    .back b {
+      font-size: 18px;
+    }
   }
 </style>

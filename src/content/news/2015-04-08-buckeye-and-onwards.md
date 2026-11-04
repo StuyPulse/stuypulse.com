@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Buckeye and Onwards
 author: Ivy Wong
 date: 2015-04-08

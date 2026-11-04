@@ -1,5 +1,4 @@
 ---
-layout: $layouts/Post.astro
 title: Stuyvesant Robotics Interest Meeting
 author: Areyan Kayum
 date: 2018-09-06
