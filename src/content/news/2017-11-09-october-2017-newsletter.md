@@ -1,8 +1,8 @@
 ---
 title: October 2017 Newsletter
 author: Eugene Seo
-link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2017_october.pdf
+link: https://files.stuypulse.com/site/pdf/old_pdfs/2017_october.pdf
 date: 2017-11-09
 ---
 
-[Check out](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2017_october.pdf) our October newsletter!
+[Check out](https://files.stuypulse.com/site/pdf/old_pdfs/2017_october.pdf) our October newsletter!

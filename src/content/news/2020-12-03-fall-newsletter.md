@@ -1,8 +1,8 @@
 ---
 title: Fall Newsletter
 author: StuyPulse
-link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2020_fall.pdf
+link: https://files.stuypulse.com/site/pdf/old_pdfs/2020_fall.pdf
 date: 2020-12-03
 ---
 
-Check out our Fall Newsletter right [here](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site%2Fpdf%2Fold_pdfs%2F2020_fall.pdf)!
+Check out our Fall Newsletter right [here](https://files.stuypulse.com/site/pdf/old_pdfs/2020_fall.pdf)!
