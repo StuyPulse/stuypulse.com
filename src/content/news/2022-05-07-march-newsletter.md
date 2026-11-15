@@ -2,8 +2,8 @@
 layout: $layouts/Post.astro
 title: March Newsletter
 author: StuyPulse
-link: https://stuypulse.nyc3.digitaloceanspaces.com/site/pdf/March%20Newsletter%202022.pdf
+link: https://files.stuypulse.com/site/pdf/March%20Newsletter%202022.pdf
 date: 2022-05-07
 ---
 
-Check out our March Newsletter right [here](https://stuypulse.nyc3.digitaloceanspaces.com/site/pdf/March%20Newsletter%202022.pdf)!
+Check out our March Newsletter right [here](https://files.stuypulse.com/site/pdf/March%20Newsletter%202022.pdf)!

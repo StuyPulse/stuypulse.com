@@ -2,8 +2,8 @@
 layout: $layouts/Post.astro
 title: December Newsletter
 author: StuyPulse
-link: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/December%20Newsletter%202020.pdf
+link: https://files.stuypulse.com/site/pdf/December%20Newsletter%202020.pdf
 date: 2020-12-24
 ---
 
-Check out our December Newsletter right [here](https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/pdf/December%20Newsletter%202020.pdf)!
+Check out our December Newsletter right [here](https://files.stuypulse.com/site/pdf/December%20Newsletter%202020.pdf)!

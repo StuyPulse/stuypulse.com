@@ -38,7 +38,7 @@
   site: https://www.nycfirst.org/
   tier: bronze
 - name: Comcast
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/comcast.png
+  logo: https://files.stuypulse.com/site/sponsorships/img/comcast.png
   site: https://corporate.comcast.com/
   tier: bronze
 - name: PTC
@@ -46,7 +46,7 @@
   site: https://www.ptc.com/en
   tier: bronze
 - name: Intuitive Foundation
-  logo: https://stuypulse.nyc3.cdn.digitaloceanspaces.com/site/sponsorships/img/intuitive_foundation.png
+  logo: https://files.stuypulse.com/site/sponsorships/img/intuitive_foundation.png
   site: https://www.intuitive-foundation.org/
   tier: bronze
 - name: Dustin Doan
