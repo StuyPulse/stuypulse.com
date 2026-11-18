@@ -29,9 +29,15 @@ const { slug } = Astro.params;
 const { entry } = Astro.props;
 const newsletterLink = entry?.data.link;
 const isCanva = newsletterLink && /^https:\/\/(?:www\.)?canva\.com\//i.test(newsletterLink);
-const readerLink = isCanva
-  ? newsletterLink.replace(/\/edit(?=[?#]|$)/, "/view")
+// Canva blocks its /edit and /view pages from being shown inside other sites.
+// The /view?embed form of the same share link is the one Canva allows in an iframe.
+const canvaDesign = isCanva
+  ? newsletterLink.match(/^https:\/\/(?:www\.)?canva\.com\/design\/([^/?#]+)\/([^/?#]+)/i)
+  : null;
+const readerLink = canvaDesign
+  ? `https://www.canva.com/design/${canvaDesign[1]}/${canvaDesign[2]}/view`
   : newsletterLink;
+const embedLink = canvaDesign ? `${readerLink}?embed` : null;
 
 let ent = entry ? await entry.render() : null;
 const Content = ent ? ent.Content : null;
@@ -58,10 +64,23 @@ for (let i = 1; i <= Math.ceil(sortedNews.length / POSTS_PER_PAGE); i++) {
             {isCanva ? (
               <section class="mb-4">
                 <h2>{entry.data.title}</h2>
-                <p>Read this newsletter on Canva using the button below.</p>
-                <a class="btn btn-danger" href={readerLink} target="_blank" rel="noopener noreferrer">
-                  Open newsletter on Canva ↗
-                </a>
+                <p>
+                  <a href={readerLink} target="_blank" rel="noopener noreferrer">
+                    Open newsletter on Canva ↗
+                  </a>
+                </p>
+                {embedLink && (
+                  <iframe
+                    src={embedLink}
+                    title={entry.data.title}
+                    width="100%"
+                    height="700px"
+                    loading="lazy"
+                    allow="fullscreen"
+                    allowfullscreen
+                    style="border: 0;"
+                  />
+                )}
               </section>
             ) : (
               <>
