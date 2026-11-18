@@ -27,6 +27,11 @@ let sortedNews = getSortedPosts(newsEntries);
 
 const { slug } = Astro.params;
 const { entry } = Astro.props;
+const newsletterLink = entry?.data.link;
+const isCanva = newsletterLink && /^https:\/\/(?:www\.)?canva\.com\//i.test(newsletterLink);
+const readerLink = isCanva
+  ? newsletterLink.replace(/\/edit(?=[?#]|$)/, "/view")
+  : newsletterLink;
 
 let ent = entry ? await entry.render() : null;
 const Content = ent ? ent.Content : null;
@@ -50,7 +55,24 @@ for (let i = 1; i <= Math.ceil(sortedNews.length / POSTS_PER_PAGE); i++) {
       <div>
         {entry.data.link ? (
           <>
-            <iframe src={entry.data.link} width="100%" height="700px" />
+            {isCanva ? (
+              <section class="mb-4">
+                <h2>{entry.data.title}</h2>
+                <p>Read this newsletter on Canva using the button below.</p>
+                <a class="btn btn-danger" href={readerLink} target="_blank" rel="noopener noreferrer">
+                  Open newsletter on Canva ↗
+                </a>
+              </section>
+            ) : (
+              <>
+                <p>
+                  <a href={entry.data.link} target="_blank" rel="noopener noreferrer">
+                    Open newsletter in a new tab ↗
+                  </a>
+                </p>
+                <iframe src={entry.data.link} title={entry.data.title} width="100%" height="700px" />
+              </>
+            )}
             <div class="row">
               <div class="col">
                 <h4>

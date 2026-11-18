@@ -1,5 +1,6 @@
 ---
 import type { MarkdownLayoutProps } from "astro";
+import { getCollection } from "astro:content";
 
 type Props = MarkdownLayoutProps<{
   title: string;
@@ -11,7 +12,9 @@ type Props = MarkdownLayoutProps<{
 
 const { frontmatter } = Astro.props;
 let splitPath = frontmatter.file.split(/content|.md/);
-const filePath = splitPath[1];
+const sourcePath = splitPath[1];
+const entry = (await getCollection("news")).find((post) => "/news/" + post.id.replace(/\.mdx?$/, "") === sourcePath);
+const filePath = entry ? "/news/" + entry.slug + "/" : sourcePath;
 
 let postDate = new Date(frontmatter.date);
 const dateString = postDate.toLocaleDateString("en-us", {

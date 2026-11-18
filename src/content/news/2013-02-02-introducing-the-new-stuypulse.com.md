@@ -11,4 +11,4 @@ For the new version of the site, we decided not to build or utilize a CMS like w
 
 Special thanks to Rachel Cantor at [Control Group](http://www.controlgroup.com/) for helping us to get started with Jekyll! I would recommend to anyone who is interested in exploring Jekyll to check out [this news post](http://news.controlgroup.com/2012/10/19/controlgroup-com-built-using-jekyll/) on their website.
 
-Questions or comments about the new site? [Let us know!](/contact/)
+Questions or comments about the new site? [Let us know!](mailto:info@stuypulse.com)

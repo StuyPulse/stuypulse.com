@@ -3,7 +3,6 @@ export interface Props {
   numPages: number[];
   currPost: number;
 }
-
 const { numPages, currPost } = Astro.props;
 let shownPages = [];
 if (currPost < 5) {
@@ -19,6 +18,7 @@ if (currPost < 5) {
     shownPages.push(i);
   }
 }
+shownPages = shownPages.filter((page) => page >= 1 && page <= numPages.length);
 ---
 
 <style>
@@ -37,10 +37,12 @@ if (currPost < 5) {
   }
 </style>
 
-<nav aria-label="...">
+<nav aria-label="News pages">
   <ul class="pagination justify-content-center">
     <li class={currPost - 1 != 0 ? 'page-item' : 'page-item disabled'}>
-      <a class="page-link" href={'/news/' + String(currPost - 1)}>&laquo;</a>
+      {currPost > 1 ? (
+        <a class="page-link" href={'/news/' + String(currPost - 1)} aria-label="Previous page">&laquo;</a>
+      ) : <span class="page-link" aria-disabled="true">&laquo;</span>}
     </li>
     {
       currPost > 4 && (
@@ -73,7 +75,9 @@ if (currPost < 5) {
         ? 'page-item'
         : 'page-item disabled'}
     >
-      <a class="page-link" href={'/news/' + String(currPost + 1)}>&raquo;</a>
+      {currPost < numPages.length ? (
+        <a class="page-link" href={'/news/' + String(currPost + 1)} aria-label="Next page">&raquo;</a>
+      ) : <span class="page-link" aria-disabled="true">&raquo;</span>}
     </li>
   </ul>
 </nav>
